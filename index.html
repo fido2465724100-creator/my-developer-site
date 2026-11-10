@@ -149,320 +149,272 @@
       margin: 0.8rem 0 1.2rem 0;
       line-height: 1.5;
     }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; background: #1f2937; color: #38bdf8; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.88rem; }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.92rem; }
-    th, td { border: 1px solid var(--border); padding: 0.75rem 0.9rem; text-align: left; }
-    th { background: #1e293b; color: #f3f4f6; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      color: #38bdf8;
+      font-size: 0.88rem;
+    }
+    pre code { background: none; padding: 0; color: inherit; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.2rem; }
+    .feature-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 1.2rem;
+    }
+    .feature-box h4 { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.9rem; }
+    th, td { border: 1px solid var(--border); padding: 0.65rem 0.85rem; text-align: left; }
+    th { background: #1e293b; color: #f1f5f9; }
     tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
-    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.2rem 0; }
-    .feature-box { background: #0d1321; border: 1px solid #1e293b; padding: 1.2rem; border-radius: 10px; }
-    .feature-box h4 { margin-top: 0; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
-    .footer { text-align: center; font-size: 0.88rem; color: var(--text-muted); margin-top: 3rem; }
-    .lang-content { display: none; }
-    .lang-content.active { display: block; }
-  </style>
+    .footer { text-align: center; margin-top: 3.5rem; font-size: 0.85rem; color: var(--text-muted); }
+    .lang-view { display: none; }
+    .lang-view.active { display: block; }
+</style>
 </head>
 <body>
 
-  <!-- ВЕРХНЯЯ СТРОКА С ПЕРЕКЛЮЧАТЕЛЕМ ЯЗЫКОВ -->
   <div class="top-bar">
-    <div class="logo">AM DEV // TECH ECOSYSTEM</div>
+    <div class="logo">⚡ Anton Mykhailov — Systems & TUI Development</div>
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('ru')">RU</button>
-      <button class="lang-btn" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('de')">DE</button>
-      <button class="lang-btn" onclick="setLang('uk')">UK</button>
+      <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UK</button>
     </div>
   </div>
 
-  <!-- ШАПКА -->
-  <header>
-    <h1>Anton Mykhailov</h1>
-    <p class="lang-text"
-       data-ru="Инженерная разработка энергоэффективных систем, TUI OS для Android, языка программирования TDScript и кроссплатформенных игр."
-       data-en="Engineering high-efficiency systems, TUI OS for Android, TDScript programming language, and cross-platform strategy games."
-       data-de="Entwicklung hocheffizienter Systeme, TUI OS für Android, TDScript-Programmiersprache und plattformübergreifender Denkspiele."
-       data-uk="Інженерна розробка енергоефективних систем, TUI OS для Android, мови програмування TDScript та кросплатформних логічних ігор.">
-       Инженерная разработка энергоэффективных систем, TUI OS для Android, языка программирования TDScript и кроссплатформенных игр.
-    </p>
-    <nav class="nav-bar">
-      <a href="#about" class="lang-text" data-ru="👨‍💻 О разработчике" data-en="👨‍💻 About Developer" data-de="👨‍💻 Über den Entwickler" data-uk="👨‍💻 Про розробника">👨‍💻 О разработчике</a>
-      <a href="#tdroid-free" class="lang-text" data-ru="📱 TextDroid Free" data-en="📱 TextDroid Free" data-de="📱 TextDroid Free" data-uk="📱 TextDroid Free">📱 TextDroid Free</a>
-      <a href="#tdroid" class="lang-text" data-ru="💎 Tdroid Pro" data-en="💎 Tdroid Pro" data-de="💎 Tdroid Pro" data-uk="💎 Tdroid Pro">💎 Tdroid Pro</a>
-      <a href="#tdscript" class="lang-text" data-ru="⚡ Язык TDScript" data-en="⚡ TDScript Language" data-de="⚡ TDScript Sprache" data-uk="⚡ Мова TDScript">⚡ Язык TDScript</a>
-      <a href="#sevens" class="lang-text" data-ru="🃏 Семёрки и Девятки" data-en="🃏 Sevens & Nines" data-de="🃏 Siebener & Neuner" data-uk="🃏 Сімки та Дев'ятки">🃏 Семёрки и Девятки</a>
-      <a href="#impressum">⚖️ Impressum</a>
-      <a href="#datenschutz">🔒 Datenschutz</a>
-    </nav>
-  </header>
+  <!-- ==================== RU VIEW ==================== -->
+  <div id="view-ru" class="lang-view active">
+    <header>
+      <h1>Инженерные TUI-системы, Языки программирования & Игры</h1>
+      <p>Официальный портал разработчика: операционная текстовая среда Tdroid, встроенный язык TDScript, компилятор байткода .tbc и настольные игры.</p>
+      <nav class="nav-bar">
+        <a href="#about">👨‍💻 Об авторе</a>
+        <a href="#tdroid-free">📱 TextDroid Free</a>
+        <a href="#tdroid">📟 Tdroid Pro OS</a>
+        <a href="#tdscript">⚡ Язык TDScript</a>
+        <a href="#sevens">🃏 Семёрки и Девятки</a>
+        <a href="#impressum">⚖️ Impressum</a>
+        <a href="#datenschutz">🔒 Datenschutz</a>
+      </nav>
+    </header>
 
-  <div class="container">
+    <div class="container">
 
-    <!-- 1. О РАЗРАБОТЧИКЕ -->
-    <section class="card" id="about">
-      <h2>👨‍💻 <span class="lang-text" data-ru="Об авторе и разработчике" data-en="About Author & Developer" data-de="Über den Autor & Entwickler" data-uk="Про автора та розробника">Об авторе и разработчике</span></h2>
-      <p class="lang-text"
-         data-ru="Приветствую! Меня зовут Антон Михайлов. Моя инженерная философия — создание программных решений с экстремальной оптимизацией ресурсов: нулевой графический оверхед (0 KB VRAM), максимальная автономность мобильных устройств, чистая архитектура и полный контроль над аппаратурой."
-         data-en="Hello! I am Anton Mykhailov. My engineering philosophy centers on extreme resource optimization: zero GPU overhead (0 KB VRAM), maximum battery life, clean architecture, and direct hardware control without unnecessary framework bloat."
-         data-de="Willkommen! Mein Name ist Anton Mykhailov. Meine Philosophie ist die Entwicklung von Software mit extremer Ressourceneffizienz: kein GPU-Overhead (0 KB VRAM), maximale Akkulaufzeit und volle Kontrolle über Hardwarekomponenten."
-         data-uk="Вітаю! Мене звати Антон Михайлов. Моя філософія — створення програмних систем з екстремальною оптимізацією: нульове навантаження на відеопам'ять (0 КБ VRAM), максимальна енергоефективність, чиста архітектура та повний контроль над залізом.">
-         Приветствую! Меня зовут Антон Михайлов. Моя инженерная философия — создание программных решений с экстремальной оптимизацией ресурсов: нулевой графический оверхед (0 KB VRAM), максимальная автономность мобильных устройств, чистая архитектура и полный контроль над аппаратурой.
-      </p>
+      <!-- 1. ОБ АВТОРЕ -->
+      <section class="card" id="about">
+        <h2>👨‍💻 Об авторе и разработчике</h2>
+        <p>
+          Приветствую! Меня зовут Антон Михайлов. Моя инженерная философия — создание программных решений с экстремальной оптимизацией ресурсов: нулевой графический оверхед (0 KB VRAM), максимальная автономность мобильных устройств, чистая архитектура и полный контроль над аппаратурой без раздутых тяжелых фреймворков.
+        </p>
 
-      <div class="feature-grid">
-        <div class="feature-box">
-          <h4 class="lang-text" data-ru="🔬 Специализация" data-en="🔬 Core Competencies" data-de="🔬 Kernkompetenzen" data-uk="🔬 Спеціалізація">🔬 Специализация</h4>
-          <p class="lang-text"
-             data-ru="Android Architecture (Kotlin/Java), разработка встроенных языков и виртуальных машин (AST/байткод), TUI интерфейсы, сетевые протоколы (UDP, TCP, LoRa, Modbus), алгоритмы ИИ."
-             data-en="Android Systems Architecture (Kotlin/Java), Embedded VM/Language Design (AST & Bytecode), TUI graphic engines, low-level networking (UDP, TCP, LoRa, Modbus), game AI."
-             data-de="Android-Systemarchitektur (Kotlin/Java), Entwurf virtueller Maschinen & Skriptsprachen (AST/Bytecode), TUI-Systeme, Netzwerkprotokolle (UDP, TCP, Modbus), Spiel-KI."
-             data-uk="Архітектура Android (Kotlin/Java), створення вбудованих мов та віртуальних машин (AST/байткод), TUI інтерфейси, мережеві протоколи (UDP, TCP, LoRa, Modbus), алгоритми ШІ.">
-             Android Architecture (Kotlin/Java), разработка встроенных языков и виртуальных машин (AST/байткод), TUI интерфейсы, сетевые протоколы (UDP, TCP, LoRa, Modbus), алгоритмы ИИ.
-          </p>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🔬 Специализация</h4>
+            <p>
+              Архитектура Android (Kotlin/Java), проектирование виртуальных машин и встраиваемых скриптовых языков (AST & байткод), TUI интерфейсы (псевдографика Turbo Vision/DOS), сетевые протоколы (UDP, TCP, LoRa, Modbus) и соревновательный игровой искусственный интеллект.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🌱 Принципы конфиденциальности</h4>
+            <p>
+              100% On-Device обработка данных. Никакой телеметрии, никаких скрытых трекеров и рекламных SDK. Все вычисления, пользовательские скрипты и персональные базы данных выполняются исключительно на вашем телефоне.
+            </p>
+          </div>
         </div>
-        <div class="feature-box">
-          <h4 class="lang-text" data-ru="🌱 Принципы конфиденциальности" data-en="🌱 Privacy-First Ethos" data-de="🌱 Datenschutzprinzip" data-uk="🌱 Принципи приватності">🌱 Принципы конфиденциальности</h4>
-          <p class="lang-text"
-             data-ru="100% On-Device обработка данных. Никакой телеметрии, никаких скрытых трекеров и рекламных SDK. Ваши данные принадлежат только вам."
-             data-en="100% on-device processing. No telemetry, no background trackers, and no ad SDKs. Your device and your code belong to you alone."
-             data-de="100% lokale Datenverarbeitung. Keine Telemetrie, keine Tracker und keine Werbe-SDKs. Ihre Daten gehören ausschließlich Ihnen."
-             data-uk="100% обробка даних на пристрої. Жодної телеметрії, жодних прихованих трекерів або рекламних SDK. Ваші дані належать лише вам.">
-             100% On-Device обработка данных. Никакой телеметрии, никаких скрытых трекеров и рекламных SDK. Ваши данные принадлежат только вам.
-          </p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 2. TEXTDROID FREE -->
-    <section class="card" id="tdroid-free">
-      <h2>📱 TextDroid Free — Легковесный ретро-лаунчер <span class="badge badge-green">Бесплатно • 3.1 МБ</span></h2>
-      <p class="lang-text"
-         data-ru="TextDroid Free — это полностью бесплатная, не перегруженная лишними функциями редакция текстового лаунчера для повседневного использования. Она создана для пользователей, которые хотят избавиться от цифрового шума, сэкономить заряд батареи смартфона и получить чистый, мгновенно работающий интерфейс без рекламы."
-         data-en="TextDroid Free is a completely free, distraction-free edition of our text launcher for daily use. Designed to eliminate digital noise, maximize battery life, and provide an instant, ad-free mobile experience."
-         data-de="TextDroid Free ist eine völlig kostenlose, auf das Wesentliche reduzierte Edition für den täglichen Gebrauch: Keine Werbung, maximale Akkulaufzeit und ein minimalistisches TUI-Erlebnis."
-         data-uk="TextDroid Free — це повністю безкоштовна, не перевантажена зайвим редакція текстового лаунчера для щоденного використання. Створена без реклами для максимальної економії заряду та швидкого доступу до додатків.">
-         TextDroid Free — это полностью бесплатная редакция текстового лаунчера для повседневного использования.
-      </p>
+      <!-- 2. TEXTDROID FREE -->
+      <section class="card" id="tdroid-free">
+        <h2>📱 TextDroid Free — Легковесный ретро-лаунчер <span class="badge badge-green">Бесплатно • 3.1 МБ</span></h2>
+        <p>
+          TextDroid Free — это полностью бесплатная, не перегруженная лишними функциями редакция текстового лаунчера для повседневного использования. Она создана для пользователей, которые хотят избавиться от цифрового шума, сэкономить заряд батареи смартфона и получить чистый, мгновенно работающий интерфейс без рекламы.
+        </p>
 
-      <div class="feature-grid">
-        <div class="feature-box">
-          <h4>⚡ Доступно в бесплатной версии</h4>
-          <ul>
-            <li><strong>Нулевой GPU оверхед</strong>: рендеринг через Canvas Font Renderer, потребление RAM всего 9-12 МБ.</li>
-            <li><strong>Персонализация рабочего стола</strong>: настройка сетки 3x3, нижнего дока, выбор масштаба значков (0.85x - 1.5x).</li>
-            <li><strong>Кастомизация значков</strong>: назначение 60+ псевдографических и Unicode-символов любым установленным приложениям.</li>
-            <li><strong>Менеджер буфера обмена</strong>: сохранение истории скопированных текстов и быстрый поиск.</li>
-            <li><strong>Базовые TUI утилиты</strong>: файловый менеджер VFS, заметки, календарь, часы/будильник, калькулятор, веб-браузер.</li>
-            <li><strong>Адаптация под круглые экраны</strong>: поддержка умных часов и нестандартных разрешений.</li>
-            <li><strong>100% приватность</strong>: без рекламы, без сбора данных, без трекеров.</li>
-          </ul>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>⚡ Доступно в бесплатной версии</h4>
+            <ul>
+              <li><strong>Минималистичный текстовый интерфейс</strong>: нулевая нагрузка на графический процессор (0 KB VRAM).</li>
+              <li><strong>Мгновенный запуск любых приложений</strong>: молниеносный поиск и алфавитный каталог.</li>
+              <li><strong>Поддержка псевдографики и значков</strong>: чистое оформление без визуального мусора.</li>
+              <li><strong>Виджеты первой необходимости</strong>: точные часы, индикатор уровня батареи, базовые заметки.</li>
+              <li><strong>100% приватность</strong>: отсутствие аналитики, рекламы и запросов в сеть.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Эксклюзивные возможности Tdroid Pro</h4>
+            <p style="margin-bottom:0.6rem; color:var(--text-muted);">Возможности, доступные только в коммерческой редакции Pro:</p>
+            <ul>
+              <li><strong>Встроенная среда TDScript Studio</strong>: разработка и запуск пользовательских микро-программ прямо на телефоне.</li>
+              <li><strong>Полный доступ к датчикам и периферии Android</strong>: GPS, синтез речи (TTS), камера, фонарик, акселерометр.</li>
+              <li><strong>Реляционная база данных SQLite</strong>: хранение локальных таблиц и интеграция со скриптами.</li>
+              <li><strong>Инструменты безопасности SecOps</strong>: сканер портов, ping, аудит Wi-Fi сетей.</li>
+              <li><strong>Промышленные протоколы</strong>: SCADA Modbus/TCP, Cisco сокеты, прямые UDP датаграммы.</li>
+              <li><strong>Расширенная IDE TDroid Studio</strong>: компиляция байткода .tbc, обфускатор кода и коммерческое лицензирование.</li>
+            </ul>
+          </div>
         </div>
-        <div class="feature-box">
-          <h4>💎 Чем отличается Tdroid Pro?</h4>
-          <p class="lang-text"
-             data-ru="Pro-версия предназначена для инженеров, радиолюбителей и разработчиков. В неё дополнительно включены:"
-             data-en="The Pro edition is tailored for engineers, makers, and power developers, adding:"
-             data-de="Die Pro-Edition richtet sich an Ingenieure, Bastler und Entwickler und enthält zusätzlich:"
-             data-uk="Pro-версія створена для інженерів, радіоаматорів та розробників. До неї додатково включено:">
-             Pro-версия предназначена для инженеров, радиолюбителей и разработчиков. В неё дополнительно включены:
-          </p>
-          <ul>
-            <li><strong>Maker Studio</strong>: конструктор роботов, Bluetooth/UART терминал, опрос контроллеров.</li>
-            <li><strong>Радиолюбитель & Схемы</strong>: расчет NE555, цветовой код резисторов, звуковой генератор и декодер Морзе.</li>
-            <li><strong>Сетевые SecOps утилиты</strong>: сканирование портов TCP, анализ Wi-Fi эфира, SSL-проверка.</li>
-            <li><strong>Промышленные протоколы</strong>: SCADA Modbus/TCP, Cisco сокеты.</li>
-            <li><strong>Расширенная IDE TDroid Studio</strong>: компиляция байткода .tbc и коммерческое лицензирование.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 3. TDROID PRO -->
-    <section class="card" id="tdroid">
-      <h2>📟 Tdroid Pro — Текстовая TUI OS и Лаунчер для Android <span class="badge badge-green">v1.0.3 • 3.1 МБ</span></h2>
-      <p class="lang-text"
-         data-ru="Tdroid Pro — это ретро-консольная операционная среда для Android в стиле Turbo Vision / DOS / VT100. Приложение весит всего 3.1 МБ и потребляет рекордные 9-15 МБ RAM (в 15-20 раз меньше обычных графических оболочек)."
-         data-en="Tdroid Pro is a retro text-based user interface (TUI) environment and launcher for Android. With a 3.1 MB package size and 9-15 MB RAM footprint, it delivers instant response with zero GPU overhead."
-         data-de="Tdroid Pro ist eine Text-basierte Benutzeroberfläche (TUI) und Launcher für Android im Retro-Stil (Turbo Vision / DOS). Paketgröße nur 3.1 MB und 9-15 MB RAM-Verbrauch."
-         data-uk="Tdroid Pro — це текстове операційне середовище та лаунчер для Android у стилі Turbo Vision / DOS / VT100. Розмір становить лише 3.1 МБ, споживання пам'яті — рекордні 9-15 МБ RAM.">
-         Tdroid Pro — это ретро-консольная операционная среда для Android в стиле Turbo Vision / DOS / VT100. Приложение весит всего 3.1 МБ и потребляет рекордные 9-15 МБ RAM.
-      </p>
+      <!-- 3. TDROID PRO -->
+      <section class="card" id="tdroid">
+        <h2>📟 Tdroid Pro — Текстовая TUI OS и Лаунчер для Android <span class="badge badge-green">v1.0.3 • 3.1 МБ</span></h2>
+        <p>
+          Tdroid Pro — это ретро-консольная операционная среда для Android в стиле Turbo Vision / DOS / VT100. Приложение весит всего 3.1 МБ и потребляет рекордные 9-15 МБ RAM (в 15-20 раз меньше обычных графических оболочек). Превращает любой смартфон в профессиональный рабочий терминал инженера, системного администратора и исследователя.
+        </p>
 
-      <div class="feature-grid">
-        <div class="feature-box">
-          <h4>🎨 Чистый интерфейс и Персонализация</h4>
-          <p class="lang-text"
-             data-ru="Чистый список приложений без лишних громоздких приставок. Возможность назначить любые псевдографические и Unicode-значки (60+ символов), настроить сетку 3x3, док и масштаб значков (0.85x - 1.5x)."
-             data-en="Clean application list without noisy prefixes. Assign custom ASCII/Unicode icons (60+ presets), customize the 3x3 grid, bottom dock, and icon scale (0.85x - 1.5x)."
-             data-de="Übersichtliche App-Liste ohne störende Präfixe. Zuweisung von Pseudografik- und Unicode-Icons (60+ Symbole), Anpassung von 3x3 Raster, Dock und Symbolgröße."
-             data-uk="Чистий список додатків без зайвих приставок. Призначення будь-яких псевдографічних символів (60+ значків), налаштування сітки 3x3, доку та масштабу іконок.">
-             Чистый список приложений без лишних громоздких приставок. Возможность назначить любые псевдографические и Unicode-значки (60+ символов), настроить сетку 3x3, док и масштаб значков.
-          </p>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🎨 Чистый интерфейс и Персонализация</h4>
+            <p>
+              Чистый каталог приложений без лишних громоздких приставок. Возможность назначить любые псевдографические и Unicode-значки (60+ символов), настроить сетку рабочего стола 3x3, нижний быстрый док и масштаб значков (0.85x - 1.5x).
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🛠️ Инженерные инструменты</h4>
+            <p>
+              Двухпанельный VFS Commander, перехватчик буфера обмена с историей, сетевые утилиты SecOps (Ping, Port Scan, SSL, Wi-Fi), встроенный ИИ-терминал, читалка TXT и адаптивная калибровка круглых экранов часов.
+            </p>
+          </div>
         </div>
-        <div class="feature-box">
-          <h4>🛠️ Инженерные инструменты</h4>
-          <p class="lang-text"
-             data-ru="Двухпанельный VFS Commander, перехватчик буфера обмена с историей, сетевые утилиты SecOps (Ping, Port Scan, SSL, Wi-Fi), ИИ-терминал, читалка TXT и калибровка круглых экранов часов."
-             data-en="Dual-panel VFS file manager, clipboard history manager, SecOps utilities (Ping, Port Scan, SSL, Wi-Fi), AI Terminal, TXT reader, and round smartwatch display calibration."
-             data-de="Zweispaltiger VFS Dateimanager, Zwischenablage-Verlauf, SecOps Netzwerk-Tools (Ping, Port-Scan, SSL, Wi-Fi), KI-Terminal, TXT-Reader und Smartwatch-Displaykalibrierung."
-             data-uk="Двопанельний VFS менеджер файлів, історія буфера обміну, мережеві утиліти SecOps (Ping, Scan, SSL, Wi-Fi), ШІ-термінал, читалка TXT та калібрування круглих екранів годинників.">
-             Двухпанельный VFS Commander, перехватчик буфера обмена с историей, сетевые утилиты SecOps, ИИ-терминал и калибровка экранов часов.
-          </p>
-        </div>
-      </div>
 
-      <h3>Скриншоты интерфейса Tdroid Pro</h3>
-      <div class="gallery">
-        <div class="gallery-item">
-          <img src="screenshots/tdroid_home.png" alt="Рабочий стол Tdroid Pro">
-          <span>Главный экран (Turbo Vision)</span>
+        <h3>Скриншоты интерфейса Tdroid Pro</h3>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_home.png" alt="Рабочий стол Tdroid Pro">
+            <span>Главный экран (Turbo Vision)</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_desktop_editor.png" alt="Конструктор рабочего стола">
+            <span>Конструктор рабочего стола & Меню</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_apps.png" alt="Каталог приложений без приставок">
+            <span>Чистый каталог приложений [⚙]</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_clipboard.png" alt="Менеджер буфера обмена">
+            <span>Менеджер буфера обмена с историей</span>
+          </div>
         </div>
-        <div class="gallery-item">
-          <img src="screenshots/tdroid_desktop_editor.png" alt="Конструктор рабочего стола">
-          <span>Конструктор рабочего стола & Меню</span>
-        </div>
-        <div class="gallery-item">
-          <img src="screenshots/tdroid_apps.png" alt="Каталог приложений без приставок">
-          <span>Чистый каталог приложений [⚙]</span>
-        </div>
-        <div class="gallery-item">
-          <img src="screenshots/tdroid_clipboard.png" alt="Менеджер буфера обмена">
-          <span>Менеджер буфера обмена с историей</span>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 3. ЯЗЫК TDSCRIPT, БАЙТКОД И ЗАЩИТА -->
-    <section class="card" id="tdscript">
-      <h2>⚡ Спецификация языка TDScript, Байткод (.tbc) и Защита кода <span class="badge">SDK 2026</span></h2>
-      <p class="lang-text"
-         data-ru="TDScript — встроенный автономный язык программирования и среда исполнения (Virtual Machine) в Tdroid. Позволяет создавать утилиты, робототехнику, сетевые инструменты и TUI-приложения прямо на мобильном устройстве."
-         data-en="TDScript is an embedded programming language and virtual machine execution environment in Tdroid. Build utilities, robotics, network tools, and TUI apps directly on Android."
-         data-de="TDScript ist eine eingebettete Programmiersprache und virtuelle Maschine in Tdroid zur Erstellung von Tools, Robotik, Netzwerkanwendungen und TUI-Apps direkt auf dem Smartphone."
-         data-uk="TDScript — вбудована мова програмування та віртуальна машина в Tdroid. Дозволяє розробляти утиліти, робототехніку, мережеві програми та TUI-інтерфейси безпосередньо на пристрої.">
-         TDScript — встроенный автономный язык программирования и среда исполнения в Tdroid.
-      </p>
+      <!-- 4. TDCRIPT, БАЙТКОД И ЗАЩИТА -->
+      <section class="card" id="tdscript">
+        <h2>⚡ Спецификация языка TDScript, Байткод (.tbc) и Защита кода <span class="badge">SDK 2026</span></h2>
+        <p>
+          TDScript — встроенный автономный язык программирования и среда исполнения (Virtual Machine) в Tdroid. Позволяет создавать утилиты, робототехнику, сетевые инструменты и TUI-приложения прямо на мобильном устройстве без необходимости установки Android Studio на компьютере.
+        </p>
 
-      <div class="feature-grid">
-        <div class="feature-box">
-          <h4>📦 Распространение (.tapp) и Установка</h4>
-          <p class="lang-text"
-             data-ru="Программы упаковываются в один файл .tapp весом всего 2-10 КБ. Поддерживается установка из внешних источников (SD-карта, Telegram, браузер, файлы) в 1 клик."
-             data-en="Apps package into a single .tapp bundle (2-10 KB). Install from external sources (Downloads, Telegram, browser, SD card) with one click."
-             data-de="Apps werden in einer kompakten .tapp Datei (2-10 KB) gebündelt. Installation aus externen Quellen (Downloads, Telegram, Browser) mit einem Klick."
-             data-uk="Програми пакуються в єдиний .tapp файл розміром 2-10 КБ. Підтримується встановлення із зовнішніх джерел (Telegram, браузер, SD-картка) в 1 клік.">
-             Программы упаковываются в один файл .tapp весом всего 2-10 КБ. Поддерживается установка из внешних источников в 1 клик.
-          </p>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>📦 Распространение (.tapp) и Установка</h4>
+            <p>
+              Программы упаковываются в один файл <code>.tapp</code> весом всего 2-10 КБ. Поддерживается установка из внешних источников (SD-карта, Telegram, браузер, файлы) в 1 клик через стандартный механизм сопоставления MIME-типов Android.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>⚙️ Байткод-компиляция (.tbc)</h4>
+            <p>
+              Компиляция исходного кода в компактный бинарный поток опкодов виртуальной машины Tdroid. Исходный текст полностью скрыт, что гарантирует быстродействие и защищает исходники от копирования.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Встроенная обфускация и шифрование</h4>
+            <p>
+              Автоматическое удаление комментариев, форматирования, сжатие синтаксического дерева и криптографическое XOR-шифрование строковых констант через <code>TD.xdec()</code>.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>💎 Цифровая подпись авторов и Лицензирование</h4>
+            <p>
+              Авторы могут подписывать свои мини-аппы персональным ключом, привязывая право запуска программы к Telegram ID покупателя или разовому лицензионному ключу с проверкой хеша SHA-256.
+            </p>
+          </div>
         </div>
-        <div class="feature-box">
-          <h4>⚡ Компиляция в Байткод (.tbc)</h4>
-          <p class="lang-text"
-             data-ru="Однокликовая компиляция в бинарный поток опкодов .tbc (TDScript ByteCode). Исходный текст скрипта удаляется, бинарный код исполняется виртуальной машиной Tdroid."
-             data-en="One-click compilation into binary bytecode .tbc (TDScript ByteCode). Source text is stripped, binary AST/opcodes are executed by Tdroid VM."
-             data-de="1-Klick-Kompilierung in Binär-Bytecode .tbc. Der Quellcode wird entfernt, der Binärcode wird direkt von der Tdroid-VM ausgeführt."
-             data-uk="Компіляція в один клік у бінарний байткод .tbc (TDScript ByteCode). Вихідний код видаляється, бінарний потік виконується віртуальною машиною.">
-             Однокликовая компиляция в бинарный поток опкодов .tbc. Исходный код удаляется, защищая алгоритмы автора.
-          </p>
-        </div>
-        <div class="feature-box">
-          <h4>🔒 Встроенный Обфускатор и Минификатор</h4>
-          <p class="lang-text"
-             data-ru="Автоматическое удаление комментариев, форматирования, сжатие синтаксиса и криптографическое XOR-шифрование всех строковых литералов (TD.xdec)."
-             data-en="Automatic comment removal, whitespace compression, code minification, and cryptographic XOR string encryption (TD.xdec)."
-             data-de="Automatisches Entfernen von Kommentaren, Code-Minifizierung und kryptografische XOR-Verschlüsselung aller Zeichenketten (TD.xdec)."
-             data-uk="Автоматичне видалення коментарів, стиснення синтаксису та криптографічне XOR-шифрування рядків (TD.xdec).">
-             Автоматическое удаление комментариев, форматирования и криптографическое шифрование строк.
-          </p>
-        </div>
-        <div class="feature-box">
-          <h4>💎 Цифровая подпись авторов и Лицензирование</h4>
-          <p class="lang-text"
-             data-ru="Авторы могут подписывать свои мини-аппы персональным ключом, привязывая право запуска программы к Telegram ID покупателя или разовому лицензионному ключу."
-             data-en="Authors can sign their packages with a license key, restricting execution to a specific Telegram ID or license hash for commercial distribution."
-             data-de="Entwickler können Pakete digital signieren und die Ausführung an eine Telegram-ID oder einen Lizenzschlüssel koppeln."
-             data-uk="Автори можуть підписувати свої програми ліцензійним ключем, прив'язуючи запуск до Telegram ID користувача або разового ключа.">
-             Авторы могут подписывать свои мини-аппы, привязывая запуск к Telegram ID или лицензионному ключу.
-          </p>
-        </div>
-      </div>
 
-      <h3>Полный справочник аппаратных объектов и функций (Android Hardware API)</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Категория</th>
-            <th>Метод API</th>
-            <th>Описание и возвращаемое значение</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Синтез речи (TTS)</strong></td>
-            <td><code>TD.speak("текст")</code></td>
-            <td>Озвучивание текста через встроенный синтезатор речи Android.</td>
-          </tr>
-          <tr>
-            <td><strong>Геолокация</strong></td>
-            <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-            <td>Возвращает координаты устройства <code>"lat,lon"</code> (GPS/Сеть).</td>
-          </tr>
-          <tr>
-            <td><strong>Буфер обмена</strong></td>
-            <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
-            <td>Чтение и запись текста в системный буфер обмена Android.</td>
-          </tr>
-          <tr>
-            <td><strong>Датчики</strong></td>
-            <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-            <td>Показания физических датчиков смартфона (акселерометр, свет, температура).</td>
-          </tr>
-          <tr>
-            <td><strong>Батарея и Питание</strong></td>
-            <td><code>TD.battery()</code></td>
-            <td>Уровень заряда батареи в процентах (0-100).</td>
-          </tr>
-          <tr>
-            <td><strong>Фонарик</strong></td>
-            <td><code>TD.torch(true | false)</code></td>
-            <td>Включение / выключение светодиодной вспышки камеры.</td>
-          </tr>
-          <tr>
-            <td><strong>Вибрация</strong></td>
-            <td><code>TD.vibrate(ms)</code></td>
-            <td>Тактильный импульс заданной длительности (миллисекунды).</td>
-          </tr>
-          <tr>
-            <td><strong>HTTP Запросы</strong></td>
-            <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
-            <td>Сетевые HTTP GET и POST запросы (JSON API, телеметрия, интеграции).</td>
-          </tr>
-          <tr>
-            <td><strong>Сетевой UDP</strong></td>
-            <td><code>TD.udp(host, port, data)</code></td>
-            <td>Отправка UDP датаграмм (роботы, ESP32, Arduino, контроллеры).</td>
-          </tr>
-          <tr>
-            <td><strong>Пинг сети</strong></td>
-            <td><code>TD.ping(host)</code></td>
-            <td>Проверка доступности хоста/IP. Возвращает <code>true/false</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>База данных SQLite</strong></td>
-            <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
-            <td>Локальное хранение структурированных данных в реляционных SQL таблицах.</td>
-          </tr>
-          <tr>
-            <td><strong>Псевдографика TUI</strong></td>
-            <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
-            <td>Построение диалоговых окон, кнопок и элементов управления.</td>
-          </tr>
-        </tbody>
-      </table>
+        <h3>Полный справочник аппаратных объектов и функций (Android Hardware API)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Категория</th>
+              <th>Метод API</th>
+              <th>Описание и возвращаемое значение</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Синтез речи (TTS)</strong></td>
+              <td><code>TD.speak("текст")</code></td>
+              <td>Озвучивание текста через встроенный синтезатор речи Android.</td>
+            </tr>
+            <tr>
+              <td><strong>Геолокация</strong></td>
+              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
+              <td>Возвращает координаты устройства <code>"lat,lon"</code> (GPS/Сеть).</td>
+            </tr>
+            <tr>
+              <td><strong>Буфер обмена</strong></td>
+              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
+              <td>Чтение и запись текста в системный буфер обмена Android.</td>
+            </tr>
+            <tr>
+              <td><strong>Датчики</strong></td>
+              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
+              <td>Показания физических датчиков смартфона (акселерометр, свет, температура).</td>
+            </tr>
+            <tr>
+              <td><strong>Батарея и Питание</strong></td>
+              <td><code>TD.battery()</code></td>
+              <td>Уровень заряда батареи в процентах (0-100).</td>
+            </tr>
+            <tr>
+              <td><strong>Фонарик</strong></td>
+              <td><code>TD.torch(true | false)</code></td>
+              <td>Включение / выключение светодиодной вспышки камеры.</td>
+            </tr>
+            <tr>
+              <td><strong>Вибрация</strong></td>
+              <td><code>TD.vibrate(ms)</code></td>
+              <td>Тактильный импульс заданной длительности (миллисекунды).</td>
+            </tr>
+            <tr>
+              <td><strong>HTTP Запросы</strong></td>
+              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
+              <td>Сетевые HTTP GET и POST запросы (JSON API, телеметрия, интеграции).</td>
+            </tr>
+            <tr>
+              <td><strong>Сетевой UDP</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Отправка UDP датаграмм (роботы, ESP32, Arduino, контроллеры).</td>
+            </tr>
+            <tr>
+              <td><strong>Пинг сети</strong></td>
+              <td><code>TD.ping(host)</code></td>
+              <td>Проверка доступности хоста/IP. Возвращает <code>true/false</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>База данных SQLite</strong></td>
+              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
+              <td>Локальное хранение структурированных данных в реляционных SQL таблицах.</td>
+            </tr>
+            <tr>
+              <td><strong>Псевдографика TUI</strong></td>
+              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
+              <td>Построение диалоговых окон, кнопок и элементов управления.</td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3>Практические примеры кода TDScript</h3>
+        <h3>Практические примеры кода TDScript</h3>
 
-      <h4>Пример 1: IoT телеметрия, геолокация и голосовое подтверждение</h4>
-      <pre><code>// Получение GPS и озвучивание текущих координат
+        <h4>Пример 1: IoT телеметрия, геолокация и голосовое подтверждение</h4>
+        <pre><code>// Получение GPS и озвучивание текущих координат
 var coords = TD.gps();
 TD.speak("Координаты получены: " + coords);
 
@@ -473,8 +425,8 @@ var res = TD.httpPost("https://api.example.com/telemetry", json, "application/js
 TD.vibrate(100);
 print("Статус сервера: " + res);</code></pre>
 
-      <h4>Пример 2: Управление микроконтроллером по UDP (ESP32 / Робототехника)</h4>
-      <pre><code>// Передача команды моторам робота по протоколу UDP
+        <h4>Пример 2: Управление микроконтроллером по UDP (ESP32 / Робототехника)</h4>
+        <pre><code>// Передача команды моторам робота по протоколу UDP
 var esp_ip = "192.168.4.1";
 var port = 8888;
 
@@ -482,8 +434,8 @@ TD.udp(esp_ip, port, "CMD_SPEED_100");
 TD.vibrate(50);
 print("Пакет управления успешно передан по UDP");</code></pre>
 
-      <h4>Пример 3: Интерактивная TUI база данных SQLite</h4>
-      <pre><code>// Создание таблицы и запись
+        <h4>Пример 3: Интерактивная TUI база данных SQLite</h4>
+        <pre><code>// Создание таблицы и запись
 TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
 TD.dbExec("INSERT INTO inventory (item) VALUES ('Контроллер ESP32');");
 
@@ -492,102 +444,1134 @@ TD.window(2, 2, 38, 10, "CYAN", "СКЛАДСКОЙ УЧЕТ SQLITE");
 var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
 TD.print(4, 5, "Запись: " + data, "GREEN");
 TD.button("b1", 4, 7, "[ ↻ СИНХРОНИЗАЦИЯ ]", "TD.beep(); TD.toast('Синхронизировано')");</code></pre>
-    </section>
+      </section>
 
-    <!-- 4. КАРТОЧНАЯ ИГРА 7 И 9 -->
-    <section class="card" id="sevens">
-      <h2>🃏 Карточная игра «Семёрки и Девятки» (Sevens &amp; Nines) <span class="badge badge-amber">Desktop & Android</span></h2>
-      <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
-        <img src="img/sevens-icon.png" alt="Иконка игры Семёрки и Девятки" style="width: 96px; height: 96px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
-        <div style="flex: 1; min-width: 250px;">
-          <p class="lang-text"
-             data-ru="Кроссплатформенный карточный симулятор и соревновательная стратегия с поддержкой классических мировых раскладок:"
-             data-en="Cross-platform card layout simulator and competitive game engine supporting traditional international rules:"
-             data-de="Plattformübergreifender Kartenspiel-Simulator mit Unterstützung klassischer internationaler Spielregeln:"
-             data-uk="Кросплатформний картковий симулятор та соревновальна стратегія з підтримкою класичних світових правил:">
-             Кроссплатформенный карточный симулятор и соревновательная стратегия с поддержкой классических мировых раскладок:
-          </p>
-          <ul>
-            <li><strong>Русская «Девятка»</strong> — традиционная колода из 36 карт с раскладкой от девяток.</li>
-            <li><strong>Международные «Семёрки» (Parliament / Fan Tan)</strong> — полная колода из 52 карт, динамичная тактика блокировки ходов.</li>
-            <li><strong>Fan Tan (Card Dominoes)</strong> — соревновательный режим с банком, фишками и штрафами за пропуск хода.</li>
-          </ul>
+      <!-- 5. КАРТОЧНАЯ ИГРА 7 И 9 -->
+      <section class="card" id="sevens">
+        <h2>🃏 Карточная игра «Семёрки и Девятки» (Sevens &amp; Nines) <span class="badge badge-amber">Desktop & Android</span></h2>
+        <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
+          <img src="img/sevens-icon.png" alt="Иконка игры Семёрки и Девятки" style="width: 96px; height: 96px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
+          <div style="flex: 1; min-width: 250px;">
+            <p>
+              Кроссплатформенный карточный симулятор и соревновательная стратегия с поддержкой классических мировых правил и раскладок:
+            </p>
+            <ul>
+              <li><strong>Русская «Девятка»</strong> — традиционная колода из 36 карт с раскладкой от девяток в обе стороны.</li>
+              <li><strong>Международные «Семёрки» (Parliament / Fan Tan)</strong> — полная колода из 52 карт, динамичная тактика блокировки ходов соперников.</li>
+              <li><strong>Fan Tan (Card Dominoes)</strong> — соревновательный режим с банком, фишками и штрафами за пропуск хода.</li>
+            </ul>
+          </div>
         </div>
-      </div>
 
-      <h3>Особенности и движок</h3>
-      <div class="feature-grid">
-        <div class="feature-box">
-          <h4>🤖 Продвинутый искусственный интеллект</h4>
-          <p>Интеллектуальные боты с анализом рук соперников и стратегическим удержанием карт для перехвата инициативы.</p>
+        <h3>Особенности и движок игры</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🤖 Продвинутый искусственный интеллект</h4>
+            <p>Интеллектуальные боты с анализом рук соперников и стратегическим удержанием карт для перехвата инициативы.</p>
+          </div>
+          <div class="feature-box">
+            <h4>🎴 Индивидуальная настройка</h4>
+            <p>8 встроенных дизайнерских рубашек карт + загрузка собственных картинок, выбор цвета сукна (Изумруд, Сапфир, Бордо, Графит).</p>
+          </div>
+          <div class="feature-box">
+            <h4>🔊 Процедурный звук</h4>
+            <p>Аудиодвижок с реалистичными звуками сдачи карт, стука фишек и победных аккордов без утяжеления размера игры.</p>
+          </div>
         </div>
-        <div class="feature-box">
-          <h4>🎴 Индивидуальная настройка</h4>
-          <p>8 встроенных дизайнерских рубашек карт + загрузка собственных картинок, выбор цвета сукна (Изумруд, Сапфир, Бордо, Графит).</p>
-        </div>
-        <div class="feature-box">
-          <h4>🔊 Процедурный звук</h4>
-          <p>Аудиодвижок с реалистичными звуками сдачи карт, стука фишек и победных аккордов без утяжеления размера игры.</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 5. ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (IMPRESSUM) -->
-    <section class="card" id="impressum">
-      <h2>⚖️ Impressum</h2>
-      <p><strong>Angaben gemäß § 5 DDG:</strong><br>
-      Anton Mykhailov<br>
-      Software- & Spieleentwicklung<br>
-      Rudolf-Diesel-Straße 21b<br>
-      38820 Halberstadt, Deutschland</p>
+      <!-- 6. ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (IMPRESSUM) -->
+      <section class="card" id="impressum">
+        <h2>⚖️ Impressum (Юридическая информация)</h2>
+        <p><strong>Angaben gemäß § 5 DDG (Сведения согласно закону ФРГ):</strong><br>
+        Anton Mykhailov<br>
+        Software- & Spieleentwicklung<br>
+        Rudolf-Diesel-Straße 21b<br>
+        38820 Halberstadt, Deutschland (Германия)</p>
 
-      <br>
-      <p><strong>Kontakt:</strong><br>
-      E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a><br>
-      Telefon: +49 172 9735840</p>
+        <br>
+        <p><strong>Контактные данные:</strong><br>
+        E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a><br>
+        Телефон: +49 172 9735840</p>
 
-      <br>
-      <p><strong>Umsatzsteuer:</strong><br>
-      Gemäß § 19 UStG wird keine Umsatzsteuer erhoben und ausgewiesen (Kleinunternehmerstatus).</p>
+        <br>
+        <p><strong>Налогообложение (Umsatzsteuer):</strong><br>
+        Gemäß § 19 UStG wird keine Umsatzsteuer erhoben und ausgewiesen (Статус малого предпринимателя / Kleinunternehmerstatus согласно законодательству Германии).</p>
 
-      <br>
-      <p><strong>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV:</strong><br>
-      Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt</p>
-    </section>
+        <br>
+        <p><strong>Ответственный за содержание согласно § 18 Abs. 2 MStV:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt</p>
+      </section>
 
-    <!-- 6. ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ (DATENSCHUTZ) -->
-    <section class="card" id="datenschutz">
-      <h2>🔒 Datenschutzerklärung (Privacy Policy)</h2>
-      <p><strong>1. Verantwortlicher:</strong><br>
-      Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a></p>
+      <!-- 7. ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ (DATENSCHUTZ) -->
+      <section class="card" id="datenschutz">
+        <h2>🔒 Datenschutzerklärung (Политика конфиденциальности)</h2>
+        <p><strong>1. Ответственное лицо:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a></p>
 
-      <br>
-      <p><strong>2. Mobile Anwendungen und Spiele (Tdroid Pro, Sevens and Nines):</strong></p>
-      <ul>
-        <li><strong>Keine Registrierung:</strong> Unsere Softwareanwendungen und Spiele erfordern kein Benutzerkonto und keine Eingabe persönlicher Identifikationsdaten.</li>
-        <li><strong>100% Lokale Datenspeicherung (On-Device Privacy):</strong> Notizen, Skripte, Spielstände, Konfigurationen und Highscores werden ausschließlich lokal auf dem Gerät des Benutzers gespeichert.</li>
-        <li><strong>Kein Verkauf und kein Tracking:</strong> Es findet kein Tracking von Nutzerverhalten, kein Einsatz von Drittanbieter-Werbenetzwerken und kein Weiterverkauf von Telemetriedaten statt.</li>
-        <li><strong>Rechte der Nutzer:</strong> Sie haben gemäß der DSGVO jederzeit das Recht auf Auskunft, Berichtigung und Löschung lokal gespeicherter Daten.</li>
-      </ul>
-    </section>
+        <br>
+        <p><strong>2. Мобильные приложения и игры (Tdroid Free, Tdroid Pro, Sevens & Nines):</strong></p>
+        <ul>
+          <li><strong>Отсутствие регистрации:</strong> Наши программные приложения и игры не требуют учетных записей, авторизации и ввода личных данных.</li>
+          <li><strong>100% Локальное хранение (On-Device Privacy):</strong> Заметки, скрипты TDScript, базы данных SQLite, настройки лаунчера и игровые сохранения хранятся исключительно на вашем личном устройстве.</li>
+          <li><strong>Никакой телеметрии и рекламы:</strong> Мы не ведем учет действий пользователя, не внедряем сторонние рекламные сети (AdMob, Meta и др.) и не передаем аналитику третьим лицам.</li>
+          <li><strong>Права пользователя:</strong> В соответствии с нормами GDPR (DSGVO), вы имеете полный суверенитет над своими данными с правом их немедленного локального удаления.</li>
+        </ul>
+      </section>
 
+    </div>
+
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Все права защищены. | Гальберштадт, Германия
+    </div>
   </div>
 
-  <div class="footer">
-    &copy; 2026 Anton Mykhailov. Alle Rechte vorbehalten. | Halberstadt, Deutschland
+  <!-- ==================== EN VIEW ==================== -->
+  <div id="view-en" class="lang-view">
+    <header>
+      <h1>Engineering TUI Systems, Programming Languages & Games</h1>
+      <p>Official developer portal: Tdroid text-based OS & launcher, embedded TDScript language, .tbc bytecode compiler, and desktop strategy card games.</p>
+      <nav class="nav-bar">
+        <a href="#about">👨‍💻 About Developer</a>
+        <a href="#tdroid-free">📱 TextDroid Free</a>
+        <a href="#tdroid">📟 Tdroid Pro OS</a>
+        <a href="#tdscript">⚡ TDScript Language</a>
+        <a href="#sevens">🃏 Sevens & Nines</a>
+        <a href="#impressum">⚖️ Impressum</a>
+        <a href="#datenschutz">🔒 Privacy Policy</a>
+      </nav>
+    </header>
+
+    <div class="container">
+
+      <!-- 1. ABOUT -->
+      <section class="card" id="about">
+        <h2>👨‍💻 About Author & Developer</h2>
+        <p>
+          Welcome! I am Anton Mykhailov. My engineering philosophy centers on extreme resource optimization: zero GPU overhead (0 KB VRAM), maximum battery life, clean architecture, and full hardware control without bloated high-level frameworks.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🔬 Core Competencies</h4>
+            <p>
+              Android Systems Architecture (Kotlin/Java), Virtual Machine & Scripting Language Design (AST & Bytecode engines), TUI Graphic Interfaces (Turbo Vision / DOS / VT100), Industrial & Network Protocols (UDP, TCP, LoRa, Modbus), and Strategic Game AI.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🌱 Privacy-First Ethos</h4>
+            <p>
+              100% On-Device execution. Zero telemetry, zero background trackers, and zero advertising SDKs. All computations, scripts, and local databases remain strictly on your physical device.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. TEXTDROID FREE -->
+      <section class="card" id="tdroid-free">
+        <h2>📱 TextDroid Free — Lightweight Retro Launcher <span class="badge badge-green">Free • 3.1 MB</span></h2>
+        <p>
+          TextDroid Free is a completely free, distraction-free edition of our text launcher built for daily use. Designed to eliminate digital noise, maximize smartphone battery life, and deliver an instantaneous, ad-free mobile experience.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>⚡ Included in Free Edition</h4>
+            <ul>
+              <li><strong>Minimalist text interface</strong>: zero GPU load (0 KB VRAM consumption).</li>
+              <li><strong>Instant application launcher</strong>: lightning-fast search and alphabetical app drawer.</li>
+              <li><strong>Custom ASCII & Unicode icons</strong>: clean presentation without graphical clutter.</li>
+              <li><strong>Essential widgets</strong>: precision clock, battery percentage monitor, fast scratchpad notes.</li>
+              <li><strong>100% Privacy</strong>: zero analytics, zero ads, zero background network calls.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Exclusive Tdroid Pro Capabilities</h4>
+            <p style="margin-bottom:0.6rem; color:var(--text-muted);">Features available exclusively in the commercial Pro edition:</p>
+            <ul>
+              <li><strong>Integrated TDScript Studio IDE</strong>: build, test, and run micro-applications right on your phone.</li>
+              <li><strong>Full Android Hardware API access</strong>: GPS, Text-to-Speech (TTS), camera flash, sensors, vibration.</li>
+              <li><strong>Relational SQLite Database</strong>: store persistent structured tables with native SQL queries.</li>
+              <li><strong>SecOps Network Toolkit</strong>: active port scanner, network ping, Wi-Fi auditing tools.</li>
+              <li><strong>Industrial Automation Protocols</strong>: SCADA Modbus/TCP, Cisco network sockets, raw UDP datagrams.</li>
+              <li><strong>Advanced IDE Tools</strong>: .tbc bytecode compilation, syntax minifier/obfuscator, and author license verification.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. TDROID PRO -->
+      <section class="card" id="tdroid">
+        <h2>📟 Tdroid Pro — Text-based TUI OS & Launcher for Android <span class="badge badge-green">v1.0.3 • 3.1 MB</span></h2>
+        <p>
+          Tdroid Pro is a retro-console operating environment and launcher for Android inspired by Turbo Vision / DOS / VT100 terminals. Weighing only 3.1 MB with an ultra-low 9-15 MB RAM footprint (15-20x less than conventional graphic launchers), it turns any Android phone into a high-efficiency terminal for developers, sysadmins, and tech enthusiasts.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🎨 Clean UI & Deep Personalization</h4>
+            <p>
+              Clean app drawer with zero awkward prefixes. Freely assign custom pseudographic and Unicode icons (60+ presets), configure the 3x3 desktop grid, quick-access dock, and adjust symbol scale (0.85x - 1.5x).
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🛠️ Engineer Utility Suite</h4>
+            <p>
+              Dual-panel VFS file commander, clipboard history manager with quick paste, SecOps network diagnostic tools (Ping, Port Scan, SSL, Wi-Fi), embedded AI terminal, TXT reader, and round smartwatch display calibration.
+            </p>
+          </div>
+        </div>
+
+        <h3>Tdroid Pro Interface Screenshots</h3>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_home.png" alt="Tdroid Pro Home Screen">
+            <span>Home Desktop (Turbo Vision)</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_desktop_editor.png" alt="Desktop Builder">
+            <span>Desktop Builder & Actions Menu</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_apps.png" alt="Clean App Drawer">
+            <span>Clean App Drawer [⚙]</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_clipboard.png" alt="Clipboard Manager">
+            <span>Clipboard History Manager</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. TDSCRIPT, BYTECODE & SECURITY -->
+      <section class="card" id="tdscript">
+        <h2>⚡ TDScript Specification, Bytecode (.tbc) & Code Protection <span class="badge">SDK 2026</span></h2>
+        <p>
+          TDScript is an embedded standalone programming language and virtual machine runtime in Tdroid. It enables developers to craft utilities, robotics controllers, network audit tools, and interactive TUI applications directly on mobile hardware without desktop development suites.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>📦 Distribution (.tapp) & Installation</h4>
+            <p>
+              Packages bundle into a single self-contained <code>.tapp</code> file (only 2-10 KB). Easily installable from any external source (SD card, Telegram, browser, local files) in one tap via standard Android MIME handlers.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>⚙️ Bytecode Compilation (.tbc)</h4>
+            <p>
+              Compile human-readable source code into a binary opcode stream executed by the Tdroid Virtual Machine. Source code is completely stripped, protecting intellectual property and accelerating execution.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Built-in Obfuscation & Encryption</h4>
+            <p>
+              Automated comment stripping, AST minification, and cryptographic XOR string encryption handled transparently via the <code>TD.xdec()</code> runtime helper.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>💎 Digital Signatures & Author Licensing</h4>
+            <p>
+              Developers can cryptographically sign compiled packages, locking execution to a customer's specific Telegram ID or license key using SHA-256 verification.
+            </p>
+          </div>
+        </div>
+
+        <h3>Comprehensive Hardware & Object API Reference</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>API Method</th>
+              <th>Description & Return Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Speech Synthesis (TTS)</strong></td>
+              <td><code>TD.speak("text")</code></td>
+              <td>Speaks text aloud using Android's native text-to-speech engine.</td>
+            </tr>
+            <tr>
+              <td><strong>Geolocation</strong></td>
+              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
+              <td>Returns current coordinates as <code>"lat,lon"</code> (GPS / Network).</td>
+            </tr>
+            <tr>
+              <td><strong>Clipboard</strong></td>
+              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
+              <td>Reads and writes string data to the Android system clipboard.</td>
+            </tr>
+            <tr>
+              <td><strong>Sensors</strong></td>
+              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
+              <td>Reads raw telemetry from physical hardware sensors.</td>
+            </tr>
+            <tr>
+              <td><strong>Battery & Power</strong></td>
+              <td><code>TD.battery()</code></td>
+              <td>Returns remaining battery percentage (0-100).</td>
+            </tr>
+            <tr>
+              <td><strong>Flashlight</strong></td>
+              <td><code>TD.torch(true | false)</code></td>
+              <td>Toggles the camera LED flashlight on or off.</td>
+            </tr>
+            <tr>
+              <td><strong>Haptic Feedback</strong></td>
+              <td><code>TD.vibrate(ms)</code></td>
+              <td>Triggers a physical vibration pulse of specified duration.</td>
+            </tr>
+            <tr>
+              <td><strong>HTTP Networking</strong></td>
+              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
+              <td>Executes HTTP GET and POST requests (REST APIs, telemetry, IoT).</td>
+            </tr>
+            <tr>
+              <td><strong>Raw UDP Sockets</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Sends UDP datagrams to robotics, ESP32, Arduino, or remote hosts.</td>
+            </tr>
+            <tr>
+              <td><strong>Network Ping</strong></td>
+              <td><code>TD.ping(host)</code></td>
+              <td>Checks remote host reachability. Returns <code>true/false</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>SQLite Database</strong></td>
+              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
+              <td>Executes queries against an embedded relational SQL database.</td>
+            </tr>
+            <tr>
+              <td><strong>TUI Graphics Engine</strong></td>
+              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
+              <td>Renders retro text-mode windows, interactive buttons, and progress meters.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Hands-on TDScript Code Examples</h3>
+
+        <h4>Example 1: IoT Telemetry, GPS & Voice Announce</h4>
+        <pre><code>// Fetch GPS coordinates and speak location
+var coords = TD.gps();
+TD.speak("Location locked: " + coords);
+
+// Post JSON payload to backend server
+var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
+var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
+
+TD.vibrate(100);
+print("Server response: " + res);</code></pre>
+
+        <h4>Example 2: UDP Robotics & Microcontroller Control (ESP32)</h4>
+        <pre><code>// Send motion control datagram to robot over UDP
+var esp_ip = "192.168.4.1";
+var port = 8888;
+
+TD.udp(esp_ip, port, "CMD_SPEED_100");
+TD.vibrate(50);
+print("UDP packet dispatched successfully");</code></pre>
+
+        <h4>Example 3: Interactive TUI Database Application</h4>
+        <pre><code>// Create table and insert persistent record
+TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
+TD.dbExec("INSERT INTO inventory (item) VALUES ('ESP32 Microcontroller');");
+
+// Render Turbo Vision style window
+TD.window(2, 2, 38, 10, "CYAN", "SQLITE INVENTORY SYSTEM");
+var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
+TD.print(4, 5, "Record: " + data, "GREEN");
+TD.button("b1", 4, 7, "[ ↻ SYNC DATA ]", "TD.beep(); TD.toast('Synchronized')");</code></pre>
+      </section>
+
+      <!-- 5. SEVENS & NINES CARD GAME -->
+      <section class="card" id="sevens">
+        <h2>🃏 Sevens &amp; Nines Card Game (Семёрки и Девятки) <span class="badge badge-amber">Desktop & Android</span></h2>
+        <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
+          <img src="img/sevens-icon.png" alt="Sevens & Nines Game Icon" style="width: 96px; height: 96px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
+          <div style="flex: 1; min-width: 250px;">
+            <p>
+              Cross-platform card simulator and competitive strategy game supporting standard traditional international variations:
+            </p>
+            <ul>
+              <li><strong>Russian "Nine" (Девятка)</strong> — traditional 36-card deck with bi-directional sequence building from nines.</li>
+              <li><strong>International "Sevens" (Parliament / Fan Tan)</strong> — full 52-card deck with tactical turn-blocking gameplay.</li>
+              <li><strong>Fan Tan (Card Dominoes)</strong> — competitive mode featuring pots, chips, and penalties for passing turns.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Game Engine & Architectural Features</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🤖 Advanced Artificial Intelligence</h4>
+            <p>Strategic bots that analyze opponents' potential card holdings and deliberately hold key cards to control tempo.</p>
+          </div>
+          <div class="feature-box">
+            <h4>🎴 Custom Visual Styling</h4>
+            <p>8 bundled card back themes plus custom image import, with multiple tabletop baize hues (Emerald, Sapphire, Bordeaux, Slate).</p>
+          </div>
+          <div class="feature-box">
+            <h4>🔊 Procedural Audio Engine</h4>
+            <p>Crisp audio rendering card flips, chip clicks, and victory fanfare with zero bloat to download size.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. IMPRESSUM (LEGAL) -->
+      <section class="card" id="impressum">
+        <h2>⚖️ Legal Notice (Impressum)</h2>
+        <p><strong>Information pursuant to § 5 DDG (German Digital Services Act):</strong><br>
+        Anton Mykhailov<br>
+        Software- & Spieleentwicklung<br>
+        Rudolf-Diesel-Straße 21b<br>
+        38820 Halberstadt, Germany</p>
+
+        <br>
+        <p><strong>Contact:</strong><br>
+        Email: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a><br>
+        Phone: +49 172 9735840</p>
+
+        <br>
+        <p><strong>VAT (Umsatzsteuer):</strong><br>
+        According to § 19 UStG (German VAT Act), no value-added tax is charged or stated (Small business status / Kleinunternehmerstatus).</p>
+
+        <br>
+        <p><strong>Responsible for editorial content pursuant to § 18 Abs. 2 MStV:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, Germany</p>
+      </section>
+
+      <!-- 7. PRIVACY POLICY -->
+      <section class="card" id="datenschutz">
+        <h2>🔒 Privacy Policy (Datenschutzerklärung)</h2>
+        <p><strong>1. Data Controller:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, Germany, Email: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a></p>
+
+        <br>
+        <p><strong>2. Mobile Applications & Games (Tdroid Free, Tdroid Pro, Sevens and Nines):</strong></p>
+        <ul>
+          <li><strong>No User Account / Registration:</strong> Our software products and games do not require account registration or the submission of personal identifiers.</li>
+          <li><strong>100% On-Device Data Storage:</strong> User notes, TDScript code, SQLite database records, launcher layouts, and game progress are stored strictly on your local hardware.</li>
+          <li><strong>Zero Tracking & Zero Advertising:</strong> We do not deploy third-party advertising SDKs, behavioral analytics trackers, or telemetry brokers.</li>
+          <li><strong>User Rights under GDPR:</strong> Under the European General Data Protection Regulation (GDPR), you retain full sovereignty over your data, including the right to inspect or erase local application storage at any time.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. All rights reserved. | Halberstadt, Germany
+    </div>
+  </div>
+
+  <!-- ==================== DE VIEW ==================== -->
+  <div id="view-de" class="lang-view">
+    <header>
+      <h1>Ingenieur-TUI-Systeme, Programmiersprachen & Spiele</h1>
+      <p>Offizielles Entwicklerportal: Tdroid TUI-Betriebsumgebung & Launcher, integrierte TDScript-Sprache, .tbc-Bytecode-Compiler und Strategiespiele.</p>
+      <nav class="nav-bar">
+        <a href="#about">👨‍💻 Über den Entwickler</a>
+        <a href="#tdroid-free">📱 TextDroid Free</a>
+        <a href="#tdroid">📟 Tdroid Pro OS</a>
+        <a href="#tdscript">⚡ TDScript-Sprache</a>
+        <a href="#sevens">🃏 Siebener & Neuner</a>
+        <a href="#impressum">⚖️ Impressum</a>
+        <a href="#datenschutz">🔒 Datenschutz</a>
+      </nav>
+    </header>
+
+    <div class="container">
+
+      <!-- 1. ÜBER DEN ENTWICKLER -->
+      <section class="card" id="about">
+        <h2>👨‍💻 Über den Autor & Entwickler</h2>
+        <p>
+          Herzlich willkommen! Mein Name ist Anton Mykhailov. Meine Ingenieurphilosophie basiert auf extremer Ressourceneffizienz: kein GPU-Overhead (0 KB VRAM), maximale Akkulaufzeit, klare Softwarearchitektur und direkte Hardwarekontrolle ohne überladene Frameworks.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🔬 Kernkompetenzen</h4>
+            <p>
+              Android-Systemarchitektur (Kotlin/Java), Entwicklung virtueller Maschinen und Skriptsprachen (AST & Bytecode-Engines), textbasierte TUI-Oberflächen (Turbo Vision / DOS / VT100), Netzwerkprotokolle (UDP, TCP, Modbus, LoRa) sowie kompetitive Spiel-KI.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🌱 Datenschutzprinzip</h4>
+            <p>
+              100% On-Device-Datenverarbeitung. Keine Telemetrie, keine Hintergrund-Tracker und keine Werbe-SDKs. Alle Berechnungen, Skripte und Datenbanken verbleiben ausschließlich auf Ihrem physischen Gerät.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. TEXTDROID FREE -->
+      <section class="card" id="tdroid-free">
+        <h2>📱 TextDroid Free — Schlanker Retro-Launcher <span class="badge badge-green">Kostenlos • 3.1 MB</span></h2>
+        <p>
+          TextDroid Free ist eine vollkommen kostenlose, auf das Wesentliche reduzierte Edition unseres textbasierten Launchers für den Alltag. Entwickelt, um digitale Reizüberflutung zu minimieren, den Akku zu schonen und sofortige Reaktionszeiten ohne Werbung zu liefern.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>⚡ Enthalten in der Free-Edition</h4>
+            <ul>
+              <li><strong>Minimalistische Benutzeroberfläche</strong>: Null VRAM-Belastung (0 KB GPU-Speicher).</li>
+              <li><strong>Sofortiger App-Start</strong>: Blitzschnelle Suche und alphabetische Anwendungsliste.</li>
+              <li><strong>Pseudografik- & Unicode-Symbole</strong>: Übersichtliches Design ohne grafischen Ballast.</li>
+              <li><strong>Wesentliche Widgets</strong>: Präzise Uhr, Akkuanzeige in Prozent, Schnellnotizen.</li>
+              <li><strong>100% Privatsphäre</strong>: Keine Analysen, keine Werbung, keine Hintergrundverbindungen.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Exklusive Funktionen in Tdroid Pro</h4>
+            <p style="margin-bottom:0.6rem; color:var(--text-muted);">Funktionen exklusiv in der kommerziellen Pro-Edition:</p>
+            <ul>
+              <li><strong>Integrierte TDScript Studio IDE</strong>: Eigene Mini-Apps direkt auf dem Smartphone programmieren und ausführen.</li>
+              <li><strong>Voller Zugriff auf Android-Hardware</strong>: GPS, Sprachausgabe (TTS), Kamera-Blitzlicht, Sensoren, Vibration.</li>
+              <li><strong>Relationale SQLite-Datenbank</strong>: Lokale strukturierte Datenspeicherung mit nativen SQL-Abfragen.</li>
+              <li><strong>SecOps-Netzwerkwerkzeuge</strong>: Portscanner, Ping-Dienstprogramme, WLAN-Auditing.</li>
+              <li><strong>Industrieprotokolle</strong>: SCADA Modbus/TCP, Cisco-Netzwerksockets, direkte UDP-Datagramme.</li>
+              <li><strong>Erweiterte IDE-Tools</strong>: .tbc-Bytecode-Kompilierung, Code-Verschleierung und Autoren-Lizenzierung.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. TDROID PRO -->
+      <section class="card" id="tdroid">
+        <h2>📟 Tdroid Pro — Textbasierte TUI OS & Launcher für Android <span class="badge badge-green">v1.0.3 • 3.1 MB</span></h2>
+        <p>
+          Tdroid Pro ist eine textbasierte Konsolen-Betriebsumgebung und Launcher für Android im Stil von Turbo Vision / DOS / VT100. Das Paket wiegt lediglich 3.1 MB und verbraucht nur 9-15 MB RAM (15- bis 20-mal weniger als herkömmliche Launcher). Es verwandelt Smartphones in hocheffiziente Arbeitsstationen für Entwickler, Administratoren und Technik-Enthusiasten.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🎨 Aufgeräumte UI & Personalisierung</h4>
+            <p>
+              Saubere Anwendungsliste ohne störende Präfixe. Zuweisung von über 60 Pseudografik- und Unicode-Icons, anpassbares 3x3 Desktop-Raster, Schnellstart-Dock und skalierbare Symbole (0.85x - 1.5x).
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🛠️ Werkzeuge für Ingenieure</h4>
+            <p>
+              Zweispaltiger VFS Dateimanager, Zwischenablage-Verlauf mit Schnellzugriff, SecOps-Netzwerktools (Ping, Port-Scan, SSL, Wi-Fi), KI-Terminal, TXT-Reader und Display-Kalibrierung für runde Smartwatches.
+            </p>
+          </div>
+        </div>
+
+        <h3>Screenshots der Tdroid Pro Oberfläche</h3>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_home.png" alt="Tdroid Pro Hauptbildschirm">
+            <span>Hauptbildschirm (Turbo Vision)</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_desktop_editor.png" alt="Desktop-Konfigurator">
+            <span>Desktop-Konfigurator & Menü</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_apps.png" alt="Saubere App-Übersicht">
+            <span>Aufgeräumte App-Liste [⚙]</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_clipboard.png" alt="Zwischenablage-Manager">
+            <span>Zwischenablage-Verlauf & Manager</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. TDSCRIPT, BYTECODE & SCHUTZ -->
+      <section class="card" id="tdscript">
+        <h2>⚡ TDScript-Spezifikation, Bytecode (.tbc) & Quellcode-Schutz <span class="badge">SDK 2026</span></h2>
+        <p>
+          TDScript ist eine eingebettete eigenständige Programmiersprache und virtuelle Maschine in Tdroid. Sie ermöglicht die Entwicklung von Werkzeugen, Robotik-Steuerungen, Netzwerk-Audits und interaktiven TUI-Anwendungen direkt auf dem Android-Gerät ohne Desktop-Entwicklungsumgebung.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>📦 Distribution (.tapp) & Installation</h4>
+            <p>
+              Programme werden in einer einzigen <code>.tapp</code>-Datei (nur 2-10 KB) gebündelt. Installation aus externen Quellen (SD-Karte, Telegram, Browser, Dateien) mit einem Klick über Standard-Android-MIME-Handler.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>⚙️ Bytecode-Kompilierung (.tbc)</h4>
+            <p>
+              Kompilierung in einen kompakten binären Opcode-Stream der Tdroid Virtual Machine. Der Quelltext wird vollständig entfernt, was maximale Geschwindigkeit sichert und das geistige Eigentum schützt.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Integrierte Verschleierung & Verschlüsselung</h4>
+            <p>
+              Automatisches Entfernen von Kommentaren, Syntax-Minifizierung und kryptografische XOR-Verschlüsselung aller Zeichenketten mit Laufzeit-Unterstützung durch <code>TD.xdec()</code>.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>💎 Digitale Autorensignatur & Lizenzierung</h4>
+            <p>
+              Entwickler können Pakete digital signieren und die Programmausführung an die Telegram-ID des Käufers oder einen Einmal-Lizenzschlüssel mit SHA-256-Verifikation binden.
+            </p>
+          </div>
+        </div>
+
+        <h3>Vollständige Hardware- & API-Referenz</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Kategorie</th>
+              <th>API-Methode</th>
+              <th>Beschreibung & Rückgabewert</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Sprachsynthese (TTS)</strong></td>
+              <td><code>TD.speak("text")</code></td>
+              <td>Sprachausgabe über die integrierte Android Text-to-Speech-Engine.</td>
+            </tr>
+            <tr>
+              <td><strong>Geolokalisierung</strong></td>
+              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
+              <td>Liefert aktuelle Koordinaten als <code>"lat,lon"</code> (GPS / Mobilfunknetz).</td>
+            </tr>
+            <tr>
+              <td><strong>Zwischenablage</strong></td>
+              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
+              <td>Lesen und Schreiben von Text in die System-Zwischenablage von Android.</td>
+            </tr>
+            <tr>
+              <td><strong>Sensoren</strong></td>
+              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
+              <td>Rohdaten physischer Hardware-Sensoren (Beschleunigung, Helligkeit, Temperatur).</td>
+            </tr>
+            <tr>
+              <td><strong>Batterie & Energie</strong></td>
+              <td><code>TD.battery()</code></td>
+              <td>Liefert den aktuellen Batteriestand in Prozent (0-100).</td>
+            </tr>
+            <tr>
+              <td><strong>Taschenlampe</strong></td>
+              <td><code>TD.torch(true | false)</code></td>
+              <td>Schaltet das LED-Kamerablitzlicht an oder aus.</td>
+            </tr>
+            <tr>
+              <td><strong>Vibrationsmotor</strong></td>
+              <td><code>TD.vibrate(ms)</code></td>
+              <td>Erzeugt einen haptischen Impuls in vorgegebener Dauer (Millisekunden).</td>
+            </tr>
+            <tr>
+              <td><strong>HTTP-Netzwerk</strong></td>
+              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
+              <td>Führt HTTP GET- und POST-Anfragen aus (REST-APIs, Telemetrie, IoT).</td>
+            </tr>
+            <tr>
+              <td><strong>UDP-Sockets</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Sendet UDP-Datagramme an Roboter, ESP32, Arduino oder Zielrechner.</td>
+            </tr>
+            <tr>
+              <td><strong>Netzwerk-Ping</strong></td>
+              <td><code>TD.ping(host)</code></td>
+              <td>Prüft die Erreichbarkeit eines Zielrechners. Gibt <code>true/false</code> zurück.</td>
+            </tr>
+            <tr>
+              <td><strong>SQLite-Datenbank</strong></td>
+              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
+              <td>Führt SQL-Befehle auf einer lokalen relationalen SQLite-Datenbank aus.</td>
+            </tr>
+            <tr>
+              <td><strong>TUI-Grafikengine</strong></td>
+              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
+              <td>Erstellt textbasierte Fenster, anklickbare Schaltflächen und Fortschrittsbalken.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Praktische TDScript-Codebeispiele</h3>
+
+        <h4>Beispiel 1: IoT-Telemetrie, GPS & Sprachbestätigung</h4>
+        <pre><code>// GPS-Koordinaten abfragen und vorlesen
+var coords = TD.gps();
+TD.speak("Position ermittelt: " + coords);
+
+// JSON-Datensatz an Server senden
+var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
+var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
+
+TD.vibrate(100);
+print("Serverstatus: " + res);</code></pre>
+
+        <h4>Beispiel 2: Robotersteuerung per UDP (ESP32 / Mikrocontroller)</h4>
+        <pre><code>// Steuerbefehl per UDP an Roboter-Controller senden
+var esp_ip = "192.168.4.1";
+var port = 8888;
+
+TD.udp(esp_ip, port, "CMD_SPEED_100");
+TD.vibrate(50);
+print("UDP-Befehl erfolgreich übertragen");</code></pre>
+
+        <h4>Beispiel 3: Interaktive TUI-Datenbankanwendung (SQLite)</h4>
+        <pre><code>// Tabelle anlegen und Datensatz einfügen
+TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
+TD.dbExec("INSERT INTO inventory (item) VALUES ('ESP32 Mikrocontroller');");
+
+// Turbo Vision Fenster zeichnen
+TD.window(2, 2, 38, 10, "CYAN", "SQLITE LAGERVERWALTUNG");
+var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
+TD.print(4, 5, "Eintrag: " + data, "GREEN");
+TD.button("b1", 4, 7, "[ ↻ DATEN ABGLEICHEN ]", "TD.beep(); TD.toast('Synchronisiert')");</code></pre>
+      </section>
+
+      <!-- 5. KARTENSPIEL SIEBENER & NEUNER -->
+      <section class="card" id="sevens">
+        <h2>🃏 Kartenspiel «Siebener &amp; Neuner» (Sevens &amp; Nines) <span class="badge badge-amber">Desktop & Android</span></h2>
+        <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
+          <img src="img/sevens-icon.png" alt="Icon Kartenspiel Siebener & Neuner" style="width: 96px; height: 96px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
+          <div style="flex: 1; min-width: 250px;">
+            <p>
+              Plattformübergreifender Kartenspiel-Simulator und Strategiespiel mit Unterstützung klassischer internationaler Spielregeln:
+            </p>
+            <ul>
+              <li><strong>Russische «Neun» (Девятка)</strong> — Traditionelles 36-Karten-Deck mit sequenziellem Anlegen ausgehend von den Neunern.</li>
+              <li><strong>Internationale «Siebener» (Parliament / Fan Tan)</strong> — Vollständiges 52-Karten-Deck mit taktischem Blockieren gegnerischer Züge.</li>
+              <li><strong>Fan Tan (Card Dominoes)</strong> — Wettkampfmodus mit Spieltopf, Chips und Strafen für das Aussetzen.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Besonderheiten & Spiel-Engine</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🤖 Hochentwickelte KI-Gegner</h4>
+            <p>Strategische Bots mit Wahrscheinlichkeitsanalyse der Handkarten zur gezielten Kontrolle des Spielflusses.</p>
+          </div>
+          <div class="feature-box">
+            <h4>🎴 Individuelles Kartendesign</h4>
+            <p>8 integrierte Kartenrückseiten plus Import eigener Motive und wählbare Tischfilzfarben (Smaragd, Saphir, Bordeaux, Schiefer).</p>
+          </div>
+          <div class="feature-box">
+            <h4>🔊 Prozedurales Audiosystem</h4>
+            <p>Realistischer Klang von Kartenmischen, Chipstapeln und Siegesfanfaren bei minimalem Speicherbedarf.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. IMPRESSUM -->
+      <section class="card" id="impressum">
+        <h2>⚖️ Impressum</h2>
+        <p><strong>Angaben gemäß § 5 DDG:</strong><br>
+        Anton Mykhailov<br>
+        Software- & Spieleentwicklung<br>
+        Rudolf-Diesel-Straße 21b<br>
+        38820 Halberstadt, Deutschland</p>
+
+        <br>
+        <p><strong>Kontakt:</strong><br>
+        E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a><br>
+        Telefon: +49 172 9735840</p>
+
+        <br>
+        <p><strong>Umsatzsteuer:</strong><br>
+        Gemäß § 19 UStG wird keine Umsatzsteuer erhoben und ausgewiesen (Kleinunternehmerstatus).</p>
+
+        <br>
+        <p><strong>Verantwortlich für den redaktionellen Inhalt nach § 18 Abs. 2 MStV:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, Deutschland</p>
+      </section>
+
+      <!-- 7. DATENSCHUTZERKLÄRUNG -->
+      <section class="card" id="datenschutz">
+        <h2>🔒 Datenschutzerklärung (Privacy Policy)</h2>
+        <p><strong>1. Verantwortlicher:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a></p>
+
+        <br>
+        <p><strong>2. Mobile Anwendungen und Spiele (Tdroid Free, Tdroid Pro, Sevens and Nines):</strong></p>
+        <ul>
+          <li><strong>Keine Benutzerregistrierung:</strong> Unsere Softwareanwendungen und Spiele erfordern kein Benutzerkonto und keine Erfassung persönlicher Identifikationsdaten.</li>
+          <li><strong>100% Lokale Datenspeicherung (On-Device Privacy):</strong> Notizen, TDScript-Quellcodes, SQLite-Tabellen, Launcher-Layouts und Spielstände werden ausschließlich lokal auf Ihrem Endgerät gespeichert.</li>
+          <li><strong>Kein Tracking und keine Werbung:</strong> Es findet keinerlei Tracking des Nutzerverhaltens, kein Einsatz externer Werbenetzwerke und kein Weiterverkauf von Telemetriedaten statt.</li>
+          <li><strong>Rechte der betroffenen Personen:</strong> Gemäß der DSGVO besitzen Sie jederzeit die volle Kontrolle über Ihre Daten sowie das Recht auf lokale Löschung.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Alle Rechte vorbehalten. | Halberstadt, Deutschland
+    </div>
+  </div>
+
+  <!-- ==================== UK VIEW ==================== -->
+  <div id="view-uk" class="lang-view">
+    <header>
+      <h1>Інженерні TUI-системи, Мови програмування & Ігри</h1>
+      <p>Офіційний портал розробника: текстове операційне середовище Tdroid, вбудована мова TDScript, компілятор байткоду .tbc та настільні ігри.</p>
+      <nav class="nav-bar">
+        <a href="#about">👨‍💻 Про розробника</a>
+        <a href="#tdroid-free">📱 TextDroid Free</a>
+        <a href="#tdroid">📟 Tdroid Pro OS</a>
+        <a href="#tdscript">⚡ Мова TDScript</a>
+        <a href="#sevens">🃏 Сімки та Дев'ятки</a>
+        <a href="#impressum">⚖️ Impressum</a>
+        <a href="#datenschutz">🔒 Конфіденційність</a>
+      </nav>
+    </header>
+
+    <div class="container">
+
+      <!-- 1. ПРО РОЗРОБНИКА -->
+      <section class="card" id="about">
+        <h2>👨‍💻 Про автора та розробника</h2>
+        <p>
+          Вітаю! Мене звати Антон Михайлов. Моя інженерна філософія — створення програмних систем з екстремальною оптимізацією: нульове навантаження на відеопам'ять (0 КБ VRAM), максимальна автономність пристроїв, чиста архітектура та повний контроль над апаратною частиною без зайвих важких фреймворків.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🔬 Спеціалізація</h4>
+            <p>
+              Архітектура систем Android (Kotlin/Java), проектування віртуальних машин та вбудованих мов програмування (AST та байткод), TUI інтерфейси (псевдографіка Turbo Vision / DOS / VT100), мережеві протоколи (UDP, TCP, Modbus, LoRa) та алгоритми соревновального ігрового ШІ.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🌱 Принципи приватності</h4>
+            <p>
+              100% обробка даних на пристрої (On-Device). Жодної телеметрії, жодних прихованих трекерів або рекламних SDK. Усі обчислення, призначені для користувача скрипти та бази даних зберігаються виключно на вашому телефоні.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. TEXTDROID FREE -->
+      <section class="card" id="tdroid-free">
+        <h2>📱 TextDroid Free — Легковажний ретро-лаунчер <span class="badge badge-green">Безкоштовно • 3.1 МБ</span></h2>
+        <p>
+          TextDroid Free — це повністю безкоштовна, не перевантажена зайвим редакція текстового лаунчера для щоденного використання. Вона створена без реклами та зайвого фонового шуму для максимальної економії заряду батареї смартфона та миттєвого доступу до додатків.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>⚡ Доступно у безкоштовній версії</h4>
+            <ul>
+              <li><strong>Мінімалістичний текстовий інтерфейс</strong>: нульове навантаження на графічний чіп (0 КБ VRAM).</li>
+              <li><strong>Миттєвий запуск програм</strong>: швидкий пошук та алфавітний каталог додатків.</li>
+              <li><strong>Підтримка псевдографіки та іконок</strong>: акуратне оформлення без графічного сміття.</li>
+              <li><strong>Віджети першої необхідності</strong>: точний годинник, монітор заряду батареї, швидкі нотатки.</li>
+              <li><strong>100% приватність</strong>: відсутність аналітики, реклами та мережевих фонових запитів.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Ексклюзивні можливості Tdroid Pro</h4>
+            <p style="margin-bottom:0.6rem; color:var(--text-muted);">Можливості, доступні лише у комерційній редакції Pro:</p>
+            <ul>
+              <li><strong>Вбудоване середовище TDScript Studio</strong>: створення та виконання власних міні-програм прямо на телефоні.</li>
+              <li><strong>Повний доступ до датчиків та апаратури Android</strong>: GPS, синтез мови (TTS), ліхтарик, сенсори, вібрація.</li>
+              <li><strong>Реляційна база даних SQLite</strong>: структуроване зберігання локальних таблиць з SQL-запитами.</li>
+              <li><strong>Інструменти безпеки SecOps</strong>: сканер відкритих портів, мережевий ping, аудит Wi-Fi.</li>
+              <li><strong>Промислові протоколи</strong>: SCADA Modbus/TCP, сокети Cisco, прямі датаграми UDP.</li>
+              <li><strong>Розширена IDE TDroid Studio</strong>: компіляція байткоду .tbc, обфускатор коду та комерційне ліцензування.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. TDROID PRO -->
+      <section class="card" id="tdroid">
+        <h2>📟 Tdroid Pro — Текстове TUI середовище та Лаунчер для Android <span class="badge badge-green">v1.0.3 • 3.1 МБ</span></h2>
+        <p>
+          Tdroid Pro — це текстова консольна операційна система та лаунчер для Android у стилі Turbo Vision / DOS / VT100. Додаток важить лише 3.1 МБ та споживає рекордні 9-15 МБ оперативної пам'яті (у 15-20 разів менше стандартних графічних оболонок). Перетворює смартфон на швидкий робочий термінал інженера, системного адміністратора чи ентузіаста.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🎨 Чистий інтерфейс та Персоналізація</h4>
+            <p>
+              Зручний список додатків без громіздких приставок. Призначення будь-яких псевдографічних символів (60+ пресетів), конфігурація робочої сітки 3x3, швидкого доку та масштабу іконок (0.85x - 1.5x).
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🛠️ Набір інструментів інженера</h4>
+            <p>
+              Двопанельний VFS Commander, менеджер історії буфера обміну, мережеві утиліти SecOps (Ping, Port Scan, SSL, Wi-Fi), вбудований ШІ-термінал, читач TXT та калібрування круглих екранів розумних годинників.
+            </p>
+          </div>
+        </div>
+
+        <h3>Скріншоти інтерфейсу Tdroid Pro</h3>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_home.png" alt="Головний екран Tdroid Pro">
+            <span>Головний екран (Turbo Vision)</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_desktop_editor.png" alt="Конструктор робочого столу">
+            <span>Конструктор робочого столу & Меню</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_apps.png" alt="Каталог додатків без приставок">
+            <span>Чистий каталог додатків [⚙]</span>
+          </div>
+          <div class="gallery-item">
+            <img src="screenshots/tdroid_clipboard.png" alt="Менеджер буфера обміну">
+            <span>Менеджер історії буфера обміну</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. TDSCRIPT, БАЙТКОД ТА ЗАХИСТ КОДУ -->
+      <section class="card" id="tdscript">
+        <h2>⚡ Специфікація мови TDScript, Байткод (.tbc) та Захист коду <span class="badge">SDK 2026</span></h2>
+        <p>
+          TDScript — вбудована автономна мова програмування та віртуальна машина в Tdroid. Дозволяє створювати утиліти, робототехніку, мережеві інструменти та TUI-додатки безпосередньо на мобільному пристрої без потреби встановлювати середовище розробки на ПК.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>📦 Розповсюдження (.tapp) та Встановлення</h4>
+            <p>
+              Програми запаковуються в єдиний компактний файл <code>.tapp</code> розміром лише 2-10 КБ. Підтримується встановлення з зовнішніх джерел (SD-картка, Telegram, браузер, файли) в один дотик.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>⚙️ Байткод-компіляція (.tbc)</h4>
+            <p>
+              Компіляція вихідного коду в бінарний потік опкодів віртуальної машини Tdroid. Вихідний текст повністю вилучається, що прискорює виконання та надійно захищає авторський код від копіювання.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🔒 Вбудована обфускація та шифрування</h4>
+            <p>
+              Автоматичне видалення коментарів, форматування коду та криптографічне XOR-шифрування рядкових констант через <code>TD.xdec()</code>.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>💎 Цифровий підпис авторів та Ліцензування</h4>
+            <p>
+              Розробники можуть підписувати свої пакети цифровим ключем, прив'язуючи право запуску до Telegram ID покупця або разового ліцензійного ключа з перевіркою хешу SHA-256.
+            </p>
+          </div>
+        </div>
+
+        <h3>Повний довідник апаратних об'єктів та функцій (Android Hardware API)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Категорія</th>
+              <th>Метод API</th>
+              <th>Опис та значення, що повертається</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Синтез мови (TTS)</strong></td>
+              <td><code>TD.speak("текст")</code></td>
+              <td>Озвучування тексту через системний синтезатор мови Android.</td>
+            </tr>
+            <tr>
+              <td><strong>Геолокація</strong></td>
+              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
+              <td>Повертає координати пристрою у форматі <code>"lat,lon"</code> (GPS / Мережа).</td>
+            </tr>
+            <tr>
+              <td><strong>Буфер обміну</strong></td>
+              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
+              <td>Читання та запис текстових даних у системний буфер обміну.</td>
+            </tr>
+            <tr>
+              <td><strong>Датчики</strong></td>
+              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
+              <td>Показники фізичних сенсорів (акселерометр, рівень світла, температура).</td>
+            </tr>
+            <tr>
+              <td><strong>Батарея та Живлення</strong></td>
+              <td><code>TD.battery()</code></td>
+              <td>Рівень заряду акумулятора у відсотках (0-100).</td>
+            </tr>
+            <tr>
+              <td><strong>Ліхтарик</strong></td>
+              <td><code>TD.torch(true | false)</code></td>
+              <td>Увімкнення або вимкнення світлодіодного спалаху камери.</td>
+            </tr>
+            <tr>
+              <td><strong>Вібрація</strong></td>
+              <td><code>TD.vibrate(ms)</code></td>
+              <td>Тактильний імпульс заданої тривалості (в мілісекундах).</td>
+            </tr>
+            <tr>
+              <td><strong>HTTP Запити</strong></td>
+              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
+              <td>Мережеві запити HTTP GET та POST (REST API, телеметрія, IoT).</td>
+            </tr>
+            <tr>
+              <td><strong>Мережевий UDP</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Відправка UDP датаграм (робототехніка, ESP32, Arduino, контролери).</td>
+            </tr>
+            <tr>
+              <td><strong>Мережевий Ping</strong></td>
+              <td><code>TD.ping(host)</code></td>
+              <td>Перевірка доступності віддаленого вузла. Повертає <code>true/false</code>.</td>
+            </tr>
+            <tr>
+              <td><strong>База даних SQLite</strong></td>
+              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
+              <td>Зберігання структурованих записів у локальній реляційній базі SQL.</td>
+            </tr>
+            <tr>
+              <td><strong>Псевдографіка TUI</strong></td>
+              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
+              <td>Створення діалогових вікон, кнопок та індикаторів виконання.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Практичні приклади коду TDScript</h3>
+
+        <h4>Приклад 1: IoT телеметрія, геолокація та голосове сповіщення</h4>
+        <pre><code>// Отримання координат GPS та озвучення
+var coords = TD.gps();
+TD.speak("Координати зафіксовано: " + coords);
+
+// Відправка JSON пакету на сервер
+var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
+var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
+
+TD.vibrate(100);
+print("Відповідь сервера: " + res);</code></pre>
+
+        <h4>Приклад 2: Керування мікроконтролером через UDP (ESP32 / Робототехніка)</h4>
+        <pre><code>// Передача командного пакету моторам робота
+var esp_ip = "192.168.4.1";
+var port = 8888;
+
+TD.udp(esp_ip, port, "CMD_SPEED_100");
+TD.vibrate(50);
+print("Пакет успішно надіслано по UDP");</code></pre>
+
+        <h4>Приклад 3: Інтерактивна база даних SQLite</h4>
+        <pre><code>// Створення таблиці та збереження запису
+TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
+TD.dbExec("INSERT INTO inventory (item) VALUES ('Контролер ESP32');");
+
+// Малювання вікна Turbo Vision
+TD.window(2, 2, 38, 10, "CYAN", "СКЛАДСЬКИЙ ОБЛІК SQLITE");
+var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
+TD.print(4, 5, "Запис: " + data, "GREEN");
+TD.button("b1", 4, 7, "[ ↻ СИНХРОНІЗАЦІЯ ]", "TD.beep(); TD.toast('Синхронізовано')");</code></pre>
+      </section>
+
+      <!-- 5. КАРТКОВА ГРА 7 ТА 9 -->
+      <section class="card" id="sevens">
+        <h2>🃏 Карткова гра «Сімки та Дев'ятки» (Sevens &amp; Nines) <span class="badge badge-amber">Desktop & Android</span></h2>
+        <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
+          <img src="img/sevens-icon.png" alt="Іконка гри Сімки та Дев'ятки" style="width: 96px; height: 96px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
+          <div style="flex: 1; min-width: 250px;">
+            <p>
+              Кросплатформний картковий симулятор та соревновальна стратегія з підтримкою класичних світових правил:
+            </p>
+            <ul>
+              <li><strong>Українська / Східноєвропейська «Дев'ятка»</strong> — традиційна колода з 36 карт з розкладкою від дев'яток в обидва боки.</li>
+              <li><strong>Міжнародні «Сімки» (Parliament / Fan Tan)</strong> — повна колода з 52 карт, динамічна тактика блокування ходів суперників.</li>
+              <li><strong>Fan Tan (Card Dominoes)</strong> — змагальний режим з банком, фішками та штрафами за пропуск ходу.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Особливості та гральний рушій</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🤖 Просунутий штучний інтелект</h4>
+            <p>Інтелектуальні боти з аналізом карт суперників та стратегічним утриманням ходів для перехоплення лідерства.</p>
+          </div>
+          <div class="feature-box">
+            <h4>🎴 Індивідуальне налаштування</h4>
+            <p>8 вбудованих дизайнерських сорочок карт + імпорт власних малюнків, вибір кольору сукна (Смарагд, Сапфір, Бордо, Графіт).</p>
+          </div>
+          <div class="feature-box">
+            <h4>🔊 Процедурний звук</h4>
+            <p>Аудіорушій з реалістичними звуками роздачі карт, стукоту фішок та переможних фанфар без збільшення ваги гри.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. ЮРИДИЧНА ІНФОРМАЦІЯ (IMPRESSUM) -->
+      <section class="card" id="impressum">
+        <h2>⚖️ Impressum (Юридична інформація)</h2>
+        <p><strong>Відомості згідно з § 5 DDG (Законодавство Німеччини):</strong><br>
+        Anton Mykhailov<br>
+        Software- & Spieleentwicklung<br>
+        Rudolf-Diesel-Straße 21b<br>
+        38820 Halberstadt, Deutschland (Німеччина)</p>
+
+        <br>
+        <p><strong>Контакти:</strong><br>
+        E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a><br>
+        Телефон: +49 172 9735840</p>
+
+        <br>
+        <p><strong>Оподаткування (Umsatzsteuer):</strong><br>
+        Згідно з § 19 UStG податок на додану вартість не стягується та не нараховується (Статус малого підприємця / Kleinunternehmerstatus згідно із законодавством ФРН).</p>
+
+        <br>
+        <p><strong>Відповідальний за редакційний зміст згідно з § 18 Abs. 2 MStV:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, Germany</p>
+      </section>
+
+      <!-- 7. ПОЛІТИКА КОНФІДЕНЦІЙНОСТІ (DATENSCHUTZ) -->
+      <section class="card" id="datenschutz">
+        <h2>🔒 Datenschutzerklärung (Політика конфіденційності)</h2>
+        <p><strong>1. Відповідальна особа:</strong><br>
+        Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, E-Mail: <a href="mailto:drmykhailov@gmail.com">drmykhailov@gmail.com</a></p>
+
+        <br>
+        <p><strong>2. Мобільні додатки та ігри (Tdroid Free, Tdroid Pro, Sevens and Nines):</strong></p>
+        <ul>
+          <li><strong>Відсутність реєстрації:</strong> Наші програми та ігри не вимагають реєстрації облікового запису або введення особистих ідентифікаційних даних.</li>
+          <li><strong>100% Локальне збереження даних (On-Device Privacy):</strong> Нотатки, скрипти TDScript, бази даних SQLite, конфігурація лаунчера та збереження ігор залишаються виключно на вашому власному пристрої.</li>
+          <li><strong>Жодного відстеження та реклами:</strong> Ми не використовуємо сторонні рекламні мережі, поведінкову аналітику чи трекери активності.</li>
+          <li><strong>Права користувача згідно з GDPR (DSGVO):</strong> Ви маєте повний суверенітет над своїми даними та право в будь-який момент видалити їх локально.</li>
+        </ul>
+      </section>
+
+    </div>
+
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Всі права захищені. | Гальберштадт, Німеччина
+    </div>
   </div>
 
   <script>
     function setLang(lang) {
       document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+        btn.classList.toggle('active', btn.id === 'btn-' + lang);
       });
-      document.querySelectorAll('.lang-text').forEach(el => {
-        const val = el.getAttribute('data-' + lang);
-        if (val) el.textContent = val;
+      document.querySelectorAll('.lang-view').forEach(view => {
+        view.classList.toggle('active', view.id === 'view-' + lang);
       });
       document.documentElement.lang = lang;
+      try {
+        localStorage.setItem('tdroid_site_lang', lang);
+      } catch(e) {}
     }
+
+    // Auto-detect or restore preferred language
+    (function() {
+      try {
+        var saved = localStorage.getItem('tdroid_site_lang');
+        if (saved && ['ru', 'en', 'de', 'uk'].indexOf(saved) !== -1) {
+          setLang(saved);
+          return;
+        }
+      } catch(e) {}
+      var nav = (navigator.language || navigator.userLanguage || 'ru').toLowerCase();
+      if (nav.indexOf('uk') === 0) setLang('uk');
+      else if (nav.indexOf('de') === 0) setLang('de');
+      else if (nav.indexOf('en') === 0) setLang('en');
+      else setLang('ru');
+    })();
   </script>
 
 </body>
