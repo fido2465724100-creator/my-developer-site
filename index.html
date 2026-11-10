@@ -4,65 +4,76 @@
   <meta name="google-site-verification" content="google4e4f37c09313d2cf" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anton Mykhailov — Разработка мобильных приложений, TUI OS и игр</title>
+  <title>Anton Mykhailov — Software, TUI Systems & Games Development</title>
   <style>
     :root {
-      --bg: #0b0f19;
+      --bg: #090d16;
       --card-bg: #111827;
-      --card-border: #1f2937;
+      --card-border: #1f293d;
       --text: #f3f4f6;
-      --text-muted: #9ca3af;
+      --text-muted: #94a3b8;
       --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.2);
       --green: #34d399;
       --amber: #fbbf24;
       --code-bg: #030712;
-      --border: #374151;
+      --border: #334155;
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 0 1rem 4rem 1rem;
+      padding-bottom: 5rem;
+    }
+    .top-bar {
+      background: #0f172a;
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-weight: 800; font-size: 1.15rem; color: var(--accent); }
+    .lang-switcher { display: flex; gap: 0.4rem; }
+    .lang-btn {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover, .lang-btn.active {
+      background: var(--accent);
+      color: #030712;
+      border-color: var(--accent);
     }
     header {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       border-bottom: 1px solid var(--card-border);
       color: #ffffff;
-      padding: 3rem 1.5rem 2rem 1.5rem;
+      padding: 3rem 1.5rem 2.2rem 1.5rem;
       text-align: center;
-      margin-bottom: 2rem;
-      border-radius: 0 0 16px 16px;
+      margin-bottom: 2.5rem;
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
     }
     header h1 {
-      font-size: 2.1rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      letter-spacing: -0.02em;
       margin-bottom: 0.8rem;
       background: linear-gradient(to right, #38bdf8, #818cf8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    header p {
-      max-width: 760px;
-      margin: 0 auto 1.5rem auto;
-      color: #cbd5e1;
-      font-size: 1.05rem;
-    }
-    nav.nav-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
+    header p { max-width: 800px; margin: 0 auto 1.5rem auto; color: #cbd5e1; font-size: 1.05rem; }
+    nav.nav-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1rem; }
     nav.nav-bar a {
       background: #1e293b;
       color: #e2e8f0;
@@ -71,21 +82,11 @@
       font-size: 0.9rem;
       font-weight: 500;
       border: 1px solid #334155;
+      text-decoration: none;
       transition: all 0.2s;
     }
-    nav.nav-bar a:hover {
-      background: var(--accent);
-      color: #030712;
-      border-color: var(--accent);
-      text-decoration: none;
-    }
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
+    nav.nav-bar a:hover { background: var(--accent); color: #030712; border-color: var(--accent); }
+    .container { max-width: 1020px; margin: 0 auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 2.5rem; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -103,35 +104,13 @@
       border-bottom: 2px solid var(--card-border);
       padding-bottom: 0.6rem;
     }
-    h3 {
-      font-size: 1.25rem;
-      margin: 1.5rem 0 0.8rem 0;
-      color: var(--accent);
-    }
-    h4 {
-      font-size: 1.05rem;
-      margin: 1.2rem 0 0.5rem 0;
-      color: var(--green);
-    }
-    p, li {
-      font-size: 0.96rem;
-      color: #d1d5db;
-    }
-    ul, ol {
-      list-style-position: inside;
-      margin-top: 0.6rem;
-      margin-bottom: 0.8rem;
-    }
-    li {
-      margin-bottom: 0.45rem;
-    }
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+    h3 { font-size: 1.25rem; margin: 1.6rem 0 0.8rem 0; color: var(--accent); }
+    h4 { font-size: 1.05rem; margin: 1.2rem 0 0.5rem 0; color: var(--green); }
+    p, li { font-size: 0.96rem; color: #d1d5db; }
+    ul, ol { list-style-position: inside; margin-top: 0.6rem; margin-bottom: 0.8rem; }
+    li { margin-bottom: 0.45rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
     .badge {
       display: inline-block;
       font-size: 0.75rem;
@@ -144,22 +123,9 @@
       border: 1px solid rgba(56, 189, 248, 0.3);
       vertical-align: middle;
     }
-    .badge-green {
-      background: rgba(52, 211, 153, 0.15);
-      color: var(--green);
-      border-color: rgba(52, 211, 153, 0.3);
-    }
-    .badge-amber {
-      background: rgba(251, 191, 36, 0.15);
-      color: var(--amber);
-      border-color: rgba(251, 191, 36, 0.3);
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.2rem;
-      margin: 1.5rem 0;
-    }
+    .badge-green { background: rgba(52, 211, 153, 0.15); color: var(--green); border-color: rgba(52, 211, 153, 0.3); }
+    .badge-amber { background: rgba(251, 191, 36, 0.15); color: var(--amber); border-color: rgba(251, 191, 36, 0.3); }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
     .gallery-item {
       background: #030712;
       border: 1px solid var(--border);
@@ -168,23 +134,9 @@
       text-align: center;
       transition: transform 0.2s;
     }
-    .gallery-item:hover {
-      transform: translateY(-3px);
-      border-color: var(--accent);
-    }
-    .gallery-item img {
-      width: 100%;
-      height: auto;
-      display: block;
-      background: #000;
-    }
-    .gallery-item span {
-      display: block;
-      padding: 0.6rem 0.5rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-    }
+    .gallery-item:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .gallery-item img { width: 100%; height: auto; display: block; background: #000; }
+    .gallery-item span { display: block; padding: 0.6rem 0.5rem; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); }
     pre {
       background: var(--code-bg);
       border: 1px solid #1f2937;
@@ -197,98 +149,120 @@
       margin: 0.8rem 0 1.2rem 0;
       line-height: 1.5;
     }
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
-      background: #1f2937;
-      color: #38bdf8;
-      padding: 0.15rem 0.4rem;
-      border-radius: 4px;
-      font-size: 0.88rem;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-      font-size: 0.92rem;
-    }
-    th, td {
-      border: 1px solid var(--border);
-      padding: 0.75rem 0.9rem;
-      text-align: left;
-    }
-    th {
-      background: #1e293b;
-      color: #f3f4f6;
-    }
-    tr:nth-child(even) {
-      background: rgba(255, 255, 255, 0.02);
-    }
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.2rem;
-      margin: 1.2rem 0;
-    }
-    .feature-box {
-      background: #0d1321;
-      border: 1px solid #1e293b;
-      padding: 1.2rem;
-      border-radius: 10px;
-    }
-    .feature-box h4 {
-      margin-top: 0;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      margin-top: 3rem;
-    }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; background: #1f2937; color: #38bdf8; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.88rem; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.92rem; }
+    th, td { border: 1px solid var(--border); padding: 0.75rem 0.9rem; text-align: left; }
+    th { background: #1e293b; color: #f3f4f6; }
+    tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.2rem 0; }
+    .feature-box { background: #0d1321; border: 1px solid #1e293b; padding: 1.2rem; border-radius: 10px; }
+    .feature-box h4 { margin-top: 0; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
+    .footer { text-align: center; font-size: 0.88rem; color: var(--text-muted); margin-top: 3rem; }
+    .lang-content { display: none; }
+    .lang-content.active { display: block; }
   </style>
 </head>
 <body>
 
+  <!-- ВЕРХНЯЯ СТРОКА С ПЕРЕКЛЮЧАТЕЛЕМ ЯЗЫКОВ -->
+  <div class="top-bar">
+    <div class="logo">AM DEV // TECH ECOSYSTEM</div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" onclick="setLang('uk')">UK</button>
+    </div>
+  </div>
+
+  <!-- ШАПКА -->
   <header>
     <h1>Anton Mykhailov</h1>
-    <p>Инженерная разработка энергоэффективных систем, TUI OS для Android и кроссплатформенных логических игр.</p>
+    <p class="lang-text"
+       data-ru="Инженерная разработка энергоэффективных систем, TUI OS для Android, языка программирования TDScript и кроссплатформенных игр."
+       data-en="Engineering high-efficiency systems, TUI OS for Android, TDScript programming language, and cross-platform strategy games."
+       data-de="Entwicklung hocheffizienter Systeme, TUI OS für Android, TDScript-Programmiersprache und plattformübergreifender Denkspiele."
+       data-uk="Інженерна розробка енергоефективних систем, TUI OS для Android, мови програмування TDScript та кросплатформних логічних ігор.">
+       Инженерная разработка энергоэффективных систем, TUI OS для Android, языка программирования TDScript и кроссплатформенных игр.
+    </p>
     <nav class="nav-bar">
-      <a href="#tdroid">📟 Tdroid Pro (Launcher & OS)</a>
-      <a href="#tdscript">⚡ Спецификация TDScript</a>
-      <a href="#sevens">🃏 Игра «Семёрки и Девятки»</a>
+      <a href="#about" class="lang-text" data-ru="👨‍💻 О разработчике" data-en="👨‍💻 About Developer" data-de="👨‍💻 Über den Entwickler" data-uk="👨‍💻 Про розробника">👨‍💻 О разработчике</a>
+      <a href="#tdroid" class="lang-text" data-ru="📟 Tdroid Pro" data-en="📟 Tdroid Pro" data-de="📟 Tdroid Pro" data-uk="📟 Tdroid Pro">📟 Tdroid Pro</a>
+      <a href="#tdscript" class="lang-text" data-ru="⚡ Язык TDScript" data-en="⚡ TDScript Language" data-de="⚡ TDScript Sprache" data-uk="⚡ Мова TDScript">⚡ Язык TDScript</a>
+      <a href="#sevens" class="lang-text" data-ru="🃏 Семёрки и Девятки" data-en="🃏 Sevens & Nines" data-de="🃏 Siebener & Neuner" data-uk="🃏 Сімки та Дев'ятки">🃏 Семёрки и Девятки</a>
       <a href="#impressum">⚖️ Impressum</a>
-      <a href="#datenschutz">🔒 Datenschutz (Privacy)</a>
+      <a href="#datenschutz">🔒 Datenschutz</a>
     </nav>
   </header>
 
   <div class="container">
 
-    <!-- РАЗДЕЛ 1: TDROID PRO -->
-    <section class="card" id="tdroid">
-      <h2>📟 Tdroid Pro — Текстовая TUI OS и Лаунчер для Android <span class="badge badge-green">v1.0.3 • 3.1 МБ</span></h2>
-      <p>
-        <strong>Tdroid Pro</strong> — это бескомпромиссная текстовая операционная среда (TUI Launcher) для Android с нулевой нагрузкой на графический процессор (0 КБ VRAM), мгновенным откликом и экстремальной автономностью аккумулятора.
+    <!-- 1. О РАЗРАБОТЧИКЕ -->
+    <section class="card" id="about">
+      <h2>👨‍💻 <span class="lang-text" data-ru="Об авторе и разработчике" data-en="About Author & Developer" data-de="Über den Autor & Entwickler" data-uk="Про автора та розробника">Об авторе и разработчике</span></h2>
+      <p class="lang-text"
+         data-ru="Приветствую! Меня зовут Антон Михайлов. Моя инженерная философия — создание программных решений с экстремальной оптимизацией ресурсов: нулевой графический оверхед (0 KB VRAM), максимальная автономность мобильных устройств, чистая архитектура и полный контроль над аппаратурой."
+         data-en="Hello! I am Anton Mykhailov. My engineering philosophy centers on extreme resource optimization: zero GPU overhead (0 KB VRAM), maximum battery life, clean architecture, and direct hardware control without unnecessary framework bloat."
+         data-de="Willkommen! Mein Name ist Anton Mykhailov. Meine Philosophie ist die Entwicklung von Software mit extremer Ressourceneffizienz: kein GPU-Overhead (0 KB VRAM), maximale Akkulaufzeit und volle Kontrolle über Hardwarekomponenten."
+         data-uk="Вітаю! Мене звати Антон Михайлов. Моя філософія — створення програмних систем з екстремальною оптимізацією: нульове навантаження на відеопам'ять (0 КБ VRAM), максимальна енергоефективність, чиста архітектура та повний контроль над залізом.">
+         Приветствую! Меня зовут Антон Михайлов. Моя инженерная философия — создание программных решений с экстремальной оптимизацией ресурсов: нулевой графический оверхед (0 KB VRAM), максимальная автономность мобильных устройств, чистая архитектура и полный контроль над аппаратурой.
       </p>
 
       <div class="feature-grid">
         <div class="feature-box">
-          <h4>⚡ Легковесность и Экосистема</h4>
-          <p>Размер релизного пакета Google Play составляет ровно <strong>3.1 МБ</strong>. Потребление оперативной памяти — всего <strong>9-15 МБ RAM</strong> (в 15-20 раз меньше классических лаунчеров).</p>
+          <h4 class="lang-text" data-ru="🔬 Специализация" data-en="🔬 Core Competencies" data-de="🔬 Kernkompetenzen" data-uk="🔬 Спеціалізація">🔬 Специализация</h4>
+          <p class="lang-text"
+             data-ru="Android Architecture (Kotlin/Java), разработка встроенных языков и виртуальных машин (AST/байткод), TUI интерфейсы, сетевые протоколы (UDP, TCP, LoRa, Modbus), алгоритмы ИИ."
+             data-en="Android Systems Architecture (Kotlin/Java), Embedded VM/Language Design (AST & Bytecode), TUI graphic engines, low-level networking (UDP, TCP, LoRa, Modbus), game AI."
+             data-de="Android-Systemarchitektur (Kotlin/Java), Entwurf virtueller Maschinen & Skriptsprachen (AST/Bytecode), TUI-Systeme, Netzwerkprotokolle (UDP, TCP, Modbus), Spiel-KI."
+             data-uk="Архітектура Android (Kotlin/Java), створення вбудованих мов та віртуальних машин (AST/байткод), TUI інтерфейси, мережеві протоколи (UDP, TCP, LoRa, Modbus), алгоритми ШІ.">
+             Android Architecture (Kotlin/Java), разработка встроенных языков и виртуальных машин (AST/байткод), TUI интерфейсы, сетевые протоколы (UDP, TCP, LoRa, Modbus), алгоритмы ИИ.
+          </p>
         </div>
         <div class="feature-box">
-          <h4>🎨 Полная персонализация</h4>
-          <p>Пользователь может назначать любые псевдографические и Unicode-символы (60+ значков) любым установленным приложениям, настраивать сетку 3x3, док-панель и размер шрифта.</p>
+          <h4 class="lang-text" data-ru="🌱 Принципы конфиденциальности" data-en="🌱 Privacy-First Ethos" data-de="🌱 Datenschutzprinzip" data-uk="🌱 Принципи приватності">🌱 Принципы конфиденциальности</h4>
+          <p class="lang-text"
+             data-ru="100% On-Device обработка данных. Никакой телеметрии, никаких скрытых трекеров и рекламных SDK. Ваши данные принадлежат только вам."
+             data-en="100% on-device processing. No telemetry, no background trackers, and no ad SDKs. Your device and your code belong to you alone."
+             data-de="100% lokale Datenverarbeitung. Keine Telemetrie, keine Tracker und keine Werbe-SDKs. Ihre Daten gehören ausschließlich Ihnen."
+             data-uk="100% обробка даних на пристрої. Жодної телеметрії, жодних прихованих трекерів або рекламних SDK. Ваші дані належать лише вам.">
+             100% On-Device обработка данных. Никакой телеметрии, никаких скрытых трекеров и рекламных SDK. Ваши данные принадлежат только вам.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. TDROID PRO -->
+    <section class="card" id="tdroid">
+      <h2>📟 Tdroid Pro — Текстовая TUI OS и Лаунчер для Android <span class="badge badge-green">v1.0.3 • 3.1 МБ</span></h2>
+      <p class="lang-text"
+         data-ru="Tdroid Pro — это ретро-консольная операционная среда для Android в стиле Turbo Vision / DOS / VT100. Приложение весит всего 3.1 МБ и потребляет рекордные 9-15 МБ RAM (в 15-20 раз меньше обычных графических оболочек)."
+         data-en="Tdroid Pro is a retro text-based user interface (TUI) environment and launcher for Android. With a 3.1 MB package size and 9-15 MB RAM footprint, it delivers instant response with zero GPU overhead."
+         data-de="Tdroid Pro ist eine Text-basierte Benutzeroberfläche (TUI) und Launcher für Android im Retro-Stil (Turbo Vision / DOS). Paketgröße nur 3.1 MB und 9-15 MB RAM-Verbrauch."
+         data-uk="Tdroid Pro — це текстове операційне середовище та лаунчер для Android у стилі Turbo Vision / DOS / VT100. Розмір становить лише 3.1 МБ, споживання пам'яті — рекордні 9-15 МБ RAM.">
+         Tdroid Pro — это ретро-консольная операционная среда для Android в стиле Turbo Vision / DOS / VT100. Приложение весит всего 3.1 МБ и потребляет рекордные 9-15 МБ RAM.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-box">
+          <h4>🎨 Чистый интерфейс и Персонализация</h4>
+          <p class="lang-text"
+             data-ru="Чистый список приложений без лишних громоздких приставок. Возможность назначить любые псевдографические и Unicode-значки (60+ символов), настроить сетку 3x3, док и масштаб значков (0.85x - 1.5x)."
+             data-en="Clean application list without noisy prefixes. Assign custom ASCII/Unicode icons (60+ presets), customize the 3x3 grid, bottom dock, and icon scale (0.85x - 1.5x)."
+             data-de="Übersichtliche App-Liste ohne störende Präfixe. Zuweisung von Pseudografik- und Unicode-Icons (60+ Symbole), Anpassung von 3x3 Raster, Dock und Symbolgröße."
+             data-uk="Чистий список додатків без зайвих приставок. Призначення будь-яких псевдографічних символів (60+ значків), налаштування сітки 3x3, доку та масштабу іконок.">
+             Чистый список приложений без лишних громоздких приставок. Возможность назначить любые псевдографические и Unicode-значки (60+ символов), настроить сетку 3x3, док и масштаб значков.
+          </p>
         </div>
         <div class="feature-box">
-          <h4>🛡️ Инструменты инженера</h4>
-          <p>Двухпанельный VFS-менеджер, встроенный буфер обмена с историей, сетевые утилиты SecOps (Ping, Port Scan, SSL, Wi-Fi), офлайн-будильник, чтение TXT и ИИ-терминал.</p>
-        </div>
-        <div class="feature-box">
-          <h4>⌚ Адаптация под часы и нестандартные экраны</h4>
-          <p>Встроенная тригонометрическая калибровка круглых экранов (Pythagorean chord math) для идеального отображения на Wear OS и умных часах любого разрешения.</p>
+          <h4>🛠️ Инженерные инструменты</h4>
+          <p class="lang-text"
+             data-ru="Двухпанельный VFS Commander, перехватчик буфера обмена с историей, сетевые утилиты SecOps (Ping, Port Scan, SSL, Wi-Fi), ИИ-терминал, читалка TXT и калибровка круглых экранов часов."
+             data-en="Dual-panel VFS file manager, clipboard history manager, SecOps utilities (Ping, Port Scan, SSL, Wi-Fi), AI Terminal, TXT reader, and round smartwatch display calibration."
+             data-de="Zweispaltiger VFS Dateimanager, Zwischenablage-Verlauf, SecOps Netzwerk-Tools (Ping, Port-Scan, SSL, Wi-Fi), KI-Terminal, TXT-Reader und Smartwatch-Displaykalibrierung."
+             data-uk="Двопанельний VFS менеджер файлів, історія буфера обміну, мережеві утиліти SecOps (Ping, Scan, SSL, Wi-Fi), ШІ-термінал, читалка TXT та калібрування круглих екранів годинників.">
+             Двухпанельный VFS Commander, перехватчик буфера обмена с историей, сетевые утилиты SecOps, ИИ-терминал и калибровка экранов часов.
+          </p>
         </div>
       </div>
 
@@ -296,75 +270,106 @@
       <div class="gallery">
         <div class="gallery-item">
           <img src="screenshots/tdroid_home.png" alt="Рабочий стол Tdroid Pro">
-          <span>Главный экран (Turbo Vision стиль)</span>
+          <span>Главный экран (Turbo Vision)</span>
         </div>
         <div class="gallery-item">
           <img src="screenshots/tdroid_desktop_editor.png" alt="Конструктор рабочего стола">
           <span>Конструктор рабочего стола & Меню</span>
         </div>
         <div class="gallery-item">
-          <img src="screenshots/tdroid_apps.png" alt="Каталог приложений с иконками">
-          <span>Каталог приложений со значками [⚙]</span>
+          <img src="screenshots/tdroid_apps.png" alt="Каталог приложений без приставок">
+          <span>Чистый каталог приложений [⚙]</span>
         </div>
         <div class="gallery-item">
           <img src="screenshots/tdroid_clipboard.png" alt="Менеджер буфера обмена">
           <span>Менеджер буфера обмена с историей</span>
         </div>
       </div>
-
-      <h3>Основные встроенные модули</h3>
-      <ul>
-        <li><strong>TDroid Studio</strong>: встроенная среда разработки (IDE) со средой исполнения скриптов TDScript и визуальным конструктором форм.</li>
-        <li><strong>Maker Studio [PRO]</strong>: конструктор схем, робототехники, UART/Bluetooth-терминал и управление аппаратными контроллерами.</li>
-        <li><strong>Радиолюбитель & Микросхемы [PRO]</strong>: расчет таймеров NE555, цветовой код резисторов, звуковой генератор и декодер Азбуки Морзе.</li>
-        <li><strong>Clipboard Manager</strong>: перехват и хранение истории буфера обмена с быстрым поиском и повторной вставкой.</li>
-        <li><strong>VFS Commander</strong>: классический двухпанельный файловый менеджер в стиле Norton / Midnight Commander.</li>
-      </ul>
     </section>
 
-    <!-- РАЗДЕЛ 2: СПЕЦИФИКАЦИЯ TDSCRIPT -->
+    <!-- 3. ЯЗЫК TDSCRIPT, БАЙТКОД И ЗАЩИТА -->
     <section class="card" id="tdscript">
-      <h2>⚡ Руководство по языку программирования TDScript <span class="badge">Для разработчиков</span></h2>
-      <p>
-        <strong>TDScript</strong> — встроенный в Tdroid быстрый кроссплатформенный скриптовый язык, позволяющий писать автономные утилиты, игры, сетевые сервисы и интерфейсы прямо на мобильном устройстве без необходимости установки Android Studio или компиляторов.
+      <h2>⚡ Спецификация языка TDScript, Байткод (.tbc) и Защита кода <span class="badge">SDK 2026</span></h2>
+      <p class="lang-text"
+         data-ru="TDScript — встроенный автономный язык программирования и среда исполнения (Virtual Machine) в Tdroid. Позволяет создавать утилиты, робототехнику, сетевые инструменты и TUI-приложения прямо на мобильном устройстве."
+         data-en="TDScript is an embedded programming language and virtual machine execution environment in Tdroid. Build utilities, robotics, network tools, and TUI apps directly on Android."
+         data-de="TDScript ist eine eingebettete Programmiersprache und virtuelle Maschine in Tdroid zur Erstellung von Tools, Robotik, Netzwerkanwendungen und TUI-Apps direkt auf dem Smartphone."
+         data-uk="TDScript — вбудована мова програмування та віртуальна машина в Tdroid. Дозволяє розробляти утиліти, робототехніку, мережеві програми та TUI-інтерфейси безпосередньо на пристрої.">
+         TDScript — встроенный автономный язык программирования и среда исполнения в Tdroid.
       </p>
 
-      <h3>1. Распространение и безопасность программ</h3>
-      <ul>
-        <li><strong>Пакеты <code>.tapp</code> (Tdroid App)</strong>: скрипты упаковываются в один файл размером от 2 до 10 КБ вместе с манифестом, иконкой и зависимостями. Устанавливаются в 1 клик через Tdroid.</li>
-        <li><strong>Установка из внешних источников</strong>: разрешена загрузка скриптов из интернета, локальной папки «Загрузки», SD-карты или передача через мессенджеры.</li>
-        <li><strong>Защита кода</strong>: возможность компиляции в промежуточный байткод <code>.tbc</code> с обфускацией исходного кода от копирования и модификации.</li>
-      </ul>
+      <div class="feature-grid">
+        <div class="feature-box">
+          <h4>📦 Распространение (.tapp) и Установка</h4>
+          <p class="lang-text"
+             data-ru="Программы упаковываются в один файл .tapp весом всего 2-10 КБ. Поддерживается установка из внешних источников (SD-карта, Telegram, браузер, файлы) в 1 клик."
+             data-en="Apps package into a single .tapp bundle (2-10 KB). Install from external sources (Downloads, Telegram, browser, SD card) with one click."
+             data-de="Apps werden in einer kompakten .tapp Datei (2-10 KB) gebündelt. Installation aus externen Quellen (Downloads, Telegram, Browser) mit einem Klick."
+             data-uk="Програми пакуються в єдиний .tapp файл розміром 2-10 КБ. Підтримується встановлення із зовнішніх джерел (Telegram, браузер, SD-картка) в 1 клік.">
+             Программы упаковываются в один файл .tapp весом всего 2-10 КБ. Поддерживается установка из внешних источников в 1 клик.
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>⚡ Компиляция в Байткод (.tbc)</h4>
+          <p class="lang-text"
+             data-ru="Однокликовая компиляция в бинарный поток опкодов .tbc (TDScript ByteCode). Исходный текст скрипта удаляется, бинарный код исполняется виртуальной машиной Tdroid."
+             data-en="One-click compilation into binary bytecode .tbc (TDScript ByteCode). Source text is stripped, binary AST/opcodes are executed by Tdroid VM."
+             data-de="1-Klick-Kompilierung in Binär-Bytecode .tbc. Der Quellcode wird entfernt, der Binärcode wird direkt von der Tdroid-VM ausgeführt."
+             data-uk="Компіляція в один клік у бінарний байткод .tbc (TDScript ByteCode). Вихідний код видаляється, бінарний потік виконується віртуальною машиною.">
+             Однокликовая компиляция в бинарный поток опкодов .tbc. Исходный код удаляется, защищая алгоритмы автора.
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>🔒 Встроенный Обфускатор и Минификатор</h4>
+          <p class="lang-text"
+             data-ru="Автоматическое удаление комментариев, форматирования, сжатие синтаксиса и криптографическое XOR-шифрование всех строковых литералов (TD.xdec)."
+             data-en="Automatic comment removal, whitespace compression, code minification, and cryptographic XOR string encryption (TD.xdec)."
+             data-de="Automatisches Entfernen von Kommentaren, Code-Minifizierung und kryptografische XOR-Verschlüsselung aller Zeichenketten (TD.xdec)."
+             data-uk="Автоматичне видалення коментарів, стиснення синтаксису та криптографічне XOR-шифрування рядків (TD.xdec).">
+             Автоматическое удаление комментариев, форматирования и криптографическое шифрование строк.
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>💎 Цифровая подпись авторов и Лицензирование</h4>
+          <p class="lang-text"
+             data-ru="Авторы могут подписывать свои мини-аппы персональным ключом, привязывая право запуска программы к Telegram ID покупателя или разовому лицензионному ключу."
+             data-en="Authors can sign their packages with a license key, restricting execution to a specific Telegram ID or license hash for commercial distribution."
+             data-de="Entwickler können Pakete digital signieren und die Ausführung an eine Telegram-ID oder einen Lizenzschlüssel koppeln."
+             data-uk="Автори можуть підписувати свої програми ліцензійним ключем, прив'язуючи запуск до Telegram ID користувача або разового ключа.">
+             Авторы могут подписывать свои мини-аппы, привязывая запуск к Telegram ID или лицензионному ключу.
+          </p>
+        </div>
+      </div>
 
-      <h3>2. Аппаратные объекты и функции платформы (API)</h3>
+      <h3>Полный справочник аппаратных объектов и функций (Android Hardware API)</h3>
       <table>
         <thead>
           <tr>
             <th>Категория</th>
-            <th>Метод / Вызов</th>
+            <th>Метод API</th>
             <th>Описание и возвращаемое значение</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>TTS / Речь</strong></td>
+            <td><strong>Синтез речи (TTS)</strong></td>
             <td><code>TD.speak("текст")</code></td>
-            <td>Озвучивание текста через встроенный синтезатор Text-To-Speech Android.</td>
+            <td>Озвучивание текста через встроенный синтезатор речи Android.</td>
           </tr>
           <tr>
             <td><strong>Геолокация</strong></td>
             <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-            <td>Возвращает координаты устройства <code>"lat,lon"</code> (GPS / Network Provider).</td>
+            <td>Возвращает координаты устройства <code>"lat,lon"</code> (GPS/Сеть).</td>
           </tr>
           <tr>
             <td><strong>Буфер обмена</strong></td>
-            <td><code>TD.clipboard()</code><br><code>TD.clipboardSet("текст")</code></td>
+            <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
             <td>Чтение и запись текста в системный буфер обмена Android.</td>
           </tr>
           <tr>
-            <td><strong>Вибрация</strong></td>
-            <td><code>TD.vibrate(200)</code></td>
-            <td>Тактильный импульс заданной длительности (в миллисекундах).</td>
+            <td><strong>Датчики</strong></td>
+            <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
+            <td>Показания физических датчиков смартфона (акселерометр, свет, температура).</td>
           </tr>
           <tr>
             <td><strong>Батарея и Питание</strong></td>
@@ -374,107 +379,106 @@
           <tr>
             <td><strong>Фонарик</strong></td>
             <td><code>TD.torch(true | false)</code></td>
-            <td>Включение / выключение светодиодной вспышки камеры как фонарика.</td>
+            <td>Включение / выключение светодиодной вспышки камеры.</td>
           </tr>
           <tr>
-            <td><strong>Сенсоры</strong></td>
-            <td><code>TD.sensor("accel" | "light" | "temp")</code></td>
-            <td>Чтение показаний аппаратных датчиков (акселерометр, освещенность и др.).</td>
+            <td><strong>Вибрация</strong></td>
+            <td><code>TD.vibrate(ms)</code></td>
+            <td>Тактильный импульс заданной длительности (миллисекунды).</td>
           </tr>
           <tr>
-            <td><strong>Сеть (HTTP GET)</strong></td>
-            <td><code>TD.httpGet(url)</code></td>
-            <td>Синхронный HTTP GET запрос. Возвращает ответ сервера строкой.</td>
-          </tr>
-          <tr>
-            <td><strong>Сеть (HTTP POST)</strong></td>
-            <td><code>TD.httpPost(url, body, contentType)</code></td>
-            <td>Отправка данных на удаленный сервер через HTTP POST (например JSON API).</td>
+            <td><strong>HTTP Запросы</strong></td>
+            <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
+            <td>Сетевые HTTP GET и POST запросы (JSON API, телеметрия, интеграции).</td>
           </tr>
           <tr>
             <td><strong>Сетевой UDP</strong></td>
             <td><code>TD.udp(host, port, data)</code></td>
-            <td>Отправка «сырых» сетевых UDP-датаграмм (управление роботами, ESP32, IoT).</td>
+            <td>Отправка UDP датаграмм (роботы, ESP32, Arduino, контроллеры).</td>
           </tr>
           <tr>
-            <td><strong>Сетевой Пинг</strong></td>
+            <td><strong>Пинг сети</strong></td>
             <td><code>TD.ping(host)</code></td>
-            <td>Проверка доступности удаленного сервера или IP-адреса. Возвращает <code>true/false</code>.</td>
+            <td>Проверка доступности хоста/IP. Возвращает <code>true/false</code>.</td>
           </tr>
           <tr>
             <td><strong>База данных SQLite</strong></td>
             <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
-            <td>Выполнение локальных SQL-запросов и сохранение реляционных таблиц прямо на диске.</td>
+            <td>Локальное хранение структурированных данных в реляционных SQL таблицах.</td>
           </tr>
           <tr>
-            <td><strong>Графика TUI</strong></td>
-            <td><code>TUI.box(x, y, w, h, "Заголовок")</code><br><code>TUI.text(x, y, "Текст", "green")</code></td>
-            <td>Отрисовка псевдографических окон, рамок, кнопок и цветных элементов.</td>
+            <td><strong>Псевдографика TUI</strong></td>
+            <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
+            <td>Построение диалоговых окон, кнопок и элементов управления.</td>
           </tr>
         </tbody>
       </table>
 
-      <h3>3. Практические примеры программ</h3>
+      <h3>Практические примеры кода TDScript</h3>
 
-      <h4>Пример 1: Автоматический маяк геолокации и голосовое уведомление</h4>
-      <pre><code>// Чтение GPS координат и озвучивание текущего местоположения
+      <h4>Пример 1: IoT телеметрия, геолокация и голосовое подтверждение</h4>
+      <pre><code>// Получение GPS и озвучивание текущих координат
 var coords = TD.gps();
 TD.speak("Координаты получены: " + coords);
 
-// Отправка координат на удаленный сервер телеметрии
-var payload = JSON.stringify({ device: "Tdroid-1", pos: coords });
-var res = TD.httpPost("https://api.example.com/telemetry", payload, "application/json");
+// Отправка JSON пакета на сервер
+var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
+var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
 
 TD.vibrate(100);
-print("Статус отправки: " + res);</code></pre>
+print("Статус сервера: " + res);</code></pre>
 
-      <h4>Пример 2: Управление роботом по UDP (IoT / ESP32)</h4>
-      <pre><code>// Передача пакета управления на микроконтроллер ESP8266 / ESP32
+      <h4>Пример 2: Управление микроконтроллером по UDP (ESP32 / Робототехника)</h4>
+      <pre><code>// Передача команды моторам робота по протоколу UDP
 var esp_ip = "192.168.4.1";
-var esp_port = 8888;
+var port = 8888;
 
-TD.udp(esp_ip, esp_port, "CMD_MOTOR_FORWARD_100");
+TD.udp(esp_ip, port, "CMD_SPEED_100");
 TD.vibrate(50);
-print("Команда движения передана на робот по UDP");</code></pre>
+print("Пакет управления успешно передан по UDP");</code></pre>
 
-      <h4>Пример 3: Интерактивный TUI-диалог с базой данных SQLite</h4>
-      <pre><code>// Создание локальной базы и вставка записи
-TD.dbExec("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, txt TEXT);");
-TD.dbExec("INSERT INTO notes (txt) VALUES ('Первая заметка из TDScript');");
+      <h4>Пример 3: Интерактивная TUI база данных SQLite</h4>
+      <pre><code>// Создание таблицы и запись
+TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
+TD.dbExec("INSERT INTO inventory (item) VALUES ('Контроллер ESP32');");
 
-// Отрисовка ретро-окна на экране
-TUI.clear();
-TUI.box(2, 2, 36, 8, "ЗАМЕТКИ ИЗ SQLITE");
-var list = TD.dbQuery("SELECT txt FROM notes LIMIT 1;");
-TUI.text(4, 5, "> " + list, "cyan");</code></pre>
+// Отрисовка окна Turbo Vision
+TD.window(2, 2, 38, 10, "CYAN", "СКЛАДСКОЙ УЧЕТ SQLITE");
+var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
+TD.print(4, 5, "Запись: " + data, "GREEN");
+TD.button("b1", 4, 7, "[ ↻ СИНХРОНИЗАЦИЯ ]", "TD.beep(); TD.toast('Синхронизировано')");</code></pre>
     </section>
 
-    <!-- РАЗДЕЛ 3: КАРТОЧНАЯ ИГРА 7 И 9 -->
+    <!-- 4. КАРТОЧНАЯ ИГРА 7 И 9 -->
     <section class="card" id="sevens">
       <h2>🃏 Карточная игра «Семёрки и Девятки» (Sevens &amp; Nines) <span class="badge badge-amber">Desktop & Android</span></h2>
       <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap;">
         <img src="img/sevens-icon.png" alt="Иконка игры Семёрки и Девятки" style="width: 96px; height: 96px; border-radius: 18px; border: 1px solid var(--border); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
         <div style="flex: 1; min-width: 250px;">
-          <p>
-            Универсальная кроссплатформенная карточная игра и тактический симулятор с поддержкой популярных мировых правил:
+          <p class="lang-text"
+             data-ru="Кроссплатформенный карточный симулятор и соревновательная стратегия с поддержкой классических мировых раскладок:"
+             data-en="Cross-platform card layout simulator and competitive game engine supporting traditional international rules:"
+             data-de="Plattformübergreifender Kartenspiel-Simulator mit Unterstützung klassischer internationaler Spielregeln:"
+             data-uk="Кросплатформний картковий симулятор та соревновальна стратегія з підтримкою класичних світових правил:">
+             Кроссплатформенный карточный симулятор и соревновательная стратегия с поддержкой классических мировых раскладок:
           </p>
           <ul>
-            <li><strong>Классическая «Девятка»</strong> — русская традиционная колода из 36 карт с раскладкой от девяток.</li>
-            <li><strong>Международные «Семёрки» (Parliament / Fan Tan)</strong> — полная колода из 52 карт, динамичный темп и удержание карт для блокировки соперников.</li>
+            <li><strong>Русская «Девятка»</strong> — традиционная колода из 36 карт с раскладкой от девяток.</li>
+            <li><strong>Международные «Семёрки» (Parliament / Fan Tan)</strong> — полная колода из 52 карт, динамичная тактика блокировки ходов.</li>
             <li><strong>Fan Tan (Card Dominoes)</strong> — соревновательный режим с банком, фишками и штрафами за пропуск хода.</li>
           </ul>
         </div>
       </div>
 
-      <h3>Особенности и механика</h3>
+      <h3>Особенности и движок</h3>
       <div class="feature-grid">
         <div class="feature-box">
-          <h4>🤖 Продвинутые тактические боты</h4>
-          <p>Интеллектуальные алгоритмы ИИ с анализом раскладов соперников и удержанием ключевых карт для победы.</p>
+          <h4>🤖 Продвинутый искусственный интеллект</h4>
+          <p>Интеллектуальные боты с анализом рук соперников и стратегическим удержанием карт для перехвата инициативы.</p>
         </div>
         <div class="feature-box">
-          <h4>🎴 Богатая кастомизация</h4>
-          <p>8 встроенных дизайнерских рубашек карт + возможность загрузки собственных изображений, выбор сукна стола (Изумруд, Сапфир, Бордо, Сланец).</p>
+          <h4>🎴 Индивидуальная настройка</h4>
+          <p>8 встроенных дизайнерских рубашек карт + загрузка собственных картинок, выбор цвета сукна (Изумруд, Сапфир, Бордо, Графит).</p>
         </div>
         <div class="feature-box">
           <h4>🔊 Процедурный звук</h4>
@@ -483,7 +487,7 @@ TUI.text(4, 5, "> " + list, "cyan");</code></pre>
       </div>
     </section>
 
-    <!-- РАЗДЕЛ 4: ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (IMPRESSUM) -->
+    <!-- 5. ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ (IMPRESSUM) -->
     <section class="card" id="impressum">
       <h2>⚖️ Impressum</h2>
       <p><strong>Angaben gemäß § 5 DDG:</strong><br>
@@ -506,7 +510,7 @@ TUI.text(4, 5, "> " + list, "cyan");</code></pre>
       Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt</p>
     </section>
 
-    <!-- РАЗДЕЛ 5: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ (DATENSCHUTZ) -->
+    <!-- 6. ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ (DATENSCHUTZ) -->
     <section class="card" id="datenschutz">
       <h2>🔒 Datenschutzerklärung (Privacy Policy)</h2>
       <p><strong>1. Verantwortlicher:</strong><br>
@@ -527,6 +531,19 @@ TUI.text(4, 5, "> " + list, "cyan");</code></pre>
   <div class="footer">
     &copy; 2026 Anton Mykhailov. Alle Rechte vorbehalten. | Halberstadt, Deutschland
   </div>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.innerText.toLowerCase() === lang);
+      });
+      document.querySelectorAll('.lang-text').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val) el.textContent = val;
+      });
+      document.documentElement.lang = lang;
+    }
+  </script>
 
 </body>
 </html>
