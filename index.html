@@ -305,146 +305,222 @@
       </section>
 
       <!-- 4. TDCRIPT, БАЙТКОД И ЗАЩИТА -->
+      <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ Спецификация языка TDScript, Байткод (.tbc) и Защита кода <span class="badge">SDK 2026</span></h2>
+        <h2>⚡ TDscript Core 1.0 — Архитектура, Спецификация & Байткод (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          TDScript — встроенный автономный язык программирования и среда исполнения (Virtual Machine) в Tdroid. Позволяет создавать утилиты, робототехнику, сетевые инструменты и TUI-приложения прямо на мобильном устройстве без необходимости установки Android Studio на компьютере.
+          <strong>TDscript</strong> — встраиваемый императивный событийно-ориентированный язык программирования и виртуальная машина (VM), разработанная Антоном Михайловым. Язык спроектирован для компактной автоматизации, мобильных и встраиваемых систем (Edge Automation & IoT) с нулевым оверхедом видеопамяти (0 KB VRAM) и прямым аппаратным управлением.
         </p>
+
+        <h3>1. Архитектурный базис: Разделение Core и Host API</h3>
+        <p>
+          В TDscript реализовано строгое разделение между ядром языка и сервисными провайдерами среды исполнения (Host Providers). Ядро не зависит от конкретной операционной системы:
+        </p>
+        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                        TDSCRIPT CORE ENGINE                            │
+│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Стек вызовов • GC    │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ SPI Host Interface
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
+│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
+│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
+│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
+│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
+└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>📦 Распространение (.tapp) и Установка</h4>
+            <h4>⚙️ Байткод-компилятор (.tbc)</h4>
             <p>
-              Программы упаковываются в один файл <code>.tapp</code> весом всего 2-10 КБ. Поддерживается установка из внешних источников (SD-карта, Telegram, браузер, файлы) в 1 клик через стандартный механизм сопоставления MIME-типов Android.
+              Компиляция исходного AST в бинарный поток опкодов. Исходный код полностью удаляется, что исключает утечку интеллектуальной собственности, сокращает размер пакета до 2–10 КБ и гарантирует мгновенный холодный старт.
             </p>
           </div>
           <div class="feature-box">
-            <h4>⚙️ Байткод-компиляция (.tbc)</h4>
+            <h4>🛡️ Модель безопасности и Разрешения (Capabilities)</h4>
             <p>
-              Компиляция исходного кода в компактный бинарный поток опкодов виртуальной машины Tdroid. Исходный текст полностью скрыт, что гарантирует быстродействие и защищает исходники от копирования.
+              Изолированная песочница (Sandbox). Пакет декларирует битовую маску мандатов доступа (Capabilities). Если скрипт не запросил мандат, вызов опасной функции блокируется VM на уровне верификации байткода.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Встроенная обфускация и шифрование</h4>
+            <h4>🔒 Цифровая подпись и Лицензирование</h4>
             <p>
-              Автоматическое удаление комментариев, форматирования, сжатие синтаксического дерева и криптографическое XOR-шифрование строковых констант через <code>TD.xdec()</code>.
+              Двухуровневая криптографическая проверка: проверка целостности исполняемого тела по SHA-256 плюс привязка коммерческих мини-аппов к Telegram ID покупателя или лицензионному токену.
             </p>
           </div>
           <div class="feature-box">
-            <h4>💎 Цифровая подпись авторов и Лицензирование</h4>
+            <h4>⚡ Модель исполнения и Event Loop</h4>
             <p>
-              Авторы могут подписывать свои мини-аппы персональным ключом, привязывая право запуска программы к Telegram ID покупателя или разовому лицензионному ключу с проверкой хеша SHA-256.
+              Однопоточный изолированный контекст VM (Single-Threaded Worker), исключающий race conditions в памяти. Все тяжелые операции (сеть, сканирование, Modbus) выполняются асинхронно хостом и возвращают результат в общую очередь событий.
             </p>
           </div>
         </div>
 
-        <h3>Полный справочник аппаратных объектов и функций (Android Hardware API)</h3>
+        <h3>2. Матрица разрешений безопасности (Capabilities)</h3>
         <table>
           <thead>
             <tr>
-              <th>Категория</th>
+              <th>Мандат (Capability)</th>
+              <th>Битовый флаг</th>
+              <th>Контролируемые операции</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>NET_READ</code></td>
+              <td><code>0x0001</code></td>
+              <td>HTTP GET запросы, чтение DNS, опрос сетевой статистики.</td>
+            </tr>
+            <tr>
+              <td><code>NET_SCAN</code></td>
+              <td><code>0x0002</code></td>
+              <td>Сканирование портов, поиск хостов в подсети (ARP/Subnet Discovery).</td>
+            </tr>
+            <tr>
+              <td><code>PLC_WRITE</code></td>
+              <td><code>0x0004</code></td>
+              <td>Запись регистров Modbus TCP/RTU, отправка команд промышленным контроллерам.</td>
+            </tr>
+            <tr>
+              <td><code>BT_ACCESS</code></td>
+              <td><code>0x0008</code></td>
+              <td>Подключение и обмен данными по Bluetooth Classic (SPP) и BLE UART.</td>
+            </tr>
+            <tr>
+              <td><code>HARDWARE</code></td>
+              <td><code>0x0010</code></td>
+              <td>Управление фонариком, вибромотором, чтение датчиков и GPS-координат.</td>
+            </tr>
+            <tr>
+              <td><code>BACKGROUND</code></td>
+              <td><code>0x0020</code></td>
+              <td>Работа скрипта в режиме системного демона (Foreground Service Watchdog).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3. Полный справочник прикладных API модулей</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Модуль</th>
               <th>Метод API</th>
               <th>Описание и возвращаемое значение</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Синтез речи (TTS)</strong></td>
+              <td><strong>Речь (TTS)</strong></td>
               <td><code>TD.speak("текст")</code></td>
-              <td>Озвучивание текста через встроенный синтезатор речи Android.</td>
+              <td>Синтез речи через системный движок Android TTS.</td>
             </tr>
             <tr>
               <td><strong>Геолокация</strong></td>
               <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Возвращает координаты устройства <code>"lat,lon"</code> (GPS/Сеть).</td>
+              <td>Координаты устройства в формате <code>"lat,lon"</code>.</td>
             </tr>
             <tr>
               <td><strong>Буфер обмена</strong></td>
-              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
-              <td>Чтение и запись текста в системный буфер обмена Android.</td>
+              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
+              <td>Чтение и запись текста в буфер обмена.</td>
             </tr>
             <tr>
               <td><strong>Датчики</strong></td>
               <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Показания физических датчиков смартфона (акселерометр, свет, температура).</td>
+              <td>Снятие показаний физических сенсоров.</td>
             </tr>
             <tr>
-              <td><strong>Батарея и Питание</strong></td>
+              <td><strong>Батарея</strong></td>
               <td><code>TD.battery()</code></td>
-              <td>Уровень заряда батареи в процентах (0-100).</td>
+              <td>Уровень заряда аккумулятора в процентах (0–100).</td>
             </tr>
             <tr>
-              <td><strong>Фонарик</strong></td>
-              <td><code>TD.torch(true | false)</code></td>
-              <td>Включение / выключение светодиодной вспышки камеры.</td>
+              <td><strong>Периферия</strong></td>
+              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
+              <td>Управление вспышкой камеры и тактильным импульсом.</td>
             </tr>
             <tr>
-              <td><strong>Вибрация</strong></td>
-              <td><code>TD.vibrate(ms)</code></td>
-              <td>Тактильный импульс заданной длительности (миллисекунды).</td>
-            </tr>
-            <tr>
-              <td><strong>HTTP Запросы</strong></td>
-              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
-              <td>Сетевые HTTP GET и POST запросы (JSON API, телеметрия, интеграции).</td>
-            </tr>
-            <tr>
-              <td><strong>Сетевой UDP</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Отправка UDP датаграмм (роботы, ESP32, Arduino, контроллеры).</td>
+              <td><strong>Сетевой HTTP</strong></td>
+              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
+              <td>Сетевые вызовы REST API и обмен JSON-пакетами.</td>
             </tr>
             <tr>
               <td><strong>Пинг сети</strong></td>
               <td><code>TD.ping(host)</code></td>
-              <td>Проверка доступности хоста/IP. Возвращает <code>true/false</code>.</td>
+              <td>Проверка доступности хоста (ICMP/TCP Ping).</td>
+            </tr>
+            <tr>
+              <td><strong>UDP Сокеты</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Отправка датаграмм (ESP32, Arduino, роботы).</td>
+            </tr>
+            <tr>
+              <td><strong>Промышленный Modbus</strong></td>
+              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
+              <td>Прямая запись регистров автоматики SCADA/PLC.</td>
+            </tr>
+            <tr>
+              <td><strong>Bluetooth</strong></td>
+              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
+              <td>Беспроводное управление внешними микроконтроллерами.</td>
             </tr>
             <tr>
               <td><strong>База данных SQLite</strong></td>
-              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
-              <td>Локальное хранение структурированных данных в реляционных SQL таблицах.</td>
+              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
+              <td>Локальное реляционное хранение данных и логов.</td>
             </tr>
             <tr>
               <td><strong>Псевдографика TUI</strong></td>
-              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
-              <td>Построение диалоговых окон, кнопок и элементов управления.</td>
+              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
+              <td>Оконная графика Turbo Vision в консольной редакции Tdroid.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>Практические примеры кода TDScript</h3>
+        <h3>4. Статус спецификации и Roadmap версий</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🟢 Реализовано в TDscript v1.0 (Stable)</h4>
+            <ul>
+              <li>Динамическая типизация (String, Int, Long, Float, Boolean, Map).</li>
+              <li>Инструкции ветвления <code>if / else</code>, циклы <code>for</code>, <code>while</code>.</li>
+              <li>Базовый байткод-компилятор и упаковщик <code>.tbc</code> с обфускацией <code>TD.xdec</code>.</li>
+              <li>Автономная песочница с защитой от аварийного завершения хоста.</li>
+              <li>Полный набор нативных мостов к датчикам, сокетам и SQLite.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🟡 В разработке для TDscript v1.1 (Roadmap)</h4>
+            <ul>
+              <li>Пользовательские функции <code>fn name(args) { return ...; }</code> с изолированным стеком.</li>
+              <li>Блоки перехвата исключений <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Аппаратная проверка матрицы Capabilities перед загрузкой <code>.tbc</code>.</li>
+              <li>Kotlin Multiplatform (KMP) сборка для запуска на десктопном Linux и Raspberry Pi.</li>
+            </ul>
+          </div>
+        </div>
 
-        <h4>Пример 1: IoT телеметрия, геолокация и голосовое подтверждение</h4>
-        <pre><code>// Получение GPS и озвучивание текущих координат
-var coords = TD.gps();
-TD.speak("Координаты получены: " + coords);
-
-// Отправка JSON пакета на сервер
-var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
-var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
-
-TD.vibrate(100);
-print("Статус сервера: " + res);</code></pre>
-
-        <h4>Пример 2: Управление микроконтроллером по UDP (ESP32 / Робототехника)</h4>
-        <pre><code>// Передача команды моторам робота по протоколу UDP
-var esp_ip = "192.168.4.1";
-var port = 8888;
-
-TD.udp(esp_ip, port, "CMD_SPEED_100");
-TD.vibrate(50);
-print("Пакет управления успешно передан по UDP");</code></pre>
-
-        <h4>Пример 3: Интерактивная TUI база данных SQLite</h4>
-        <pre><code>// Создание таблицы и запись
-TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
-TD.dbExec("INSERT INTO inventory (item) VALUES ('Контроллер ESP32');");
-
-// Отрисовка окна Turbo Vision
-TD.window(2, 2, 38, 10, "CYAN", "СКЛАДСКОЙ УЧЕТ SQLITE");
-var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
-TD.print(4, 5, "Запись: " + data, "GREEN");
-TD.button("b1", 4, 7, "[ ↻ СИНХРОНИЗАЦИЯ ]", "TD.beep(); TD.toast('Синхронизировано')");</code></pre>
+        <h3>5. Практические примеры кода</h3>
+        <h4>Пример: Сторож сетевого оборудования и контроллер Modbus PLC</h4>
+        <pre><code>// 1. Проверка доступности шлюза
+var gateway = "192.168.1.1";
+if (!TD.ping(gateway)) {
+    TD.torch(true);
+    TD.vibrate(300);
+    TD.speak("Внимание! Обнаружен сбой связи со шлюзом.");
+    
+    // 2. Отправка аварийного сигнала на промышленный контроллер
+    PLC.modbusWrite("192.168.1.50", 100, 1);
+} else {
+    // 3. Отправка телеметрии батареи на сервер мониторинга
+    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
+    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
+}</code></pre>
       </section>
+
+
 
       <!-- 5. КАРТОЧНАЯ ИГРА 7 И 9 -->
       <section class="card" id="sevens">
@@ -644,146 +720,222 @@ TD.button("b1", 4, 7, "[ ↻ СИНХРОНИЗАЦИЯ ]", "TD.beep(); TD.toast
       </section>
 
       <!-- 4. TDSCRIPT, BYTECODE & SECURITY -->
+      <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDScript Specification, Bytecode (.tbc) & Code Protection <span class="badge">SDK 2026</span></h2>
+        <h2>⚡ TDscript Core 1.0 — Architecture, Specification & Bytecode (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          TDScript is an embedded standalone programming language and virtual machine runtime in Tdroid. It enables developers to craft utilities, robotics controllers, network audit tools, and interactive TUI applications directly on mobile hardware without desktop development suites.
+          <strong>TDscript</strong> is an embedded imperative, event-driven programming language and lightweight virtual machine (VM) designed by Anton Mykhailov. Engineered for compact edge automation, IoT controllers, and mobile environments, it delivers deterministic execution with zero GPU overhead (0 KB VRAM) and direct hardware control.
         </p>
+
+        <h3>1. Architectural Foundation: Core vs. Host API Decoupling</h3>
+        <p>
+          TDscript enforces strict architectural separation between the language engine (Core) and runtime platform providers (Host Providers). The core VM has zero dependencies on specific operating systems:
+        </p>
+        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                        TDSCRIPT CORE ENGINE                            │
+│    Lexer • Parser • Bytecode VM • Call Stack • Variable Storage        │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ SPI Host Interface
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
+│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
+│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
+│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
+│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
+└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>📦 Distribution (.tapp) & Installation</h4>
+            <h4>⚙️ Bytecode Compiler (.tbc)</h4>
             <p>
-              Packages bundle into a single self-contained <code>.tapp</code> file (only 2-10 KB). Easily installable from any external source (SD card, Telegram, browser, local files) in one tap via standard Android MIME handlers.
+              Compiles human-readable AST directly into a compact binary opcode stream. Source code is completely stripped, eliminating intellectual property exposure, shrinking bundle size to 2–10 KB, and ensuring instant cold starts.
             </p>
           </div>
           <div class="feature-box">
-            <h4>⚙️ Bytecode Compilation (.tbc)</h4>
+            <h4>🛡️ Capability-Based Security Model</h4>
             <p>
-              Compile human-readable source code into a binary opcode stream executed by the Tdroid Virtual Machine. Source code is completely stripped, protecting intellectual property and accelerating execution.
+              Sandboxed runtime execution. Compiled packages declare a cryptographic bitmask of required privileges (Capabilities). If a script does not request a capability, invocation is rejected at bytecode verification time.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Built-in Obfuscation & Encryption</h4>
+            <h4>🔒 Digital Signatures & Licensing</h4>
             <p>
-              Automated comment stripping, AST minification, and cryptographic XOR string encryption handled transparently via the <code>TD.xdec()</code> runtime helper.
+              Dual-layer verification: package payload integrity guaranteed via SHA-256 hash checks, alongside commercial author licensing locked to customer Telegram IDs or unique digital keys.
             </p>
           </div>
           <div class="feature-box">
-            <h4>💎 Digital Signatures & Author Licensing</h4>
+            <h4>⚡ Execution Model & Event Loop</h4>
             <p>
-              Developers can cryptographically sign compiled packages, locking execution to a customer's specific Telegram ID or license key using SHA-256 verification.
+              Single-threaded isolated VM worker eliminating concurrent memory race conditions. Heavy external workloads (network probes, port scans, Modbus cycles) execute asynchronously and dispatch results back to the event queue.
             </p>
           </div>
         </div>
 
-        <h3>Comprehensive Hardware & Object API Reference</h3>
+        <h3>2. Security Capabilities Matrix</h3>
         <table>
           <thead>
             <tr>
-              <th>Category</th>
+              <th>Capability Mandate</th>
+              <th>Bitmask Flag</th>
+              <th>Governed Operations</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>NET_READ</code></td>
+              <td><code>0x0001</code></td>
+              <td>HTTP GET requests, DNS queries, network status inspection.</td>
+            </tr>
+            <tr>
+              <td><code>NET_SCAN</code></td>
+              <td><code>0x0002</code></td>
+              <td>TCP port scanning, local subnet ARP / device discovery.</td>
+            </tr>
+            <tr>
+              <td><code>PLC_WRITE</code></td>
+              <td><code>0x0004</code></td>
+              <td>Modbus TCP/RTU register writes, industrial automation control.</td>
+            </tr>
+            <tr>
+              <td><code>BT_ACCESS</code></td>
+              <td><code>0x0008</code></td>
+              <td>Bluetooth Classic (SPP) and BLE UART peripheral communications.</td>
+            </tr>
+            <tr>
+              <td><code>HARDWARE</code></td>
+              <td><code>0x0010</code></td>
+              <td>Camera torch, haptic vibrator, sensor telemetry, GPS coordinates.</td>
+            </tr>
+            <tr>
+              <td><code>BACKGROUND</code></td>
+              <td><code>0x0020</code></td>
+              <td>Execution as a persistent background daemon (Foreground Service Watchdog).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3. Host API Modules Reference</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Module</th>
               <th>API Method</th>
               <th>Description & Return Value</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Speech Synthesis (TTS)</strong></td>
+              <td><strong>Speech (TTS)</strong></td>
               <td><code>TD.speak("text")</code></td>
-              <td>Speaks text aloud using Android's native text-to-speech engine.</td>
+              <td>Voice narration through Android's native text-to-speech engine.</td>
             </tr>
             <tr>
               <td><strong>Geolocation</strong></td>
               <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Returns current coordinates as <code>"lat,lon"</code> (GPS / Network).</td>
+              <td>Latitude and longitude string <code>"lat,lon"</code>.</td>
             </tr>
             <tr>
               <td><strong>Clipboard</strong></td>
-              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
-              <td>Reads and writes string data to the Android system clipboard.</td>
+              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
+              <td>Read and write operations on system clipboard.</td>
             </tr>
             <tr>
               <td><strong>Sensors</strong></td>
               <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Reads raw telemetry from physical hardware sensors.</td>
+              <td>Physical sensor telemetry acquisition.</td>
             </tr>
             <tr>
-              <td><strong>Battery & Power</strong></td>
+              <td><strong>Battery</strong></td>
               <td><code>TD.battery()</code></td>
-              <td>Returns remaining battery percentage (0-100).</td>
+              <td>Remaining battery percentage (0–100).</td>
             </tr>
             <tr>
-              <td><strong>Flashlight</strong></td>
-              <td><code>TD.torch(true | false)</code></td>
-              <td>Toggles the camera LED flashlight on or off.</td>
+              <td><strong>Peripherals</strong></td>
+              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
+              <td>LED camera flashlight and tactile vibration pulses.</td>
             </tr>
             <tr>
-              <td><strong>Haptic Feedback</strong></td>
-              <td><code>TD.vibrate(ms)</code></td>
-              <td>Triggers a physical vibration pulse of specified duration.</td>
-            </tr>
-            <tr>
-              <td><strong>HTTP Networking</strong></td>
-              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
-              <td>Executes HTTP GET and POST requests (REST APIs, telemetry, IoT).</td>
-            </tr>
-            <tr>
-              <td><strong>Raw UDP Sockets</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Sends UDP datagrams to robotics, ESP32, Arduino, or remote hosts.</td>
+              <td><strong>HTTP Web</strong></td>
+              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
+              <td>RESTful web requests and JSON data exchange.</td>
             </tr>
             <tr>
               <td><strong>Network Ping</strong></td>
               <td><code>TD.ping(host)</code></td>
-              <td>Checks remote host reachability. Returns <code>true/false</code>.</td>
+              <td>Remote host reachability check (ICMP/TCP).</td>
+            </tr>
+            <tr>
+              <td><strong>Raw UDP</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Datagram packet dispatch (ESP32, Arduino, robotics).</td>
+            </tr>
+            <tr>
+              <td><strong>Industrial PLC</strong></td>
+              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
+              <td>Modbus register write for SCADA and factory automation.</td>
+            </tr>
+            <tr>
+              <td><strong>Bluetooth</strong></td>
+              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
+              <td>Wireless serial communications with external microcontrollers.</td>
             </tr>
             <tr>
               <td><strong>SQLite Database</strong></td>
-              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
-              <td>Executes queries against an embedded relational SQL database.</td>
+              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
+              <td>Embedded relational SQL storage for persistent logs.</td>
             </tr>
             <tr>
-              <td><strong>TUI Graphics Engine</strong></td>
-              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
-              <td>Renders retro text-mode windows, interactive buttons, and progress meters.</td>
+              <td><strong>TUI Graphics</strong></td>
+              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
+              <td>Turbo Vision retro windowing for Tdroid console edition.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>Hands-on TDScript Code Examples</h3>
+        <h3>4. Specification Status & Version Roadmap</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🟢 Shipped in TDscript v1.0 (Stable)</h4>
+            <ul>
+              <li>Dynamic typing system (String, Int, Long, Float, Boolean, Map).</li>
+              <li>Flow control: <code>if / else</code>, <code>for</code>, and <code>while</code> loops.</li>
+              <li>Core bytecode compiler producing <code>.tbc</code> packages with <code>TD.xdec</code> obfuscation.</li>
+              <li>Crash-resilient sandbox protecting host application stability.</li>
+              <li>Full native bridges to hardware, sensors, raw sockets, and SQLite.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🟡 In Development for TDscript v1.1 (Roadmap)</h4>
+            <ul>
+              <li>User-defined procedures <code>fn name(args) { return ...; }</code> with stack frame isolation.</li>
+              <li>Structured exception handling: <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Bytecode header capability bitmask pre-validation.</li>
+              <li>Kotlin Multiplatform (KMP) build for headless Linux & Raspberry Pi.</li>
+            </ul>
+          </div>
+        </div>
 
-        <h4>Example 1: IoT Telemetry, GPS & Voice Announce</h4>
-        <pre><code>// Fetch GPS coordinates and speak location
-var coords = TD.gps();
-TD.speak("Location locked: " + coords);
-
-// Post JSON payload to backend server
-var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
-var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
-
-TD.vibrate(100);
-print("Server response: " + res);</code></pre>
-
-        <h4>Example 2: UDP Robotics & Microcontroller Control (ESP32)</h4>
-        <pre><code>// Send motion control datagram to robot over UDP
-var esp_ip = "192.168.4.1";
-var port = 8888;
-
-TD.udp(esp_ip, port, "CMD_SPEED_100");
-TD.vibrate(50);
-print("UDP packet dispatched successfully");</code></pre>
-
-        <h4>Example 3: Interactive TUI Database Application</h4>
-        <pre><code>// Create table and insert persistent record
-TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
-TD.dbExec("INSERT INTO inventory (item) VALUES ('ESP32 Microcontroller');");
-
-// Render Turbo Vision style window
-TD.window(2, 2, 38, 10, "CYAN", "SQLITE INVENTORY SYSTEM");
-var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
-TD.print(4, 5, "Record: " + data, "GREEN");
-TD.button("b1", 4, 7, "[ ↻ SYNC DATA ]", "TD.beep(); TD.toast('Synchronized')");</code></pre>
+        <h3>5. Practical Code Example</h3>
+        <h4>Example: Gateway Health Monitor & Modbus PLC Emergency Fallback</h4>
+        <pre><code>// 1. Verify default network gateway reachability
+var gateway = "192.168.1.1";
+if (!TD.ping(gateway)) {
+    TD.torch(true);
+    TD.vibrate(300);
+    TD.speak("Alert! Network gateway connection lost.");
+    
+    // 2. Dispatch emergency override signal to industrial PLC
+    PLC.modbusWrite("192.168.1.50", 100, 1);
+} else {
+    // 3. Telemetry reporting to monitoring server
+    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
+    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
+}</code></pre>
       </section>
+
+
 
       <!-- 5. SEVENS & NINES CARD GAME -->
       <section class="card" id="sevens">
@@ -983,146 +1135,222 @@ TD.button("b1", 4, 7, "[ ↻ SYNC DATA ]", "TD.beep(); TD.toast('Synchronized')"
       </section>
 
       <!-- 4. TDSCRIPT, BYTECODE & SCHUTZ -->
+      <!-- 4. TDSCRIPT: ARCHITEKTUR & SPEZIFIKATION 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDScript-Spezifikation, Bytecode (.tbc) & Quellcode-Schutz <span class="badge">SDK 2026</span></h2>
+        <h2>⚡ TDscript Core 1.0 — Architektur, Spezifikation & Bytecode (.tbc) <span class="badge">SPEZIFIKATION 2026</span></h2>
         <p>
-          TDScript ist eine eingebettete eigenständige Programmiersprache und virtuelle Maschine in Tdroid. Sie ermöglicht die Entwicklung von Werkzeugen, Robotik-Steuerungen, Netzwerk-Audits und interaktiven TUI-Anwendungen direkt auf dem Android-Gerät ohne Desktop-Entwicklungsumgebung.
+          <strong>TDscript</strong> ist eine eingebettete imperative, ereignisgesteuerte Programmiersprache und schlanke virtuelle Maschine (VM), entwickelt von Anton Mykhailov. Konzipiert für kompakte Automatisierung, industrielle Netzwerke und mobile Systeme, garantiert sie deterministische Ausführung ohne GPU-Overhead (0 KB VRAM) bei direktem Zugriff auf die Hardware.
         </p>
+
+        <h3>1. Architektonische Basis: Entkopplung von Core und Host API</h3>
+        <p>
+          TDscript trennt strikt zwischen Sprachkern (Core Engine) und Plattform-Schnittstellen (Host Providers). Das VM-Kernsystem ist vollkommen unabhängig vom zugrundeliegenden Betriebssystem:
+        </p>
+        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                        TDSCRIPT CORE ENGINE                            │
+│    Lexer • Parser • Bytecode VM • Aufrufstapel • Typensystem           │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ SPI Host Interface
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
+│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
+│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
+│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
+│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
+└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>📦 Distribution (.tapp) & Installation</h4>
+            <h4>⚙️ Bytecode-Compiler (.tbc)</h4>
             <p>
-              Programme werden in einer einzigen <code>.tapp</code>-Datei (nur 2-10 KB) gebündelt. Installation aus externen Quellen (SD-Karte, Telegram, Browser, Dateien) mit einem Klick über Standard-Android-MIME-Handler.
+              Kompiliert den Quelltext in einen binären Opcode-Stream. Der Quelltext wird vollständig entfernt, was Urheberrechte schützt, das Paket auf 2–10 KB minimiert und einen sofortigen Kaltstart ermöglicht.
             </p>
           </div>
           <div class="feature-box">
-            <h4>⚙️ Bytecode-Kompilierung (.tbc)</h4>
+            <h4>🛡️ Berechtigungsmodell (Capabilities)</h4>
             <p>
-              Kompilierung in einen kompakten binären Opcode-Stream der Tdroid Virtual Machine. Der Quelltext wird vollständig entfernt, was maximale Geschwindigkeit sichert und das geistige Eigentum schützt.
+              Sichere Sandbox-Ausführung. Kompilierte Pakete deklarieren eine Bitmaske erforderlicher Rechte. Fehlt ein Mandat, wird die Ausführung riskanter Operationen durch die VM blockiert.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Integrierte Verschleierung & Verschlüsselung</h4>
+            <h4>🔒 Digitale Signatur & Lizenzierung</h4>
             <p>
-              Automatisches Entfernen von Kommentaren, Syntax-Minifizierung und kryptografische XOR-Verschlüsselung aller Zeichenketten mit Laufzeit-Unterstützung durch <code>TD.xdec()</code>.
+              Zweistufige Verifikation: Integritätsprüfung des Bytecodes per SHA-256-Hash sowie Bindung kommerzieller Skripte an die Telegram-ID des Käufers oder einen Lizenzschlüssel.
             </p>
           </div>
           <div class="feature-box">
-            <h4>💎 Digitale Autorensignatur & Lizenzierung</h4>
+            <h4>⚡ Ausführungsmodell & Event Loop</h4>
             <p>
-              Entwickler können Pakete digital signieren und die Programmausführung an die Telegram-ID des Käufers oder einen Einmal-Lizenzschlüssel mit SHA-256-Verifikation binden.
+              Ein einzelner isolierter VM-Thread (Single-Threaded Worker) verhindert Speicher-Race-Conditions. Zeitintensive Abfragen (Netzwerk-Scans, Modbus) laufen asynchron und liefern Daten in die Ereignis-Warteschlange.
             </p>
           </div>
         </div>
 
-        <h3>Vollständige Hardware- & API-Referenz</h3>
+        <h3>2. Sicherheits-Rechtematrix (Capabilities)</h3>
         <table>
           <thead>
             <tr>
-              <th>Kategorie</th>
+              <th>Mandat (Capability)</th>
+              <th>Bitmasken-Flag</th>
+              <th>Gesteuerte Operationen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>NET_READ</code></td>
+              <td><code>0x0001</code></td>
+              <td>HTTP-GET-Aufrufe, DNS-Abfragen, Netzwerk-Statusprüfungen.</td>
+            </tr>
+            <tr>
+              <td><code>NET_SCAN</code></td>
+              <td><code>0x0002</code></td>
+              <td>Portscans, Erkennung aktiver Hosts im Subnetz (ARP/Ping).</td>
+            </tr>
+            <tr>
+              <td><code>PLC_WRITE</code></td>
+              <td><code>0x0004</code></td>
+              <td>Schreiben von Modbus TCP/RTU-Registern für Industrie-SPS.</td>
+            </tr>
+            <tr>
+              <td><code>BT_ACCESS</code></td>
+              <td><code>0x0008</code></td>
+              <td>Bluetooth Classic (SPP) und BLE UART Peripherieverbindungen.</td>
+            </tr>
+            <tr>
+              <td><code>HARDWARE</code></td>
+              <td><code>0x0010</code></td>
+              <td>Kamerablitzlicht, Vibrationsmotor, Sensoren und GPS-Koordinaten.</td>
+            </tr>
+            <tr>
+              <td><code>BACKGROUND</code></td>
+              <td><code>0x0020</code></td>
+              <td>Ausführung als System-Hintergrunddienst (Foreground Service Watchdog).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3. Vollständige Referenz der API-Module</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Modul</th>
               <th>API-Methode</th>
               <th>Beschreibung & Rückgabewert</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Sprachsynthese (TTS)</strong></td>
+              <td><strong>Sprachausgabe (TTS)</strong></td>
               <td><code>TD.speak("text")</code></td>
-              <td>Sprachausgabe über die integrierte Android Text-to-Speech-Engine.</td>
+              <td>Sprachsynthese über die integrierte Android-Engine.</td>
             </tr>
             <tr>
               <td><strong>Geolokalisierung</strong></td>
               <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Liefert aktuelle Koordinaten als <code>"lat,lon"</code> (GPS / Mobilfunknetz).</td>
+              <td>Breiten- und Längengrad als <code>"lat,lon"</code>.</td>
             </tr>
             <tr>
               <td><strong>Zwischenablage</strong></td>
-              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
-              <td>Lesen und Schreiben von Text in die System-Zwischenablage von Android.</td>
+              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
+              <td>Lesen und Schreiben in die System-Zwischenablage.</td>
             </tr>
             <tr>
               <td><strong>Sensoren</strong></td>
               <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Rohdaten physischer Hardware-Sensoren (Beschleunigung, Helligkeit, Temperatur).</td>
+              <td>Telemetriedaten physischer Sensoren.</td>
             </tr>
             <tr>
-              <td><strong>Batterie & Energie</strong></td>
+              <td><strong>Batterie</strong></td>
               <td><code>TD.battery()</code></td>
-              <td>Liefert den aktuellen Batteriestand in Prozent (0-100).</td>
+              <td>Akkuladestand in Prozent (0–100).</td>
             </tr>
             <tr>
-              <td><strong>Taschenlampe</strong></td>
-              <td><code>TD.torch(true | false)</code></td>
-              <td>Schaltet das LED-Kamerablitzlicht an oder aus.</td>
+              <td><strong>Peripherie</strong></td>
+              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
+              <td>LED-Taschenlampe und haptische Vibrationsimpulse.</td>
             </tr>
             <tr>
-              <td><strong>Vibrationsmotor</strong></td>
-              <td><code>TD.vibrate(ms)</code></td>
-              <td>Erzeugt einen haptischen Impuls in vorgegebener Dauer (Millisekunden).</td>
-            </tr>
-            <tr>
-              <td><strong>HTTP-Netzwerk</strong></td>
-              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
-              <td>Führt HTTP GET- und POST-Anfragen aus (REST-APIs, Telemetrie, IoT).</td>
-            </tr>
-            <tr>
-              <td><strong>UDP-Sockets</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Sendet UDP-Datagramme an Roboter, ESP32, Arduino oder Zielrechner.</td>
+              <td><strong>HTTP Web</strong></td>
+              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
+              <td>RESTful-Webaufrufe und JSON-Datenaustausch.</td>
             </tr>
             <tr>
               <td><strong>Netzwerk-Ping</strong></td>
               <td><code>TD.ping(host)</code></td>
-              <td>Prüft die Erreichbarkeit eines Zielrechners. Gibt <code>true/false</code> zurück.</td>
+              <td>Prüfung der Host-Erreichbarkeit (ICMP/TCP).</td>
+            </tr>
+            <tr>
+              <td><strong>Raw UDP</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Übertragung von UDP-Datagrammen (ESP32, Roboter).</td>
+            </tr>
+            <tr>
+              <td><strong>Industrielles Modbus</strong></td>
+              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
+              <td>Schreiben von SPS-Registern für Fabrikautomatisierung.</td>
+            </tr>
+            <tr>
+              <td><strong>Bluetooth</strong></td>
+              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
+              <td>Drahtlose Kommunikation mit externen Mikrocontrollern.</td>
             </tr>
             <tr>
               <td><strong>SQLite-Datenbank</strong></td>
-              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
-              <td>Führt SQL-Befehle auf einer lokalen relationalen SQLite-Datenbank aus.</td>
+              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
+              <td>Lokale relationale Speicherung und Logging.</td>
             </tr>
             <tr>
-              <td><strong>TUI-Grafikengine</strong></td>
-              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
-              <td>Erstellt textbasierte Fenster, anklickbare Schaltflächen und Fortschrittsbalken.</td>
+              <td><strong>TUI-Grafik</strong></td>
+              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
+              <td>Turbo Vision Fenster-Engine für die Tdroid-Konsole.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>Praktische TDScript-Codebeispiele</h3>
+        <h3>4. Spezifikationsstatus & Version Roadmap</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🟢 Enthalten in TDscript v1.0 (Stable)</h4>
+            <ul>
+              <li>Dynamische Typisierung (String, Int, Long, Float, Boolean, Map).</li>
+              <li>Kontrollstrukturen: <code>if / else</code>, <code>for</code>- und <code>while</code>-Schleifen.</li>
+              <li>Bytecode-Compiler für <code>.tbc</code> mit <code>TD.xdec</code> Verschleierung.</li>
+              <li>Robuste Sandbox gegen Abstürze der Host-Anwendung.</li>
+              <li>Native Brücken zu Sensoren, Netzwerk-Sockets und SQLite.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🟡 In Entwicklung für TDscript v1.1 (Roadmap)</h4>
+            <ul>
+              <li>Benutzerdefinierte Prozeduren <code>fn name(args) { return ...; }</code> mit isoliertem Stackframe.</li>
+              <li>Strukturierte Fehlerbehandlung: <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Vorabprüfung der Capabilities-Bitmaske im Bytecode-Header.</li>
+              <li>Kotlin Multiplatform (KMP) Build für Linux & Raspberry Pi.</li>
+            </ul>
+          </div>
+        </div>
 
-        <h4>Beispiel 1: IoT-Telemetrie, GPS & Sprachbestätigung</h4>
-        <pre><code>// GPS-Koordinaten abfragen und vorlesen
-var coords = TD.gps();
-TD.speak("Position ermittelt: " + coords);
-
-// JSON-Datensatz an Server senden
-var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
-var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
-
-TD.vibrate(100);
-print("Serverstatus: " + res);</code></pre>
-
-        <h4>Beispiel 2: Robotersteuerung per UDP (ESP32 / Mikrocontroller)</h4>
-        <pre><code>// Steuerbefehl per UDP an Roboter-Controller senden
-var esp_ip = "192.168.4.1";
-var port = 8888;
-
-TD.udp(esp_ip, port, "CMD_SPEED_100");
-TD.vibrate(50);
-print("UDP-Befehl erfolgreich übertragen");</code></pre>
-
-        <h4>Beispiel 3: Interaktive TUI-Datenbankanwendung (SQLite)</h4>
-        <pre><code>// Tabelle anlegen und Datensatz einfügen
-TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
-TD.dbExec("INSERT INTO inventory (item) VALUES ('ESP32 Mikrocontroller');");
-
-// Turbo Vision Fenster zeichnen
-TD.window(2, 2, 38, 10, "CYAN", "SQLITE LAGERVERWALTUNG");
-var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
-TD.print(4, 5, "Eintrag: " + data, "GREEN");
-TD.button("b1", 4, 7, "[ ↻ DATEN ABGLEICHEN ]", "TD.beep(); TD.toast('Synchronisiert')");</code></pre>
+        <h3>5. Praktisches Codebeispiel</h3>
+        <h4>Beispiel: Gateway-Wächter & Modbus SPS-Notabschaltung</h4>
+        <pre><code>// 1. Erreichbarkeit des Netzwerk-Gateways prüfen
+var gateway = "192.168.1.1";
+if (!TD.ping(gateway)) {
+    TD.torch(true);
+    TD.vibrate(300);
+    TD.speak("Achtung! Verbindung zum Gateway unterbrochen.");
+    
+    // 2. Notfall-Signal an Industrie-SPS senden
+    PLC.modbusWrite("192.168.1.50", 100, 1);
+} else {
+    // 3. Batteriestatus an Überwachungsserver melden
+    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
+    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
+}</code></pre>
       </section>
+
+
 
       <!-- 5. KARTENSPIEL SIEBENER & NEUNER -->
       <section class="card" id="sevens">
@@ -1322,44 +1550,107 @@ TD.button("b1", 4, 7, "[ ↻ DATEN ABGLEICHEN ]", "TD.beep(); TD.toast('Synchron
       </section>
 
       <!-- 4. TDSCRIPT, БАЙТКОД ТА ЗАХИСТ КОДУ -->
+      <!-- 4. TDSCRIPT: АРХІТЕКТУРА ТА СПЕЦИФІКАЦІЯ 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ Специфікація мови TDScript, Байткод (.tbc) та Захист коду <span class="badge">SDK 2026</span></h2>
+        <h2>⚡ TDscript Core 1.0 — Архітектура, Специфікація & Байткод (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          TDScript — вбудована автономна мова програмування та віртуальна машина в Tdroid. Дозволяє створювати утиліти, робототехніку, мережеві інструменти та TUI-додатки безпосередньо на мобільному пристрої без потреби встановлювати середовище розробки на ПК.
+          <strong>TDscript</strong> — вбудована імперативна подійно-орієнтована мова програмування та віртуальна машина (VM), створена Антоном Михайловим. Спроектована для компактної автоматизації, мобільних та периферійних систем (Edge Automation & IoT) з нульовим навантаженням на відеопам'ять (0 KB VRAM) та прямим апаратним керуванням.
         </p>
+
+        <h3>1. Архітектурний базис: Розмежування Core та Host API</h3>
+        <p>
+          У TDscript реалізовано суворе розмежування між ядром мови та сервісними провайдерами середовища виконання (Host Providers). Ядро не залежить від конкретної операційної системи:
+        </p>
+        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                        TDSCRIPT CORE ENGINE                            │
+│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Стек викликів • GC   │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ SPI Host Interface
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
+│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
+│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
+│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
+│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
+└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>📦 Розповсюдження (.tapp) та Встановлення</h4>
+            <h4>⚙️ Байткод-компілятор (.tbc)</h4>
             <p>
-              Програми запаковуються в єдиний компактний файл <code>.tapp</code> розміром лише 2-10 КБ. Підтримується встановлення з зовнішніх джерел (SD-картка, Telegram, браузер, файли) в один дотик.
+              Компіляція вихідного AST у бінарний потік опкодів. Початковий текст повністю видаляється, що виключає витік інтелектуальної власності, зменшує розмір пакета до 2–10 КБ та забезпечує миттєвий холодний запуск.
             </p>
           </div>
           <div class="feature-box">
-            <h4>⚙️ Байткод-компіляція (.tbc)</h4>
+            <h4>🛡️ Модель безпеки та Дозволи (Capabilities)</h4>
             <p>
-              Компіляція вихідного коду в бінарний потік опкодів віртуальної машини Tdroid. Вихідний текст повністю вилучається, що прискорює виконання та надійно захищає авторський код від копіювання.
+              Ізольована пісочниця (Sandbox). Пакет декларує бітову маску дозволів. Якщо скрипт не запросив мандат, виконання небезпечної операції блокується VM на етапі верифікації байткоду.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Вбудована обфускація та шифрування</h4>
+            <h4>🔒 Цифровий підпис та Ліцензування</h4>
             <p>
-              Автоматичне видалення коментарів, форматування коду та криптографічне XOR-шифрування рядкових констант через <code>TD.xdec()</code>.
+              Дворівнева перевірка: контроль цілісності байткоду за хешем SHA-256 та прив'язка комерційних міні-апів до Telegram ID покупця чи ліцензійного ключа.
             </p>
           </div>
           <div class="feature-box">
-            <h4>💎 Цифровий підпис авторів та Ліцензування</h4>
+            <h4>⚡ Модель виконання та Event Loop</h4>
             <p>
-              Розробники можуть підписувати свої пакети цифровим ключем, прив'язуючи право запуску до Telegram ID покупця або разового ліцензійного ключа з перевіркою хешу SHA-256.
+              Однопотоковий ізольований контекст VM (Single-Threaded Worker), що унеможливлює race conditions у пам'яті. Важкі мережеві операції виконуються асинхронно хостом та повертають результат у чергу подій.
             </p>
           </div>
         </div>
 
-        <h3>Повний довідник апаратних об'єктів та функцій (Android Hardware API)</h3>
+        <h3>2. Матриця дозволів безпеки (Capabilities)</h3>
         <table>
           <thead>
             <tr>
-              <th>Категорія</th>
+              <th>Мандат (Capability)</th>
+              <th>Бітовий прапор</th>
+              <th>Контрольовані операції</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>NET_READ</code></td>
+              <td><code>0x0001</code></td>
+              <td>HTTP GET запити, читання DNS, перевірка мережевої статистики.</td>
+            </tr>
+            <tr>
+              <td><code>NET_SCAN</code></td>
+              <td><code>0x0002</code></td>
+              <td>Сканування портів, пошук пристроїв у підмережі (ARP/Ping).</td>
+            </tr>
+            <tr>
+              <td><code>PLC_WRITE</code></td>
+              <td><code>0x0004</code></td>
+              <td>Запис регістрів Modbus TCP/RTU для промислових контролерів.</td>
+            </tr>
+            <tr>
+              <td><code>BT_ACCESS</code></td>
+              <td><code>0x0008</code></td>
+              <td>Підключення та обмін даними через Bluetooth Classic (SPP) та BLE UART.</td>
+            </tr>
+            <tr>
+              <td><code>HARDWARE</code></td>
+              <td><code>0x0010</code></td>
+              <td>Керування ліхтариком, вібромотором, зняття показників датчиків та GPS.</td>
+            </tr>
+            <tr>
+              <td><code>BACKGROUND</code></td>
+              <td><code>0x0020</code></td>
+              <td>Виконання у фоновому режимі (Foreground Service Watchdog).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3. Повний довідник модулів API</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Модуль</th>
               <th>Метод API</th>
               <th>Опис та значення, що повертається</th>
             </tr>
@@ -1368,100 +1659,113 @@ TD.button("b1", 4, 7, "[ ↻ DATEN ABGLEICHEN ]", "TD.beep(); TD.toast('Synchron
             <tr>
               <td><strong>Синтез мови (TTS)</strong></td>
               <td><code>TD.speak("текст")</code></td>
-              <td>Озвучування тексту через системний синтезатор мови Android.</td>
+              <td>Озвучення тексту через системний синтезатор мови Android.</td>
             </tr>
             <tr>
               <td><strong>Геолокація</strong></td>
               <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Повертає координати пристрою у форматі <code>"lat,lon"</code> (GPS / Мережа).</td>
+              <td>Координати пристрою у форматі <code>"lat,lon"</code>.</td>
             </tr>
             <tr>
               <td><strong>Буфер обміну</strong></td>
-              <td><code>TD.clipboard()</code><br><code>TD.clipboardSet(text)</code></td>
-              <td>Читання та запис текстових даних у системний буфер обміну.</td>
+              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
+              <td>Читання та запис рядків у системний буфер обміну.</td>
             </tr>
             <tr>
               <td><strong>Датчики</strong></td>
               <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Показники фізичних сенсорів (акселерометр, рівень світла, температура).</td>
+              <td>Показники фізичних сенсорів смартфона.</td>
             </tr>
             <tr>
-              <td><strong>Батарея та Живлення</strong></td>
+              <td><strong>Акумулятор</strong></td>
               <td><code>TD.battery()</code></td>
-              <td>Рівень заряду акумулятора у відсотках (0-100).</td>
+              <td>Рівень заряду батареї у відсотках (0–100).</td>
             </tr>
             <tr>
-              <td><strong>Ліхтарик</strong></td>
-              <td><code>TD.torch(true | false)</code></td>
-              <td>Увімкнення або вимкнення світлодіодного спалаху камери.</td>
-            </tr>
-            <tr>
-              <td><strong>Вібрація</strong></td>
-              <td><code>TD.vibrate(ms)</code></td>
-              <td>Тактильний імпульс заданої тривалості (в мілісекундах).</td>
+              <td><strong>Периферія</strong></td>
+              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
+              <td>Світлодіодний спалах та тактильний вібросигнал.</td>
             </tr>
             <tr>
               <td><strong>HTTP Запити</strong></td>
-              <td><code>TD.httpGet(url)</code><br><code>TD.httpPost(url, body, contentType)</code></td>
-              <td>Мережеві запити HTTP GET та POST (REST API, телеметрія, IoT).</td>
-            </tr>
-            <tr>
-              <td><strong>Мережевий UDP</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Відправка UDP датаграм (робототехніка, ESP32, Arduino, контролери).</td>
+              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
+              <td>Виклики REST API та обмін JSON-повідомленнями.</td>
             </tr>
             <tr>
               <td><strong>Мережевий Ping</strong></td>
               <td><code>TD.ping(host)</code></td>
-              <td>Перевірка доступності віддаленого вузла. Повертає <code>true/false</code>.</td>
+              <td>Перевірка доступності віддаленого вузла (ICMP/TCP).</td>
+            </tr>
+            <tr>
+              <td><strong>UDP Сокети</strong></td>
+              <td><code>TD.udp(host, port, data)</code></td>
+              <td>Відправка UDP-датаграм (ESP32, Arduino, контролери).</td>
+            </tr>
+            <tr>
+              <td><strong>Промисловий Modbus</strong></td>
+              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
+              <td>Прямий запис регістрів автоматики SCADA/PLC.</td>
+            </tr>
+            <tr>
+              <td><strong>Bluetooth</strong></td>
+              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
+              <td>Бездротовий зв'язок із зовнішніми мікроконтролерами.</td>
             </tr>
             <tr>
               <td><strong>База даних SQLite</strong></td>
-              <td><code>TD.dbExec(sql)</code><br><code>TD.dbQuery(sql)</code></td>
-              <td>Зберігання структурованих записів у локальній реляційній базі SQL.</td>
+              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
+              <td>Локальне реляційне збереження таблиць та журналів.</td>
             </tr>
             <tr>
               <td><strong>Псевдографіка TUI</strong></td>
-              <td><code>TD.window(x, y, w, h, col, title)</code><br><code>TD.button(id, x, y, label, action)</code><br><code>TD.progressBar(x, y, w, pct, col)</code></td>
-              <td>Створення діалогових вікон, кнопок та індикаторів виконання.</td>
+              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
+              <td>Віконна графіка Turbo Vision для консольної версії Tdroid.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>Практичні приклади коду TDScript</h3>
+        <h3>4. Статус специфікації та Roadmap версій</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🟢 Реалізовано в TDscript v1.0 (Stable)</h4>
+            <ul>
+              <li>Динамічна типізація (String, Int, Long, Float, Boolean, Map).</li>
+              <li>Інструкції розгалуження <code>if / else</code>, цикли <code>for</code>, <code>while</code>.</li>
+              <li>Базовий байткод-компілятор <code>.tbc</code> з обфускацією <code>TD.xdec</code>.</li>
+              <li>Ізольована пісочниця з захистом хост-додатка від збоїв.</li>
+              <li>Повний набір нативних мостів до сенсорів, сокетів та SQLite.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🟡 У розробці для TDscript v1.1 (Roadmap)</h4>
+            <ul>
+              <li>Користувацькі функції <code>fn name(args) { return ...; }</code> з окремим кадром стека.</li>
+              <li>Блоки перехоплення винятків <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Апаратна валідація бітової маски Capabilities перед завантаженням <code>.tbc</code>.</li>
+              <li>Kotlin Multiplatform (KMP) збірка для десктопного Linux та Raspberry Pi.</li>
+            </ul>
+          </div>
+        </div>
 
-        <h4>Приклад 1: IoT телеметрія, геолокація та голосове сповіщення</h4>
-        <pre><code>// Отримання координат GPS та озвучення
-var coords = TD.gps();
-TD.speak("Координати зафіксовано: " + coords);
-
-// Відправка JSON пакету на сервер
-var json = JSON.stringify({ dev: "Tdroid-1", location: coords, bat: TD.battery() });
-var res = TD.httpPost("https://api.example.com/telemetry", json, "application/json");
-
-TD.vibrate(100);
-print("Відповідь сервера: " + res);</code></pre>
-
-        <h4>Приклад 2: Керування мікроконтролером через UDP (ESP32 / Робототехніка)</h4>
-        <pre><code>// Передача командного пакету моторам робота
-var esp_ip = "192.168.4.1";
-var port = 8888;
-
-TD.udp(esp_ip, port, "CMD_SPEED_100");
-TD.vibrate(50);
-print("Пакет успішно надіслано по UDP");</code></pre>
-
-        <h4>Приклад 3: Інтерактивна база даних SQLite</h4>
-        <pre><code>// Створення таблиці та збереження запису
-TD.dbExec("CREATE TABLE IF NOT EXISTS inventory (id INTEGER PRIMARY KEY, item TEXT);");
-TD.dbExec("INSERT INTO inventory (item) VALUES ('Контролер ESP32');");
-
-// Малювання вікна Turbo Vision
-TD.window(2, 2, 38, 10, "CYAN", "СКЛАДСЬКИЙ ОБЛІК SQLITE");
-var data = TD.dbQuery("SELECT item FROM inventory LIMIT 1;");
-TD.print(4, 5, "Запис: " + data, "GREEN");
-TD.button("b1", 4, 7, "[ ↻ СИНХРОНІЗАЦІЯ ]", "TD.beep(); TD.toast('Синхронізовано')");</code></pre>
+        <h3>5. Практичні приклади коду</h3>
+        <h4>Приклад: Вартовий мережі та аварійний сигнал Modbus PLC</h4>
+        <pre><code>// 1. Перевірка доступності шлюзу
+var gateway = "192.168.1.1";
+if (!TD.ping(gateway)) {
+    TD.torch(true);
+    TD.vibrate(300);
+    TD.speak("Увага! Втрачено зв'язок зі шлюзом.");
+    
+    // 2. Відправка аварійного сигналу на промисловий контролер
+    PLC.modbusWrite("192.168.1.50", 100, 1);
+} else {
+    // 3. Відправка телеметрії акумулятора на сервер моніторингу
+    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
+    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
+}</code></pre>
       </section>
+
+
 
       <!-- 5. КАРТКОВА ГРА 7 ТА 9 -->
       <section class="card" id="sevens">
