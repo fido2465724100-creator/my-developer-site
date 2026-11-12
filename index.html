@@ -306,10 +306,11 @@
 
       <!-- 4. TDCRIPT, БАЙТКОД И ЗАЩИТА -->
       <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
+      <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
       <section class="card" id="tdscript">
         <h2>⚡ TDscript Core 1.0 — Архитектура, Спецификация & Байткод (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          <strong>TDscript</strong> — встраиваемый императивный событийно-ориентированный язык программирования и виртуальная машина (VM), разработанная Антоном Михайловым. Язык спроектирован для компактной автоматизации, мобильных и встраиваемых систем (Edge Automation & IoT) с нулевым оверхедом видеопамяти (0 KB VRAM) и прямым аппаратным управлением.
+          <strong>TDscript</strong> — встраиваемый императивный событийно-ориентированный язык программирования и виртуальная машина (VM), разработанная Антоном Михайловым. Язык спроектирован для компактной автоматизации, мобильных и периферийных систем (Edge Automation & IoT) с нулевым оверхедом видеопамяти (0 KB VRAM), детерминированным внутренним исполнением инструкций и расширяемым аппаратным контролем.
         </p>
 
         <h3>1. Архитектурный базис: Разделение Core и Host API</h3>
@@ -318,7 +319,7 @@
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
 │                        TDSCRIPT CORE ENGINE                            │
-│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Стек вызовов • GC    │
+│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Внутренний стек • GC  │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ SPI Host Interface
         ┌───────────────────────────┼───────────────────────────┐
@@ -335,25 +336,25 @@
           <div class="feature-box">
             <h4>⚙️ Байткод-компилятор (.tbc)</h4>
             <p>
-              Компиляция исходного AST в бинарный поток опкодов. Исходный код полностью удаляется, что исключает утечку интеллектуальной собственности, сокращает размер пакета до 2–10 КБ и гарантирует мгновенный холодный старт.
+              Компиляция исходного AST в бинарный поток опкодов. Исходный текст полностью удаляется из пакета, что сокращает размер до 2–10 КБ, обеспечивает быстрый старт, существенно затрудняет обратную разработку и защищает от прямого копирования кода.
             </p>
           </div>
           <div class="feature-box">
             <h4>🛡️ Модель безопасности и Разрешения (Capabilities)</h4>
             <p>
-              Изолированная песочница (Sandbox). Пакет декларирует битовую маску мандатов доступа (Capabilities). Если скрипт не запросил мандат, вызов опасной функции блокируется VM на уровне верификации байткода.
+              Изолированная песочница (Sandbox). Скрипт объявляет требуемые мандаты доступа (Capabilities), однако декларация не гарантирует автоматического доступа: окончательное решение о предоставлении прав остаётся за хостом и пользователем.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Цифровая подпись и Лицензирование</h4>
+            <h4>🔒 Контроль целостности, Подпись и Лицензии</h4>
             <p>
-              Двухуровневая криптографическая проверка: проверка целостности исполняемого тела по SHA-256 плюс привязка коммерческих мини-аппов к Telegram ID покупателя или лицензионному токену.
+              Трехуровневая модель безопасности: контроль целостности байткода через SHA-256 хеширование, асимметричная электронная подпись автора (Ed25519) для подтверждения подлинности и лицензионные токены для коммерческого контроля запуска.
             </p>
           </div>
           <div class="feature-box">
             <h4>⚡ Модель исполнения и Event Loop</h4>
             <p>
-              Однопоточный изолированный контекст VM (Single-Threaded Worker), исключающий race conditions в памяти. Все тяжелые операции (сеть, сканирование, Modbus) выполняются асинхронно хостом и возвращают результат в общую очередь событий.
+              Однопоточный изолированный контекст VM (Single-Threaded Worker), обеспечивающий детерминированную обработку инструкций при фиксированном состоянии памяти. Сетевые вызовы и опросы шин выполняются асинхронно хостом и передают результаты через очередь событий.
             </p>
           </div>
         </div>
@@ -486,17 +487,19 @@
             <ul>
               <li>Динамическая типизация (String, Int, Long, Float, Boolean, Map).</li>
               <li>Инструкции ветвления <code>if / else</code>, циклы <code>for</code>, <code>while</code>.</li>
-              <li>Базовый байткод-компилятор и упаковщик <code>.tbc</code> с обфускацией <code>TD.xdec</code>.</li>
-              <li>Автономная песочница с защитой от аварийного завершения хоста.</li>
-              <li>Полный набор нативных мостов к датчикам, сокетам и SQLite.</li>
+              <li>Базовый байткод-компилятор и упаковщик <code>.tbc</code> с обфускацией строк <code>TD.xdec</code>.</li>
+              <li>Изолированная песочница с перехватом системных исключений на стороне хоста.</li>
+              <li>Контроль целостности бинарных пакетов по алгоритму SHA-256.</li>
+              <li>Нативные мосты хоста к датчикам, сокетам и локальной SQLite.</li>
             </ul>
           </div>
           <div class="feature-box">
             <h4>🟡 В разработке для TDscript v1.1 (Roadmap)</h4>
             <ul>
-              <li>Пользовательские функции <code>fn name(args) { return ...; }</code> с изолированным стеком.</li>
-              <li>Блоки перехвата исключений <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Аппаратная проверка матрицы Capabilities перед загрузкой <code>.tbc</code>.</li>
+              <li>Полноценные пользовательские функции <code>fn name(args) { return ...; }</code> со стеком вызовов.</li>
+              <li>Блоки структурного перехвата исключений <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Строгая верификация заголовка бинарного контейнера и аппаратный аудит прав (Capabilities Prompt).</li>
+              <li>Асимметричная электронная подпись авторов на базе криптографии Ed25519.</li>
               <li>Kotlin Multiplatform (KMP) сборка для запуска на десктопном Linux и Raspberry Pi.</li>
             </ul>
           </div>
@@ -519,6 +522,8 @@ if (!TD.ping(gateway)) {
     TD.httpPost("https://api.internal/telemetry", payload, "application/json");
 }</code></pre>
       </section>
+
+
 
 
 
@@ -721,10 +726,11 @@ if (!TD.ping(gateway)) {
 
       <!-- 4. TDSCRIPT, BYTECODE & SECURITY -->
       <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
+      <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
       <section class="card" id="tdscript">
         <h2>⚡ TDscript Core 1.0 — Architecture, Specification & Bytecode (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          <strong>TDscript</strong> is an embedded imperative, event-driven programming language and lightweight virtual machine (VM) designed by Anton Mykhailov. Engineered for compact edge automation, IoT controllers, and mobile environments, it delivers deterministic execution with zero GPU overhead (0 KB VRAM) and direct hardware control.
+          <strong>TDscript</strong> is an embedded imperative, event-driven programming language and lightweight virtual machine (VM) designed by Anton Mykhailov. Engineered for compact edge automation, IoT controllers, and mobile environments, it provides deterministic internal instruction evaluation given identical state with zero GPU overhead (0 KB VRAM) and extensible hardware control.
         </p>
 
         <h3>1. Architectural Foundation: Core vs. Host API Decoupling</h3>
@@ -733,7 +739,7 @@ if (!TD.ping(gateway)) {
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
 │                        TDSCRIPT CORE ENGINE                            │
-│    Lexer • Parser • Bytecode VM • Call Stack • Variable Storage        │
+│  Lexer • Parser • Bytecode VM • Internal Eval Stack • Garbage Collector │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ SPI Host Interface
         ┌───────────────────────────┼───────────────────────────┐
@@ -750,25 +756,25 @@ if (!TD.ping(gateway)) {
           <div class="feature-box">
             <h4>⚙️ Bytecode Compiler (.tbc)</h4>
             <p>
-              Compiles human-readable AST directly into a compact binary opcode stream. Source code is completely stripped, eliminating intellectual property exposure, shrinking bundle size to 2–10 KB, and ensuring instant cold starts.
+              Compiles human-readable AST directly into a binary opcode stream. Source code is completely stripped, shrinking bundle size to 2–10 KB, ensuring rapid execution starts, significantly hindering reverse engineering, and preventing direct source copy.
             </p>
           </div>
           <div class="feature-box">
             <h4>🛡️ Capability-Based Security Model</h4>
             <p>
-              Sandboxed runtime execution. Compiled packages declare a cryptographic bitmask of required privileges (Capabilities). If a script does not request a capability, invocation is rejected at bytecode verification time.
+              Sandboxed runtime execution. Compiled packages declare a bitmask of required privileges (Capabilities). However, script declaration does not grant automatic access: final authorization remains strictly with the host environment and end-user.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Digital Signatures & Licensing</h4>
+            <h4>🔒 Integrity Control, Signatures & Licensing</h4>
             <p>
-              Dual-layer verification: package payload integrity guaranteed via SHA-256 hash checks, alongside commercial author licensing locked to customer Telegram IDs or unique digital keys.
+              Three-layer security architecture: SHA-256 cryptographic digests for payload integrity verification, asymmetric digital signatures (Ed25519) for author authenticity, and license tokens for authorized distribution.
             </p>
           </div>
           <div class="feature-box">
             <h4>⚡ Execution Model & Event Loop</h4>
             <p>
-              Single-threaded isolated VM worker eliminating concurrent memory race conditions. Heavy external workloads (network probes, port scans, Modbus cycles) execute asynchronously and dispatch results back to the event queue.
+              Single-threaded isolated VM worker ensuring deterministic instruction dispatch over memory state. External network probes and industrial I/O cycles execute asynchronously through host services and dispatch outcomes back via the Event Queue.
             </p>
           </div>
         </div>
@@ -901,17 +907,19 @@ if (!TD.ping(gateway)) {
             <ul>
               <li>Dynamic typing system (String, Int, Long, Float, Boolean, Map).</li>
               <li>Flow control: <code>if / else</code>, <code>for</code>, and <code>while</code> loops.</li>
-              <li>Core bytecode compiler producing <code>.tbc</code> packages with <code>TD.xdec</code> obfuscation.</li>
-              <li>Crash-resilient sandbox protecting host application stability.</li>
-              <li>Full native bridges to hardware, sensors, raw sockets, and SQLite.</li>
+              <li>Bytecode compiler producing <code>.tbc</code> packages with <code>TD.xdec</code> string obfuscation.</li>
+              <li>Crash-resilient sandbox with host-level exception handling.</li>
+              <li>SHA-256 package cryptographic integrity verification.</li>
+              <li>Native bridges to hardware, sensors, raw sockets, and SQLite.</li>
             </ul>
           </div>
           <div class="feature-box">
             <h4>🟡 In Development for TDscript v1.1 (Roadmap)</h4>
             <ul>
-              <li>User-defined procedures <code>fn name(args) { return ...; }</code> with stack frame isolation.</li>
-              <li>Structured exception handling: <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Bytecode header capability bitmask pre-validation.</li>
+              <li>User-defined procedures <code>fn name(args) { return ...; }</code> with isolated call frames.</li>
+              <li>Structured exception handling blocks: <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Strict binary container pre-validation and interactive Capability permission prompts.</li>
+              <li>Asymmetric cryptographic signatures for authors via Ed25519.</li>
               <li>Kotlin Multiplatform (KMP) build for headless Linux & Raspberry Pi.</li>
             </ul>
           </div>
@@ -934,6 +942,8 @@ if (!TD.ping(gateway)) {
     TD.httpPost("https://api.internal/telemetry", payload, "application/json");
 }</code></pre>
       </section>
+
+
 
 
 
@@ -1136,10 +1146,11 @@ if (!TD.ping(gateway)) {
 
       <!-- 4. TDSCRIPT, BYTECODE & SCHUTZ -->
       <!-- 4. TDSCRIPT: ARCHITEKTUR & SPEZIFIKATION 1.0 -->
+      <!-- 4. TDSCRIPT: ARCHITEKTUR & SPEZIFIKATION 1.0 -->
       <section class="card" id="tdscript">
         <h2>⚡ TDscript Core 1.0 — Architektur, Spezifikation & Bytecode (.tbc) <span class="badge">SPEZIFIKATION 2026</span></h2>
         <p>
-          <strong>TDscript</strong> ist eine eingebettete imperative, ereignisgesteuerte Programmiersprache und schlanke virtuelle Maschine (VM), entwickelt von Anton Mykhailov. Konzipiert für kompakte Automatisierung, industrielle Netzwerke und mobile Systeme, garantiert sie deterministische Ausführung ohne GPU-Overhead (0 KB VRAM) bei direktem Zugriff auf die Hardware.
+          <strong>TDscript</strong> ist eine eingebettete imperative, ereignisgesteuerte Programmiersprache und schlanke virtuelle Maschine (VM), entwickelt von Anton Mykhailov. Konzipiert für kompakte Automatisierung, industrielle Netzwerke und mobile Systeme, bietet sie deterministische interne Instruktionsausführung bei identischem Speicherzustand ohne GPU-Overhead (0 KB VRAM).
         </p>
 
         <h3>1. Architektonische Basis: Entkopplung von Core und Host API</h3>
@@ -1148,7 +1159,7 @@ if (!TD.ping(gateway)) {
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
 │                        TDSCRIPT CORE ENGINE                            │
-│    Lexer • Parser • Bytecode VM • Aufrufstapel • Typensystem           │
+│  Lexer • Parser • Bytecode VM • Interner Auswertungsstapel • GC        │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ SPI Host Interface
         ┌───────────────────────────┼───────────────────────────┐
@@ -1165,25 +1176,25 @@ if (!TD.ping(gateway)) {
           <div class="feature-box">
             <h4>⚙️ Bytecode-Compiler (.tbc)</h4>
             <p>
-              Kompiliert den Quelltext in einen binären Opcode-Stream. Der Quelltext wird vollständig entfernt, was Urheberrechte schützt, das Paket auf 2–10 KB minimiert und einen sofortigen Kaltstart ermöglicht.
+              Kompiliert den Quelltext in einen binären Opcode-Stream. Der Quelltext wird vollständig aus dem Paket entfernt, was das Paket auf 2–10 KB minimiert, Reverse-Engineering deutlich erschwert und vor einfachem Quellcode-Diebstahl schützt.
             </p>
           </div>
           <div class="feature-box">
             <h4>🛡️ Berechtigungsmodell (Capabilities)</h4>
             <p>
-              Sichere Sandbox-Ausführung. Kompilierte Pakete deklarieren eine Bitmaske erforderlicher Rechte. Fehlt ein Mandat, wird die Ausführung riskanter Operationen durch die VM blockiert.
+              Sichere Sandbox-Ausführung. Das Skript deklariert die erforderlichen Rechte (Capabilities). Die Deklaration gewährt jedoch keinen automatischen Zugriff: Die Autorisierung verbleibt bei Host-System und Anwender.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Digitale Signatur & Lizenzierung</h4>
+            <h4>🔒 Integritätskontrolle, Signatur & Lizenzen</h4>
             <p>
-              Zweistufige Verifikation: Integritätsprüfung des Bytecodes per SHA-256-Hash sowie Bindung kommerzieller Skripte an die Telegram-ID des Käufers oder einen Lizenzschlüssel.
+              Dreistufiges Sicherheitsmodell: SHA-256-Prüfsummen zur Integritätskontrolle, asymmetrische digitale Signaturen (Ed25519) zum Nachweis der Autorschaft und Lizenz-Token zur Autorisierung der Ausführung.
             </p>
           </div>
           <div class="feature-box">
             <h4>⚡ Ausführungsmodell & Event Loop</h4>
             <p>
-              Ein einzelner isolierter VM-Thread (Single-Threaded Worker) verhindert Speicher-Race-Conditions. Zeitintensive Abfragen (Netzwerk-Scans, Modbus) laufen asynchron und liefern Daten in die Ereignis-Warteschlange.
+              Ein einzelner isolierter VM-Worker garantiert deterministische Befehlsverarbeitung im Speicher. Zeitintensive Netzwerk- und Hardwareabfragen laufen asynchron und liefern Daten in die Ereignis-Warteschlange.
             </p>
           </div>
         </div>
@@ -1316,17 +1327,19 @@ if (!TD.ping(gateway)) {
             <ul>
               <li>Dynamische Typisierung (String, Int, Long, Float, Boolean, Map).</li>
               <li>Kontrollstrukturen: <code>if / else</code>, <code>for</code>- und <code>while</code>-Schleifen.</li>
-              <li>Bytecode-Compiler für <code>.tbc</code> mit <code>TD.xdec</code> Verschleierung.</li>
-              <li>Robuste Sandbox gegen Abstürze der Host-Anwendung.</li>
+              <li>Bytecode-Compiler für <code>.tbc</code> mit <code>TD.xdec</code> Zeichenketten-Verschleierung.</li>
+              <li>Robuste Sandbox mit Host-Ausnahmebehandlung gegen Systemabstürze.</li>
+              <li>Integritätsprüfung kompilierter Pakete via SHA-256.</li>
               <li>Native Brücken zu Sensoren, Netzwerk-Sockets und SQLite.</li>
             </ul>
           </div>
           <div class="feature-box">
             <h4>🟡 In Entwicklung für TDscript v1.1 (Roadmap)</h4>
             <ul>
-              <li>Benutzerdefinierte Prozeduren <code>fn name(args) { return ...; }</code> mit isoliertem Stackframe.</li>
-              <li>Strukturierte Fehlerbehandlung: <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Vorabprüfung der Capabilities-Bitmaske im Bytecode-Header.</li>
+              <li>Benutzerdefinierte Prozeduren <code>fn name(args) { return ...; }</code> mit Aufrufstapel-Isolation.</li>
+              <li>Strukturierte Ausnahmebehandlung: <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Strikte Container-Vorabprüfung und interaktive Capabilities-Rechteabfragen.</li>
+              <li>Asymmetrische Autorensignaturen auf Basis von Ed25519-Kryptografie.</li>
               <li>Kotlin Multiplatform (KMP) Build für Linux & Raspberry Pi.</li>
             </ul>
           </div>
@@ -1349,6 +1362,8 @@ if (!TD.ping(gateway)) {
     TD.httpPost("https://api.internal/telemetry", payload, "application/json");
 }</code></pre>
       </section>
+
+
 
 
 
@@ -1551,10 +1566,11 @@ if (!TD.ping(gateway)) {
 
       <!-- 4. TDSCRIPT, БАЙТКОД ТА ЗАХИСТ КОДУ -->
       <!-- 4. TDSCRIPT: АРХІТЕКТУРА ТА СПЕЦИФІКАЦІЯ 1.0 -->
+      <!-- 4. TDSCRIPT: АРХІТЕКТУРА ТА СПЕЦИФІКАЦІЯ 1.0 -->
       <section class="card" id="tdscript">
         <h2>⚡ TDscript Core 1.0 — Архітектура, Специфікація & Байткод (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          <strong>TDscript</strong> — вбудована імперативна подійно-орієнтована мова програмування та віртуальна машина (VM), створена Антоном Михайловим. Спроектована для компактної автоматизації, мобільних та периферійних систем (Edge Automation & IoT) з нульовим навантаженням на відеопам'ять (0 KB VRAM) та прямим апаратним керуванням.
+          <strong>TDscript</strong> — вбудована імперативна подійно-орієнтована мова програмування та віртуальна машина (VM), створена Антоном Михайловим. Спроектована для компактної автоматизації, мобільних та периферійних систем (Edge Automation & IoT) з нульовим навантаженням на відеопам'ять (0 KB VRAM), детермінованим виконанням інструкцій та розширюваним апаратним контролем.
         </p>
 
         <h3>1. Архітектурний базис: Розмежування Core та Host API</h3>
@@ -1563,7 +1579,7 @@ if (!TD.ping(gateway)) {
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
 │                        TDSCRIPT CORE ENGINE                            │
-│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Стек викликів • GC   │
+│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Внутрішній стек • GC  │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ SPI Host Interface
         ┌───────────────────────────┼───────────────────────────┐
@@ -1580,25 +1596,25 @@ if (!TD.ping(gateway)) {
           <div class="feature-box">
             <h4>⚙️ Байткод-компілятор (.tbc)</h4>
             <p>
-              Компіляція вихідного AST у бінарний потік опкодів. Початковий текст повністю видаляється, що виключає витік інтелектуальної власності, зменшує розмір пакета до 2–10 КБ та забезпечує миттєвий холодний запуск.
+              Компіляція вихідного AST у бінарний потік опкодів. Початковий текст повністю видаляється з пакета, що зменшує розмір до 2–10 КБ, суттєво ускладнює реверс-інжиніринг та захищає від прямого копіювання коду.
             </p>
           </div>
           <div class="feature-box">
             <h4>🛡️ Модель безпеки та Дозволи (Capabilities)</h4>
             <p>
-              Ізольована пісочниця (Sandbox). Пакет декларує бітову маску дозволів. Якщо скрипт не запросив мандат, виконання небезпечної операції блокується VM на етапі верифікації байткоду.
+              Ізольована пісочниця (Sandbox). Скрипт декларує необхідні дозволи (Capabilities), проте сама декларація не дає автоматичного доступу: фінальне рішення про надання прав залишається за хостом та користувачем.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Цифровий підпис та Ліцензування</h4>
+            <h4>🔒 Контроль цілісності, Підпис та Ліцензії</h4>
             <p>
-              Дворівнева перевірка: контроль цілісності байткоду за хешем SHA-256 та прив'язка комерційних міні-апів до Telegram ID покупця чи ліцензійного ключа.
+              Трирівнева модель: перевірка цілісності байткоду за SHA-256 хешем, асиметричний електронний підпис автора (Ed25519) для підтвердження авторства та ліцензійні токени для авторизації запуску.
             </p>
           </div>
           <div class="feature-box">
             <h4>⚡ Модель виконання та Event Loop</h4>
             <p>
-              Однопотоковий ізольований контекст VM (Single-Threaded Worker), що унеможливлює race conditions у пам'яті. Важкі мережеві операції виконуються асинхронно хостом та повертають результат у чергу подій.
+              Однопотоковий ізольований контекст VM (Single-Threaded Worker), що забезпечує детерміновану обробку інструкцій над станом пам'яті. Мережеві виклики виконуються асинхронно хостом та передають результати через чергу подій.
             </p>
           </div>
         </div>
@@ -1731,17 +1747,19 @@ if (!TD.ping(gateway)) {
             <ul>
               <li>Динамічна типізація (String, Int, Long, Float, Boolean, Map).</li>
               <li>Інструкції розгалуження <code>if / else</code>, цикли <code>for</code>, <code>while</code>.</li>
-              <li>Базовий байткод-компілятор <code>.tbc</code> з обфускацією <code>TD.xdec</code>.</li>
-              <li>Ізольована пісочниця з захистом хост-додатка від збоїв.</li>
+              <li>Базовий байткод-компілятор <code>.tbc</code> з обфускацією рядків <code>TD.xdec</code>.</li>
+              <li>Ізольована пісочниця з перехопленням винятків на рівні хоста.</li>
+              <li>Криптографічний контроль цілісності пакетів за алгоритмом SHA-256.</li>
               <li>Повний набір нативних мостів до сенсорів, сокетів та SQLite.</li>
             </ul>
           </div>
           <div class="feature-box">
             <h4>🟡 У розробці для TDscript v1.1 (Roadmap)</h4>
             <ul>
-              <li>Користувацькі функції <code>fn name(args) { return ...; }</code> з окремим кадром стека.</li>
-              <li>Блоки перехоплення винятків <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Апаратна валідація бітової маски Capabilities перед завантаженням <code>.tbc</code>.</li>
+              <li>Користувацькі функції <code>fn name(args) { return ...; }</code> з ізольованим стеком викликів.</li>
+              <li>Блоки структурного перехоплення винятків <code>try { ... } catch (err) { ... }</code>.</li>
+              <li>Сувора валідація бінарного контейнера та інтерактивний запит дозволів (Capabilities Prompt).</li>
+              <li>Асиметричний цифровий підпис авторів на базі Ed25519.</li>
               <li>Kotlin Multiplatform (KMP) збірка для десктопного Linux та Raspberry Pi.</li>
             </ul>
           </div>
@@ -1764,6 +1782,8 @@ if (!TD.ping(gateway)) {
     TD.httpPost("https://api.internal/telemetry", payload, "application/json");
 }</code></pre>
       </section>
+
+
 
 
 
