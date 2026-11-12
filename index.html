@@ -308,28 +308,28 @@
       <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
       <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript Core 1.0 — Архитектура, Спецификация & Байткод (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
+        <h2>⚡ TDscript 1.0.1 Final — Язык сценарного управления для робототехники, IoT и промышленной автоматизации <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          <strong>TDscript</strong> — встраиваемый императивный событийно-ориентированный язык программирования и виртуальная машина (VM), разработанная Антоном Михайловым. Язык спроектирован для компактной автоматизации, мобильных и периферийных систем (Edge Automation & IoT) с нулевым оверхедом видеопамяти (0 KB VRAM), детерминированным внутренним исполнением инструкций и расширяемым аппаратным контролем.
+          <strong>TDscript (TextDroid Script)</strong> — компактная межплатформенная программная платформа и легковесный детерминированный язык сценарного управления, созданный Антоном Михайловым. Язык спроектирован как <strong>связующий координационный уровень (Device Orchestration Level)</strong>, объединяющий робототехнические комплексы (ROS 2/DDS), контроллеры промышленной автоматизации (PLC, Modbus TCP, OPC UA), распределённые сетевые узлы и терминальные мобильные интерфейсы оператора (TUI OS Tdroid / TDnetScript) с нулевым оверхедом видеопамяти (0 KB VRAM).
         </p>
 
-        <h3>1. Архитектурный базис: Разделение Core и Host API</h3>
+        <h3>1. Архитектурный базис: Разделение Core, Host SPI и Device Abstraction</h3>
         <p>
-          В TDscript реализовано строгое разделение между ядром языка и сервисными провайдерами среды исполнения (Host Providers). Ядро не зависит от конкретной операционной системы:
+          В TDscript реализовано строгое пятиуровневое разделение: ядро не зависит от конкретной операционной системы или модели оборудования, а обращается к возможностям устройств через адаптеры:
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                        TDSCRIPT CORE ENGINE                            │
-│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Внутренний стек • GC  │
+│                        TDSCRIPT CORE ENGINE (v1.0.1)                   │
+│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Единый Global Scope   │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ SPI Host Interface
+                                    │ SPI Host Interface & Capabilities
         ┌───────────────────────────┼───────────────────────────┐
         ▼                           ▼                           ▼
 ┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
-│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
-│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
-│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
-│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
+│ Robotics SDK  │           │  TDnetScript  │           │ Tdroid (TUI)  │
+│ ROS 2 / DDS   │           │  (Industrial) │           │ Mobile Host   │
+│ • ROBOT.move()│           │ • PLC.modbus()│           │ • UI.window() │
+│ • ROBOT.grip()│           │ • NET.ping()  │           │ • PHONE.torch │
+│ • SENSORS.read│           │ • OPC UA / TCP│           │ • SQLite / VFS│
 └───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
@@ -480,27 +480,27 @@
           </tbody>
         </table>
 
-        <h3>4. Статус спецификации и Roadmap версий</h3>
+        <h3>4. Статус спецификации и Roadmap экосистемы</h3>
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>🟢 Реализовано в TDscript v1.0 (Stable)</h4>
+            <h4>🟢 Зафиксировано в TDscript v1.0.1 (Final Stable)</h4>
             <ul>
-              <li>Динамическая типизация (String, Int, Long, Float, Boolean, Map).</li>
-              <li>Инструкции ветвления <code>if / else</code>, циклы <code>for</code>, <code>while</code>.</li>
-              <li>Базовый байткод-компилятор и упаковщик <code>.tbc</code> с обфускацией строк <code>TD.xdec</code>.</li>
-              <li>Изолированная песочница с перехватом системных исключений на стороне хоста.</li>
-              <li>Контроль целостности бинарных пакетов по алгоритму SHA-256.</li>
-              <li>Нативные мосты хоста к датчикам, сокетам и локальной SQLite.</li>
+              <li><strong>Нормативные спецификации</strong>: <code>SPEC-TDS-CORE-1.0.1</code>, <code>SPEC-TDS-HOST-SPI-1.0.1</code>, <code>SPEC-TDBC-BIN-1.0.1</code>.</li>
+              <li><strong>Кросс-рантайм верификация</strong>: 50 из 50 тестов успешно пройдены на трёх движках: Python Reference Runtime, TDnetScript и Tdroid.</li>
+              <li><strong>EBNF Грамматика</strong>: строгое L-Value, правоассоциативное присваивание <code>a = b = c = 42</code>, безопасный dangling else.</li>
+              <li><strong>Script Global Scope</strong>: единая глобальная область видимости сценария без изолированных блоков.</li>
+              <li><strong>Строгая типизация без коэрциции</strong> (<code>10 != "10"</code>, <code>null != false</code>, <code>0 != false</code>).</li>
+              <li><strong>Event Loop & Безопасность</strong>: порог 32 слота, аварийный сброс в SQLite и системный <code>PANIC_HALT</code>.</li>
             </ul>
           </div>
           <div class="feature-box">
-            <h4>🟡 В разработке для TDscript v1.1 (Roadmap)</h4>
+            <h4>🟡 В разработке: TDscript Robotics & IoT SDK (v1.1 Roadmap)</h4>
             <ul>
-              <li>Полноценные пользовательские функции <code>fn name(args) { return ...; }</code> со стеком вызовов.</li>
-              <li>Блоки структурного перехвата исключений <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Строгая верификация заголовка бинарного контейнера и аппаратный аудит прав (Capabilities Prompt).</li>
-              <li>Асимметричная электронная подпись авторов на базе криптографии Ed25519.</li>
-              <li>Kotlin Multiplatform (KMP) сборка для запуска на десктопном Linux и Raspberry Pi.</li>
+              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: адаптер ROS 2 / DDS, абстракция манипуляторов, захватов и мобильных платформ (AMR).</li>
+              <li><strong>Device Abstraction</strong>: унифицированные команды оборудования верхнего уровня (камеры, конвейеры, сенсоры).</li>
+              <li><strong>Расширенная матрица Capabilities</strong>: <code>ROBOT_READ</code>, <code>ROBOT_MOVE</code>, <code>ROBOT_GRIP</code>, <code>ROBOT_SPEED_OVERRIDE</code>, <code>ROBOT_AUTONOMOUS</code>.</li>
+              <li><strong>Событийная модель устройств</strong>: асинхронные подписки на телеметрию и датчики без блокировки Event Loop.</li>
+              <li><strong>Пилотная роботизированная ячейка</strong>: демонстратор Pick-and-Place (Робот + Modbus PLC + Датчики + Мобильный TUI пульт).</li>
             </ul>
           </div>
         </div>
@@ -728,28 +728,28 @@ if (!TD.ping(gateway)) {
       <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
       <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript Core 1.0 — Architecture, Specification & Bytecode (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
+        <h2>⚡ TDscript 1.0.1 Final — Scripting Platform for Connected Devices, Robotics & Industrial Automation <span class="badge">SPECIFICATION 2026</span></h2>
         <p>
-          <strong>TDscript</strong> is an embedded imperative, event-driven programming language and lightweight virtual machine (VM) designed by Anton Mykhailov. Engineered for compact edge automation, IoT controllers, and mobile environments, it provides deterministic internal instruction evaluation given identical state with zero GPU overhead (0 KB VRAM) and extensible hardware control.
+          <strong>TDscript (TextDroid Script)</strong> is a compact cross-platform runtime and lightweight deterministic scripting language created by Anton Mykhailov. Engineered as a <strong>connective Device Orchestration layer</strong>, TDscript bridges robotic systems (ROS 2 / DDS), industrial PLCs (Modbus TCP, OPC UA), networked IoT nodes, and mobile operator TUI terminals (Tdroid / TDnetScript) with zero GPU memory overhead (0 KB VRAM).
         </p>
 
-        <h3>1. Architectural Foundation: Core vs. Host API Decoupling</h3>
+        <h3>1. Architectural Foundation: Core, Host SPI & Device Abstraction</h3>
         <p>
-          TDscript enforces strict architectural separation between the language engine (Core) and runtime platform providers (Host Providers). The core VM has zero dependencies on specific operating systems:
+          TDscript enforces strict five-tier decoupling: the language core does not depend on specific operating systems or hardware vendors, issuing high-level commands via standardized adapters:
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                        TDSCRIPT CORE ENGINE                            │
-│  Lexer • Parser • Bytecode VM • Internal Eval Stack • Garbage Collector │
+│                        TDSCRIPT CORE ENGINE (v1.0.1)                   │
+│  Lexer • Parser • Bytecode VM • Script Global Scope • GC               │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ SPI Host Interface
+                                    │ SPI Host Interface & Capabilities
         ┌───────────────────────────┼───────────────────────────┐
         ▼                           ▼                           ▼
 ┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
-│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
-│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
-│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
-│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
+│ Robotics SDK  │           │  TDnetScript  │           │ Tdroid (TUI)  │
+│ ROS 2 / DDS   │           │  (Industrial) │           │ Mobile Host   │
+│ • ROBOT.move()│           │ • PLC.modbus()│           │ • UI.window() │
+│ • ROBOT.grip()│           │ • NET.ping()  │           │ • PHONE.torch │
+│ • SENSORS.read│           │ • OPC UA / TCP│           │ • SQLite / VFS│
 └───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
@@ -900,27 +900,27 @@ if (!TD.ping(gateway)) {
           </tbody>
         </table>
 
-        <h3>4. Specification Status & Version Roadmap</h3>
+        <h3>4. Specification Status & Ecosystem Roadmap</h3>
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>🟢 Shipped in TDscript v1.0 (Stable)</h4>
+            <h4>🟢 Shipped in TDscript v1.0.1 (Final Stable)</h4>
             <ul>
-              <li>Dynamic typing system (String, Int, Long, Float, Boolean, Map).</li>
-              <li>Flow control: <code>if / else</code>, <code>for</code>, and <code>while</code> loops.</li>
-              <li>Bytecode compiler producing <code>.tbc</code> packages with <code>TD.xdec</code> string obfuscation.</li>
-              <li>Crash-resilient sandbox with host-level exception handling.</li>
-              <li>SHA-256 package cryptographic integrity verification.</li>
-              <li>Native bridges to hardware, sensors, raw sockets, and SQLite.</li>
+              <li><strong>Normative Specifications</strong>: <code>SPEC-TDS-CORE-1.0.1</code>, <code>SPEC-TDS-HOST-SPI-1.0.1</code>, <code>SPEC-TDBC-BIN-1.0.1</code>.</li>
+              <li><strong>Cross-Runtime Verified</strong>: 50/50 tests passed across Python Reference Runtime, TDnetScript, and Tdroid engines.</li>
+              <li><strong>EBNF Grammar</strong>: Strict L-Value, right-associative assignment <code>a = b = c = 42</code>, safe dangling else resolution.</li>
+              <li><strong>Script Global Scope</strong>: Single flat global symbol table without block scope leakage.</li>
+              <li><strong>Strict Equality without coercion</strong> (<code>10 != "10"</code>, <code>null != false</code>, <code>0 != false</code>).</li>
+              <li><strong>Event Loop & Safety</strong>: 32-slot threshold, SQLite critical spillover & trusted <code>PANIC_HALT</code>.</li>
             </ul>
           </div>
           <div class="feature-box">
-            <h4>🟡 In Development for TDscript v1.1 (Roadmap)</h4>
+            <h4>🟡 In Development: TDscript Robotics & IoT SDK (v1.1 Roadmap)</h4>
             <ul>
-              <li>User-defined procedures <code>fn name(args) { return ...; }</code> with isolated call frames.</li>
-              <li>Structured exception handling blocks: <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Strict binary container pre-validation and interactive Capability permission prompts.</li>
-              <li>Asymmetric cryptographic signatures for authors via Ed25519.</li>
-              <li>Kotlin Multiplatform (KMP) build for headless Linux & Raspberry Pi.</li>
+              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: ROS 2 / DDS bridge, abstractions for robotic arms, grippers, and AMRs.</li>
+              <li><strong>Device Abstraction</strong>: Unified vendor-neutral commands for cameras, conveyors, and sensors.</li>
+              <li><strong>Extended Capabilities Matrix</strong>: <code>ROBOT_READ</code>, <code>ROBOT_MOVE</code>, <code>ROBOT_GRIP</code>, <code>ROBOT_SPEED_OVERRIDE</code>, <code>ROBOT_AUTONOMOUS</code>.</li>
+              <li><strong>Event-Driven Device Model</strong>: Non-blocking asynchronous event subscriptions and timeout handlers.</li>
+              <li><strong>Pilot Robotic Cell</strong>: Pick-and-Place demonstration (Robot + Modbus PLC + Sensors + Mobile TUI console).</li>
             </ul>
           </div>
         </div>
