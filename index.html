@@ -486,10 +486,10 @@
             <h4>🟢 Зафиксировано в TDscript v1.0.1 (Final Stable)</h4>
             <ul>
               <li><strong>Нормативные спецификации</strong>: <code>SPEC-TDS-CORE-1.0.1</code>, <code>SPEC-TDS-HOST-SPI-1.0.1</code>, <code>SPEC-TDBC-BIN-1.0.1</code>.</li>
-              <li><strong>Кросс-рантайм верификация</strong>: 50 из 50 тестов успешно пройдены на трёх движках: Python Reference Runtime, TDnetScript и Tdroid.</li>
+              <li><strong>Кросс-платформенная верификация трёх сред</strong>: независимая эталонная реализация Python Reference Runtime и две Kotlin/JVM-интеграции — TDnetScript и Tdroid (52 успешных теста).</li>
               <li><strong>EBNF Грамматика</strong>: строгое L-Value, правоассоциативное присваивание <code>a = b = c = 42</code>, безопасный dangling else.</li>
               <li><strong>Script Global Scope</strong>: единая глобальная область видимости сценария без изолированных блоков.</li>
-              <li><strong>Строгая типизация без коэрциции</strong> (<code>10 != "10"</code>, <code>null != false</code>, <code>0 != false</code>).</li>
+              <li><strong>Строгая типизация и точные 64-битные числа</strong>: строгое равенство без коэрциции, точное сравнение целых чисел за пределом $2^{53}$ без потери точности Double.</li>
               <li><strong>Event Loop & Безопасность</strong>: порог 32 слота, аварийный сброс в SQLite и системный <code>PANIC_HALT</code>.</li>
             </ul>
           </div>
@@ -906,10 +906,10 @@ if (!TD.ping(gateway)) {
             <h4>🟢 Shipped in TDscript v1.0.1 (Final Stable)</h4>
             <ul>
               <li><strong>Normative Specifications</strong>: <code>SPEC-TDS-CORE-1.0.1</code>, <code>SPEC-TDS-HOST-SPI-1.0.1</code>, <code>SPEC-TDBC-BIN-1.0.1</code>.</li>
-              <li><strong>Cross-Runtime Verified</strong>: 50/50 tests passed across Python Reference Runtime, TDnetScript, and Tdroid engines.</li>
+              <li><strong>Cross-Platform Triangulation across three runtimes</strong>: Independent Python Reference Runtime and two Kotlin/JVM integrations — TDnetScript & Tdroid (52 passing tests).</li>
               <li><strong>EBNF Grammar</strong>: Strict L-Value, right-associative assignment <code>a = b = c = 42</code>, safe dangling else resolution.</li>
               <li><strong>Script Global Scope</strong>: Single flat global symbol table without block scope leakage.</li>
-              <li><strong>Strict Equality without coercion</strong> (<code>10 != "10"</code>, <code>null != false</code>, <code>0 != false</code>).</li>
+              <li><strong>Strict Typing & Exact 64-bit Integers</strong>: No coercion, exact integer relational comparisons beyond $2^{53}$ without Double precision truncation.</li>
               <li><strong>Event Loop & Safety</strong>: 32-slot threshold, SQLite critical spillover & trusted <code>PANIC_HALT</code>.</li>
             </ul>
           </div>
