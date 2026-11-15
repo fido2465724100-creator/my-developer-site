@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fido2465724100-creator.github.io/my-developer-site/sitemap.xml

@@ -1,0 +1,55 @@
+# Anton Mykhailov — Software, TUI Systems & Games Development
+> Official developer portal: TUI operating environments, TDScript embedded language, bytecode compilers, and indie games.
+> Website: https://fido2465724100-creator.github.io/my-developer-site/
+> Developer: Anton Mykhailov (Halberstadt, Germany)
+> Contact: drmykhailov@gmail.com | Phone: +49 172 9735840
+
+## Overview & Core Philosophy
+Anton Mykhailov specializes in systems programming with extreme resource optimization:
+- Minimal resource overhead (0 KB VRAM architectures)
+- High battery life for mobile devices
+- 100% on-device data processing (no tracking, zero third-party telemetry, no analytics SDKs)
+- Native and embedded platforms: Android (Kotlin/Java), VM/byte-code engines, TUI (Turbo Vision / DOS style), network protocols (UDP, TCP, LoRa, Modbus), and competitive game AI.
+
+---
+
+## Published & Featured Projects
+
+### 1. Tdroid (TUI Desktop & Launcher for Android)
+- **Platforms**: Android (Free & Pro editions on Google Play)
+- **Description**: Ultra-lightweight terminal/TUI desktop environment for Android smartphones and tablets. Replaces heavy graphical launchers with an efficient, keyboard-first text console interface.
+- **Key Features**:
+  - Pure terminal interface with instantaneous launch time and minimal battery consumption.
+  - Built-in multitasking, app management, file navigation, and system diagnostics.
+  - Zero telemetry and full offline capability.
+
+### 2. TDScript (Embedded Programming Language & Bytecode VM)
+- **Description**: Fast, lightweight interpreted scripting language designed specifically for embedded execution and scripting inside Tdroid.
+- **Key Features**:
+  - Compiles directly into compact bytecode (`.tbc`).
+  - Native integration with mobile filesystem, text manipulation, and hardware commands.
+  - High execution speed with low memory footprint.
+
+### 3. Sevens & Nines («Сімки та Дев'ятки» / «Семёрки и Девятки»)
+- **Platforms**: Android (Google Play) & Linux/Desktop
+- **Description**: Cross-platform card game simulator featuring classic regional and international rules:
+  - Eastern European / Ukrainian "Nine" (36-card deck)
+  - International "Sevens" (Parliament / Fan Tan, 52-card deck)
+  - Card Dominoes / Fan Tan with chips and pass penalties
+- **Key Features**:
+  - Heuristic AI bots with opponent hand analysis and tactical blocking.
+  - Custom decks and table felts (Emerald, Sapphire, Bordeaux, Graphite).
+  - Procedural lightweight audio.
+
+### 4. TCM Canons («Каноны ТКМ: Древняя Мудрость»)
+- **Platforms**: Android (Capacitor/Vite), Web
+- **Description**: Interactive educational encyclopedia and study platform for Traditional Chinese Medicine (TCM) ancient treatises. Includes acupoints atlas, 5 elements (Wu Xing), pharmacology, and 100-question certification exam generating authentic PDF diplomas.
+
+---
+
+## Legal & Compliance (Impressum & Privacy)
+- **Publisher (§ 5 DDG Germany)**: Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, Germany.
+- **Taxation**: Small business status under § 19 UStG (Kleinunternehmerstatus, VAT exempt).
+- **Privacy Policy (GDPR / DSGVO)**:
+  - All apps (Tdroid, Sevens & Nines) require zero registration and collect zero personal data.
+  - All databases (SQLite), notes, and game saves remain strictly on the user's physical device.
