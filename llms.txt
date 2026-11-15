@@ -1,15 +1,15 @@
 # Anton Mykhailov — Software, TUI Systems & Games Development
-> Official developer portal: TUI operating environments, TDScript embedded language, bytecode compilers, and indie games.
+> Official developer portal: TUI operating environments, TDscript cross-platform language & orchestration platform, bytecode compilers, and indie games.
 > Website: https://fido2465724100-creator.github.io/my-developer-site/
 > Developer: Anton Mykhailov (Halberstadt, Germany)
 > Contact: drmykhailov@gmail.com | Phone: +49 172 9735840
 
 ## Overview & Core Philosophy
-Anton Mykhailov specializes in systems programming with extreme resource optimization:
+Anton Mykhailov specializes in systems programming, device orchestration, and high-efficiency architectures:
 - Minimal resource overhead (0 KB VRAM architectures)
-- High battery life for mobile devices
+- High battery life and performance for mobile & embedded devices
 - 100% on-device data processing (no tracking, zero third-party telemetry, no analytics SDKs)
-- Native and embedded platforms: Android (Kotlin/Java), VM/byte-code engines, TUI (Turbo Vision / DOS style), network protocols (UDP, TCP, LoRa, Modbus), and competitive game AI.
+- Native, mobile, graphical, and embedded platforms: Android (Kotlin/Java), robotics & industrial control (ROS 2, Modbus TCP, OPC UA, PLC), VM/bytecode engines, TUI environments, and competitive game AI.
 
 ---
 
@@ -23,12 +23,14 @@ Anton Mykhailov specializes in systems programming with extreme resource optimiz
   - Built-in multitasking, app management, file navigation, and system diagnostics.
   - Zero telemetry and full offline capability.
 
-### 2. TDScript (Embedded Programming Language & Bytecode VM)
-- **Description**: Fast, lightweight interpreted scripting language designed specifically for embedded execution and scripting inside Tdroid.
-- **Key Features**:
-  - Compiles directly into compact bytecode (`.tbc`).
-  - Native integration with mobile filesystem, text manipulation, and hardware commands.
-  - High execution speed with low memory footprint.
+### 2. TDscript (TextDroid Script) — Cross-Platform Orchestration & Scripting Platform
+- **Platforms / Scope**: Cross-platform (Android, Linux, Embedded, Robotics, GUI & TUI Applications)
+- **Description**:
+  TDscript (TextDroid Script) — компактная межплатформенная программная платформа и легковесный детерминированный язык сценарного управления, созданный Антоном Михайловым. Язык спроектирован как связующий координационный уровень (Device Orchestration Level), объединяющий робототехнические комплексы (ROS 2/DDS), контроллеры промышленной автоматизации (PLC, Modbus TCP, OPC UA), распределённые сетевые узлы, графические и терминальные мобильные интерфейсы оператора (TUI OS Tdroid / TDnetScript) с нулевым оверхедом видеопамяти (0 KB VRAM).
+- **Key Technical Capabilities**:
+  - **Five-tier architecture**: Strict decoupling of the Core Engine (deterministic VM, byte-code `.tbc`) from Platform Host Adapters (Robotics Adapter, Industrial PLC/Bus Adapter, Android/Hardware Adapter, Graphics/UI Adapter, Distributed Network Adapter).
+  - **Broad Application**: Used both within terminal operating environments (Tdroid) and as an embedded orchestration & scripting engine in standalone desktop/mobile applications, graphical tools, and automated cyber-physical systems.
+  - **Deterministic Bytecode**: Compact compilation into `.tbc` binaries with high execution predictability, low memory footprint, and high-speed execution.
 
 ### 3. Sevens & Nines («Сімки та Дев'ятки» / «Семёрки и Девятки»)
 - **Platforms**: Android (Google Play) & Linux/Desktop
