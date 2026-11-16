@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCM Canons — Official Certificate Verification Portal</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --border: #1f293d;
+      --accent: #d97706;
+      --gold: #fbbf24;
+      --text: #f3f4f6;
+      --text-muted: #94a3b8;
+      --green: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 580px;
+      width: 100%;
+      padding: 2.2rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-seal {
+      display: inline-block;
+      width: 72px;
+      height: 72px;
+      line-height: 72px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid var(--green);
+      color: var(--green);
+      font-size: 2.2rem;
+      margin-bottom: 1.2rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    .subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+    }
+    .data-table td {
+      padding: 0.75rem 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .data-table td:first-child {
+      color: var(--text-muted);
+      width: 40%;
+    }
+    .data-table td:last-child {
+      font-weight: 600;
+      color: var(--text);
+    }
+    .code-box {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-family: monospace;
+      color: var(--gold);
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-top: 1rem;
+      display: inline-block;
+    }
+    .footer-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 1.8rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    a.btn-home {
+      display: inline-block;
+      margin-top: 1.2rem;
+      background: #1e293b;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    a.btn-home:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="badge-seal">✓</div>
+    <h1>Официальная верификация сертификата ТКМ</h1>
+    <p class="subtitle">Official Digital Qualification Board of TCM Canons & Treatises</p>
+
+    <div class="code-box" id="code-val">TCM-VERIFIED</div>
+
+    <table class="data-table">
+      <tr>
+        <td>Обладатель (Scholar):</td>
+        <td id="name-val">Мастер канонов</td>
+      </tr>
+      <tr>
+        <td>Направление / Канон:</td>
+        <td id="track-val">Акупунктура и Древние тексты</td>
+      </tr>
+      <tr>
+        <td>Результат экзамена:</td>
+        <td id="score-val" style="color: var(--green);">100%</td>
+      </tr>
+      <tr>
+        <td>Дата выдачи:</td>
+        <td id="date-val">—</td>
+      </tr>
+      <tr>
+        <td>Статус подлинности:</td>
+        <td style="color: var(--green);">✓ Действителен (Подлинный документ)</td>
+      </tr>
+    </table>
+
+    <div class="footer-note">
+      Выдан в образовательном приложении «Каноны ТКМ» (TCM Canons) на основании успешной сдачи аттестации высшей ступени по стандартам первоисточников («Хуан-ди Нэй-цзин», «Нань-цзин»).
+    </div>
+
+    <a href="../" class="btn-home">← На портал разработчика</a>
+  </div>
+
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var code = params.get('code') || 'TCM-CANON-VERIFIED';
+      var name = params.get('name') || 'Мастер канонов ТКМ';
+      var track = params.get('track') || 'Полный квалификационный экзамен (Grand Master)';
+      var score = params.get('score') || '95';
+      var date = params.get('date') || new Date().toLocaleDateString('ru-RU');
+
+      document.getElementById('code-val').textContent = code;
+      document.getElementById('name-val').textContent = name;
+      document.getElementById('track-val').textContent = track;
+      document.getElementById('score-val').textContent = score + '% (Аттестация пройдена)';
+      document.getElementById('date-val').textContent = date;
+    })();
+  </script>
+</body>
+</html>
