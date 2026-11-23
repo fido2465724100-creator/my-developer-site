@@ -382,64 +382,76 @@
       <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
       <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript 1.0.1 Final — Язык сценарного управления для робототехники, IoT и промышленной автоматизации <span class="badge">SPECIFICATION 2026</span></h2>
+        <h2>⚡ TDscript Core 1.1 / TDModules v1.4.0 — Универсальная платформа сценарного управления для микросхем, робототехники и IoT <span class="badge badge-accent">RELEASE 1.4.0 (Core 1.1)</span></h2>
         <p>
-          <strong>TDscript (TextDroid Script)</strong> — компактная межплатформенная программная платформа и легковесный детерминированный язык сценарного управления, созданный Антоном Михайловым. Язык спроектирован как <strong>связующий координационный уровень (Device Orchestration Level)</strong>, объединяющий робототехнические комплексы (ROS 2/DDS), контроллеры промышленной автоматизации (PLC, Modbus TCP, OPC UA), распределённые сетевые узлы и терминальные мобильные интерфейсы оператора (TUI OS Tdroid / TDnetScript) с нулевым оверхедом видеопамяти (0 KB VRAM).
+          <strong>TDscript (TextDroid Script)</strong> — компактная межплатформенная программная экосистема и легковесный детерминированный язык сценарного управления, созданный Антоном Михайловым. Экосистема эволюционировала из скриптового движка лаунчера в <strong>универсальную многоуровневую платформу автоматизации (Device &amp; Chip Orchestration Platform)</strong>: она связывает воедино микросхемы и физические шины (I2C, SPI, UART, CAN), промышленные контроллеры (Modbus PLC, OPC UA), робототехнические комплексы (ROS 2/DDS) и автономных ИИ-агентов с нулевым оверхедом видеопамяти (0 KB VRAM / Headless).
         </p>
 
-        <h3>1. Архитектурный базис: Разделение Core, Host SPI и Device Abstraction</h3>
+        <h3>1. Архитектурный базис: Разделение Core, Host SPI, CapabilityScope и Студия</h3>
         <p>
-          В TDscript реализовано строгое пятиуровневое разделение: ядро не зависит от конкретной операционной системы или модели оборудования, а обращается к возможностям устройств через адаптеры:
+          В TDscript Core 1.1 реализовано строгое многоуровневое разделение: чистое ядро абстрагировано от конкретного железа и операционной системы, а доступ к периферии гранулирован через аппаратную матрицу прав и изоляцию пространств адресов:
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                        TDSCRIPT CORE ENGINE (v1.0.1)                   │
-│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Единый Global Scope   │
+│                   TDSCRIPT CORE ENGINE (v1.1.0 / Core 1.1)             │
+│  Лексер (109 языков) • Парсер • LString • Step Limit (10M) • HostSPI   │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ SPI Host Interface & Capabilities
+                                    │ CapabilityScope &amp; Watchdog Fail-Safe
         ┌───────────────────────────┼───────────────────────────┐
         ▼                           ▼                           ▼
 ┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│ Robotics SDK  │           │  TDnetScript  │           │ Tdroid (TUI)  │
-│ ROS 2 / DDS   │           │  (Industrial) │           │ Mobile Host   │
-│ • ROBOT.move()│           │ • PLC.modbus()│           │ • UI.window() │
-│ • ROBOT.grip()│           │ • NET.ping()  │           │ • PHONE.torch │
-│ • SENSORS.read│           │ • OPC UA / TCP│           │ • SQLite / VFS│
+│TDscript Studio│           │  TDRobotics   │           │ Tdroid / TUI  │
+│ Linux/Android │           │  Engineering  │           │ Terminal OS   │
+│ • AI Agentic  │           │ • Circuit CAD │           │ • UI.window() │
+│ • Sandbox I2C │           │ • DIP AutoGen │           │ • PHONE.torch │
+│ • Modbus PLC  │           │ • Safety Gate │           │ • SQLite/VFS  │
 └───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>⚙️ Байткод-компилятор (.tbc)</h4>
+            <h4>🌐 Нативная мультиязычность (109 языков)</h4>
             <p>
-              Компиляция исходного AST в бинарный поток опкодов. Исходный текст полностью удаляется из пакета, что сокращает размер до 2–10 КБ, обеспечивает быстрый старт, существенно затрудняет обратную разработку и защищает от прямого копирования кода.
+              Директива <code>language: &lt;код&gt;;</code> на уровне лексера. Двусторонний посимвольный проектор <code>CodeProjector</code> (State Machine) переключает отображение ключевых слов (RU 🇷🇺, EN 🇬🇧, DE 🇩🇪) на лету без риска повреждения строковых литералов и комментариев. Защищённый тип <code>LString</code> исключает конкатенацию (ошибка <code>TDS_E105</code>) для сохранения целостности грамматики.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🛡️ Модель безопасности и Разрешения (Capabilities)</h4>
+            <h4>🛡️ Гранулярная изоляция CapabilityScope</h4>
             <p>
-              Изолированная песочница (Sandbox). Скрипт объявляет требуемые мандаты доступа (Capabilities), однако декларация не гарантирует автоматического доступа: окончательное решение о предоставлении прав остаётся за хостом и пользователем.
+              Аппаратная песочница с белыми списками периферии. Скрипт изолирован не только на уровне прав, но и по физическим координатам: разрешённые адреса шины I2C (например, только <code>0x76</code> для Bosch BME280), диапазоны регистров Modbus PLC (<code>100..200</code>) и порты Serial. Любая попытка доступа вне Scope пресекается хостом.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Контроль целостности, Подпись и Лицензии</h4>
+            <h4>⚡ Fail-Safe Watchdog и Защита от циклов</h4>
             <p>
-              Трехуровневая модель безопасности: контроль целостности байткода через SHA-256 хеширование, асимметричная электронная подпись автора (Ed25519) для подтверждения подлинности и лицензионные токены для коммерческого контроля запуска.
+              Аппаратный сторож <code>WATCHDOG.feed()</code> и системный сброс <code>WATCHDOG.emergencyStop()</code>. В рантайме включён строгий лимит шагов (<code>maxSteps = 10_000_000L</code>): при попытке бесконечного цикла хост автоматически инициирует аварийную остановку приводов и выбрасывает <code>TDS_E106_STEP_LIMIT_EXCEEDED</code>.
             </p>
           </div>
           <div class="feature-box">
-            <h4>⚡ Модель исполнения и Event Loop</h4>
+            <h4>🤖 Автономный ИИ-агент (Agentic Loop)</h4>
             <p>
-              Однопоточный изолированный контекст VM (Single-Threaded Worker), обеспечивающий детерминированную обработку инструкций при фиксированном состоянии памяти. Сетевые вызовы и опросы шин выполняются асинхронно хостом и передают результаты через очередь событий.
+              Встроенный замкнутый цикл разработки: <em>Discovery (<code>probe()</code>) ➔ Генерация кода по промпту ➔ Тестирование в <code>AiHardwareSandbox</code> ➔ Захват JSON-ошибок <code>CompilerErrorDiagnostic</code> ➔ Самоисправление кода (до 3–5 итераций)</em>. Поддержка локальных серверов Ollama и LM Studio без внешних библиотек.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🛠️ Кроссплатформенная IDE TDscript Studio</h4>
+            <p>
+              Единая среда разработки для Linux, Windows и Android: десктопное приложение на Compose Desktop (сборка в автономный Linux JAR), мобильное приложение Android (APK 5.5 МБ с поддержкой USB-OTG и BLE) и виртуальная песочница симуляции чипов BME280 и ПЛК Modbus.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>⚙️ Байткод-компилятор (.tbc) и Безопасность</h4>
+            <p>
+              Компиляция исходного AST в бинарный поток опкодов. Исходный код удаляется из пакета, уменьшая размер до 2–10 КБ. Поддержка цифровых подписей автора (Ed25519), контроль целостности через SHA-256 и лицензионные токены.
             </p>
           </div>
         </div>
 
-        <h3>2. Матрица разрешений безопасности (Capabilities)</h3>
+        <h3>2. Расширенная матрица разрешений безопасности (Capabilities 1.1)</h3>
         <table>
           <thead>
             <tr>
               <th>Мандат (Capability)</th>
               <th>Битовый флаг</th>
-              <th>Контролируемые операции</th>
+              <th>Контролируемые операции и аппаратные шины</th>
             </tr>
           </thead>
           <tbody>
@@ -454,29 +466,79 @@
               <td>Сканирование портов, поиск хостов в подсети (ARP/Subnet Discovery).</td>
             </tr>
             <tr>
-              <td><code>PLC_WRITE</code></td>
+              <td><code>PLC_READ</code></td>
               <td><code>0x0004</code></td>
-              <td>Запись регистров Modbus TCP/RTU, отправка команд промышленным контроллерам.</td>
+              <td>Чтение регистров промышленных контроллеров Modbus TCP/RTU.</td>
+            </tr>
+            <tr>
+              <td><code>PLC_WRITE</code></td>
+              <td><code>0x0008</code></td>
+              <td>Запись регистров Modbus TCP/RTU, отправка команд автоматике.</td>
             </tr>
             <tr>
               <td><code>BT_ACCESS</code></td>
-              <td><code>0x0008</code></td>
-              <td>Подключение и обмен данными по Bluetooth Classic (SPP) и BLE UART.</td>
+              <td><code>0x0010</code></td>
+              <td>Подключение и обмен данными по Bluetooth Classic (SPP) и BLE GATT.</td>
             </tr>
             <tr>
               <td><code>HARDWARE</code></td>
-              <td><code>0x0010</code></td>
-              <td>Управление фонариком, вибромотором, чтение датчиков и GPS-координат.</td>
+              <td><code>0x0020</code></td>
+              <td>Управление фонариком, вибромотором, чтение датчиков телефона.</td>
+            </tr>
+            <tr>
+              <td><code>UI_CORE</code></td>
+              <td><code>0x0040</code></td>
+              <td>Отображение TUI окон, прогресс-баров и диалогов оператора.</td>
             </tr>
             <tr>
               <td><code>BACKGROUND</code></td>
-              <td><code>0x0020</code></td>
-              <td>Работа скрипта в режиме системного демона (Foreground Service Watchdog).</td>
+              <td><code>0x0080</code></td>
+              <td>Работа скрипта в режиме системного демона (Watchdog Service).</td>
+            </tr>
+            <tr>
+              <td><code>I2C_READ</code></td>
+              <td><code>0x0100</code></td>
+              <td>Чтение регистров микросхем по шине I2C (с проверкой CapabilityScope).</td>
+            </tr>
+            <tr>
+              <td><code>I2C_WRITE</code></td>
+              <td><code>0x0200</code></td>
+              <td>Запись байтов конфигурации в микросхемы по шине I2C.</td>
+            </tr>
+            <tr>
+              <td><code>SPI_TRANSFER</code></td>
+              <td><code>0x0400</code></td>
+              <td>Аппаратный обмен данными по шине SPI (MOSI/MISO/CLK/CS).</td>
+            </tr>
+            <tr>
+              <td><code>SERIAL_RAW</code></td>
+              <td><code>0x0800</code></td>
+              <td>Прямой доступ к COM/TTY портам и адаптерам USB-UART.</td>
+            </tr>
+            <tr>
+              <td><code>CAN_BUS</code></td>
+              <td><code>0x1000</code></td>
+              <td>Прием и передача фреймов автомобильной и промышленной сети CAN.</td>
+            </tr>
+            <tr>
+              <td><code>ROBOT_MOTION</code></td>
+              <td><code>0x2000</code></td>
+              <td>Команды перемещения манипуляторов, захватов и платформ (AMR).</td>
+            </tr>
+            <tr>
+              <td><code>ROBOT_OVERRIDE</code></td>
+              <td><code>0x4000</code></td>
+              <td>Экстренное вмешательство в кинематику и аварийный сброс (E-Stop).</td>
+            </tr>
+            <tr>
+              <td><code>DRIVER_INSTALL</code></td>
+              <td><code>0x8000</code></td>
+              <td>Динамическая установка манифестов драйверов оборудования.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>3. Полный справочник прикладных API модулей</h3>
+        <h3>3. Справочник прикладных API модулей TDscript Core 1.1</h3>
         <table>
           <thead>
             <tr>
@@ -487,34 +549,34 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Речь (TTS)</strong></td>
-              <td><code>TD.speak("текст")</code></td>
-              <td>Синтез речи через системный движок Android TTS.</td>
+              <td><strong>Шина I2C</strong></td>
+              <td><code>I2C.read(addr, reg, len)</code> / <code>I2C.write(addr, reg, data)</code></td>
+              <td>Транзакции по шине I2C с валидацией адреса в CapabilityScope.</td>
             </tr>
             <tr>
-              <td><strong>Геолокация</strong></td>
-              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Координаты устройства в формате <code>"lat,lon"</code>.</td>
+              <td><strong>Последовательный порт</strong></td>
+              <td><code>SERIAL.read(port, len)</code> / <code>SERIAL.write(port, data)</code></td>
+              <td>Прямой обмен данными с USB-UART / COM-портами микроконтроллеров.</td>
             </tr>
             <tr>
-              <td><strong>Буфер обмена</strong></td>
-              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
-              <td>Чтение и запись текста в буфер обмена.</td>
+              <td><strong>Промышленный Modbus</strong></td>
+              <td><code>PLC.modbusRead(ip, reg)</code> / <code>PLC.modbusWrite(ip, reg, val)</code></td>
+              <td>Чтение и запись регистров автоматики SCADA/PLC контроллеров.</td>
             </tr>
             <tr>
-              <td><strong>Датчики</strong></td>
-              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Снятие показаний физических сенсоров.</td>
+              <td><strong>Сторож и Безопасность</strong></td>
+              <td><code>WATCHDOG.feed()</code> / <code>WATCHDOG.emergencyStop()</code></td>
+              <td>Сброс таймера сторожа и мгновенная аппаратная остановка линий.</td>
             </tr>
             <tr>
-              <td><strong>Батарея</strong></td>
-              <td><code>TD.battery()</code></td>
-              <td>Уровень заряда аккумулятора в процентах (0–100).</td>
+              <td><strong>Локализация строк</strong></td>
+              <td><code>L"MSG_ID:Текст по умолчанию"</code></td>
+              <td>Символический строковый ресурс (прямой <code>+</code> запрещён, защита TDS_E105).</td>
             </tr>
             <tr>
-              <td><strong>Периферия</strong></td>
-              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
-              <td>Управление вспышкой камеры и тактильным импульсом.</td>
+              <td><strong>Инспекция шин</strong></td>
+              <td><code>HostSPI.probe()</code></td>
+              <td>Динамическое сканирование подключенных USB, I2C, BLE и TCP шлюзов.</td>
             </tr>
             <tr>
               <td><strong>Сетевой HTTP</strong></td>
@@ -523,38 +585,102 @@
             </tr>
             <tr>
               <td><strong>Пинг сети</strong></td>
-              <td><code>TD.ping(host)</code></td>
-              <td>Проверка доступности хоста (ICMP/TCP Ping).</td>
-            </tr>
-            <tr>
-              <td><strong>UDP Сокеты</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Отправка датаграмм (ESP32, Arduino, роботы).</td>
-            </tr>
-            <tr>
-              <td><strong>Промышленный Modbus</strong></td>
-              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
-              <td>Прямая запись регистров автоматики SCADA/PLC.</td>
+              <td><code>TD.ping(host)</code> / <code>TD.udp(host, port, data)</code></td>
+              <td>Проверка доступности хоста и отправка датаграмм (ESP32, Arduino).</td>
             </tr>
             <tr>
               <td><strong>Bluetooth</strong></td>
-              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
-              <td>Беспроводное управление внешними микроконтроллерами.</td>
+              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code> / <code>BT.readLine()</code></td>
+              <td>Беспроводное управление периферией и контроллерами.</td>
             </tr>
             <tr>
               <td><strong>База данных SQLite</strong></td>
               <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
-              <td>Локальное реляционное хранение данных и логов.</td>
+              <td>Локальное реляционное хранение данных и телеметрии.</td>
             </tr>
             <tr>
               <td><strong>Псевдографика TUI</strong></td>
               <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
-              <td>Оконная графика Turbo Vision в консольной редакции Tdroid.</td>
+              <td>Оконный интерфейс оператора Turbo Vision в консоли Tdroid.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>4. Статус спецификации и Roadmap экосистемы</h3>
+        <h3>4. Интегрированная среда TDscript Studio и Автономный ИИ-агент</h3>
+        <p>
+          Для разработки скриптов и отладки периферии без риска повреждения реального оборудования создана кроссплатформенная среда <strong>TDscript Studio</strong> (Linux, Windows, Android):
+        </p>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🖥️ Desktop IDE (Compose Desktop)</h4>
+            <p>
+              Полноценное оконное приложение для Linux и Windows с панелью живого переключения языков кода (RU/EN/DE), раздельным экраном редактора, монитором регистров Modbus и шин I2C. Доступен как запуск через Gradle, так и автономный дистрибутив <code>tdscript-studio-linux-x64-1.1.0.jar</code>.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>📱 Android Mobile Edition (APK 5.5 МБ)</h4>
+            <p>
+              Мобильное рабочее место инженера прямо «в поле». Поддерживает аппаратный интерфейс <code>AndroidHostSPI</code> с прямым доступом к USB-OTG преобразователям и беспроводным BLE-сенсорам либо работу в безопасном режиме симулятора.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🧪 Аппаратная песочница AiHardwareSandbox</h4>
+            <p>
+              Эмулирует микросхему <strong>Bosch BME280</strong> (адрес <code>0x76</code>, регистр Chip ID <code>0xD0 -> 0x60</code>, калибровочные регистры температуры/давления) и промышленный шлюз <strong>Modbus PLC Gateway</strong> (регистр 100 = 24.5°C, регистр 101 = статус насоса).
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🔄 Цикл Agentic Loop: Генерация ➔ Тест ➔ Автоисправление</h4>
+            <p>
+              Встроенный ИИ-агент подключается к локальным серверам (Ollama, LM Studio) по OpenAI-совместимому протоколу. Агент автоматически получает снимок оборудования (Discovery JSON), генерирует код, запускает его в песочнице, и при ошибках (например, выход за пределы Scope или ошибка синтаксиса) сам исправляет код за 1–3 итерации.
+            </p>
+          </div>
+        </div>
+
+        <h3>5. Практические примеры кода</h3>
+        <h4>Пример 1: Мультиязычный скрипт на русском языке (Чтение BME280 и ПЛК Modbus)</h4>
+        <pre><code>language: ru;
+// 1. Адрес микросхемы Bosch BME280 (0x76 = 118 в десятичном виде)
+пусть bmeAddress = 118
+
+// 2. Чтение температуры теплоносителя и статуса насоса по Modbus TCP
+пусть boilerTemp = PLC.modbusRead("127.0.0.1", 100)
+пусть pumpStatus = PLC.modbusRead("127.0.0.1", 101)
+
+если (boilerTemp &gt; 240 &amp;&amp; pumpStatus == 1) {
+    print("Котел в рабочем режиме. Опрос климатического датчика...")
+    
+    // 3. Чтение идентификатора чипа BME280 (регистр 0xD0, длина 1 байт)
+    пусть chipId = I2C.read(bmeAddress, 208, 1)
+    print("BME280 Chip ID получен успешно")
+    
+    // 4. Подтверждение сторожевого таймера безопасности
+    WATCHDOG.feed()
+} иначе {
+    print("Внимание: аварийный перегрев или остановка насоса!")
+    WATCHDOG.emergencyStop()
+}</code></pre>
+
+        <h4>Пример 2: Канонический сторож сетевого шлюза и локализованное оповещение</h4>
+        <pre><code>// 1. Проверка доступности шлюза сети
+let gateway = "192.168.1.1"
+if (!TD.ping(gateway)) {
+    TD.torch(true)
+    TD.vibrate(300)
+    
+    // 2. Локализованное сообщение (тип LString)
+    let alertMsg = L"ALERT_GW_FAIL:Внимание! Потеря связи со шлюзом автоматики."
+    print(alertMsg)
+    
+    // 3. Аварийный сигнал в промышленный регистр ПЛК
+    PLC.modbusWrite("192.168.1.50", 100, 1)
+} else {
+    // 4. Отправка телеметрии батареи на сервер мониторинга
+    let payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() })
+    TD.httpPost("https://api.internal/telemetry", payload, "application/json")
+}</code></pre>
+
+        <h3>6. Статус и Roadmap экосистемы</h3>
         <div class="feature-grid">
           <div class="feature-box">
             <h4>🟢 Зафиксировано в TDscript Core 1.1 / TDModules v1.4.0 (Stable)</h4>
@@ -562,15 +688,15 @@
               <li><strong>Многоуровневый стек оборудования</strong>: выделены слои Driver -> Protocol -> Transport API с методами <code>I2C.read/write</code>, <code>SERIAL.read/write</code>.</li>
               <li><strong>Гранулярный контроль <code>CapabilityScope</code></strong>: изоляция адресов I2C (0x76, 0x77), USB VID:PID и диапазонов регистров Modbus от вмешательства соседних скриптов.</li>
               <li><strong>Двухуровневая мультиязычность (109 языков)</strong>: директива <code>language: <code>;</code> с Unicode-распознаванием ключевых слов в лексере без порчи строк/комментариев + тип <code>LString</code>.</li>
-              <li><strong>Аппаратный Watchdog & Fail-Safe</strong>: метод <code>WATCHDOG.feed()</code> и системный аварийный сброс линий <code>WATCHDOG.emergencyStop()</code>.</li>
+              <li><strong>Аппаратный Watchdog &amp; Fail-Safe</strong>: метод <code>WATCHDOG.feed()</code>, аварийный останов <code>WATCHDOG.emergencyStop()</code> и лимит шагов <code>maxSteps = 10_000_000L</code>.</li>
               <li><strong>Динамическое обнаружение адаптеров</strong>: метод <code>HostSPI.probe()</code> для инспекции подключённых шин BLE, USB, I2C и Modbus.</li>
-              <li><strong>Кроссплатформенная среда TDscript Studio</strong>: модульная IDE для Linux, Windows и Android со встроенной песочницей <code>AiHardwareSandbox</code>.</li>
+              <li><strong>Среда TDscript Studio (Desktop &amp; Android)</strong>: кроссплатформенная IDE, аппаратная песочница <code>AiHardwareSandbox</code> и замкнутый цикл ИИ-агента <code>Agentic Loop</code>.</li>
             </ul>
           </div>
           <div class="feature-box">
-            <h4>🟡 В разработке: TDscript Robotics & IoT SDK (v1.5 Roadmap)</h4>
+            <h4>🟡 В разработке: TDscript Robotics &amp; IoT SDK (v1.5 Roadmap)</h4>
             <ul>
-              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: адаптер ROS 2 / DDS, абстракция манипуляторов, захватов и мобильных платформ (AMR).</li>
+              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: адаптер ROS 2 / DDS, кинематика манипуляторов (Linear / Joint), захваты и мобильные платформы (AMR).</li>
               <li><strong>Device Abstraction</strong>: унифицированные команды оборудования верхнего уровня (камеры, конвейеры, сенсоры).</li>
               <li><strong>Расширенная матрица Capabilities</strong>: <code>ROBOT_READ</code>, <code>ROBOT_MOVE</code>, <code>ROBOT_GRIP</code>, <code>ROBOT_SPEED_OVERRIDE</code>, <code>ROBOT_AUTONOMOUS</code>.</li>
               <li><strong>Событийная модель устройств</strong>: асинхронные подписки на телеметрию и датчики без блокировки Event Loop.</li>
@@ -578,24 +704,8 @@
             </ul>
           </div>
         </div>
-
-        <h3>5. Практические примеры кода</h3>
-        <h4>Пример: Сторож сетевого оборудования и контроллер Modbus PLC</h4>
-        <pre><code>// 1. Проверка доступности шлюза
-var gateway = "192.168.1.1";
-if (!TD.ping(gateway)) {
-    TD.torch(true);
-    TD.vibrate(300);
-    TD.speak("Внимание! Обнаружен сбой связи со шлюзом.");
-    
-    // 2. Отправка аварийного сигнала на промышленный контроллер
-    PLC.modbusWrite("192.168.1.50", 100, 1);
-} else {
-    // 3. Отправка телеметрии батареи на сервер мониторинга
-    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
-    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
-}</code></pre>
       </section>
+
 
 
 
@@ -882,64 +992,76 @@ if (!TD.ping(gateway)) {
       <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
       <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript 1.0.1 Final — Scripting Platform for Connected Devices, Robotics & Industrial Automation <span class="badge">SPECIFICATION 2026</span></h2>
+        <h2>⚡ TDscript Core 1.1 / TDModules v1.4.0 — Universal Device, Chip &amp; Robotics Scripting Platform <span class="badge badge-accent">RELEASE 1.4.0 (Core 1.1)</span></h2>
         <p>
-          <strong>TDscript (TextDroid Script)</strong> is a compact cross-platform runtime and lightweight deterministic scripting language created by Anton Mykhailov. Engineered as a <strong>connective Device Orchestration layer</strong>, TDscript bridges robotic systems (ROS 2 / DDS), industrial PLCs (Modbus TCP, OPC UA), networked IoT nodes, and mobile operator TUI terminals (Tdroid / TDnetScript) with zero GPU memory overhead (0 KB VRAM).
+          <strong>TDscript (TextDroid Script)</strong> is a compact cross-platform runtime and lightweight deterministic scripting language created by Anton Mykhailov. Engineered as a <strong>connective Device &amp; Chip Orchestration layer</strong>, TDscript bridges physical buses &amp; IC chips (I2C, SPI, UART, CAN), industrial PLCs (Modbus TCP, OPC UA), robotic systems (ROS 2 / DDS), and autonomous AI agents with zero GPU memory overhead (0 KB VRAM / Headless).
         </p>
 
-        <h3>1. Architectural Foundation: Core, Host SPI & Device Abstraction</h3>
+        <h3>1. Architectural Foundation: Core, Host SPI, CapabilityScope &amp; Studio</h3>
         <p>
-          TDscript enforces strict five-tier decoupling: the language core does not depend on specific operating systems or hardware vendors, issuing high-level commands via standardized adapters:
+          TDscript Core 1.1 enforces strict multi-tier decoupling: the pure language engine is isolated from underlying operating systems and hardware vendors, governing device operations through granular security matrices and spatial address sandboxing:
         </p>
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                        TDSCRIPT CORE ENGINE (v1.0.1)                   │
-│  Lexer • Parser • Bytecode VM • Script Global Scope • GC               │
+│                   TDSCRIPT CORE ENGINE (v1.1.0 / Core 1.1)             │
+│  Lexer (109 langs) • Parser • LString • Step Limit (10M) • HostSPI     │
 └───────────────────────────────────┬────────────────────────────────────┘
-                                    │ SPI Host Interface & Capabilities
+                                    │ CapabilityScope &amp; Watchdog Fail-Safe
         ┌───────────────────────────┼───────────────────────────┐
         ▼                           ▼                           ▼
 ┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│ Robotics SDK  │           │  TDnetScript  │           │ Tdroid (TUI)  │
-│ ROS 2 / DDS   │           │  (Industrial) │           │ Mobile Host   │
-│ • ROBOT.move()│           │ • PLC.modbus()│           │ • UI.window() │
-│ • ROBOT.grip()│           │ • NET.ping()  │           │ • PHONE.torch │
-│ • SENSORS.read│           │ • OPC UA / TCP│           │ • SQLite / VFS│
+│TDscript Studio│           │  TDRobotics   │           │ Tdroid (TUI)  │
+│ Linux/Android │           │  Engineering  │           │ Terminal OS   │
+│ • AI Agentic  │           │ • Circuit CAD │           │ • UI.window() │
+│ • Sandbox I2C │           │ • DIP AutoGen │           │ • PHONE.torch │
+│ • Modbus PLC  │           │ • Safety Gate │           │ • SQLite/VFS  │
 └───────────────┘           └───────────────┘           └───────────────┘</code></pre>
 
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>⚙️ Bytecode Compiler (.tbc)</h4>
+            <h4>🌐 Native Multilingualism (109 Languages)</h4>
             <p>
-              Compiles human-readable AST directly into a binary opcode stream. Source code is completely stripped, shrinking bundle size to 2–10 KB, ensuring rapid execution starts, significantly hindering reverse engineering, and preventing direct source copy.
+              Lexer-level <code>language: &lt;code&gt;;</code> directive. The bidirectional state-machine <code>CodeProjector</code> toggles keyword projection (RU 🇷🇺, EN 🇬🇧, DE 🇩🇪) on the fly without corrupting string literals or comments. Safe <code>LString</code> symbolic resources forbid direct concatenation (error <code>TDS_E105</code>) to preserve grammatical integrity across all world languages.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🛡️ Capability-Based Security Model</h4>
+            <h4>🛡️ Granular CapabilityScope Sandboxing</h4>
             <p>
-              Sandboxed runtime execution. Compiled packages declare a bitmask of required privileges (Capabilities). However, script declaration does not grant automatic access: final authorization remains strictly with the host environment and end-user.
+              Hardware sandboxing with strict whitelists. Scripts are isolated not only by privilege flags but by physical address boundaries: authorized I2C addresses (e.g. Bosch BME280 @ <code>0x76</code>), Modbus register ranges (<code>100..200</code>), and serial ports. Out-of-scope access attempts are instantly rejected by the host.
             </p>
           </div>
           <div class="feature-box">
-            <h4>🔒 Integrity Control, Signatures & Licensing</h4>
+            <h4>⚡ Fail-Safe Watchdog &amp; Step Limit</h4>
             <p>
-              Three-layer security architecture: SHA-256 cryptographic digests for payload integrity verification, asymmetric digital signatures (Ed25519) for author authenticity, and license tokens for authorized distribution.
+              Hardware watchdog feed <code>WATCHDOG.feed()</code> and emergency stop <code>WATCHDOG.emergencyStop()</code>. The runtime enforces a hard limit of <code>maxSteps = 10_000_000L</code> instructions: infinite loops trigger an immediate line reset and throw <code>TDS_E106_STEP_LIMIT_EXCEEDED</code>.
             </p>
           </div>
           <div class="feature-box">
-            <h4>⚡ Execution Model & Event Loop</h4>
+            <h4>🤖 Autonomous AI Agentic Loop</h4>
             <p>
-              Single-threaded isolated VM worker ensuring deterministic instruction dispatch over memory state. External network probes and industrial I/O cycles execute asynchronously through host services and dispatch outcomes back via the Event Queue.
+              Built-in self-healing development loop in TDscript Studio: <em>Discovery (<code>probe()</code>) ➔ Code Generation ➔ Execution in <code>AiHardwareSandbox</code> ➔ Machine-readable error capture (<code>CompilerErrorDiagnostic</code>) ➔ Automated code fix (up to 3–5 iterations)</em>. Compatible with local Ollama and LM Studio endpoints without external dependencies.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🛠️ Cross-Platform TDscript Studio IDE</h4>
+            <p>
+              Unified IDE for Linux, Windows, and Android: desktop application built on Compose Desktop (standalone Linux JAR distribution), Android edition (5.5 MB APK with USB-OTG and BLE support), and virtual simulation sandbox for BME280 ICs and Modbus gateways.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>⚙️ Bytecode Compiler (.tbc) &amp; Security</h4>
+            <p>
+              Compiles human-readable AST directly into a binary opcode stream (2–10 KB). Supports author digital signatures (Ed25519), cryptographic integrity validation via SHA-256, and licensing tokens for tamper-proof deployment.
             </p>
           </div>
         </div>
 
-        <h3>2. Security Capabilities Matrix</h3>
+        <h3>2. Extended Security Capabilities Matrix (1.1)</h3>
         <table>
           <thead>
             <tr>
               <th>Capability Mandate</th>
               <th>Bitmask Flag</th>
-              <th>Governed Operations</th>
+              <th>Governed Operations &amp; Hardware Buses</th>
             </tr>
           </thead>
           <tbody>
@@ -954,67 +1076,117 @@ if (!TD.ping(gateway)) {
               <td>TCP port scanning, local subnet ARP / device discovery.</td>
             </tr>
             <tr>
-              <td><code>PLC_WRITE</code></td>
+              <td><code>PLC_READ</code></td>
               <td><code>0x0004</code></td>
-              <td>Modbus TCP/RTU register writes, industrial automation control.</td>
+              <td>Read industrial automation registers via Modbus TCP/RTU.</td>
+            </tr>
+            <tr>
+              <td><code>PLC_WRITE</code></td>
+              <td><code>0x0008</code></td>
+              <td>Write Modbus TCP/RTU registers and dispatch control commands.</td>
             </tr>
             <tr>
               <td><code>BT_ACCESS</code></td>
-              <td><code>0x0008</code></td>
-              <td>Bluetooth Classic (SPP) and BLE UART peripheral communications.</td>
+              <td><code>0x0010</code></td>
+              <td>Bluetooth Classic (SPP) and BLE GATT peripheral communications.</td>
             </tr>
             <tr>
               <td><code>HARDWARE</code></td>
-              <td><code>0x0010</code></td>
-              <td>Camera torch, haptic vibrator, sensor telemetry, GPS coordinates.</td>
+              <td><code>0x0020</code></td>
+              <td>Camera torch, haptic vibrator, device sensors, and GPS coordinates.</td>
+            </tr>
+            <tr>
+              <td><code>UI_CORE</code></td>
+              <td><code>0x0040</code></td>
+              <td>Render TUI windows, buttons, progress bars, and operator dialogs.</td>
             </tr>
             <tr>
               <td><code>BACKGROUND</code></td>
-              <td><code>0x0020</code></td>
-              <td>Execution as a persistent background daemon (Foreground Service Watchdog).</td>
+              <td><code>0x0080</code></td>
+              <td>Execute as a persistent background daemon (Watchdog Service).</td>
+            </tr>
+            <tr>
+              <td><code>I2C_READ</code></td>
+              <td><code>0x0100</code></td>
+              <td>Read integrated circuit registers via I2C bus (CapabilityScope validated).</td>
+            </tr>
+            <tr>
+              <td><code>I2C_WRITE</code></td>
+              <td><code>0x0200</code></td>
+              <td>Write configuration bytes to chips over I2C bus.</td>
+            </tr>
+            <tr>
+              <td><code>SPI_TRANSFER</code></td>
+              <td><code>0x0400</code></td>
+              <td>Synchronous full-duplex hardware bus transactions via SPI.</td>
+            </tr>
+            <tr>
+              <td><code>SERIAL_RAW</code></td>
+              <td><code>0x0800</code></td>
+              <td>Direct raw communications over COM/TTY ports and USB-UART converters.</td>
+            </tr>
+            <tr>
+              <td><code>CAN_BUS</code></td>
+              <td><code>0x1000</code></td>
+              <td>Automotive and industrial Controller Area Network (CAN) frames.</td>
+            </tr>
+            <tr>
+              <td><code>ROBOT_MOTION</code></td>
+              <td><code>0x2000</code></td>
+              <td>Kinematic motion commands for robotic arms, grippers, and AMRs.</td>
+            </tr>
+            <tr>
+              <td><code>ROBOT_OVERRIDE</code></td>
+              <td><code>0x4000</code></td>
+              <td>Emergency kinematic intervention and programmatic E-Stop.</td>
+            </tr>
+            <tr>
+              <td><code>DRIVER_INSTALL</code></td>
+              <td><code>0x8000</code></td>
+              <td>Dynamic installation and registration of driver manifests.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>3. Host API Modules Reference</h3>
+        <h3>3. Host API Modules Reference (TDscript Core 1.1)</h3>
         <table>
           <thead>
             <tr>
               <th>Module</th>
               <th>API Method</th>
-              <th>Description & Return Value</th>
+              <th>Description &amp; Return Value</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Speech (TTS)</strong></td>
-              <td><code>TD.speak("text")</code></td>
-              <td>Voice narration through Android's native text-to-speech engine.</td>
+              <td><strong>I2C Bus</strong></td>
+              <td><code>I2C.read(addr, reg, len)</code> / <code>I2C.write(addr, reg, data)</code></td>
+              <td>I2C transactions with CapabilityScope address boundary verification.</td>
             </tr>
             <tr>
-              <td><strong>Geolocation</strong></td>
-              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Latitude and longitude string <code>"lat,lon"</code>.</td>
+              <td><strong>Serial Port</strong></td>
+              <td><code>SERIAL.read(port, len)</code> / <code>SERIAL.write(port, data)</code></td>
+              <td>Direct raw communication with USB-UART / COM ports of microcontrollers.</td>
             </tr>
             <tr>
-              <td><strong>Clipboard</strong></td>
-              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
-              <td>Read and write operations on system clipboard.</td>
+              <td><strong>Industrial PLC</strong></td>
+              <td><code>PLC.modbusRead(ip, reg)</code> / <code>PLC.modbusWrite(ip, reg, val)</code></td>
+              <td>Read and write registers on industrial SCADA/PLC controllers.</td>
             </tr>
             <tr>
-              <td><strong>Sensors</strong></td>
-              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Physical sensor telemetry acquisition.</td>
+              <td><strong>Safety Watchdog</strong></td>
+              <td><code>WATCHDOG.feed()</code> / <code>WATCHDOG.emergencyStop()</code></td>
+              <td>Service watchdog timer reset and immediate hardware line safety shutoff.</td>
             </tr>
             <tr>
-              <td><strong>Battery</strong></td>
-              <td><code>TD.battery()</code></td>
-              <td>Remaining battery percentage (0–100).</td>
+              <td><strong>String Localization</strong></td>
+              <td><code>L"MSG_ID:Default text"</code></td>
+              <td>Symbolic localized string resource (direct <code>+</code> forbidden, TDS_E105).</td>
             </tr>
             <tr>
-              <td><strong>Peripherals</strong></td>
-              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
-              <td>LED camera flashlight and tactile vibration pulses.</td>
+              <td><strong>Bus Inspection</strong></td>
+              <td><code>HostSPI.probe()</code></td>
+              <td>Dynamic discovery of active USB, I2C, BLE, and TCP adapters.</td>
             </tr>
             <tr>
               <td><strong>HTTP Web</strong></td>
@@ -1023,79 +1195,127 @@ if (!TD.ping(gateway)) {
             </tr>
             <tr>
               <td><strong>Network Ping</strong></td>
-              <td><code>TD.ping(host)</code></td>
-              <td>Remote host reachability check (ICMP/TCP).</td>
-            </tr>
-            <tr>
-              <td><strong>Raw UDP</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Datagram packet dispatch (ESP32, Arduino, robotics).</td>
-            </tr>
-            <tr>
-              <td><strong>Industrial PLC</strong></td>
-              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
-              <td>Modbus register write for SCADA and factory automation.</td>
+              <td><code>TD.ping(host)</code> / <code>TD.udp(host, port, data)</code></td>
+              <td>Host reachability check and raw UDP datagram dispatch (ESP32, Arduino).</td>
             </tr>
             <tr>
               <td><strong>Bluetooth</strong></td>
-              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
-              <td>Wireless serial communications with external microcontrollers.</td>
+              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code> / <code>BT.readLine()</code></td>
+              <td>Wireless serial communications with external controllers.</td>
             </tr>
             <tr>
               <td><strong>SQLite Database</strong></td>
               <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
-              <td>Embedded relational SQL storage for persistent logs.</td>
+              <td>Embedded relational SQL storage for persistent telemetry logs.</td>
             </tr>
             <tr>
               <td><strong>TUI Graphics</strong></td>
               <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
-              <td>Turbo Vision retro windowing for Tdroid console edition.</td>
+              <td>Turbo Vision windowing for Tdroid console editions.</td>
             </tr>
           </tbody>
         </table>
 
-        <h3>4. Specification Status & Ecosystem Roadmap</h3>
+        <h3>4. TDscript Studio IDE &amp; Autonomous AI Agentic Loop</h3>
+        <p>
+          To enable rapid development and debugging without risking physical hardware, <strong>TDscript Studio</strong> delivers a zero-risk virtual simulation environment across Linux, Windows, and Android:
+        </p>
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>🟢 Shipped in TDscript v1.0.1 (Final Stable)</h4>
-            <ul>
-              <li><strong>Normative Specifications</strong>: <code>SPEC-TDS-CORE-1.0.1</code>, <code>SPEC-TDS-HOST-SPI-1.0.1</code>, <code>SPEC-TDBC-BIN-1.0.1</code>.</li>
-              <li><strong>Cross-Platform Triangulation across three runtimes</strong>: Independent Python Reference Runtime and two Kotlin/JVM integrations — TDnetScript & Tdroid (52 passing tests).</li>
-              <li><strong>EBNF Grammar</strong>: Strict L-Value, right-associative assignment <code>a = b = c = 42</code>, safe dangling else resolution.</li>
-              <li><strong>Script Global Scope</strong>: Single flat global symbol table without block scope leakage.</li>
-              <li><strong>Strict Typing & Exact 64-bit Integers</strong>: No coercion, exact integer relational comparisons beyond $2^{53}$ without Double precision truncation.</li>
-              <li><strong>Event Loop & Safety</strong>: 32-slot threshold, SQLite critical spillover & trusted <code>PANIC_HALT</code>.</li>
-            </ul>
+            <h4>🖥️ Desktop IDE (Compose Desktop)</h4>
+            <p>
+              Full-featured windowed IDE with live language projection switcher (RU/EN/DE), split-view code editor, real-time Modbus register monitor, and I2C tree. Available via Gradle and as a standalone binary package: <code>tdscript-studio-linux-x64-1.1.0.jar</code>.
+            </p>
           </div>
           <div class="feature-box">
-            <h4>🟡 In Development: TDscript Robotics & IoT SDK (v1.1 Roadmap)</h4>
-            <ul>
-              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: ROS 2 / DDS bridge, abstractions for robotic arms, grippers, and AMRs.</li>
-              <li><strong>Device Abstraction</strong>: Unified vendor-neutral commands for cameras, conveyors, and sensors.</li>
-              <li><strong>Extended Capabilities Matrix</strong>: <code>ROBOT_READ</code>, <code>ROBOT_MOVE</code>, <code>ROBOT_GRIP</code>, <code>ROBOT_SPEED_OVERRIDE</code>, <code>ROBOT_AUTONOMOUS</code>.</li>
-              <li><strong>Event-Driven Device Model</strong>: Non-blocking asynchronous event subscriptions and timeout handlers.</li>
-              <li><strong>Pilot Robotic Cell</strong>: Pick-and-Place demonstration (Robot + Modbus PLC + Sensors + Mobile TUI console).</li>
-            </ul>
+            <h4>📱 Android Mobile Edition (APK 5.5 MB)</h4>
+            <p>
+              Field engineering terminal for Android tablets and phones. Powered by <code>AndroidHostSPI</code>, it seamlessly bridges hardware over USB-OTG and BLE GATT or runs in simulated sandbox mode.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🧪 Hardware Simulation Sandbox (AiHardwareSandbox)</h4>
+            <p>
+              Emulates a <strong>Bosch BME280</strong> environmental sensor (address <code>0x76</code>, Chip ID register <code>0xD0 -> 0x60</code>, temperature/pressure registers) and a <strong>Modbus PLC Gateway</strong> (register 100 = 24.5°C, register 101 = pump status).
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🔄 Agentic Loop: Generate ➔ Test ➔ Auto-Fix</h4>
+            <p>
+              Integrated AI agent connects to local LLM engines (Ollama, LM Studio) via OpenAI-compatible endpoints. The agent receives real-time hardware discovery snapshots, writes code, tests it in the sandbox, and automatically corrects any compiler or scope errors in 1–3 iterations.
+            </p>
           </div>
         </div>
 
-        <h3>5. Practical Code Example</h3>
-        <h4>Example: Gateway Health Monitor & Modbus PLC Emergency Fallback</h4>
-        <pre><code>// 1. Verify default network gateway reachability
-var gateway = "192.168.1.1";
-if (!TD.ping(gateway)) {
-    TD.torch(true);
-    TD.vibrate(300);
-    TD.speak("Alert! Network gateway connection lost.");
+        <h3>5. Practical Code Examples</h3>
+        <h4>Example 1: Multilingual Script (Bosch BME280 &amp; Modbus PLC Monitoring)</h4>
+        <pre><code>language: ru;
+// 1. Bosch BME280 I2C address (0x76 = 118 in decimal)
+пусть bmeAddress = 118
+
+// 2. Poll boiler water temperature and circulation pump status
+пусть boilerTemp = PLC.modbusRead("127.0.0.1", 100)
+пусть pumpStatus = PLC.modbusRead("127.0.0.1", 101)
+
+если (boilerTemp &gt; 240 &amp;&amp; pumpStatus == 1) {
+    print("Boiler temperature normal. Polling BME280 sensor...")
     
-    // 2. Dispatch emergency override signal to industrial PLC
-    PLC.modbusWrite("192.168.1.50", 100, 1);
-} else {
-    // 3. Telemetry reporting to monitoring server
-    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
-    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
+    // 3. Read BME280 Chip ID (register 0xD0, length 1 byte)
+    пусть chipId = I2C.read(bmeAddress, 208, 1)
+    print("BME280 Chip ID read verified")
+    
+    // 4. Feed hardware safety watchdog
+    WATCHDOG.feed()
+} иначе {
+    print("Alert: Critical overheating or pump failure!")
+    WATCHDOG.emergencyStop()
 }</code></pre>
+
+        <h4>Example 2: Canonical Industrial Gateway Watchdog &amp; Telemetry</h4>
+        <pre><code>// 1. Verify default network gateway reachability
+let gateway = "192.168.1.1"
+if (!TD.ping(gateway)) {
+    TD.torch(true)
+    TD.vibrate(300)
+    
+    // 2. Localized alert message using safe LString
+    let alertMsg = L"ALERT_GW_FAIL:Warning! Network gateway communication lost."
+    print(alertMsg)
+    
+    // 3. Dispatch emergency override signal to industrial PLC register
+    PLC.modbusWrite("192.168.1.50", 100, 1)
+} else {
+    // 4. Telemetry reporting to monitoring server
+    let payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() })
+    TD.httpPost("https://api.internal/telemetry", payload, "application/json")
+}</code></pre>
+
+        <h3>6. Specification Status &amp; Ecosystem Roadmap</h3>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🟢 Shipped in TDscript Core 1.1 / TDModules v1.4.0 (Stable)</h4>
+            <ul>
+              <li><strong>Multi-Tier Hardware Stack</strong>: Standardized Driver -> Protocol -> Transport API layers with <code>I2C.read/write</code> and <code>SERIAL.read/write</code>.</li>
+              <li><strong>Granular <code>CapabilityScope</code></strong>: Strict physical isolation for I2C addresses (0x76), serial ports, and Modbus register ranges.</li>
+              <li><strong>Two-Level Multilingualism (109 Languages)</strong>: Unicode keyword mapping in lexer via <code>language: &lt;code&gt;;</code> + state-machine <code>CodeProjector</code> + safe <code>LString</code>.</li>
+              <li><strong>Hardware Watchdog &amp; Fail-Safe</strong>: <code>WATCHDOG.feed()</code>, <code>WATCHDOG.emergencyStop()</code>, and execution step limit <code>maxSteps = 10_000_000L</code>.</li>
+              <li><strong>Dynamic Bus Probing</strong>: <code>HostSPI.probe()</code> for inspecting connected BLE, USB, I2C, and Modbus adapters.</li>
+              <li><strong>TDscript Studio IDE (Linux &amp; Android)</strong>: Cross-platform Compose Desktop &amp; Android APK with <code>AiHardwareSandbox</code> and autonomous <code>Agentic Loop</code>.</li>
+            </ul>
+          </div>
+          <div class="feature-box">
+            <h4>🟡 In Development: TDscript Robotics &amp; IoT SDK (v1.5 Roadmap)</h4>
+            <ul>
+              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: ROS 2 / DDS bridge, kinematic planning (Linear / Joint), grippers, and mobile platforms (AMR).</li>
+              <li><strong>Device Abstraction</strong>: Unified vendor-neutral commands for cameras, conveyors, and sensors.</li>
+              <li><strong>Extended Capabilities Matrix</strong>: <code>ROBOT_READ</code>, <code>ROBOT_MOVE</code>, <code>ROBOT_GRIP</code>, <code>ROBOT_SPEED_OVERRIDE</code>, <code>ROBOT_AUTONOMOUS</code>.</li>
+              <li><strong>Event-Driven Device Model</strong>: Asynchronous subscriptions to telemetry and sensor triggers without blocking the Event Loop.</li>
+              <li><strong>Pilot Robotic Cell</strong>: Pick-and-Place demonstration (Robot arm + Modbus PLC + Sensors + Mobile TUI console).</li>
+            </ul>
+          </div>
+        </div>
       </section>
+
 
 
 
