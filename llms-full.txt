@@ -1,0 +1,180 @@
+# TDscript Core 1.1 / TDModules v1.4.0 — Full Technical Specification for AI & LLM Systems
+> Comprehensive technical guide and normative architecture for TDscript, TDscript Studio IDE, and TDRobotics.
+> Author: Anton Mykhailov (Halberstadt, Germany)
+> Canonical Repository: TDModules (v1.4.0) & TDscript-Studio (v1.1.0)
+> Website: https://fido2465724100-creator.github.io/my-developer-site/
+
+---
+
+## 1. System Philosophy & Core Constraints
+
+1. **0 KB VRAM / Headless First**:
+   TDscript runs deterministically on bare-metal headless microcontrollers, Android TUI services, background system daemons, and robotics controllers without requiring any GPU context, X11/Wayland display server, or GUI thread.
+2. **Deterministic Single-Threaded Worker**:
+   Core VM executes in a single-threaded loop with a unified Script Global Scope (variables declared inside `{ ... }` blocks remain globally accessible within the script instance).
+3. **Execution Step Limiter (Fail-Safe)**:
+   Every statement and while-iteration decrements an execution budget (`maxSteps = 10_000_000L`). If a runaway loop occurs, the host immediately triggers `host.emergencyStop()` and throws `TDS_E106_STEP_LIMIT_EXCEEDED`.
+4. **Grammatical Safety across 109 Languages**:
+   All string literals and comments are completely decoupled from keyword translation. Direct string concatenation (`+`) with localized `LString` instances is forbidden by runtime assertion to prevent broken gender/case inflections across languages (throws `TDS_E105_LSTRING_CONCAT_PROHIBITED`).
+
+---
+
+## 2. Capabilities Security Bitmask (16 Flags)
+
+Every TDscript execution environment enforces capability checks through `HostSPI.checkCapability(bit, name)`. If an unauthorized script attempts an operation without the required bitmask, the host denies execution and records `SecurityException: PERMISSION_DENIED [CAP_NAME]` in the diagnostic channel.
+
+| Flag Name | Bitmask (Hex) | Governed Operations & Subsystems |
+|:---|:---:|:---|
+| `NET_READ` | `0x0001` | HTTP GET queries, DNS lookups, ICMP ping |
+| `NET_SCAN` | `0x0002` | TCP port scanning, ARP/Subnet network discovery |
+| `PLC_READ` | `0x0004` | Reading Modbus TCP/RTU input and holding registers |
+| `PLC_WRITE` | `0x0008` | Writing Modbus TCP/RTU coil and holding registers |
+| `BT_ACCESS` | `0x0010` | Bluetooth Classic (SPP) and BLE GATT communications |
+| `HARDWARE` | `0x0020` | Smartphone flashlight, vibrator, camera, GPS, battery |
+| `UI_CORE` | `0x0040` | Rendering TUI windows, operator progress bars, alerts |
+| `BACKGROUND` | `0x0080` | Persistent background daemon execution (Watchdog Service) |
+| `I2C_READ` | `0x0100` | Reading integrated circuit registers over I2C bus |
+| `I2C_WRITE` | `0x0200` | Writing configuration bytes to ICs over I2C bus |
+| `SPI_TRANSFER` | `0x0400` | Full-duplex synchronous SPI transactions |
+| `SERIAL_RAW` | `0x0800` | Direct raw access to COM/TTY ports and USB-UART converters |
+| `CAN_BUS` | `0x1000` | Receiving and transmitting automotive/industrial CAN frames |
+| `ROBOT_MOTION` | `0x2000` | Kinematic planning commands (moveLinear, moveJoint, grip) |
+| `ROBOT_OVERRIDE` | `0x4000` | High-priority safety intervention and programmatic E-Stop |
+| `DRIVER_INSTALL` | `0x8000` | Dynamic installation and verification of driver manifests |
+
+---
+
+## 3. Spatial Sandboxing: CapabilityScope Specification
+
+Beyond global bitmask privileges, TDscript Core 1.1 enforces spatial parameter sandboxing via `CapabilityScope`. The host verifies exact physical addresses and port names before executing bus transactions:
+
+```kotlin
+data class CapabilityScope(
+    val allowedI2cAddresses: Set<Int> = emptySet(),           // e.g. setOf(0x76) for Bosch BME280
+    val allowedModbusRegisterRanges: List<IntRange> = emptyList(), // e.g. listOf(100..200)
+    val allowedSerialPorts: Set<String> = emptySet(),         // e.g. setOf("/dev/ttyUSB0", "COM3")
+    val isUnrestricted: Boolean = false
+)
+```
+
+- If a script calls `I2C.read(104, 0, 1)` (0x68) when `allowedI2cAddresses = setOf(0x76)`:
+  - The host intercepts the call.
+  - The call returns `null`.
+  - Diagnostic channel logs: `SecurityException: SCOPE_VIOLATION: Address 0x68 not in I2C scope`.
+
+---
+
+## 4. Native Multilingual Architecture (109 Languages)
+
+1. **Directive `language: <code>;`**:
+   Placed at line 1 of any script file.
+   Examples: `language: ru;`, `language: de;`, `language: es;`.
+2. **Lexer Mapping**:
+   The lexer converts localized keywords into standard AST tokens at parse time:
+   - Russian: `пусть` / `перем` -> `LET` / `VAR`; `если` / `иначе` -> `IF` / `ELSE`; `пока` -> `WHILE`; `истина` / `ложь` -> `TRUE` / `FALSE`.
+   - German: `sei` -> `LET`; `wenn` / `sonst` -> `IF` / `ELSE`; `solange` -> `WHILE`; `wahr` / `falsch` -> `TRUE` / `FALSE`.
+3. **State-Machine CodeProjector**:
+   Ensures that words matching keywords inside string literals (e.g. `"if true and while false"`) or comments (`// while true`, `/* if false */`) are strictly left unchanged during display projection.
+4. **LString Symbolic Resources**:
+   - Declaration: `let msg = L"MSG_TEMP:Temperature is {temp}C"`
+   - Evaluation: Automatically substitutes `{temp}` from active symbols.
+   - Guard: `left is LString || right is LString` with operator `+` throws `TDS_E105_LSTRING_CONCAT_PROHIBITED`.
+
+---
+
+## 5. Autonomous AI Agentic Loop in TDscript Studio
+
+The TDscript Studio IDE features a self-healing agent loop:
+1. **Hardware Discovery (`probe()`)**:
+   Studio queries active physical and virtual adapters and generates machine-readable discovery JSON:
+   ```json
+   {
+     "runtime": { "name": "TDscript Studio AI Environment", "version": "1.1.0" },
+     "capabilities": {
+       "active": ["I2C_READ", "I2C_WRITE", "PLC_READ", "PLC_WRITE", "SERIAL_RAW"],
+       "scope_summary": "I2C: [0x76], Modbus: [100..200]"
+     },
+     "hardware_adapters": [
+       { "id": "sim_i2c_0", "type": "I2C", "available": true, "details": "Virtual I2C Bus (BME280 @ 0x76)" },
+       { "id": "sim_modbus_tcp", "type": "NETWORK_TCP", "available": true, "details": "Virtual Modbus PLC Gateway @ 127.0.0.1:502" }
+     ]
+   }
+   ```
+2. **Prompt Injection & Generation**:
+   The discovery JSON and grammar memo are injected into the system prompt. The model generates code wrapped in a ` ```tdscript ` block.
+3. **Execution in `AiHardwareSandbox`**:
+   The code is parsed and executed against the virtual sandbox:
+   - Bosch BME280 @ address 0x76: Chip ID `0x60` in register `0xD0`.
+   - Modbus PLC Gateway @ 127.0.0.1:502: Register 100 = 245 (24.5°C), Register 101 = 1 (Pump ON).
+4. **Auto-Fix Loop via `CompilerErrorDiagnostic`**:
+   If an error occurs, Studio formats structured diagnostic JSON:
+   ```json
+   {
+     "status": "ERROR",
+     "compiler_version": "1.1.0",
+     "error_code": "SCOPE_VIOLATION",
+     "file": "script.tds",
+     "line": 4,
+     "column": 1,
+     "message": "SecurityException: SCOPE_VIOLATION: Address 0x68 not in I2C scope",
+     "expected": "Access only to allowed addresses in CapabilityScope",
+     "actual": "Attempted read from 0x68",
+     "suggestion": "Use granted BME280 address 0x76 (118 in decimal)"
+   }
+   ```
+   The diagnostic is sent back to the LLM with an instruction to repair the script (up to 3–5 iterations).
+
+---
+
+## 6. Complete Language Syntax & API Reference
+
+### 6.1. Core Syntax
+```javascript
+language: ru;
+
+// Variable declarations
+let sensorId = 118;
+var alertCount = 0;
+
+// Branching
+if (sensorId == 118) {
+    alertCount = alertCount + 1;
+} else {
+    alertCount = 0;
+}
+
+// Loops with automatic step limiter protection
+var i = 0;
+while (i < 5) {
+    i = i + 1;
+}
+```
+
+### 6.2. Peripheral & Bus Methods
+- `I2C.read(address: Int, register: Int, length: Int) -> ByteArray?`
+- `I2C.write(address: Int, register: Int, data: ByteArray) -> Boolean`
+- `SERIAL.read(port: String, maxLength: Int) -> ByteArray?`
+- `SERIAL.write(port: String, data: ByteArray) -> Boolean`
+- `PLC.modbusRead(host: String, register: Int) -> Int`
+- `PLC.modbusWrite(host: String, register: Int, value: Int) -> Boolean`
+- `WATCHDOG.feed() -> Boolean`
+- `WATCHDOG.emergencyStop() -> Unit`
+- `TD.httpGet(url: String) -> String?`
+- `TD.httpPost(url: String, body: String, contentType: String) -> String?`
+- `TD.ping(host: String) -> Float`
+- `TD.udp(host: String, port: Int, data: String) -> Boolean`
+- `TD.speak(text: String) -> Boolean`
+- `TD.torch(state: Boolean) -> Boolean`
+- `TD.vibrate(durationMs: Long) -> Boolean`
+- `TD.battery() -> Int`
+- `print(value: Any?) -> Unit`
+
+---
+
+## 7. Artifacts & Deliverables
+
+- **`TDModules`**: Shared library repository (`/home/anton/TDModules`, v1.4.0).
+- **`TDscript-Studio`**: Cross-platform IDE repository (`/home/anton/TDscript-Studio`, v1.1.0):
+  - Desktop Standalone JAR: `desktopApp/build/compose/jars/tdscript-studio-linux-x64-1.1.0.jar`
+  - Android Debug APK: `androidApp/build/outputs/apk/debug/androidApp-debug.apk` (5.5 MB)
+- **`TDRobotics`**: Android mobile engineering CAD & app exporter (`/home/anton/TDRobotics`).
