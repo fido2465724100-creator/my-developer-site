@@ -557,18 +557,18 @@
         <h3>4. Статус спецификации и Roadmap экосистемы</h3>
         <div class="feature-grid">
           <div class="feature-box">
-            <h4>🟢 Зафиксировано в TDscript v1.0.1 (Final Stable)</h4>
+            <h4>🟢 Зафиксировано в TDscript Core 1.1 / TDModules v1.4.0 (Stable)</h4>
             <ul>
-              <li><strong>Нормативные спецификации</strong>: <code>SPEC-TDS-CORE-1.0.1</code>, <code>SPEC-TDS-HOST-SPI-1.0.1</code>, <code>SPEC-TDBC-BIN-1.0.1</code>.</li>
-              <li><strong>Кросс-платформенная верификация трёх сред</strong>: независимая эталонная реализация Python Reference Runtime и две Kotlin/JVM-интеграции — TDnetScript и Tdroid (52 успешных теста).</li>
-              <li><strong>EBNF Грамматика</strong>: строгое L-Value, правоассоциативное присваивание <code>a = b = c = 42</code>, безопасный dangling else.</li>
-              <li><strong>Script Global Scope</strong>: единая глобальная область видимости сценария без изолированных блоков.</li>
-              <li><strong>Строгая типизация и точные 64-битные числа</strong>: строгое равенство без коэрциции, точное сравнение целых чисел за пределом $2^{53}$ без потери точности Double.</li>
-              <li><strong>Event Loop & Безопасность</strong>: порог 32 слота, аварийный сброс в SQLite и системный <code>PANIC_HALT</code>.</li>
+              <li><strong>Многоуровневый стек оборудования</strong>: выделены слои Driver -> Protocol -> Transport API с методами <code>I2C.read/write</code>, <code>SERIAL.read/write</code>.</li>
+              <li><strong>Гранулярный контроль <code>CapabilityScope</code></strong>: изоляция адресов I2C (0x76, 0x77), USB VID:PID и диапазонов регистров Modbus от вмешательства соседних скриптов.</li>
+              <li><strong>Двухуровневая мультиязычность (109 языков)</strong>: директива <code>language: <code>;</code> с Unicode-распознаванием ключевых слов в лексере без порчи строк/комментариев + тип <code>LString</code>.</li>
+              <li><strong>Аппаратный Watchdog & Fail-Safe</strong>: метод <code>WATCHDOG.feed()</code> и системный аварийный сброс линий <code>WATCHDOG.emergencyStop()</code>.</li>
+              <li><strong>Динамическое обнаружение адаптеров</strong>: метод <code>HostSPI.probe()</code> для инспекции подключённых шин BLE, USB, I2C и Modbus.</li>
+              <li><strong>Кроссплатформенная среда TDscript Studio</strong>: модульная IDE для Linux, Windows и Android со встроенной песочницей <code>AiHardwareSandbox</code>.</li>
             </ul>
           </div>
           <div class="feature-box">
-            <h4>🟡 В разработке: TDscript Robotics & IoT SDK (v1.1 Roadmap)</h4>
+            <h4>🟡 В разработке: TDscript Robotics & IoT SDK (v1.5 Roadmap)</h4>
             <ul>
               <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: адаптер ROS 2 / DDS, абстракция манипуляторов, захватов и мобильных платформ (AMR).</li>
               <li><strong>Device Abstraction</strong>: унифицированные команды оборудования верхнего уровня (камеры, конвейеры, сенсоры).</li>
