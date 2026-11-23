@@ -43,8 +43,8 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
   - **Autonomous Agentic Loop**: Closed-loop agent workflow: *Hardware Discovery (`probe()`) ➔ Prompt Construction with JSON environment ➔ Code Generation ➔ Execution in `AiHardwareSandbox` ➔ Machine-readable error capture (`CompilerErrorDiagnostic.toJson()`) ➔ Automated code fix (up to 3–5 iterations)*.
   - **Zero-Dependency LlmClient**: Native OpenAI-compatible HTTP client for local engines (Ollama: `http://127.0.0.1:11434/v1`, LM Studio: `http://127.0.0.1:1234/v1`) and cloud APIs.
   - **AiHardwareSandbox**: Virtual testbench emulating Bosch BME280 environmental IC (0x76, Chip ID 0x60 in register 0xD0) and Modbus PLC Gateway (127.0.0.1:502, registers 100 & 101).
-  - **Desktop Edition**: Compose Desktop GUI with split-view code editor, real-time register inspector, and standalone executable Linux JAR (`tdscript-studio-linux-x64-1.1.0.jar`).
-  - **Android Edition**: Mobile application (5.5 MB APK) with `AndroidHostSPI` supporting USB-OTG devices (`UsbManager`), Bluetooth LE GATT, and virtual sandbox.
+  - **Desktop & Linux Distributions**: Pre-packaged native binaries for all Linux distributions: Debian/Ubuntu package (`tdscript-studio_1.1.0-1_amd64.deb`), Fedora/RHEL/openSUSE package (`tdscript-studio-1.1.0-1.x86_64.rpm`), universal single-file executable (`tdscript-studio-1.1.0-x86_64.AppImage`), rootless portable archive (`tdscript-studio-1.1.0-linux-x64-portable.tar.gz`), and cross-platform executable JAR (`tdscript-studio-linux-x64-1.1.0.jar`).
+  - **Android Edition**: Mobile application (`tdscript-studio-1.1.0.apk`, 5.5 MB) with `AndroidHostSPI` supporting USB-OTG devices (`UsbManager`), Bluetooth LE GATT, and virtual sandbox.
 
 ### 4. TDRobotics (Android Robotics Engineering Environment)
 - **Platforms**: Android (Standalone Engineering Tool)
