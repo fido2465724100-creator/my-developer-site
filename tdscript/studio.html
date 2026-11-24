@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDscript Studio IDE — Download Center for Linux & Android (v1.1.0)</title>
+  <meta name="description" content="Download official binary distributions of TDscript Studio v1.1.0: DEB, RPM, AppImage, Portable Tarball, Fat JAR, and Android APK." />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="../index.html" class="logo">⚡ Anton Mykhailov — Systems & TUI</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UK</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>📦 TDscript Studio IDE & Центр загрузок</h1>
+    <p>Интегрированная среда разработки для Linux, Windows и Android со встроенным автономным ИИ-агентом</p>
+    <nav class="nav-bar">
+      <a href="index.html">🏠 Обзор платформы</a>
+      <a href="language.html">📖 Спецификация языка</a>
+      <a href="examples.html">💡 10 задач автоматизации</a>
+      <a href="studio.html" class="active">📦 Студия и Загрузки</a>
+      <a href="benchmark.html">🤖 ИИ-Бенчмарк</a>
+      <a href="../index.html">← На главную</a>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <div class="breadcrumbs">
+    <a href="../index.html">Портал разработчика</a> <span>/</span> <a href="index.html">TDscript</a> <span>/</span> <strong>TDscript Studio & Загрузки</strong>
+  </div>
+
+  <div class="container">
+
+    <!-- ==================== RU VIEW ==================== -->
+    <div id="view-ru" class="lang-view active">
+
+      <!-- ОБЗОР СТУДИИ -->
+      <section class="card">
+        <h2>🛠️ Среда разработки TDscript Studio <span class="badge badge-accent">Версия 1.1.0</span></h2>
+        <p>
+          <strong>TDscript Studio</strong> — кроссплатформенная IDE нового поколения, созданная специально для аппаратных инженеров, робототехников и разработчиков встроенных систем. Студия доступна как в виде десктопного оконного приложения на <strong>Compose Desktop (Linux / Windows)</strong>, так и в мобильной редакции для <strong>Android</strong> с поддержкой прямого подключения к микросхемам через USB-OTG и Bluetooth LE.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>🤖 Автономный ИИ-агент (Agentic Loop)</h4>
+            <p>
+              Замкнутый цикл: автоматический опрос активных шин (<code>probe()</code>), генерация кода по текстовому описанию задачи, выполнение в песочнице <code>AiHardwareSandbox</code>, отлов JSON-ошибок компилятора и автоматическое исправление кода (до 3–5 итераций) с поддержкой локальных LLM (Ollama, LM Studio).
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🌐 Живой проектор языков (RU / EN / DE)</h4>
+            <p>
+              Мгновенное посимвольное переключение отображения ключевых слов в редакторе (<code>пусть/sei/let</code>, <code>если/wenn/if</code>) с сохранением целостности строковых литералов и комментариев.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🔬 Монитор регистров и шин</h4>
+            <p>
+              Встроенная симуляция чипа Bosch BME280 (@ <code>0x76</code>) и ПЛК Modbus TCP (@ <code>127.0.0.1:502</code>). Живое отображение значений регистров в реальном времени.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>📱 Мобильная среда Android</h4>
+            <p>
+              Работа на планшетах и смартфонах в полевых условиях. Прямое управление платами и датчиками через переходники USB-UART / USB-I2C по протоколу USB Host OTG.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ЦЕНТР ЗАГРУЗОК -->
+      <section class="card">
+        <h2>📦 Центр загрузок: Все дистрибутивы для Linux & Android</h2>
+        <p>
+          Все пакеты содержат готовую версию <strong>TDscript Studio 1.1.0</strong> со встроенной JVM и оптимизированы для мгновенного запуска:
+        </p>
+
+        <div class="download-grid">
+          
+          <!-- DEB -->
+          <a href="../downloads/tdscript-studio_1.1.0-1_amd64.deb" download class="download-card">
+            <span class="title" style="color: var(--accent);">🐧 Ubuntu / Debian / Mint (.deb)</span>
+            <span class="meta">Размер: 47 МБ • Нативный пакет DEB</span>
+            <code>sudo dpkg -i tdscript-studio*.deb</code>
+          </a>
+
+          <!-- RPM -->
+          <a href="../downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download class="download-card">
+            <span class="title" style="color: var(--amber);">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
+            <span class="meta">Размер: 47 МБ • Нативный пакет RPM</span>
+            <code>sudo rpm -i tdscript-studio*.rpm</code>
+          </a>
+
+          <!-- AppImage -->
+          <a href="../downloads/tdscript-studio-1.1.0-x86_64.AppImage" download class="download-card">
+            <span class="title" style="color: var(--green);">🚀 Universal AppImage (Все Linux)</span>
+            <span class="meta">Размер: 54 МБ • Автономный исполняемый файл</span>
+            <code>chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
+          </a>
+
+          <!-- Portable Tar.gz -->
+          <a href="../downloads/tdscript-studio-1.1.0-linux-x64-portable.tar.gz" download class="download-card">
+            <span class="title" style="color: #cbd5e1;">📦 Портативный архив (.tar.gz)</span>
+            <span class="meta">Размер: 56 МБ • Запуск без root и Java</span>
+            <code>./tdscript-studio/bin/tdscript-studio</code>
+          </a>
+
+          <!-- Fat JAR -->
+          <a href="../downloads/tdscript-studio-linux-x64-1.1.0.jar" download class="download-card">
+            <span class="title" style="color: #f472b6;">☕ Universal Fat JAR (Java 17+)</span>
+            <span class="meta">Размер: 31 МБ • Кроссплатформенный запуск</span>
+            <code>java -jar tdscript-studio*.jar</code>
+          </a>
+
+          <!-- Android APK -->
+          <a href="../downloads/tdscript-studio-1.1.0.apk" download class="download-card">
+            <span class="title" style="color: var(--green);">📱 Android Mobile Studio (.apk)</span>
+            <span class="meta">Размер: 5.5 МБ • Android 8.0+ (USB-OTG, BLE)</span>
+            <code>Установка APK на устройство</code>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ЗАПУСК В РЕЖИМЕ CLI -->
+      <section class="card">
+        <h2>💻 Работа в режиме консоли (CLI / Headless)</h2>
+        <p>
+          TDscript Studio поддерживает запуск без графической оболочки (0 KB VRAM / Headless) на серверах, платах Raspberry Pi и в CI/CD пайплайнах:
+        </p>
+        <pre><code># Запуск скрипта в консольном режиме с виртуальной песочницей:
+java -jar tdscript-studio-linux-x64-1.1.0.jar --cli --script=myscript.tds
+
+# Запуск в режиме фонового сервера автоматизации:
+./tdscript-studio/bin/tdscript-studio --cli --daemon --port=8080</code></pre>
+      </section>
+
+    </div>
+
+    <!-- ==================== EN VIEW ==================== -->
+    <div id="view-en" class="lang-view">
+      <section class="card">
+        <h2>📦 TDscript Studio IDE & Download Center <span class="badge badge-accent">Release v1.1.0</span></h2>
+        <p>Next-generation IDE for hardware engineers and roboticists with Compose Desktop (Linux/Windows) and Android mobile edition.</p>
+
+        <div class="download-grid">
+          <a href="../downloads/tdscript-studio_1.1.0-1_amd64.deb" download class="download-card">
+            <span class="title" style="color: var(--accent);">🐧 Ubuntu / Debian / Mint (.deb)</span>
+            <span class="meta">47 MB • Native DEB package</span>
+            <code>sudo dpkg -i tdscript-studio*.deb</code>
+          </a>
+          <a href="../downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download class="download-card">
+            <span class="title" style="color: var(--amber);">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
+            <span class="meta">47 MB • Native RPM package</span>
+            <code>sudo rpm -i tdscript-studio*.rpm</code>
+          </a>
+          <a href="../downloads/tdscript-studio-1.1.0-x86_64.AppImage" download class="download-card">
+            <span class="title" style="color: var(--green);">🚀 Universal AppImage (All Linux)</span>
+            <span class="meta">54 MB • Single self-contained binary</span>
+            <code>chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
+          </a>
+          <a href="../downloads/tdscript-studio-1.1.0-linux-x64-portable.tar.gz" download class="download-card">
+            <span class="title" style="color: #cbd5e1;">📦 Portable Tarball (.tar.gz)</span>
+            <span class="meta">56 MB • Rootless distribution</span>
+            <code>./tdscript-studio/bin/tdscript-studio</code>
+          </a>
+          <a href="../downloads/tdscript-studio-linux-x64-1.1.0.jar" download class="download-card">
+            <span class="title" style="color: #f472b6;">☕ Universal Fat JAR (Java 17+)</span>
+            <span class="meta">31 MB • Cross-platform</span>
+            <code>java -jar tdscript-studio*.jar</code>
+          </a>
+          <a href="../downloads/tdscript-studio-1.1.0.apk" download class="download-card">
+            <span class="title" style="color: var(--green);">📱 Android Mobile Studio (.apk)</span>
+            <span class="meta">5.5 MB • Android 8.0+ (USB-OTG, BLE)</span>
+            <code>Direct APK installation</code>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== DE VIEW ==================== -->
+    <div id="view-de" class="lang-view">
+      <section class="card">
+        <h2>📦 TDscript Studio IDE & Download-Center</h2>
+        <p>Offizielle Linux- und Android-Pakete für Debian, Ubuntu, Fedora, AppImage und Android APK.</p>
+      </section>
+    </div>
+
+    <!-- ==================== UK VIEW ==================== -->
+    <div id="view-uk" class="lang-view">
+      <section class="card">
+        <h2>📦 Студія TDscript Studio & Центр завантажень</h2>
+        <p>Офіційні пакунки для Ubuntu/Debian, Fedora, AppImage, портативний архів та додаток Android APK.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Halberstadt, Germany. | <a href="../index.html#impressum">Impressum</a> | <a href="../index.html#datenschutz">Datenschutz</a>
+    </div>
+
+  </div>
+
+  <script src="../js/site.js"></script>
+</body>
+</html>

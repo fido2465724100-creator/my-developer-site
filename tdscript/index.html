@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDscript Ecosystem — Chip Orchestration, Robotics & AI Platform</title>
+  <meta name="description" content="TDscript: Compact deterministic scripting language and device orchestration platform for microchips, robotics, and industrial IoT (v1.4.0 Core 1.1 & v1.0.1 Legacy)." />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="../index.html" class="logo">⚡ Anton Mykhailov — Systems & TUI</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UK</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>⚡ TDscript (TextDroid Script)</h1>
+    <p>Универсальная платформа сценарного управления для микросхем, робототехники, IoT и автономных ИИ-агентов</p>
+    <nav class="nav-bar">
+      <a href="index.html" class="active">🏠 Обзор платформы</a>
+      <a href="language.html">📖 Спецификация языка (v1.4.0 & v1.0.1)</a>
+      <a href="examples.html">💡 10 задач автоматизации</a>
+      <a href="studio.html">📦 Студия и Загрузки</a>
+      <a href="benchmark.html">🤖 ИИ-Бенчмарк</a>
+      <a href="../index.html">← На главную</a>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <div class="breadcrumbs">
+    <a href="../index.html">Портал разработчика</a> <span>/</span> <strong>TDscript Ecosystem</strong>
+  </div>
+
+  <div class="container">
+
+    <!-- ==================== RU VIEW ==================== -->
+    <div id="view-ru" class="lang-view active">
+      
+      <!-- СЕКЦИЯ 1: ОБЗОР -->
+      <section class="card">
+        <h2>⚡ О платформе TDscript <span class="badge badge-accent">Core 1.1 / TDModules v1.4.0</span></h2>
+        <p>
+          <strong>TDscript (TextDroid Script)</strong> — легковесный детерминированный язык сценарного управления и программная экосистема, созданная Антоном Михайловым. Язык изначально проектировался для терминального лаунчера Tdroid, а затем развился в <strong>полноценную платформу оркестрации аппаратуры (Device & Chip Orchestration Platform)</strong>: от физических шин микроконтроллеров (I2C, SPI, UART, CAN) и промышленных ПЛК (Modbus TCP/RTU) до робототехники (ROS 2/DDS) и автономных локальных ИИ-агентов с нулевым оверхедом видеопамяти (0 KB VRAM / Headless).
+        </p>
+
+        <div class="callout callout-green">
+          <strong>Статус версий экосистемы:</strong> В настоящее время в экосистеме сосуществуют две версии:
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Современная AI-First):</strong> используется в TDscript Studio IDE, стендах автоматизации и робототехнике. Поддерживает hex-литералы (<code>0x76</code>), индексацию <code>ByteArray</code>, интерполяцию <code>LString</code>, сторожевой таймер <code>WATCHDOG</code> и GBNF-грамматику для LLM.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Классическая / Стабильная):</strong> сохраняется и поддерживается во всех ранее созданных утилитах автора, включая Android TUI лаунчер Tdroid и системные сервисы (десятичные адреса регистров, базовый LString, классический JSON ошибок).
+        </div>
+
+        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                   TDSCRIPT CORE ENGINE (v1.1.0 / Core 1.1)             │
+│  Лексер (109 языков) • Парсер • LString • Step Limit (10M) • HostSPI   │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ CapabilityScope & Watchdog Fail-Safe
+        ┌───────────────────────────┼───────────────────────────┐
+        ▼                           ▼                           ▼
+┌───────────────┐           ┌───────────────┐           ┌───────────────┐
+│TDscript Studio│           │  TDRobotics   │           │ Tdroid / TUI  │
+│ Linux/Android │           │  Engineering  │           │ Terminal OS   │
+│ • AI Agentic  │           │ • Circuit CAD │           │ • UI.window() │
+│ • Sandbox I2C │           │ • DIP AutoGen │           │ • PHONE.torch │
+│ • Modbus PLC  │           │ • Safety Gate │           │ • SQLite/VFS  │
+└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
+      </section>
+
+      <!-- СЕКЦИЯ 2: МАТРИЦА СРАВНЕНИЯ ВЕРСИЙ -->
+      <section class="card">
+        <h2>⚖️ Сравнение версий: v1.4.0 (Studio) против v1.0.1 (Legacy)</h2>
+        <p>
+          Вся архитектурная эволюция языка проводилась с сохранением преемственности. Ниже приведена матрица различий между классическим ядром v1.0.1 и современным v1.4.0:
+        </p>
+        
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Возможность / Подсистема</th>
+                <th>TDscript v1.0.1 (Классическая / Tdroid)</th>
+                <th>TDscript v1.4.0 / Core 1.1 (Студия / AI-First)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Сфера применения</strong></td>
+                <td>Tdroid TUI Launcher, системные утилиты Android, терминальные апплеты</td>
+                <td>TDscript Studio IDE (Linux/Android), промышленная автоматизация, роботы</td>
+              </tr>
+              <tr>
+                <td><strong>Числовые литералы</strong></td>
+                <td>Только десятичные (например, <code>118</code>, <code>208</code>)</td>
+                <td>Шестнадцатеричные (<code>0x76</code>, <code>0xD0</code>, <code>0xF4</code>) и десятичные</td>
+              </tr>
+              <tr>
+                <td><strong>Байтовые массивы (<code>ByteArray</code>)</strong></td>
+                <td>Базовый вывод JVM-указателя <code>[B@...</code></td>
+                <td>Детерминированный hex-вывод <code>[0x60]</code>, индексация <code>bytes[i]</code> (0..255)</td>
+              </tr>
+              <tr>
+                <td><strong>Локализация (<code>LString</code>)</strong></td>
+                <td>Символический ключ <code>L"KEY"</code>, запрет конкатенации <code>+</code></td>
+                <td>Интерполяция <code>L"KEY:Temp is {temp}C"</code> из переменных скоупа, запрет <code>+</code></td>
+              </tr>
+              <tr>
+                <td><strong>Диспетчеризация методов</strong></td>
+                <td>Неизвестные методы возвращали <code>null</code></td>
+                <td>Строгая ошибка <code>TDS_E106: E106@line:col unknown_method on=&lt;type&gt;</code></td>
+              </tr>
+              <tr>
+                <td><strong>Сторож безопасности (Watchdog)</strong></td>
+                <td>Базовый лимит шагов цикла (10 млн шагов)</td>
+                <td><code>WATCHDOG.feed()</code> и аварийный сброс <code>WATCHDOG.emergencyStop()</code></td>
+              </tr>
+              <tr>
+                <td><strong>Пространственная изоляция</strong></td>
+                <td>Общая проверка разрешений (Capabilities)</td>
+                <td><code>CapabilityScope</code>: белые списки I2C (0x76), Modbus (100..200), Serial</td>
+              </tr>
+              <tr>
+                <td><strong>Формат ошибок для ИИ</strong></td>
+                <td>Полный многострочный JSON <code>CompilerErrorDiagnostic</code></td>
+                <td>Сжатая строка <code>E104@1:5 exp=0x76 got=0x68</code> и GBNF-грамматика для <code>llama.cpp</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- СЕКЦИЯ 3: КАРТА РАЗДЕЛОВ -->
+      <section class="card">
+        <h2>🗺️ Разделы портала TDscript</h2>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4><a href="language.html">📖 Спецификация языка</a></h4>
+            <p>
+              Полный синтаксис, типы данных, встроенные модули I2C, PLC, BLE, NET, WATCHDOG, матрица 16 прав доступа и правила работы с LString в версиях 1.4.0 и 1.0.1.
+            </p>
+            <a href="language.html" class="btn-secondary" style="margin-top: 0.6rem;">Читать спецификацию →</a>
+          </div>
+          <div class="feature-box">
+            <h4><a href="examples.html">💡 10 задач автоматизации</a></h4>
+            <p>
+              Практическая библиотека из 10 реальных сценариев из нашего живого бенчмарка: опрос BME280, ПЛК бойлера, опрос BLE, проверка сторожа и самоисправление.
+            </p>
+            <a href="examples.html" class="btn-secondary" style="margin-top: 0.6rem;">Смотреть примеры →</a>
+          </div>
+          <div class="feature-box">
+            <h4><a href="studio.html">📦 Студия и Загрузки</a></h4>
+            <p>
+              Интерактивная среда TDscript Studio (Linux/Android), эмулятор аппаратуры AiHardwareSandbox и прямые ссылки на пакеты: DEB, RPM, AppImage, Tar.gz, Fat JAR, APK.
+            </p>
+            <a href="studio.html" class="btn-secondary" style="margin-top: 0.6rem;">Центр загрузок →</a>
+          </div>
+          <div class="feature-box">
+            <h4><a href="benchmark.html">🤖 ИИ-Бенчмарк (Qwen 3.5 9B)</a></h4>
+            <p>
+              Официальные результаты стресс-тестирования локальной LLM на 7 языках (TDscript, Python, C++, Lua, JS, Kotlin). Сравнение токенов, компактности и успеха починки.
+            </p>
+            <a href="benchmark.html" class="btn-secondary" style="margin-top: 0.6rem;">Изучить бенчмарк →</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== EN VIEW ==================== -->
+    <div id="view-en" class="lang-view">
+      <section class="card">
+        <h2>⚡ About TDscript Platform <span class="badge badge-accent">Core 1.1 / TDModules v1.4.0</span></h2>
+        <p>
+          <strong>TDscript (TextDroid Script)</strong> is an ultra-lightweight deterministic scripting language and software ecosystem created by Anton Mykhailov. Initially designed for the Tdroid terminal launcher, it evolved into a <strong>complete hardware orchestration platform (Device & Chip Orchestration Platform)</strong>: bridging physical microcontroller buses (I2C, SPI, UART, CAN), industrial PLCs (Modbus TCP/RTU), robotics (ROS 2/DDS), and autonomous local AI agents with 0 KB VRAM overhead.
+        </p>
+
+        <div class="callout callout-green">
+          <strong>Coexistence of Versions:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Modern AI-First):</strong> Powering TDscript Studio IDE, robotics, and hardware testbenches. Features hex literals (<code>0x76</code>), <code>ByteArray</code> indexing, <code>LString</code> interpolation, fail-safe <code>WATCHDOG</code>, and GBNF grammar for local LLMs.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Classic / Stable):</strong> Maintained in the Tdroid Android launcher and background system utilities (decimal register addresses, symbolic LString, full JSON diagnostics).
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>⚖️ Version Comparison: v1.4.0 (Studio) vs v1.0.1 (Legacy)</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature / Subsystem</th>
+                <th>TDscript v1.0.1 (Legacy / Tdroid)</th>
+                <th>TDscript v1.4.0 / Core 1.1 (Studio / AI-First)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Scope</strong></td>
+                <td>Tdroid TUI Launcher, Android background services, CLI</td>
+                <td>TDscript Studio IDE (Linux/Android), Industrial PLC, Robotics</td>
+              </tr>
+              <tr>
+                <td><strong>Numeric Literals</strong></td>
+                <td>Decimal only (e.g. <code>118</code>, <code>208</code>)</td>
+                <td>Hexadecimal (<code>0x76</code>, <code>0xD0</code>, <code>0xF4</code>) & decimal</td>
+              </tr>
+              <tr>
+                <td><strong>Byte Arrays (<code>ByteArray</code>)</strong></td>
+                <td>JVM pointer format <code>[B@...</code></td>
+                <td>Deterministic hex output <code>[0x60]</code>, indexing <code>bytes[i]</code> (0..255)</td>
+              </tr>
+              <tr>
+                <td><strong>Localization (<code>LString</code>)</strong></td>
+                <td>Symbolic <code>L"KEY"</code>, concatenation prohibited</td>
+                <td>Interpolation <code>L"KEY:Temp is {temp}C"</code>, concatenation prohibited</td>
+              </tr>
+              <tr>
+                <td><strong>Method Dispatch</strong></td>
+                <td>Unknown methods returned <code>null</code></td>
+                <td>Strict diagnostic error <code>TDS_E106: unknown_method</code></td>
+              </tr>
+              <tr>
+                <td><strong>Fail-Safe Watchdog</strong></td>
+                <td>Loop step limit (10M steps)</td>
+                <td><code>WATCHDOG.feed()</code> & <code>WATCHDOG.emergencyStop()</code></td>
+              </tr>
+              <tr>
+                <td><strong>Spatial Sandboxing</strong></td>
+                <td>Global capability bitmask</td>
+                <td><code>CapabilityScope</code> whitelisting (I2C: 0x76, Modbus: 100..200)</td>
+              </tr>
+              <tr>
+                <td><strong>AI Diagnostics</strong></td>
+                <td>Full multi-line JSON</td>
+                <td>Compact repair lines <code>E104@1:5 exp=0x76 got=0x68</code> & GBNF grammar</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>🗺️ TDscript Documentation Hub</h2>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4><a href="language.html">📖 Language Specification</a></h4>
+            <p>Comprehensive syntax guide, types, I2C/PLC/BLE modules, 16 capabilities, and LString rules across v1.4.0 and v1.0.1.</p>
+            <a href="language.html" class="btn-secondary" style="margin-top: 0.6rem;">Read Specification →</a>
+          </div>
+          <div class="feature-box">
+            <h4><a href="examples.html">💡 10 Automation Tasks</a></h4>
+            <p>Step-by-step walkthrough of 10 real hardware tasks from our benchmark: BME280 I2C, Modbus boiler, BLE, Watchdog, Ping.</p>
+            <a href="examples.html" class="btn-secondary" style="margin-top: 0.6rem;">View Examples →</a>
+          </div>
+          <div class="feature-box">
+            <h4><a href="studio.html">📦 Studio & Downloads</a></h4>
+            <p>Compose Desktop & Android IDE, AiHardwareSandbox testbench, and direct downloads for DEB, RPM, AppImage, Tar.gz, Fat JAR, APK.</p>
+            <a href="studio.html" class="btn-secondary" style="margin-top: 0.6rem;">Download Center →</a>
+          </div>
+          <div class="feature-box">
+            <h4><a href="benchmark.html">🤖 AI Benchmark (Qwen 3.5 9B)</a></h4>
+            <p>Official 7-language live benchmark results. Token efficiency, code compactness (5.6 LOC), and Ollama/LM Studio setup.</p>
+            <a href="benchmark.html" class="btn-secondary" style="margin-top: 0.6rem;">Explore Benchmark →</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== DE VIEW ==================== -->
+    <div id="view-de" class="lang-view">
+      <section class="card">
+        <h2>⚡ Über die TDscript-Plattform <span class="badge badge-accent">Core 1.1 / TDModules v1.4.0</span></h2>
+        <p>
+          <strong>TDscript (TextDroid Script)</strong> ist eine extrem leichtgewichtige deterministische Skriptsprache und Software-Plattform von Anton Mykhailov für Chip-Orchestrierung, Robotik, Industrie-IoT und autonome KI-Agenten mit 0 KB VRAM Overhead.
+        </p>
+        <div class="callout callout-green">
+          <strong>Versionen:</strong>
+          <br>• <strong>v1.4.0 (Studio / AI-First):</strong> Hexadezimale Literale (<code>0x76</code>), ByteArray-Indexierung, LString-Interpolation, Watchdog und GBNF-Grammatik.
+          <br>• <strong>v1.0.1 (Klassisch / Tdroid):</strong> Im Tdroid Android Launcher und Terminal-Diensten aktiv (Dezimalregister, Standard-LString, Voll-JSON).
+        </div>
+        <p style="margin-top: 1rem;">
+          <a href="language.html" class="btn-secondary">Sprachspezifikation →</a>
+          <a href="examples.html" class="btn-secondary">10 Automatisierungsaufgaben →</a>
+          <a href="studio.html" class="btn-secondary">Studio & Downloads →</a>
+          <a href="benchmark.html" class="btn-secondary">KI-Benchmark →</a>
+        </p>
+      </section>
+    </div>
+
+    <!-- ==================== UK VIEW ==================== -->
+    <div id="view-uk" class="lang-view">
+      <section class="card">
+        <h2>⚡ Про платформу TDscript <span class="badge badge-accent">Core 1.1 / TDModules v1.4.0</span></h2>
+        <p>
+          <strong>TDscript (TextDroid Script)</strong> — компактна детермінована мова сценарного керування та програмна екосистема для мікросхем, робототехніки, промислового IoT та автономних ШІ-агентів з 0 KB VRAM оверхедом від Антона Михайлова.
+        </p>
+        <div class="callout callout-green">
+          <strong>Співіснування версій:</strong>
+          <br>• <strong>v1.4.0 (Студія / AI-First):</strong> Шістнадцяткові літерали (<code>0x76</code>), індексація ByteArray, інтерполяція LString, сторожовий таймер WATCHDOG, GBNF-граматика.
+          <br>• <strong>v1.0.1 (Класична / Tdroid):</strong> Зберігається у лаунчері Tdroid та фонових службах (десяткові адреси, стандартний LString, повний JSON помилок).
+        </div>
+        <p style="margin-top: 1rem;">
+          <a href="language.html" class="btn-secondary">Специфікація мови →</a>
+          <a href="examples.html" class="btn-secondary">10 завдань автоматизації →</a>
+          <a href="studio.html" class="btn-secondary">Студія та Завантаження →</a>
+          <a href="benchmark.html" class="btn-secondary">ШІ-Бенчмарк →</a>
+        </p>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Halberstadt, Germany. | <a href="../index.html#impressum">Impressum</a> | <a href="../index.html#datenschutz">Datenschutz</a>
+    </div>
+
+  </div>
+
+  <script src="../js/site.js"></script>
+</body>
+</html>

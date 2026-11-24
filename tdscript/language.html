@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDscript Language Specification — v1.4.0 (Core 1.1) & v1.0.1 (Legacy)</title>
+  <meta name="description" content="Complete reference manual and language specification for TDscript: Syntax, Types, I2C/PLC modules, Watchdog, CapabilityScope, and Version Comparison." />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="../index.html" class="logo">⚡ Anton Mykhailov — Systems & TUI</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UK</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>📖 Спецификация и справочник TDscript</h1>
+    <p>Полное руководство по грамматике, типам данных, аппаратным шинам и безопасности версий v1.4.0 и v1.0.1</p>
+    <nav class="nav-bar">
+      <a href="index.html">🏠 Обзор платформы</a>
+      <a href="language.html" class="active">📖 Спецификация языка</a>
+      <a href="examples.html">💡 10 задач автоматизации</a>
+      <a href="studio.html">📦 Студия и Загрузки</a>
+      <a href="benchmark.html">🤖 ИИ-Бенчмарк</a>
+      <a href="../index.html">← На главную</a>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <div class="breadcrumbs">
+    <a href="../index.html">Портал разработчика</a> <span>/</span> <a href="index.html">TDscript</a> <span>/</span> <strong>Спецификация языка</strong>
+  </div>
+
+  <div class="container">
+
+    <!-- ==================== RU VIEW ==================== -->
+    <div id="view-ru" class="lang-view active">
+
+      <!-- ПЕРЕКЛЮЧАТЕЛЬ ВЕРСИЙ -->
+      <section class="card">
+        <h2>📑 Выбор редакции спецификации</h2>
+        <p>Выберите версию спецификации для просмотра синтаксиса и контрактов подсистем:</p>
+        
+        <div id="version-tabs-ru" class="version-tabs">
+          <button class="tab-btn active" data-tab="v140" onclick="switchTab('version-tabs-ru', 'v140')">🚀 TDscript v1.4.0 / Core 1.1 (Студия & AI-First)</button>
+          <button class="tab-btn" data-tab="v101" onclick="switchTab('version-tabs-ru', 'v101')">🏛️ TDscript v1.0.1 / Core 1.0 (Классическая / Tdroid)</button>
+        </div>
+
+        <!-- ТАБ 1: v1.4.0 -->
+        <div class="tab-pane active" data-tab="v140">
+          <div class="callout callout-green">
+            <strong>Актуальная спецификация (TDscript Studio 1.1.0 / TDModules 1.4.0):</strong>
+            Включает поддержку шестнадцатеричных литералов (<code>0x76</code>), индексации <code>ByteArray[i]</code>, интерполяции переменных в <code>LString</code>, строгой диспетчеризации методов (<code>TDS_E106</code>), сторожа <code>WATCHDOG</code> и компактных диагностических строк для локальных LLM.
+          </div>
+
+          <h3>1. Базовый синтаксис и управление потоком</h3>
+          <pre><code>// Объявление неизменяемой (let) и изменяемой (var) переменной
+let chipAddress = 0x76;
+var status = false;
+
+// Ветвление if / else
+if (status == true) {
+    print("Device is ready");
+} else {
+    print("Device offline");
+}
+
+// Цикл while со встроенным лимитом шагов (Step Limiter 10M)
+var i = 0;
+while (i &lt; 5) {
+    WATCHDOG.feed(); // Подпитка сторожа на каждой итерации
+    i = i + 1;
+}</code></pre>
+
+          <h3>2. Литералы и детерминированные типы данных</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Тип данных</th>
+                  <th>Примеры литералов</th>
+                  <th>Особенности рантайма v1.4.0</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Числа (Int / Long)</strong></td>
+                  <td><code>0x76</code>, <code>0xD0</code>, <code>0xF4</code>, <code>100</code>, <code>1000L</code></td>
+                  <td>Поддержка 16-ричных и 10-тичных чисел в лексере нативно.</td>
+                </tr>
+                <tr>
+                  <td><strong>Массивы байтов (<code>ByteArray</code>)</strong></td>
+                  <td>Возвращаются методами <code>I2C.read()</code></td>
+                  <td>Детерминированный вывод <code>[0x60]</code>, индексация <code>bytes[0]</code> (0..255), метод <code>bytes.size()</code>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Локализация (<code>LString</code>)</strong></td>
+                  <td><code>L"ALERT:Temp is {temp}C"</code></td>
+                  <td>Интерполяция <code>{var}</code> из активной области видимости. <strong>Конкатенация строк через <code>+</code> строго запрещена (ошибка <code>TDS_E105</code>)</strong> для сохранения грамматики 109 языков.</td>
+                </tr>
+                <tr>
+                  <td><strong>Строки (String)</strong></td>
+                  <td><code>"sensor_01"</code>, <code>"127.0.0.1"</code></td>
+                  <td>Обычные строки для хостов, IP-адресов и команд.</td>
+                </tr>
+                <tr>
+                  <td><strong>Булевы (Boolean)</strong></td>
+                  <td><code>true</code>, <code>false</code></td>
+                  <td>Логические значения для флагов и условий.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>3. Строгая диспетчеризация методов (<code>TDS_E106</code>)</h3>
+          <p>
+            В TDscript v1.4.0 вызов несуществующего метода у объекта (например, попытка вызвать метод Java <code>safeI2CAddr.toString(16)</code>) больше не возвращает тихо <code>null</code>. Рантайм выбрасывает явное исключение с точными координатами в коде:
+          </p>
+          <pre><code>// Попытка вызвать неизвестный метод toString:
+let safeAddr = 0x76;
+let str = safeAddr.toString(16);
+
+// РЕЗУЛЬТАТ В РАНТАЙМЕ:
+// TDS_E106: E106@2:11 unknown_method=toString on=INT</code></pre>
+
+          <h3>4. Аппаратные модули хоста (Host SPI)</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Модуль</th>
+                  <th>Метод и сигнатура</th>
+                  <th>Описание</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>I2C</code></td>
+                  <td><code>I2C.read(chip, reg, len) -&gt; ByteArray</code></td>
+                  <td>Чтение <code>len</code> байт из регистра <code>reg</code> чипа <code>chip</code> (например, <code>I2C.read(0x76, 0xD0, 1)</code>).</td>
+                </tr>
+                <tr>
+                  <td><code>I2C</code></td>
+                  <td><code>I2C.write(chip, reg, data) -&gt; Boolean</code></td>
+                  <td>Запись байта или массива в регистр чипа (например, <code>I2C.write(0x76, 0xF4, 0x27)</code>).</td>
+                </tr>
+                <tr>
+                  <td><code>PLC</code></td>
+                  <td><code>PLC.modbusRead(host, reg) -&gt; Int</code></td>
+                  <td>Чтение Holding Register по протоколу Modbus TCP (например, <code>PLC.modbusRead("127.0.0.1", 100)</code>).</td>
+                </tr>
+                <tr>
+                  <td><code>PLC</code></td>
+                  <td><code>PLC.modbusWrite(host, reg, val) -&gt; Boolean</code></td>
+                  <td>Запись значения в регистр Modbus (например, <code>PLC.modbusWrite("127.0.0.1", 101, 0)</code>).</td>
+                </tr>
+                <tr>
+                  <td><code>BLE</code></td>
+                  <td><code>BLE.connect(deviceId) -&gt; Boolean</code><br><code>BLE.send(deviceId, cmd) -&gt; String</code></td>
+                  <td>Подключение к Bluetooth LE периферии и отправка строковых команд с получением ответа.</td>
+                </tr>
+                <tr>
+                  <td><code>NET</code></td>
+                  <td><code>NET.ping(host) -&gt; Int</code></td>
+                  <td>ICMP-проверка доступности сетевого узла. Возвращает RTT в миллисекундах или -1.</td>
+                </tr>
+                <tr>
+                  <td><code>WATCHDOG</code></td>
+                  <td><code>WATCHDOG.feed()</code><br><code>WATCHDOG.emergencyStop()</code></td>
+                  <td>Подпитка сторожевого таймера либо программный аварийный останов с отключением питания приводов.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>5. Пространственная изоляция CapabilityScope и 16 флагов прав</h3>
+          <p>
+            Безопасность строится на двухуровневой модели: глобальный битовый массив прав (16 Capabilities) и гранулярный белый список физических координат <code>CapabilityScope</code>:
+          </p>
+          <pre><code>// Пример проверки адресов хостом:
+// Если CapabilityScope разрешает только I2C [0x76], обращение к 0x68 блокируется:
+let res = I2C.read(0x68, 0x00, 1); 
+
+// РЕЗУЛЬТАТ: Возвращает null и фиксирует в диагностике:
+// SecurityException: SCOPE_VIOLATION: Address 0x68 not in I2C scope [0x76]</code></pre>
+        </div>
+
+        <!-- ТАБ 2: v1.0.1 -->
+        <div class="tab-pane" data-tab="v101">
+          <div class="callout callout-amber">
+            <strong>Классическая стабильная спецификация (TDscript v1.0.1 / Core 1.0):</strong>
+            Используется в Android TUI лаунчере <strong>Tdroid</strong>, системных демонах и встроенных утилитах. Сохраняет 100% обратную совместимость с ранее написанными скриптами.
+          </div>
+
+          <h3>1. Особенности классического рантайма v1.0.1</h3>
+          <ul>
+            <li><strong>Только десятичные числа:</strong> шестнадцатеричные литералы не поддерживаются лексером 1.0. Для обращения к чипу BME280 (0x76) следует указывать десятичный эквивалент <code>118</code>, а для регистра (0xD0) — <code>208</code>.</li>
+            <li><strong>Символический LString:</strong> формат <code>L"KEY"</code> служил идентификатором для системного словаря ресурсов. Подстановка переменных через фигурные скобки <code>{var}</code> в версии 1.0.1 отсутствовала. Конкатенация строк через <code>+</code> также запрещена.</li>
+            <li><strong>Байтовые массивы:</strong> метод <code>print(bytes)</code> в версии 1.0.1 выводил внутреннее представление JVM (например, <code>[B@4f2a1b</code>). Индексация <code>bytes[0]</code> требовала вспомогательных функций.</li>
+            <li><strong>Мягкая диспетчеризация:</strong> вызовы неизвестных методов возвращали <code>null</code> без немедленного прерывания скрипта.</li>
+            <li><strong>Диагностика:</strong> ошибки компиляции экспортировались в подробный многострочный JSON <code>CompilerErrorDiagnostic</code>.</li>
+          </ul>
+
+          <h3>2. Пример скрипта для TDscript v1.0.1</h3>
+          <pre><code>// Чтение датчика в стиле TDscript 1.0.1 (десятичные адреса 118 и 208)
+let chip = 118; // 0x76
+let reg = 208;  // 0xD0
+let data = I2C.read(chip, reg, 1);
+
+if (data != null) {
+    print("CHIP_ID_READ_SUCCESS");
+} else {
+    print("READ_FAILED");
+}</code></pre>
+
+          <h3>3. Рекомендации по совместимости</h3>
+          <p>
+            Если ваш скрипт предназначен для запуска внутри мобильного лаунчера <strong>Tdroid</strong>, используйте десятичные литералы и базовый синтаксис v1.0.1. При переносе скриптов в среду <strong>TDscript Studio</strong> рекомендуется перейти на более наглядный синтаксис v1.4.0 с hex-литералами и интерполяцией <code>LString</code>.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== EN VIEW ==================== -->
+    <div id="view-en" class="lang-view">
+      <section class="card">
+        <h2>📑 Language Specification Selection</h2>
+        <div id="version-tabs-en" class="version-tabs">
+          <button class="tab-btn active" data-tab="v140" onclick="switchTab('version-tabs-en', 'v140')">🚀 TDscript v1.4.0 / Core 1.1 (Studio & AI-First)</button>
+          <button class="tab-btn" data-tab="v101" onclick="switchTab('version-tabs-en', 'v101')">🏛️ TDscript v1.0.1 / Core 1.0 (Legacy / Tdroid)</button>
+        </div>
+
+        <div class="tab-pane active" data-tab="v140">
+          <div class="callout callout-green">
+            <strong>Modern Specification (v1.4.0 / Core 1.1):</strong>
+            Hexadecimal literals (<code>0x76</code>), <code>ByteArray[i]</code> indexing, <code>LString</code> variable interpolation, strict method dispatch (<code>TDS_E106</code>), <code>WATCHDOG</code> subsystem, and GBNF grammar.
+          </div>
+          <pre><code>let chip = 0x76;
+let reg = 0xD0;
+let bytes = I2C.read(chip, reg, 1);
+let id = bytes[0];
+let alert = L"TEMP_ALERT:Chip {chip} identified with ID {id}";
+print(alert);</code></pre>
+        </div>
+
+        <div class="tab-pane" data-tab="v101">
+          <div class="callout callout-amber">
+            <strong>Legacy Specification (v1.0.1 / Core 1.0):</strong>
+            Active in the Tdroid launcher and background services. Relies on decimal address literals (e.g. <code>118</code> for 0x76), symbolic LString, and standard JSON diagnostics.
+          </div>
+          <pre><code>let chip = 118; // 0x76 in decimal
+let reg = 208;  // 0xD0 in decimal
+let data = I2C.read(chip, reg, 1);
+print("BME280 Read");</code></pre>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== DE VIEW ==================== -->
+    <div id="view-de" class="lang-view">
+      <section class="card">
+        <h2>📑 TDscript Sprachspezifikation</h2>
+        <p>Vollständige Referenz für die Versionen <strong>v1.4.0 (Studio / AI-First)</strong> und <strong>v1.0.1 (Klassisch / Tdroid)</strong>.</p>
+        <div class="callout callout-green">
+          Moderne Syntax v1.4.0 unterstützt Hex-Literale (<code>0x76</code>), ByteArray-Indexierung und LString-Interpolation.
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== UK VIEW ==================== -->
+    <div id="view-uk" class="lang-view">
+      <section class="card">
+        <h2>📑 Специфікація мови TDscript</h2>
+        <p>Повний довідник синтаксису для версій <strong>v1.4.0 (Студія / AI-First)</strong> та <strong>v1.0.1 (Класична / Tdroid)</strong>.</p>
+        <div class="callout callout-green">
+          Сучасний синтаксис v1.4.0 підтримує шістнадцяткові літерали (<code>0x76</code>), індексацію ByteArray та інтерполяцію LString.
+        </div>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Halberstadt, Germany. | <a href="../index.html#impressum">Impressum</a> | <a href="../index.html#datenschutz">Datenschutz</a>
+    </div>
+
+  </div>
+
+  <script src="../js/site.js"></script>
+</body>
+</html>

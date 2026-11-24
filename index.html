@@ -12,175 +12,7 @@
   <meta property="og:type" content="website" />
   <link rel="help" type="text/plain" href="llms.txt" title="LLM context file" />
   <link rel="help" type="text/plain" href="llms-full.txt" title="Full LLM technical specification" />
-  <style>
-    :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --card-border: #1f293d;
-      --text: #f3f4f6;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --green: #34d399;
-      --amber: #fbbf24;
-      --code-bg: #030712;
-      --border: #334155;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding-bottom: 5rem;
-    }
-    .top-bar {
-      background: #0f172a;
-      border-bottom: 1px solid var(--card-border);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .logo { font-weight: 800; font-size: 1.15rem; color: var(--accent); }
-    .lang-switcher { display: flex; gap: 0.4rem; }
-    .lang-btn {
-      background: #1e293b;
-      color: #cbd5e1;
-      border: 1px solid #334155;
-      padding: 0.35rem 0.65rem;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-    .lang-btn:hover, .lang-btn.active {
-      background: var(--accent);
-      color: #030712;
-      border-color: var(--accent);
-    }
-    header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-bottom: 1px solid var(--card-border);
-      color: #ffffff;
-      padding: 3rem 1.5rem 2.2rem 1.5rem;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-    }
-    header h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 0.8rem;
-      background: linear-gradient(to right, #38bdf8, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    header p { max-width: 800px; margin: 0 auto 1.5rem auto; color: #cbd5e1; font-size: 1.05rem; }
-    nav.nav-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1rem; }
-    nav.nav-bar a {
-      background: #1e293b;
-      color: #e2e8f0;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      border: 1px solid #334155;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    nav.nav-bar a:hover { background: var(--accent); color: #030712; border-color: var(--accent); }
-    .container { max-width: 1020px; margin: 0 auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 2.5rem; }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 2.2rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-    }
-    h2 {
-      font-size: 1.6rem;
-      margin-bottom: 1.2rem;
-      color: #f9fafb;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      border-bottom: 2px solid var(--card-border);
-      padding-bottom: 0.6rem;
-    }
-    h3 { font-size: 1.25rem; margin: 1.6rem 0 0.8rem 0; color: var(--accent); }
-    h4 { font-size: 1.05rem; margin: 1.2rem 0 0.5rem 0; color: var(--green); }
-    p, li { font-size: 0.96rem; color: #d1d5db; }
-    ul, ol { list-style-position: inside; margin-top: 0.6rem; margin-bottom: 0.8rem; }
-    li { margin-bottom: 0.45rem; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: 9999px;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      vertical-align: middle;
-    }
-    .badge-green { background: rgba(52, 211, 153, 0.15); color: var(--green); border-color: rgba(52, 211, 153, 0.3); }
-    .badge-amber { background: rgba(251, 191, 36, 0.15); color: var(--amber); border-color: rgba(251, 191, 36, 0.3); }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
-    .gallery-item {
-      background: #030712;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .gallery-item:hover { transform: translateY(-3px); border-color: var(--accent); }
-    .gallery-item img { width: 100%; height: auto; display: block; background: #000; }
-    .gallery-item span { display: block; padding: 0.6rem 0.5rem; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); }
-    pre {
-      background: var(--code-bg);
-      border: 1px solid #1f2937;
-      border-radius: 8px;
-      padding: 1.1rem;
-      overflow-x: auto;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.88rem;
-      color: #e5e7eb;
-      margin: 0.8rem 0 1.2rem 0;
-      line-height: 1.5;
-    }
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 0.15rem 0.35rem;
-      border-radius: 4px;
-      color: #38bdf8;
-      font-size: 0.88rem;
-    }
-    pre code { background: none; padding: 0; color: inherit; }
-    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.2rem; }
-    .feature-box {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 1.2rem;
-    }
-    .feature-box h4 { margin-top: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.9rem; }
-    th, td { border: 1px solid var(--border); padding: 0.65rem 0.85rem; text-align: left; }
-    th { background: #1e293b; color: #f1f5f9; }
-    tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
-    .footer { text-align: center; margin-top: 3.5rem; font-size: 0.85rem; color: var(--text-muted); }
-    .lang-view { display: none; }
-    .lang-view.active { display: block; }
-</style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -203,7 +35,7 @@
         <a href="#about">👨‍💻 Об авторе</a>
         <a href="#network-audit">🛡️ Network Audit</a>
         <a href="#tdroid">📱 Лаунчер Tdroid</a>
-        <a href="#tdscript">⚡ Язык TDScript</a>
+        <a href="tdscript/index.html">⚡ Портал TDscript</a>
         <a href="#sevens">🃏 Семёрки и Девятки</a>
         <a href="#tcm">☯️ Каноны ТКМ (3D Атлас)</a>
         <a href="#impressum">⚖️ Impressum</a>
@@ -379,263 +211,25 @@
         </div>
       </section>
 
-      <!-- 4. TDCRIPT, БАЙТКОД И ЗАЩИТА -->
-      <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
-      <!-- 4. TDSCRIPT: АРХИТЕКТУРА И СПЕЦИФИКАЦИЯ 1.0 -->
+      <!-- 4. TDSCRIPT ЭКОСИСТЕМА: ПОРТАЛ И СТУДИЯ -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript Core 1.1 / TDModules v1.4.0 — Универсальная платформа сценарного управления для микросхем, робототехники и IoT <span class="badge badge-accent">RELEASE 1.4.0 (Core 1.1)</span></h2>
+        <h2>⚡ TDscript — Платформа сценарного управления для микросхем, робототехники и IoT <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
         <p>
-          <strong>TDscript (TextDroid Script)</strong> — компактная межплатформенная программная экосистема и легковесный детерминированный язык сценарного управления, созданный Антоном Михайловым. Экосистема эволюционировала из скриптового движка лаунчера в <strong>универсальную многоуровневую платформу автоматизации (Device &amp; Chip Orchestration Platform)</strong>: она связывает воедино микросхемы и физические шины (I2C, SPI, UART, CAN), промышленные контроллеры (Modbus PLC, OPC UA), робототехнические комплексы (ROS 2/DDS) и автономных ИИ-агентов с нулевым оверхедом видеопамяти (0 KB VRAM / Headless).
+          <strong>TDscript (TextDroid Script)</strong> — компактная программная экосистема и легковесный детерминированный язык автоматизации, созданный Антоном Михайловым. Платформа связывает воедино микросхемы физических шин (I2C, SPI, UART, CAN), промышленные ПЛК (Modbus TCP/RTU), робототехнику (ROS 2) и автономных ИИ-агентов с нулевым оверхедом видеопамяти (0 KB VRAM / Headless).
         </p>
 
-        <h3>1. Архитектурный базис: Разделение Core, Host SPI, CapabilityScope и Студия</h3>
-        <p>
-          В TDscript Core 1.1 реализовано строгое многоуровневое разделение: чистое ядро абстрагировано от конкретного железа и операционной системы, а доступ к периферии гранулирован через аппаратную матрицу прав и изоляцию пространств адресов:
-        </p>
-        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                   TDSCRIPT CORE ENGINE (v1.1.0 / Core 1.1)             │
-│  Лексер (109 языков) • Парсер • LString • Step Limit (10M) • HostSPI   │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ CapabilityScope &amp; Watchdog Fail-Safe
-        ┌───────────────────────────┼───────────────────────────┐
-        ▼                           ▼                           ▼
-┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│TDscript Studio│           │  TDRobotics   │           │ Tdroid / TUI  │
-│ Linux/Android │           │  Engineering  │           │ Terminal OS   │
-│ • AI Agentic  │           │ • Circuit CAD │           │ • UI.window() │
-│ • Sandbox I2C │           │ • DIP AutoGen │           │ • PHONE.torch │
-│ • Modbus PLC  │           │ • Safety Gate │           │ • SQLite/VFS  │
-└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
-
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🌐 Нативная мультиязычность (109 языков)</h4>
-            <p>
-              Директива <code>language: &lt;код&gt;;</code> на уровне лексера. Двусторонний посимвольный проектор <code>CodeProjector</code> (State Machine) переключает отображение ключевых слов (RU 🇷🇺, EN 🇬🇧, DE 🇩🇪) на лету без риска повреждения строковых литералов и комментариев. Защищённый тип <code>LString</code> исключает конкатенацию (ошибка <code>TDS_E105</code>) для сохранения целостности грамматики.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🛡️ Гранулярная изоляция CapabilityScope</h4>
-            <p>
-              Аппаратная песочница с белыми списками периферии. Скрипт изолирован не только на уровне прав, но и по физическим координатам: разрешённые адреса шины I2C (например, только <code>0x76</code> для Bosch BME280), диапазоны регистров Modbus PLC (<code>100..200</code>) и порты Serial. Любая попытка доступа вне Scope пресекается хостом.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>⚡ Fail-Safe Watchdog и Защита от циклов</h4>
-            <p>
-              Аппаратный сторож <code>WATCHDOG.feed()</code> и системный сброс <code>WATCHDOG.emergencyStop()</code>. В рантайме включён строгий лимит шагов (<code>maxSteps = 10_000_000L</code>): при попытке бесконечного цикла хост автоматически инициирует аварийную остановку приводов и выбрасывает <code>TDS_E106_STEP_LIMIT_EXCEEDED</code>.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🤖 Автономный ИИ-агент (Agentic Loop)</h4>
-            <p>
-              Встроенный замкнутый цикл разработки: <em>Discovery (<code>probe()</code>) ➔ Генерация кода по промпту ➔ Тестирование в <code>AiHardwareSandbox</code> ➔ Захват JSON-ошибок <code>CompilerErrorDiagnostic</code> ➔ Самоисправление кода (до 3–5 итераций)</em>. Поддержка локальных серверов Ollama и LM Studio без внешних библиотек.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🛠️ Кроссплатформенная IDE TDscript Studio</h4>
-            <p>
-              Единая среда разработки для Linux, Windows и Android: десктопное приложение на Compose Desktop (сборка в автономный Linux JAR), мобильное приложение Android (APK 5.5 МБ с поддержкой USB-OTG и BLE) и виртуальная песочница симуляции чипов BME280 и ПЛК Modbus.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>⚙️ Байткод-компилятор (.tbc) и Безопасность</h4>
-            <p>
-              Компиляция исходного AST в бинарный поток опкодов. Исходный код удаляется из пакета, уменьшая размер до 2–10 КБ. Поддержка цифровых подписей автора (Ed25519), контроль целостности через SHA-256 и лицензионные токены.
-            </p>
-          </div>
+        <div class="callout callout-green">
+          <strong>Сосуществование версий платформы:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Современная AI-First):</strong> используется в среде <strong>TDscript Studio</strong>, аппаратных стендах автоматизации и робототехнике. Поддерживает hex-литералы (<code>0x76</code>), индексацию <code>ByteArray[i]</code>, интерполяцию <code>LString</code>, сторож <code>WATCHDOG</code> и GBNF-грамматику для LLM.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Классическая / Стабильная):</strong> сохраняется и поддерживается во всех ранее созданных программах автора, включая мобильный лаунчер <strong>Tdroid</strong> и системные сервисы Android (десятичные регистры, базовый LString, классический JSON ошибок).
         </div>
 
-        <h3>2. Расширенная матрица разрешений безопасности (Capabilities 1.1)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Мандат (Capability)</th>
-              <th>Битовый флаг</th>
-              <th>Контролируемые операции и аппаратные шины</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>NET_READ</code></td>
-              <td><code>0x0001</code></td>
-              <td>HTTP GET запросы, чтение DNS, опрос сетевой статистики.</td>
-            </tr>
-            <tr>
-              <td><code>NET_SCAN</code></td>
-              <td><code>0x0002</code></td>
-              <td>Сканирование портов, поиск хостов в подсети (ARP/Subnet Discovery).</td>
-            </tr>
-            <tr>
-              <td><code>PLC_READ</code></td>
-              <td><code>0x0004</code></td>
-              <td>Чтение регистров промышленных контроллеров Modbus TCP/RTU.</td>
-            </tr>
-            <tr>
-              <td><code>PLC_WRITE</code></td>
-              <td><code>0x0008</code></td>
-              <td>Запись регистров Modbus TCP/RTU, отправка команд автоматике.</td>
-            </tr>
-            <tr>
-              <td><code>BT_ACCESS</code></td>
-              <td><code>0x0010</code></td>
-              <td>Подключение и обмен данными по Bluetooth Classic (SPP) и BLE GATT.</td>
-            </tr>
-            <tr>
-              <td><code>HARDWARE</code></td>
-              <td><code>0x0020</code></td>
-              <td>Управление фонариком, вибромотором, чтение датчиков телефона.</td>
-            </tr>
-            <tr>
-              <td><code>UI_CORE</code></td>
-              <td><code>0x0040</code></td>
-              <td>Отображение TUI окон, прогресс-баров и диалогов оператора.</td>
-            </tr>
-            <tr>
-              <td><code>BACKGROUND</code></td>
-              <td><code>0x0080</code></td>
-              <td>Работа скрипта в режиме системного демона (Watchdog Service).</td>
-            </tr>
-            <tr>
-              <td><code>I2C_READ</code></td>
-              <td><code>0x0100</code></td>
-              <td>Чтение регистров микросхем по шине I2C (с проверкой CapabilityScope).</td>
-            </tr>
-            <tr>
-              <td><code>I2C_WRITE</code></td>
-              <td><code>0x0200</code></td>
-              <td>Запись байтов конфигурации в микросхемы по шине I2C.</td>
-            </tr>
-            <tr>
-              <td><code>SPI_TRANSFER</code></td>
-              <td><code>0x0400</code></td>
-              <td>Аппаратный обмен данными по шине SPI (MOSI/MISO/CLK/CS).</td>
-            </tr>
-            <tr>
-              <td><code>SERIAL_RAW</code></td>
-              <td><code>0x0800</code></td>
-              <td>Прямой доступ к COM/TTY портам и адаптерам USB-UART.</td>
-            </tr>
-            <tr>
-              <td><code>CAN_BUS</code></td>
-              <td><code>0x1000</code></td>
-              <td>Прием и передача фреймов автомобильной и промышленной сети CAN.</td>
-            </tr>
-            <tr>
-              <td><code>ROBOT_MOTION</code></td>
-              <td><code>0x2000</code></td>
-              <td>Команды перемещения манипуляторов, захватов и платформ (AMR).</td>
-            </tr>
-            <tr>
-              <td><code>ROBOT_OVERRIDE</code></td>
-              <td><code>0x4000</code></td>
-              <td>Экстренное вмешательство в кинематику и аварийный сброс (E-Stop).</td>
-            </tr>
-            <tr>
-              <td><code>DRIVER_INSTALL</code></td>
-              <td><code>0x8000</code></td>
-              <td>Динамическая установка манифестов драйверов оборудования.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>3. Справочник прикладных API модулей TDscript Core 1.1</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Модуль</th>
-              <th>Метод API</th>
-              <th>Описание и возвращаемое значение</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Шина I2C</strong></td>
-              <td><code>I2C.read(addr, reg, len)</code> / <code>I2C.write(addr, reg, data)</code></td>
-              <td>Транзакции по шине I2C с валидацией адреса в CapabilityScope.</td>
-            </tr>
-            <tr>
-              <td><strong>Последовательный порт</strong></td>
-              <td><code>SERIAL.read(port, len)</code> / <code>SERIAL.write(port, data)</code></td>
-              <td>Прямой обмен данными с USB-UART / COM-портами микроконтроллеров.</td>
-            </tr>
-            <tr>
-              <td><strong>Промышленный Modbus</strong></td>
-              <td><code>PLC.modbusRead(ip, reg)</code> / <code>PLC.modbusWrite(ip, reg, val)</code></td>
-              <td>Чтение и запись регистров автоматики SCADA/PLC контроллеров.</td>
-            </tr>
-            <tr>
-              <td><strong>Сторож и Безопасность</strong></td>
-              <td><code>WATCHDOG.feed()</code> / <code>WATCHDOG.emergencyStop()</code></td>
-              <td>Сброс таймера сторожа и мгновенная аппаратная остановка линий.</td>
-            </tr>
-            <tr>
-              <td><strong>Локализация строк</strong></td>
-              <td><code>L"MSG_ID:Текст по умолчанию"</code></td>
-              <td>Символический строковый ресурс (прямой <code>+</code> запрещён, защита TDS_E105).</td>
-            </tr>
-            <tr>
-              <td><strong>Инспекция шин</strong></td>
-              <td><code>HostSPI.probe()</code></td>
-              <td>Динамическое сканирование подключенных USB, I2C, BLE и TCP шлюзов.</td>
-            </tr>
-            <tr>
-              <td><strong>Сетевой HTTP</strong></td>
-              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
-              <td>Сетевые вызовы REST API и обмен JSON-пакетами.</td>
-            </tr>
-            <tr>
-              <td><strong>Пинг сети</strong></td>
-              <td><code>TD.ping(host)</code> / <code>TD.udp(host, port, data)</code></td>
-              <td>Проверка доступности хоста и отправка датаграмм (ESP32, Arduino).</td>
-            </tr>
-            <tr>
-              <td><strong>Bluetooth</strong></td>
-              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code> / <code>BT.readLine()</code></td>
-              <td>Беспроводное управление периферией и контроллерами.</td>
-            </tr>
-            <tr>
-              <td><strong>База данных SQLite</strong></td>
-              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
-              <td>Локальное реляционное хранение данных и телеметрии.</td>
-            </tr>
-            <tr>
-              <td><strong>Псевдографика TUI</strong></td>
-              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
-              <td>Оконный интерфейс оператора Turbo Vision в консоли Tdroid.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>4. Интегрированная среда TDscript Studio и Автономный ИИ-агент</h3>
-        <p>
-          Для разработки скриптов и отладки периферии без риска повреждения реального оборудования создана кроссплатформенная среда <strong>TDscript Studio</strong> (Linux, Windows, Android):
-        </p>
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🖥️ Desktop IDE (Compose Desktop)</h4>
-            <p>
-              Полноценное оконное приложение для Linux и Windows с панелью живого переключения языков кода (RU/EN/DE), раздельным экраном редактора, монитором регистров Modbus и шин I2C. Доступен как запуск через Gradle, так и автономный дистрибутив <code>tdscript-studio-linux-x64-1.1.0.jar</code>.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>📱 Android Mobile Edition (APK 5.5 МБ)</h4>
-            <p>
-              Мобильное рабочее место инженера прямо «в поле». Поддерживает аппаратный интерфейс <code>AndroidHostSPI</code> с прямым доступом к USB-OTG преобразователям и беспроводным BLE-сенсорам либо работу в безопасном режиме симулятора.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🧪 Аппаратная песочница AiHardwareSandbox</h4>
-            <p>
-              Эмулирует микросхему <strong>Bosch BME280</strong> (адрес <code>0x76</code>, регистр Chip ID <code>0xD0 -> 0x60</code>, калибровочные регистры температуры/давления) и промышленный шлюз <strong>Modbus PLC Gateway</strong> (регистр 100 = 24.5°C, регистр 101 = статус насоса).
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🔄 Цикл Agentic Loop: Генерация ➔ Тест ➔ Автоисправление</h4>
-            <p>
-              Встроенный ИИ-агент подключается к локальным серверам (Ollama, LM Studio) по OpenAI-совместимому протоколу. Агент автоматически получает снимок оборудования (Discovery JSON), генерирует код, запускает его в песочнице, и при ошибках (например, выход за пределы Scope или ошибка синтаксиса) сам исправляет код за 1–3 итерации.
-            </p>
-          </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
+          <a href="tdscript/index.html" class="btn-primary">🌐 Портал TDscript</a>
+          <a href="tdscript/language.html" class="btn-secondary">📖 Спецификация языка (v1.4.0 &amp; v1.0.1)</a>
+          <a href="tdscript/examples.html" class="btn-secondary">💡 10 задач автоматизации</a>
+          <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Загрузки</a>
+          <a href="tdscript/benchmark.html" class="btn-secondary">🤖 ИИ-Бенчмарк (Qwen 3.5 9B)</a>
         </div>
 
         <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">
@@ -643,121 +237,45 @@
             <span>📦</span> Скачать TDscript Studio v1.1.0 для Linux &amp; Android
           </h4>
           <p style="font-size: 0.95em; color: var(--text-muted); margin-bottom: 1rem;">
-            Готовые сборки для всех популярных дистрибутивов Linux со встроенной оптимизированной JVM (не требует отдельной установки Java), универсальный AppImage, портативный архив и APK для Android:
+            Готовые автономные пакеты со встроенной оптимизированной JVM (не требует отдельной установки Java) и мобильный APK:
           </p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
-            <!-- DEB -->
-            <a href="downloads/tdscript-studio_1.1.0-1_amd64.deb" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--accent); font-size: 1.05em;">🐧 Ubuntu / Debian / Mint (.deb)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Пакет DEB с интеграцией в меню (~47 МБ)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #34d399;">sudo dpkg -i tdscript-studio*.deb</code>
+          <div class="download-grid">
+            <a href="downloads/tdscript-studio_1.1.0-1_amd64.deb" download class="download-card">
+              <span class="title" style="color: var(--accent);">🐧 Ubuntu / Debian / Mint (.deb)</span>
+              <span class="meta">Нативный DEB пакет (47 МБ)</span>
+              <code>sudo dpkg -i tdscript-studio*.deb</code>
             </a>
-            <!-- RPM -->
-            <a href="downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--amber); font-size: 1.05em;">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Нативный RPM с метаданными (~47 МБ)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #fbbf24;">sudo rpm -i tdscript-studio*.rpm</code>
+            <a href="downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download class="download-card">
+              <span class="title" style="color: var(--amber);">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
+              <span class="meta">Нативный RPM пакет (47 МБ)</span>
+              <code>sudo rpm -i tdscript-studio*.rpm</code>
             </a>
-            <!-- AppImage -->
-            <a href="downloads/tdscript-studio-1.1.0-x86_64.AppImage" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--green); font-size: 1.05em;">🚀 Universal AppImage (Все Linux)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Один файл, запуск без установки (~54 МБ)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #34d399;">chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
+            <a href="downloads/tdscript-studio-1.1.0-x86_64.AppImage" download class="download-card">
+              <span class="title" style="color: var(--green);">🚀 Universal AppImage (Все Linux)</span>
+              <span class="meta">Один бинарный файл (54 МБ)</span>
+              <code>chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
             </a>
-            <!-- Portable Tar.gz -->
-            <a href="downloads/tdscript-studio-1.1.0-linux-x64-portable.tar.gz" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: #cbd5e1; font-size: 1.05em;">📦 Портативный архив (.tar.gz)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Распакуй и запускай, без root (~56 МБ)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #cbd5e1;">./tdscript-studio/bin/tdscript-studio</code>
+            <a href="downloads/tdscript-studio-1.1.0-linux-x64-portable.tar.gz" download class="download-card">
+              <span class="title" style="color: #cbd5e1;">📦 Портативный архив (.tar.gz)</span>
+              <span class="meta">Запуск без root-прав (56 МБ)</span>
+              <code>./tdscript-studio/bin/tdscript-studio</code>
             </a>
-            <!-- Universal JAR -->
-            <a href="downloads/tdscript-studio-linux-x64-1.1.0.jar" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: #f472b6; font-size: 1.05em;">☕ Universal Fat JAR (Java 17+)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Кроссплатформенный байткод (~31 МБ)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #f472b6;">java -jar tdscript-studio*.jar</code>
+            <a href="downloads/tdscript-studio-linux-x64-1.1.0.jar" download class="download-card">
+              <span class="title" style="color: #f472b6;">☕ Universal Fat JAR (Java 17+)</span>
+              <span class="meta">Кроссплатформенный (31 МБ)</span>
+              <code>java -jar tdscript-studio*.jar</code>
             </a>
-            <!-- Android APK -->
-            <a href="downloads/tdscript-studio-1.1.0.apk" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--green); font-size: 1.05em;">📱 Android Mobile Studio (.apk)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Мобильная IDE для полевых задач (~5.5 МБ)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #34d399;">USB-OTG + BLE + Virtual Sandbox</code>
+            <a href="downloads/tdscript-studio-1.1.0.apk" download class="download-card">
+              <span class="title" style="color: var(--green);">📱 Android Mobile Studio (.apk)</span>
+              <span class="meta">Android 8.0+ (USB-OTG, BLE) (5.5 МБ)</span>
+              <code>Установка APK на устройство</code>
             </a>
           </div>
-        </div>
-
-        <h3>5. Практические примеры кода</h3>
-        <h4>Пример 1: Мультиязычный скрипт на русском языке (Чтение BME280 и ПЛК Modbus)</h4>
-        <pre><code>language: ru;
-// 1. Адрес микросхемы Bosch BME280 (0x76 = 118 в десятичном виде)
-пусть bmeAddress = 118
-
-// 2. Чтение температуры теплоносителя и статуса насоса по Modbus TCP
-пусть boilerTemp = PLC.modbusRead("127.0.0.1", 100)
-пусть pumpStatus = PLC.modbusRead("127.0.0.1", 101)
-
-если (boilerTemp &gt; 240 &amp;&amp; pumpStatus == 1) {
-    print("Котел в рабочем режиме. Опрос климатического датчика...")
-    
-    // 3. Чтение идентификатора чипа BME280 (регистр 0xD0, длина 1 байт)
-    пусть chipId = I2C.read(bmeAddress, 208, 1)
-    print("BME280 Chip ID получен успешно")
-    
-    // 4. Подтверждение сторожевого таймера безопасности
-    WATCHDOG.feed()
-} иначе {
-    print("Внимание: аварийный перегрев или остановка насоса!")
-    WATCHDOG.emergencyStop()
-}</code></pre>
-
-        <h4>Пример 2: Канонический сторож сетевого шлюза и локализованное оповещение</h4>
-        <pre><code>// 1. Проверка доступности шлюза сети
-let gateway = "192.168.1.1"
-if (!TD.ping(gateway)) {
-    TD.torch(true)
-    TD.vibrate(300)
-    
-    // 2. Локализованное сообщение (тип LString)
-    let alertMsg = L"ALERT_GW_FAIL:Внимание! Потеря связи со шлюзом автоматики."
-    print(alertMsg)
-    
-    // 3. Аварийный сигнал в промышленный регистр ПЛК
-    PLC.modbusWrite("192.168.1.50", 100, 1)
-} else {
-    // 4. Отправка телеметрии батареи на сервер мониторинга
-    let payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() })
-    TD.httpPost("https://api.internal/telemetry", payload, "application/json")
-}</code></pre>
-
-        <h3>6. Статус и Roadmap экосистемы</h3>
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🟢 Зафиксировано в TDscript Core 1.1 / TDModules v1.4.0 (Stable)</h4>
-            <ul>
-              <li><strong>Многоуровневый стек оборудования</strong>: выделены слои Driver -> Protocol -> Transport API с методами <code>I2C.read/write</code>, <code>SERIAL.read/write</code>.</li>
-              <li><strong>Гранулярный контроль <code>CapabilityScope</code></strong>: изоляция адресов I2C (0x76, 0x77), USB VID:PID и диапазонов регистров Modbus от вмешательства соседних скриптов.</li>
-              <li><strong>Двухуровневая мультиязычность (109 языков)</strong>: директива <code>language: <code>;</code> с Unicode-распознаванием ключевых слов в лексере без порчи строк/комментариев + тип <code>LString</code>.</li>
-              <li><strong>Аппаратный Watchdog &amp; Fail-Safe</strong>: метод <code>WATCHDOG.feed()</code>, аварийный останов <code>WATCHDOG.emergencyStop()</code> и лимит шагов <code>maxSteps = 10_000_000L</code>.</li>
-              <li><strong>Динамическое обнаружение адаптеров</strong>: метод <code>HostSPI.probe()</code> для инспекции подключённых шин BLE, USB, I2C и Modbus.</li>
-              <li><strong>Среда TDscript Studio (Desktop &amp; Android)</strong>: кроссплатформенная IDE, аппаратная песочница <code>AiHardwareSandbox</code> и замкнутый цикл ИИ-агента <code>Agentic Loop</code>.</li>
-            </ul>
-          </div>
-          <div class="feature-box">
-            <h4>🟡 В разработке: TDscript Robotics &amp; IoT SDK (v1.5 Roadmap)</h4>
-            <ul>
-              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: адаптер ROS 2 / DDS, кинематика манипуляторов (Linear / Joint), захваты и мобильные платформы (AMR).</li>
-              <li><strong>Device Abstraction</strong>: унифицированные команды оборудования верхнего уровня (камеры, конвейеры, сенсоры).</li>
-              <li><strong>Расширенная матрица Capabilities</strong>: <code>ROBOT_READ</code>, <code>ROBOT_MOVE</code>, <code>ROBOT_GRIP</code>, <code>ROBOT_SPEED_OVERRIDE</code>, <code>ROBOT_AUTONOMOUS</code>.</li>
-              <li><strong>Событийная модель устройств</strong>: асинхронные подписки на телеметрию и датчики без блокировки Event Loop.</li>
-              <li><strong>Пилотная роботизированная ячейка</strong>: демонстратор Pick-and-Place (Робот + Modbus PLC + Датчики + Мобильный TUI пульт).</li>
-            </ul>
+          <div style="text-align: right; margin-top: 0.5rem;">
+            <a href="tdscript/studio.html" style="font-size: 0.9em; font-weight: 600;">Подробнее о Студии и инструкции по установке →</a>
           </div>
         </div>
       </section>
-
-
-
-
-
 
       <!-- 5. КАРТОЧНАЯ ИГРА 7 И 9 -->
       <section class="card" id="sevens">
@@ -927,7 +445,7 @@ if (!TD.ping(gateway)) {
         <a href="#network-audit">🛡️ Network Audit</a>
         <a href="#tdroid-free">📱 TextDroid Free</a>
         <a href="#tdroid">📟 Tdroid Pro OS</a>
-        <a href="#tdscript">⚡ TDScript Language</a>
+        <a href="tdscript/index.html">⚡ TDscript Portal</a>
         <a href="#sevens">🃏 Sevens & Nines</a>
         <a href="#tcm">☯️ TCM Canons (3D Atlas)</a>
         <a href="#impressum">⚖️ Impressum</a>
@@ -1036,263 +554,25 @@ if (!TD.ping(gateway)) {
         </div>
       </section>
 
-      <!-- 4. TDSCRIPT, BYTECODE & SECURITY -->
-      <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
-      <!-- 4. TDSCRIPT: ARCHITECTURE & SPECIFICATION 1.0 -->
+      <!-- 4. TDSCRIPT ECOSYSTEM: PORTAL & STUDIO -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript Core 1.1 / TDModules v1.4.0 — Universal Device, Chip &amp; Robotics Scripting Platform <span class="badge badge-accent">RELEASE 1.4.0 (Core 1.1)</span></h2>
+        <h2>⚡ TDscript — Device Orchestration, Robotics &amp; IoT Scripting Platform <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
         <p>
           <strong>TDscript (TextDroid Script)</strong> is a compact cross-platform runtime and lightweight deterministic scripting language created by Anton Mykhailov. Engineered as a <strong>connective Device &amp; Chip Orchestration layer</strong>, TDscript bridges physical buses &amp; IC chips (I2C, SPI, UART, CAN), industrial PLCs (Modbus TCP, OPC UA), robotic systems (ROS 2 / DDS), and autonomous AI agents with zero GPU memory overhead (0 KB VRAM / Headless).
         </p>
 
-        <h3>1. Architectural Foundation: Core, Host SPI, CapabilityScope &amp; Studio</h3>
-        <p>
-          TDscript Core 1.1 enforces strict multi-tier decoupling: the pure language engine is isolated from underlying operating systems and hardware vendors, governing device operations through granular security matrices and spatial address sandboxing:
-        </p>
-        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                   TDSCRIPT CORE ENGINE (v1.1.0 / Core 1.1)             │
-│  Lexer (109 langs) • Parser • LString • Step Limit (10M) • HostSPI     │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ CapabilityScope &amp; Watchdog Fail-Safe
-        ┌───────────────────────────┼───────────────────────────┐
-        ▼                           ▼                           ▼
-┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│TDscript Studio│           │  TDRobotics   │           │ Tdroid (TUI)  │
-│ Linux/Android │           │  Engineering  │           │ Terminal OS   │
-│ • AI Agentic  │           │ • Circuit CAD │           │ • UI.window() │
-│ • Sandbox I2C │           │ • DIP AutoGen │           │ • PHONE.torch │
-│ • Modbus PLC  │           │ • Safety Gate │           │ • SQLite/VFS  │
-└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
-
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🌐 Native Multilingualism (109 Languages)</h4>
-            <p>
-              Lexer-level <code>language: &lt;code&gt;;</code> directive. The bidirectional state-machine <code>CodeProjector</code> toggles keyword projection (RU 🇷🇺, EN 🇬🇧, DE 🇩🇪) on the fly without corrupting string literals or comments. Safe <code>LString</code> symbolic resources forbid direct concatenation (error <code>TDS_E105</code>) to preserve grammatical integrity across all world languages.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🛡️ Granular CapabilityScope Sandboxing</h4>
-            <p>
-              Hardware sandboxing with strict whitelists. Scripts are isolated not only by privilege flags but by physical address boundaries: authorized I2C addresses (e.g. Bosch BME280 @ <code>0x76</code>), Modbus register ranges (<code>100..200</code>), and serial ports. Out-of-scope access attempts are instantly rejected by the host.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>⚡ Fail-Safe Watchdog &amp; Step Limit</h4>
-            <p>
-              Hardware watchdog feed <code>WATCHDOG.feed()</code> and emergency stop <code>WATCHDOG.emergencyStop()</code>. The runtime enforces a hard limit of <code>maxSteps = 10_000_000L</code> instructions: infinite loops trigger an immediate line reset and throw <code>TDS_E106_STEP_LIMIT_EXCEEDED</code>.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🤖 Autonomous AI Agentic Loop</h4>
-            <p>
-              Built-in self-healing development loop in TDscript Studio: <em>Discovery (<code>probe()</code>) ➔ Code Generation ➔ Execution in <code>AiHardwareSandbox</code> ➔ Machine-readable error capture (<code>CompilerErrorDiagnostic</code>) ➔ Automated code fix (up to 3–5 iterations)</em>. Compatible with local Ollama and LM Studio endpoints without external dependencies.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🛠️ Cross-Platform TDscript Studio IDE</h4>
-            <p>
-              Unified IDE for Linux, Windows, and Android: desktop application built on Compose Desktop (standalone Linux JAR distribution), Android edition (5.5 MB APK with USB-OTG and BLE support), and virtual simulation sandbox for BME280 ICs and Modbus gateways.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>⚙️ Bytecode Compiler (.tbc) &amp; Security</h4>
-            <p>
-              Compiles human-readable AST directly into a binary opcode stream (2–10 KB). Supports author digital signatures (Ed25519), cryptographic integrity validation via SHA-256, and licensing tokens for tamper-proof deployment.
-            </p>
-          </div>
+        <div class="callout callout-green">
+          <strong>Coexistence of Platform Versions:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Modern AI-First):</strong> Powering <strong>TDscript Studio IDE</strong>, hardware testbenches, and robotics. Features hex literals (<code>0x76</code>), <code>ByteArray[i]</code> indexing, <code>LString</code> interpolation, fail-safe <code>WATCHDOG</code>, and GBNF grammar for local LLMs.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Classic / Stable):</strong> Maintained in the <strong>Tdroid</strong> Android launcher and background system utilities (decimal register addresses, symbolic LString, full JSON diagnostics).
         </div>
 
-        <h3>2. Extended Security Capabilities Matrix (1.1)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Capability Mandate</th>
-              <th>Bitmask Flag</th>
-              <th>Governed Operations &amp; Hardware Buses</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>NET_READ</code></td>
-              <td><code>0x0001</code></td>
-              <td>HTTP GET requests, DNS queries, network status inspection.</td>
-            </tr>
-            <tr>
-              <td><code>NET_SCAN</code></td>
-              <td><code>0x0002</code></td>
-              <td>TCP port scanning, local subnet ARP / device discovery.</td>
-            </tr>
-            <tr>
-              <td><code>PLC_READ</code></td>
-              <td><code>0x0004</code></td>
-              <td>Read industrial automation registers via Modbus TCP/RTU.</td>
-            </tr>
-            <tr>
-              <td><code>PLC_WRITE</code></td>
-              <td><code>0x0008</code></td>
-              <td>Write Modbus TCP/RTU registers and dispatch control commands.</td>
-            </tr>
-            <tr>
-              <td><code>BT_ACCESS</code></td>
-              <td><code>0x0010</code></td>
-              <td>Bluetooth Classic (SPP) and BLE GATT peripheral communications.</td>
-            </tr>
-            <tr>
-              <td><code>HARDWARE</code></td>
-              <td><code>0x0020</code></td>
-              <td>Camera torch, haptic vibrator, device sensors, and GPS coordinates.</td>
-            </tr>
-            <tr>
-              <td><code>UI_CORE</code></td>
-              <td><code>0x0040</code></td>
-              <td>Render TUI windows, buttons, progress bars, and operator dialogs.</td>
-            </tr>
-            <tr>
-              <td><code>BACKGROUND</code></td>
-              <td><code>0x0080</code></td>
-              <td>Execute as a persistent background daemon (Watchdog Service).</td>
-            </tr>
-            <tr>
-              <td><code>I2C_READ</code></td>
-              <td><code>0x0100</code></td>
-              <td>Read integrated circuit registers via I2C bus (CapabilityScope validated).</td>
-            </tr>
-            <tr>
-              <td><code>I2C_WRITE</code></td>
-              <td><code>0x0200</code></td>
-              <td>Write configuration bytes to chips over I2C bus.</td>
-            </tr>
-            <tr>
-              <td><code>SPI_TRANSFER</code></td>
-              <td><code>0x0400</code></td>
-              <td>Synchronous full-duplex hardware bus transactions via SPI.</td>
-            </tr>
-            <tr>
-              <td><code>SERIAL_RAW</code></td>
-              <td><code>0x0800</code></td>
-              <td>Direct raw communications over COM/TTY ports and USB-UART converters.</td>
-            </tr>
-            <tr>
-              <td><code>CAN_BUS</code></td>
-              <td><code>0x1000</code></td>
-              <td>Automotive and industrial Controller Area Network (CAN) frames.</td>
-            </tr>
-            <tr>
-              <td><code>ROBOT_MOTION</code></td>
-              <td><code>0x2000</code></td>
-              <td>Kinematic motion commands for robotic arms, grippers, and AMRs.</td>
-            </tr>
-            <tr>
-              <td><code>ROBOT_OVERRIDE</code></td>
-              <td><code>0x4000</code></td>
-              <td>Emergency kinematic intervention and programmatic E-Stop.</td>
-            </tr>
-            <tr>
-              <td><code>DRIVER_INSTALL</code></td>
-              <td><code>0x8000</code></td>
-              <td>Dynamic installation and registration of driver manifests.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>3. Host API Modules Reference (TDscript Core 1.1)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Module</th>
-              <th>API Method</th>
-              <th>Description &amp; Return Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>I2C Bus</strong></td>
-              <td><code>I2C.read(addr, reg, len)</code> / <code>I2C.write(addr, reg, data)</code></td>
-              <td>I2C transactions with CapabilityScope address boundary verification.</td>
-            </tr>
-            <tr>
-              <td><strong>Serial Port</strong></td>
-              <td><code>SERIAL.read(port, len)</code> / <code>SERIAL.write(port, data)</code></td>
-              <td>Direct raw communication with USB-UART / COM ports of microcontrollers.</td>
-            </tr>
-            <tr>
-              <td><strong>Industrial PLC</strong></td>
-              <td><code>PLC.modbusRead(ip, reg)</code> / <code>PLC.modbusWrite(ip, reg, val)</code></td>
-              <td>Read and write registers on industrial SCADA/PLC controllers.</td>
-            </tr>
-            <tr>
-              <td><strong>Safety Watchdog</strong></td>
-              <td><code>WATCHDOG.feed()</code> / <code>WATCHDOG.emergencyStop()</code></td>
-              <td>Service watchdog timer reset and immediate hardware line safety shutoff.</td>
-            </tr>
-            <tr>
-              <td><strong>String Localization</strong></td>
-              <td><code>L"MSG_ID:Default text"</code></td>
-              <td>Symbolic localized string resource (direct <code>+</code> forbidden, TDS_E105).</td>
-            </tr>
-            <tr>
-              <td><strong>Bus Inspection</strong></td>
-              <td><code>HostSPI.probe()</code></td>
-              <td>Dynamic discovery of active USB, I2C, BLE, and TCP adapters.</td>
-            </tr>
-            <tr>
-              <td><strong>HTTP Web</strong></td>
-              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
-              <td>RESTful web requests and JSON data exchange.</td>
-            </tr>
-            <tr>
-              <td><strong>Network Ping</strong></td>
-              <td><code>TD.ping(host)</code> / <code>TD.udp(host, port, data)</code></td>
-              <td>Host reachability check and raw UDP datagram dispatch (ESP32, Arduino).</td>
-            </tr>
-            <tr>
-              <td><strong>Bluetooth</strong></td>
-              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code> / <code>BT.readLine()</code></td>
-              <td>Wireless serial communications with external controllers.</td>
-            </tr>
-            <tr>
-              <td><strong>SQLite Database</strong></td>
-              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
-              <td>Embedded relational SQL storage for persistent telemetry logs.</td>
-            </tr>
-            <tr>
-              <td><strong>TUI Graphics</strong></td>
-              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
-              <td>Turbo Vision windowing for Tdroid console editions.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>4. TDscript Studio IDE &amp; Autonomous AI Agentic Loop</h3>
-        <p>
-          To enable rapid development and debugging without risking physical hardware, <strong>TDscript Studio</strong> delivers a zero-risk virtual simulation environment across Linux, Windows, and Android:
-        </p>
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🖥️ Desktop IDE (Compose Desktop)</h4>
-            <p>
-              Full-featured windowed IDE with live language projection switcher (RU/EN/DE), split-view code editor, real-time Modbus register monitor, and I2C tree. Available via Gradle and as a standalone binary package: <code>tdscript-studio-linux-x64-1.1.0.jar</code>.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>📱 Android Mobile Edition (APK 5.5 MB)</h4>
-            <p>
-              Field engineering terminal for Android tablets and phones. Powered by <code>AndroidHostSPI</code>, it seamlessly bridges hardware over USB-OTG and BLE GATT or runs in simulated sandbox mode.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🧪 Hardware Simulation Sandbox (AiHardwareSandbox)</h4>
-            <p>
-              Emulates a <strong>Bosch BME280</strong> environmental sensor (address <code>0x76</code>, Chip ID register <code>0xD0 -> 0x60</code>, temperature/pressure registers) and a <strong>Modbus PLC Gateway</strong> (register 100 = 24.5°C, register 101 = pump status).
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🔄 Agentic Loop: Generate ➔ Test ➔ Auto-Fix</h4>
-            <p>
-              Integrated AI agent connects to local LLM engines (Ollama, LM Studio) via OpenAI-compatible endpoints. The agent receives real-time hardware discovery snapshots, writes code, tests it in the sandbox, and automatically corrects any compiler or scope errors in 1–3 iterations.
-            </p>
-          </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
+          <a href="tdscript/index.html" class="btn-primary">🌐 TDscript Portal</a>
+          <a href="tdscript/language.html" class="btn-secondary">📖 Language Specification (v1.4.0 &amp; v1.0.1)</a>
+          <a href="tdscript/examples.html" class="btn-secondary">💡 10 Automation Tasks</a>
+          <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Downloads</a>
+          <a href="tdscript/benchmark.html" class="btn-secondary">🤖 AI Benchmark (Qwen 3.5 9B)</a>
         </div>
 
         <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">
@@ -1300,121 +580,45 @@ if (!TD.ping(gateway)) {
             <span>📦</span> Download TDscript Studio v1.1.0 for Linux &amp; Android
           </h4>
           <p style="font-size: 0.95em; color: var(--text-muted); margin-bottom: 1rem;">
-            Pre-packaged native binaries for major Linux distributions featuring an embedded, trimmed JVM (no separate Java installation needed), universal AppImage, portable tarball, and Android APK:
+            Standalone packages with bundled optimized JVM (no Java install required) and mobile Android APK:
           </p>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
-            <!-- DEB -->
-            <a href="downloads/tdscript-studio_1.1.0-1_amd64.deb" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--accent); font-size: 1.05em;">🐧 Ubuntu / Debian / Mint (.deb)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">DEB package with desktop menu integration (~47 MB)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #34d399;">sudo dpkg -i tdscript-studio*.deb</code>
+          <div class="download-grid">
+            <a href="downloads/tdscript-studio_1.1.0-1_amd64.deb" download class="download-card">
+              <span class="title" style="color: var(--accent);">🐧 Ubuntu / Debian / Mint (.deb)</span>
+              <span class="meta">Native DEB package (47 MB)</span>
+              <code>sudo dpkg -i tdscript-studio*.deb</code>
             </a>
-            <!-- RPM -->
-            <a href="downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--amber); font-size: 1.05em;">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Native RPM with metadata (~47 MB)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #fbbf24;">sudo rpm -i tdscript-studio*.rpm</code>
+            <a href="downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download class="download-card">
+              <span class="title" style="color: var(--amber);">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
+              <span class="meta">Native RPM package (47 MB)</span>
+              <code>sudo rpm -i tdscript-studio*.rpm</code>
             </a>
-            <!-- AppImage -->
-            <a href="downloads/tdscript-studio-1.1.0-x86_64.AppImage" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--green); font-size: 1.05em;">🚀 Universal AppImage (All Linux)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Single executable, runs everywhere (~54 MB)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #34d399;">chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
+            <a href="downloads/tdscript-studio-1.1.0-x86_64.AppImage" download class="download-card">
+              <span class="title" style="color: var(--green);">🚀 Universal AppImage (All Linux)</span>
+              <span class="meta">Single executable (54 MB)</span>
+              <code>chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
             </a>
-            <!-- Portable Tar.gz -->
-            <a href="downloads/tdscript-studio-1.1.0-linux-x64-portable.tar.gz" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: #cbd5e1; font-size: 1.05em;">📦 Portable Tarball (.tar.gz)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Zero installation, rootless (~56 MB)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #cbd5e1;">./tdscript-studio/bin/tdscript-studio</code>
+            <a href="downloads/tdscript-studio-1.1.0-linux-x64-portable.tar.gz" download class="download-card">
+              <span class="title" style="color: #cbd5e1;">📦 Portable Tarball (.tar.gz)</span>
+              <span class="meta">Rootless distribution (56 MB)</span>
+              <code>./tdscript-studio/bin/tdscript-studio</code>
             </a>
-            <!-- Universal JAR -->
-            <a href="downloads/tdscript-studio-linux-x64-1.1.0.jar" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: #f472b6; font-size: 1.05em;">☕ Universal Fat JAR (Java 17+)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Platform-agnostic bytecode (~31 MB)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #f472b6;">java -jar tdscript-studio*.jar</code>
+            <a href="downloads/tdscript-studio-linux-x64-1.1.0.jar" download class="download-card">
+              <span class="title" style="color: #f472b6;">☕ Universal Fat JAR (Java 17+)</span>
+              <span class="meta">Cross-platform bytecode (31 MB)</span>
+              <code>java -jar tdscript-studio*.jar</code>
             </a>
-            <!-- Android APK -->
-            <a href="downloads/tdscript-studio-1.1.0.apk" download style="display: flex; flex-direction: column; background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 12px; text-decoration: none; color: #fff; transition: border-color 0.2s;">
-              <span style="font-weight: bold; color: var(--green); font-size: 1.05em;">📱 Android Mobile Studio (.apk)</span>
-              <span style="font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">Field engineering Android app (~5.5 MB)</span>
-              <code style="background: #0f172a; padding: 4px 6px; border-radius: 4px; font-size: 0.8em; margin-top: 6px; color: #34d399;">USB-OTG + BLE + Virtual Sandbox</code>
+            <a href="downloads/tdscript-studio-1.1.0.apk" download class="download-card">
+              <span class="title" style="color: var(--green);">📱 Android Mobile Studio (.apk)</span>
+              <span class="meta">Android 8.0+ (USB-OTG, BLE) (5.5 MB)</span>
+              <code>Direct APK install</code>
             </a>
           </div>
-        </div>
-
-        <h3>5. Practical Code Examples</h3>
-        <h4>Example 1: Multilingual Script (Bosch BME280 &amp; Modbus PLC Monitoring)</h4>
-        <pre><code>language: ru;
-// 1. Bosch BME280 I2C address (0x76 = 118 in decimal)
-пусть bmeAddress = 118
-
-// 2. Poll boiler water temperature and circulation pump status
-пусть boilerTemp = PLC.modbusRead("127.0.0.1", 100)
-пусть pumpStatus = PLC.modbusRead("127.0.0.1", 101)
-
-если (boilerTemp &gt; 240 &amp;&amp; pumpStatus == 1) {
-    print("Boiler temperature normal. Polling BME280 sensor...")
-    
-    // 3. Read BME280 Chip ID (register 0xD0, length 1 byte)
-    пусть chipId = I2C.read(bmeAddress, 208, 1)
-    print("BME280 Chip ID read verified")
-    
-    // 4. Feed hardware safety watchdog
-    WATCHDOG.feed()
-} иначе {
-    print("Alert: Critical overheating or pump failure!")
-    WATCHDOG.emergencyStop()
-}</code></pre>
-
-        <h4>Example 2: Canonical Industrial Gateway Watchdog &amp; Telemetry</h4>
-        <pre><code>// 1. Verify default network gateway reachability
-let gateway = "192.168.1.1"
-if (!TD.ping(gateway)) {
-    TD.torch(true)
-    TD.vibrate(300)
-    
-    // 2. Localized alert message using safe LString
-    let alertMsg = L"ALERT_GW_FAIL:Warning! Network gateway communication lost."
-    print(alertMsg)
-    
-    // 3. Dispatch emergency override signal to industrial PLC register
-    PLC.modbusWrite("192.168.1.50", 100, 1)
-} else {
-    // 4. Telemetry reporting to monitoring server
-    let payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() })
-    TD.httpPost("https://api.internal/telemetry", payload, "application/json")
-}</code></pre>
-
-        <h3>6. Specification Status &amp; Ecosystem Roadmap</h3>
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🟢 Shipped in TDscript Core 1.1 / TDModules v1.4.0 (Stable)</h4>
-            <ul>
-              <li><strong>Multi-Tier Hardware Stack</strong>: Standardized Driver -> Protocol -> Transport API layers with <code>I2C.read/write</code> and <code>SERIAL.read/write</code>.</li>
-              <li><strong>Granular <code>CapabilityScope</code></strong>: Strict physical isolation for I2C addresses (0x76), serial ports, and Modbus register ranges.</li>
-              <li><strong>Two-Level Multilingualism (109 Languages)</strong>: Unicode keyword mapping in lexer via <code>language: &lt;code&gt;;</code> + state-machine <code>CodeProjector</code> + safe <code>LString</code>.</li>
-              <li><strong>Hardware Watchdog &amp; Fail-Safe</strong>: <code>WATCHDOG.feed()</code>, <code>WATCHDOG.emergencyStop()</code>, and execution step limit <code>maxSteps = 10_000_000L</code>.</li>
-              <li><strong>Dynamic Bus Probing</strong>: <code>HostSPI.probe()</code> for inspecting connected BLE, USB, I2C, and Modbus adapters.</li>
-              <li><strong>TDscript Studio IDE (Linux &amp; Android)</strong>: Cross-platform Compose Desktop &amp; Android APK with <code>AiHardwareSandbox</code> and autonomous <code>Agentic Loop</code>.</li>
-            </ul>
-          </div>
-          <div class="feature-box">
-            <h4>🟡 In Development: TDscript Robotics &amp; IoT SDK (v1.5 Roadmap)</h4>
-            <ul>
-              <li><strong>Robotics SDK (<code>ROBOT.*</code>)</strong>: ROS 2 / DDS bridge, kinematic planning (Linear / Joint), grippers, and mobile platforms (AMR).</li>
-              <li><strong>Device Abstraction</strong>: Unified vendor-neutral commands for cameras, conveyors, and sensors.</li>
-              <li><strong>Extended Capabilities Matrix</strong>: <code>ROBOT_READ</code>, <code>ROBOT_MOVE</code>, <code>ROBOT_GRIP</code>, <code>ROBOT_SPEED_OVERRIDE</code>, <code>ROBOT_AUTONOMOUS</code>.</li>
-              <li><strong>Event-Driven Device Model</strong>: Asynchronous subscriptions to telemetry and sensor triggers without blocking the Event Loop.</li>
-              <li><strong>Pilot Robotic Cell</strong>: Pick-and-Place demonstration (Robot arm + Modbus PLC + Sensors + Mobile TUI console).</li>
-            </ul>
+          <div style="text-align: right; margin-top: 0.5rem;">
+            <a href="tdscript/studio.html" style="font-size: 0.9em; font-weight: 600;">Studio Details &amp; Documentation →</a>
           </div>
         </div>
       </section>
-
-
-
-
-
 
       <!-- 5. SEVENS & NINES CARD GAME -->
       <section class="card" id="sevens">
@@ -1584,7 +788,7 @@ if (!TD.ping(gateway)) {
         <a href="#network-audit">🛡️ Network Audit</a>
         <a href="#tdroid-free">📱 TextDroid Free</a>
         <a href="#tdroid">📟 Tdroid Pro OS</a>
-        <a href="#tdscript">⚡ TDScript-Sprache</a>
+        <a href="tdscript/index.html">⚡ TDscript-Portal</a>
         <a href="#sevens">🃏 Siebener & Neuner</a>
         <a href="#tcm">☯️ TCM-Kanons (3D-Atlas)</a>
         <a href="#impressum">⚖️ Impressum</a>
@@ -1741,227 +945,55 @@ if (!TD.ping(gateway)) {
       </section>
 
       <!-- 4. TDSCRIPT, BYTECODE & SCHUTZ -->
-      <!-- 4. TDSCRIPT: ARCHITEKTUR & SPEZIFIKATION 1.0 -->
-      <!-- 4. TDSCRIPT: ARCHITEKTUR & SPEZIFIKATION 1.0 -->
+      <!-- 4. TDSCRIPT-ÖKOSYSTEM: PORTAL & STUDIO -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript Core 1.0 — Architektur, Spezifikation & Bytecode (.tbc) <span class="badge">SPEZIFIKATION 2026</span></h2>
+        <h2>⚡ TDscript — Chip-Orchestrierung, Robotik &amp; IoT-Skriptplattform <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
         <p>
-          <strong>TDscript</strong> ist eine eingebettete imperative, ereignisgesteuerte Programmiersprache und schlanke virtuelle Maschine (VM), entwickelt von Anton Mykhailov. Konzipiert für kompakte Automatisierung, industrielle Netzwerke und mobile Systeme, bietet sie deterministische interne Instruktionsausführung bei identischem Speicherzustand ohne GPU-Overhead (0 KB VRAM).
+          <strong>TDscript (TextDroid Script)</strong> ist ein extrem leichtgewichtiges deterministisches Skript- und Software-Ökosystem von Anton Mykhailov für I2C/SPI-Busse, Modbus-SPS, Robotik und autonome lokale KI-Agenten mit 0 KB VRAM Overhead.
         </p>
 
-        <h3>1. Architektonische Basis: Entkopplung von Core und Host API</h3>
-        <p>
-          TDscript trennt strikt zwischen Sprachkern (Core Engine) und Plattform-Schnittstellen (Host Providers). Das VM-Kernsystem ist vollkommen unabhängig vom zugrundeliegenden Betriebssystem:
-        </p>
-        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                        TDSCRIPT CORE ENGINE                            │
-│  Lexer • Parser • Bytecode VM • Interner Auswertungsstapel • GC        │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ SPI Host Interface
-        ┌───────────────────────────┼───────────────────────────┐
-        ▼                           ▼                           ▼
-┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
-│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
-│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
-│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
-│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
-└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
-
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>⚙️ Bytecode-Compiler (.tbc)</h4>
-            <p>
-              Kompiliert den Quelltext in einen binären Opcode-Stream. Der Quelltext wird vollständig aus dem Paket entfernt, was das Paket auf 2–10 KB minimiert, Reverse-Engineering deutlich erschwert und vor einfachem Quellcode-Diebstahl schützt.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🛡️ Berechtigungsmodell (Capabilities)</h4>
-            <p>
-              Sichere Sandbox-Ausführung. Das Skript deklariert die erforderlichen Rechte (Capabilities). Die Deklaration gewährt jedoch keinen automatischen Zugriff: Die Autorisierung verbleibt bei Host-System und Anwender.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🔒 Integritätskontrolle, Signatur & Lizenzen</h4>
-            <p>
-              Dreistufiges Sicherheitsmodell: SHA-256-Prüfsummen zur Integritätskontrolle, asymmetrische digitale Signaturen (Ed25519) zum Nachweis der Autorschaft und Lizenz-Token zur Autorisierung der Ausführung.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>⚡ Ausführungsmodell & Event Loop</h4>
-            <p>
-              Ein einzelner isolierter VM-Worker garantiert deterministische Befehlsverarbeitung im Speicher. Zeitintensive Netzwerk- und Hardwareabfragen laufen asynchron und liefern Daten in die Ereignis-Warteschlange.
-            </p>
-          </div>
+        <div class="callout callout-green">
+          <strong>Koexistenz der Versionen:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Modern / AI-First):</strong> In <strong>TDscript Studio IDE</strong>, Hardware-Prüfständen und Robotik aktiv. Unterstützt Hexadezimal-Literale (<code>0x76</code>), ByteArray-Indexierung, LString-Interpolation, Watchdog und GBNF-Grammatik.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Klassisch / Stabil):</strong> Im <strong>Tdroid</strong> Android Launcher und Hintergrunddiensten gepflegt (Dezimalregister, Standard-LString, Voll-JSON).
         </div>
 
-        <h3>2. Sicherheits-Rechtematrix (Capabilities)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Mandat (Capability)</th>
-              <th>Bitmasken-Flag</th>
-              <th>Gesteuerte Operationen</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>NET_READ</code></td>
-              <td><code>0x0001</code></td>
-              <td>HTTP-GET-Aufrufe, DNS-Abfragen, Netzwerk-Statusprüfungen.</td>
-            </tr>
-            <tr>
-              <td><code>NET_SCAN</code></td>
-              <td><code>0x0002</code></td>
-              <td>Portscans, Erkennung aktiver Hosts im Subnetz (ARP/Ping).</td>
-            </tr>
-            <tr>
-              <td><code>PLC_WRITE</code></td>
-              <td><code>0x0004</code></td>
-              <td>Schreiben von Modbus TCP/RTU-Registern für Industrie-SPS.</td>
-            </tr>
-            <tr>
-              <td><code>BT_ACCESS</code></td>
-              <td><code>0x0008</code></td>
-              <td>Bluetooth Classic (SPP) und BLE UART Peripherieverbindungen.</td>
-            </tr>
-            <tr>
-              <td><code>HARDWARE</code></td>
-              <td><code>0x0010</code></td>
-              <td>Kamerablitzlicht, Vibrationsmotor, Sensoren und GPS-Koordinaten.</td>
-            </tr>
-            <tr>
-              <td><code>BACKGROUND</code></td>
-              <td><code>0x0020</code></td>
-              <td>Ausführung als System-Hintergrunddienst (Foreground Service Watchdog).</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>3. Vollständige Referenz der API-Module</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Modul</th>
-              <th>API-Methode</th>
-              <th>Beschreibung & Rückgabewert</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Sprachausgabe (TTS)</strong></td>
-              <td><code>TD.speak("text")</code></td>
-              <td>Sprachsynthese über die integrierte Android-Engine.</td>
-            </tr>
-            <tr>
-              <td><strong>Geolokalisierung</strong></td>
-              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Breiten- und Längengrad als <code>"lat,lon"</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>Zwischenablage</strong></td>
-              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
-              <td>Lesen und Schreiben in die System-Zwischenablage.</td>
-            </tr>
-            <tr>
-              <td><strong>Sensoren</strong></td>
-              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Telemetriedaten physischer Sensoren.</td>
-            </tr>
-            <tr>
-              <td><strong>Batterie</strong></td>
-              <td><code>TD.battery()</code></td>
-              <td>Akkuladestand in Prozent (0–100).</td>
-            </tr>
-            <tr>
-              <td><strong>Peripherie</strong></td>
-              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
-              <td>LED-Taschenlampe und haptische Vibrationsimpulse.</td>
-            </tr>
-            <tr>
-              <td><strong>HTTP Web</strong></td>
-              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
-              <td>RESTful-Webaufrufe und JSON-Datenaustausch.</td>
-            </tr>
-            <tr>
-              <td><strong>Netzwerk-Ping</strong></td>
-              <td><code>TD.ping(host)</code></td>
-              <td>Prüfung der Host-Erreichbarkeit (ICMP/TCP).</td>
-            </tr>
-            <tr>
-              <td><strong>Raw UDP</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Übertragung von UDP-Datagrammen (ESP32, Roboter).</td>
-            </tr>
-            <tr>
-              <td><strong>Industrielles Modbus</strong></td>
-              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
-              <td>Schreiben von SPS-Registern für Fabrikautomatisierung.</td>
-            </tr>
-            <tr>
-              <td><strong>Bluetooth</strong></td>
-              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
-              <td>Drahtlose Kommunikation mit externen Mikrocontrollern.</td>
-            </tr>
-            <tr>
-              <td><strong>SQLite-Datenbank</strong></td>
-              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
-              <td>Lokale relationale Speicherung und Logging.</td>
-            </tr>
-            <tr>
-              <td><strong>TUI-Grafik</strong></td>
-              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
-              <td>Turbo Vision Fenster-Engine für die Tdroid-Konsole.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>4. Spezifikationsstatus & Version Roadmap</h3>
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🟢 Enthalten in TDscript v1.0 (Stable)</h4>
-            <ul>
-              <li>Dynamische Typisierung (String, Int, Long, Float, Boolean, Map).</li>
-              <li>Kontrollstrukturen: <code>if / else</code>, <code>for</code>- und <code>while</code>-Schleifen.</li>
-              <li>Bytecode-Compiler für <code>.tbc</code> mit <code>TD.xdec</code> Zeichenketten-Verschleierung.</li>
-              <li>Robuste Sandbox mit Host-Ausnahmebehandlung gegen Systemabstürze.</li>
-              <li>Integritätsprüfung kompilierter Pakete via SHA-256.</li>
-              <li>Native Brücken zu Sensoren, Netzwerk-Sockets und SQLite.</li>
-            </ul>
-          </div>
-          <div class="feature-box">
-            <h4>🟡 In Entwicklung für TDscript v1.1 (Roadmap)</h4>
-            <ul>
-              <li>Benutzerdefinierte Prozeduren <code>fn name(args) { return ...; }</code> mit Aufrufstapel-Isolation.</li>
-              <li>Strukturierte Ausnahmebehandlung: <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Strikte Container-Vorabprüfung und interaktive Capabilities-Rechteabfragen.</li>
-              <li>Asymmetrische Autorensignaturen auf Basis von Ed25519-Kryptografie.</li>
-              <li>Kotlin Multiplatform (KMP) Build für Linux & Raspberry Pi.</li>
-            </ul>
-          </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
+          <a href="tdscript/index.html" class="btn-primary">🌐 TDscript-Portal</a>
+          <a href="tdscript/language.html" class="btn-secondary">📖 Sprachspezifikation (v1.4.0 &amp; v1.0.1)</a>
+          <a href="tdscript/examples.html" class="btn-secondary">💡 10 Automatisierungsaufgaben</a>
+          <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Downloads</a>
+          <a href="tdscript/benchmark.html" class="btn-secondary">🤖 KI-Benchmark (Qwen 3.5 9B)</a>
         </div>
 
-        <h3>5. Praktisches Codebeispiel</h3>
-        <h4>Beispiel: Gateway-Wächter & Modbus SPS-Notabschaltung</h4>
-        <pre><code>// 1. Erreichbarkeit des Netzwerk-Gateways prüfen
-var gateway = "192.168.1.1";
-if (!TD.ping(gateway)) {
-    TD.torch(true);
-    TD.vibrate(300);
-    TD.speak("Achtung! Verbindung zum Gateway unterbrochen.");
-    
-    // 2. Notfall-Signal an Industrie-SPS senden
-    PLC.modbusWrite("192.168.1.50", 100, 1);
-} else {
-    // 3. Batteriestatus an Überwachungsserver melden
-    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
-    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
-}</code></pre>
+        <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+            <span>📦</span> TDscript Studio v1.1.0 für Linux &amp; Android herunterladen
+          </h4>
+          <div class="download-grid">
+            <a href="downloads/tdscript-studio_1.1.0-1_amd64.deb" download class="download-card">
+              <span class="title" style="color: var(--accent);">🐧 Ubuntu / Debian / Mint (.deb)</span>
+              <span class="meta">DEB-Paket (47 MB)</span>
+              <code>sudo dpkg -i tdscript-studio*.deb</code>
+            </a>
+            <a href="downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download class="download-card">
+              <span class="title" style="color: var(--amber);">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
+              <span class="meta">RPM-Paket (47 MB)</span>
+              <code>sudo rpm -i tdscript-studio*.rpm</code>
+            </a>
+            <a href="downloads/tdscript-studio-1.1.0-x86_64.AppImage" download class="download-card">
+              <span class="title" style="color: var(--green);">🚀 Universal AppImage (Alle Linux)</span>
+              <span class="meta">Einzelne Binärdatei (54 MB)</span>
+              <code>chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
+            </a>
+            <a href="downloads/tdscript-studio-1.1.0.apk" download class="download-card">
+              <span class="title" style="color: var(--green);">📱 Android Mobile Studio (.apk)</span>
+              <span class="meta">Android 8.0+ (USB-OTG, BLE) (5.5 MB)</span>
+              <code>Direkte APK-Installation</code>
+            </a>
+          </div>
+        </div>
       </section>
-
-
-
-
 
       <!-- 5. KARTENSPIEL SIEBENER & NEUNER -->
       <section class="card" id="sevens">
@@ -2131,7 +1163,7 @@ if (!TD.ping(gateway)) {
         <a href="#network-audit">🛡️ Network Audit</a>
         <a href="#tdroid-free">📱 TextDroid Free</a>
         <a href="#tdroid">📟 Tdroid Pro OS</a>
-        <a href="#tdscript">⚡ Мова TDScript</a>
+        <a href="tdscript/index.html">⚡ Портал TDscript</a>
         <a href="#sevens">🃏 Сімки та Дев'ятки</a>
         <a href="#tcm">☯️ Канони ТКМ (3D Атлас)</a>
         <a href="#impressum">⚖️ Impressum</a>
@@ -2241,227 +1273,55 @@ if (!TD.ping(gateway)) {
       </section>
 
       <!-- 4. TDSCRIPT, БАЙТКОД ТА ЗАХИСТ КОДУ -->
-      <!-- 4. TDSCRIPT: АРХІТЕКТУРА ТА СПЕЦИФІКАЦІЯ 1.0 -->
-      <!-- 4. TDSCRIPT: АРХІТЕКТУРА ТА СПЕЦИФІКАЦІЯ 1.0 -->
+      <!-- 4. ЕКОСИСТЕМА TDSCRIPT: ПОРТАЛ ТА СТУДІЯ -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript Core 1.0 — Архітектура, Специфікація & Байткод (.tbc) <span class="badge">SPECIFICATION 2026</span></h2>
+        <h2>⚡ TDscript — Платформа сценарного керування для мікросхем, робототехніки та IoT <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
         <p>
-          <strong>TDscript</strong> — вбудована імперативна подійно-орієнтована мова програмування та віртуальна машина (VM), створена Антоном Михайловим. Спроектована для компактної автоматизації, мобільних та периферійних систем (Edge Automation & IoT) з нульовим навантаженням на відеопам'ять (0 KB VRAM), детермінованим виконанням інструкцій та розширюваним апаратним контролем.
+          <strong>TDscript (TextDroid Script)</strong> — компактна програмна екосистема та детермінована мова автоматизації від Антона Михайлова. Платформа об'єднує мікросхеми фізичних шин (I2C, SPI, UART, CAN), промислові ПЛК (Modbus TCP/RTU), робототехніку (ROS 2) та автономних ШІ-агентів з 0 KB VRAM оверхедом.
         </p>
 
-        <h3>1. Архітектурний базис: Розмежування Core та Host API</h3>
-        <p>
-          У TDscript реалізовано суворе розмежування між ядром мови та сервісними провайдерами середовища виконання (Host Providers). Ядро не залежить від конкретної операційної системи:
-        </p>
-        <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                        TDSCRIPT CORE ENGINE                            │
-│  Лексер (Lexer) • Парсер (Parser) • Байткод VM • Внутрішній стек • GC  │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ SPI Host Interface
-        ┌───────────────────────────┼───────────────────────────┐
-        ▼                           ▼                           ▼
-┌───────────────┐           ┌───────────────┐           ┌───────────────┐
-│ Tdroid (TUI)  │           │  TDnetScript  │           │ Desktop / IoT │
-│ Turbo Vision  │           │  (Industrial) │           │ Linux/Windows │
-│ • TD.window() │           │ • NET.ping()  │           │ • StdIn/Out   │
-│ • TD.button() │           │ • PLC.modbus()│           │ • POSIX Sockets│
-│ • VFS / SQLite│           │ • BT.spp/ble()│           │ • Headless VM │
-└───────────────┘           └───────────────┘           └───────────────┘</code></pre>
-
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>⚙️ Байткод-компілятор (.tbc)</h4>
-            <p>
-              Компіляція вихідного AST у бінарний потік опкодів. Початковий текст повністю видаляється з пакета, що зменшує розмір до 2–10 КБ, суттєво ускладнює реверс-інжиніринг та захищає від прямого копіювання коду.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🛡️ Модель безпеки та Дозволи (Capabilities)</h4>
-            <p>
-              Ізольована пісочниця (Sandbox). Скрипт декларує необхідні дозволи (Capabilities), проте сама декларація не дає автоматичного доступу: фінальне рішення про надання прав залишається за хостом та користувачем.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>🔒 Контроль цілісності, Підпис та Ліцензії</h4>
-            <p>
-              Трирівнева модель: перевірка цілісності байткоду за SHA-256 хешем, асиметричний електронний підпис автора (Ed25519) для підтвердження авторства та ліцензійні токени для авторизації запуску.
-            </p>
-          </div>
-          <div class="feature-box">
-            <h4>⚡ Модель виконання та Event Loop</h4>
-            <p>
-              Однопотоковий ізольований контекст VM (Single-Threaded Worker), що забезпечує детерміновану обробку інструкцій над станом пам'яті. Мережеві виклики виконуються асинхронно хостом та передають результати через чергу подій.
-            </p>
-          </div>
+        <div class="callout callout-green">
+          <strong>Співіснування версій платформи:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Сучасна AI-First):</strong> використовується в <strong>TDscript Studio IDE</strong>, стендах автоматизації та робототехніці. Підтримує hex-літерали (<code>0x76</code>), індексацію <code>ByteArray[i]</code>, інтерполяцію <code>LString</code>, сторож <code>WATCHDOG</code> та GBNF-граматику.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Класична / Стабільна):</strong> зберігається та підтримується у лаунчері <strong>Tdroid</strong> та фонових службах Android (десяткові регістри, базовий LString, класичний JSON помилок).
         </div>
 
-        <h3>2. Матриця дозволів безпеки (Capabilities)</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Мандат (Capability)</th>
-              <th>Бітовий прапор</th>
-              <th>Контрольовані операції</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>NET_READ</code></td>
-              <td><code>0x0001</code></td>
-              <td>HTTP GET запити, читання DNS, перевірка мережевої статистики.</td>
-            </tr>
-            <tr>
-              <td><code>NET_SCAN</code></td>
-              <td><code>0x0002</code></td>
-              <td>Сканування портів, пошук пристроїв у підмережі (ARP/Ping).</td>
-            </tr>
-            <tr>
-              <td><code>PLC_WRITE</code></td>
-              <td><code>0x0004</code></td>
-              <td>Запис регістрів Modbus TCP/RTU для промислових контролерів.</td>
-            </tr>
-            <tr>
-              <td><code>BT_ACCESS</code></td>
-              <td><code>0x0008</code></td>
-              <td>Підключення та обмін даними через Bluetooth Classic (SPP) та BLE UART.</td>
-            </tr>
-            <tr>
-              <td><code>HARDWARE</code></td>
-              <td><code>0x0010</code></td>
-              <td>Керування ліхтариком, вібромотором, зняття показників датчиків та GPS.</td>
-            </tr>
-            <tr>
-              <td><code>BACKGROUND</code></td>
-              <td><code>0x0020</code></td>
-              <td>Виконання у фоновому режимі (Foreground Service Watchdog).</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>3. Повний довідник модулів API</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Модуль</th>
-              <th>Метод API</th>
-              <th>Опис та значення, що повертається</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Синтез мови (TTS)</strong></td>
-              <td><code>TD.speak("текст")</code></td>
-              <td>Озвучення тексту через системний синтезатор мови Android.</td>
-            </tr>
-            <tr>
-              <td><strong>Геолокація</strong></td>
-              <td><code>TD.gps()</code> / <code>TD.location()</code></td>
-              <td>Координати пристрою у форматі <code>"lat,lon"</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>Буфер обміну</strong></td>
-              <td><code>TD.clipboard()</code> / <code>TD.clipboardSet(txt)</code></td>
-              <td>Читання та запис рядків у системний буфер обміну.</td>
-            </tr>
-            <tr>
-              <td><strong>Датчики</strong></td>
-              <td><code>TD.sensor("accel"|"light"|"temp")</code></td>
-              <td>Показники фізичних сенсорів смартфона.</td>
-            </tr>
-            <tr>
-              <td><strong>Акумулятор</strong></td>
-              <td><code>TD.battery()</code></td>
-              <td>Рівень заряду батареї у відсотках (0–100).</td>
-            </tr>
-            <tr>
-              <td><strong>Периферія</strong></td>
-              <td><code>TD.torch(bool)</code> / <code>TD.vibrate(ms)</code></td>
-              <td>Світлодіодний спалах та тактильний вібросигнал.</td>
-            </tr>
-            <tr>
-              <td><strong>HTTP Запити</strong></td>
-              <td><code>TD.httpGet(url)</code> / <code>TD.httpPost(url, body, type)</code></td>
-              <td>Виклики REST API та обмін JSON-повідомленнями.</td>
-            </tr>
-            <tr>
-              <td><strong>Мережевий Ping</strong></td>
-              <td><code>TD.ping(host)</code></td>
-              <td>Перевірка доступності віддаленого вузла (ICMP/TCP).</td>
-            </tr>
-            <tr>
-              <td><strong>UDP Сокети</strong></td>
-              <td><code>TD.udp(host, port, data)</code></td>
-              <td>Відправка UDP-датаграм (ESP32, Arduino, контролери).</td>
-            </tr>
-            <tr>
-              <td><strong>Промисловий Modbus</strong></td>
-              <td><code>PLC.modbusWrite(ip, reg, val)</code></td>
-              <td>Прямий запис регістрів автоматики SCADA/PLC.</td>
-            </tr>
-            <tr>
-              <td><strong>Bluetooth</strong></td>
-              <td><code>BT.connect(addr)</code> / <code>BT.send(msg)</code></td>
-              <td>Бездротовий зв'язок із зовнішніми мікроконтролерами.</td>
-            </tr>
-            <tr>
-              <td><strong>База даних SQLite</strong></td>
-              <td><code>TD.dbExec(sql)</code> / <code>TD.dbQuery(sql)</code></td>
-              <td>Локальне реляційне збереження таблиць та журналів.</td>
-            </tr>
-            <tr>
-              <td><strong>Псевдографіка TUI</strong></td>
-              <td><code>TD.window()</code> / <code>TD.button()</code> / <code>TD.progressBar()</code></td>
-              <td>Віконна графіка Turbo Vision для консольної версії Tdroid.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>4. Статус специфікації та Roadmap версій</h3>
-        <div class="feature-grid">
-          <div class="feature-box">
-            <h4>🟢 Реалізовано в TDscript v1.0 (Stable)</h4>
-            <ul>
-              <li>Динамічна типізація (String, Int, Long, Float, Boolean, Map).</li>
-              <li>Інструкції розгалуження <code>if / else</code>, цикли <code>for</code>, <code>while</code>.</li>
-              <li>Базовий байткод-компілятор <code>.tbc</code> з обфускацією рядків <code>TD.xdec</code>.</li>
-              <li>Ізольована пісочниця з перехопленням винятків на рівні хоста.</li>
-              <li>Криптографічний контроль цілісності пакетів за алгоритмом SHA-256.</li>
-              <li>Повний набір нативних мостів до сенсорів, сокетів та SQLite.</li>
-            </ul>
-          </div>
-          <div class="feature-box">
-            <h4>🟡 У розробці для TDscript v1.1 (Roadmap)</h4>
-            <ul>
-              <li>Користувацькі функції <code>fn name(args) { return ...; }</code> з ізольованим стеком викликів.</li>
-              <li>Блоки структурного перехоплення винятків <code>try { ... } catch (err) { ... }</code>.</li>
-              <li>Сувора валідація бінарного контейнера та інтерактивний запит дозволів (Capabilities Prompt).</li>
-              <li>Асиметричний цифровий підпис авторів на базі Ed25519.</li>
-              <li>Kotlin Multiplatform (KMP) збірка для десктопного Linux та Raspberry Pi.</li>
-            </ul>
-          </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
+          <a href="tdscript/index.html" class="btn-primary">🌐 Портал TDscript</a>
+          <a href="tdscript/language.html" class="btn-secondary">📖 Специфікація мови (v1.4.0 &amp; v1.0.1)</a>
+          <a href="tdscript/examples.html" class="btn-secondary">💡 10 завдань автоматизації</a>
+          <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Завантаження</a>
+          <a href="tdscript/benchmark.html" class="btn-secondary">🤖 ШІ-Бенчмарк (Qwen 3.5 9B)</a>
         </div>
 
-        <h3>5. Практичні приклади коду</h3>
-        <h4>Приклад: Вартовий мережі та аварійний сигнал Modbus PLC</h4>
-        <pre><code>// 1. Перевірка доступності шлюзу
-var gateway = "192.168.1.1";
-if (!TD.ping(gateway)) {
-    TD.torch(true);
-    TD.vibrate(300);
-    TD.speak("Увага! Втрачено зв'язок зі шлюзом.");
-    
-    // 2. Відправка аварійного сигналу на промисловий контролер
-    PLC.modbusWrite("192.168.1.50", 100, 1);
-} else {
-    // 3. Відправка телеметрії акумулятора на сервер моніторингу
-    var payload = JSON.stringify({ device: "Tdroid-Guard", bat: TD.battery() });
-    TD.httpPost("https://api.internal/telemetry", payload, "application/json");
-}</code></pre>
+        <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+            <span>📦</span> Завантажити TDscript Studio v1.1.0 для Linux &amp; Android
+          </h4>
+          <div class="download-grid">
+            <a href="downloads/tdscript-studio_1.1.0-1_amd64.deb" download class="download-card">
+              <span class="title" style="color: var(--accent);">🐧 Ubuntu / Debian / Mint (.deb)</span>
+              <span class="meta">DEB пакунок (47 МБ)</span>
+              <code>sudo dpkg -i tdscript-studio*.deb</code>
+            </a>
+            <a href="downloads/tdscript-studio-1.1.0-1.x86_64.rpm" download class="download-card">
+              <span class="title" style="color: var(--amber);">🎩 Fedora / RHEL / openSUSE (.rpm)</span>
+              <span class="meta">RPM пакунок (47 МБ)</span>
+              <code>sudo rpm -i tdscript-studio*.rpm</code>
+            </a>
+            <a href="downloads/tdscript-studio-1.1.0-x86_64.AppImage" download class="download-card">
+              <span class="title" style="color: var(--green);">🚀 Universal AppImage (Всі Linux)</span>
+              <span class="meta">Один файл без встановлення (54 МБ)</span>
+              <code>chmod +x *.AppImage &amp;&amp; ./*.AppImage</code>
+            </a>
+            <a href="downloads/tdscript-studio-1.1.0.apk" download class="download-card">
+              <span class="title" style="color: var(--green);">📱 Android Mobile Studio (.apk)</span>
+              <span class="meta">Android 8.0+ (USB-OTG, BLE) (5.5 МБ)</span>
+              <code>Встановлення APK</code>
+            </a>
+          </div>
+        </div>
       </section>
-
-
-
-
 
       <!-- 5. КАРТКОВА ГРА 7 ТА 9 -->
       <section class="card" id="sevens">
@@ -2623,36 +1483,6 @@ if (!TD.ping(gateway)) {
     </div>
   </div>
 
-  <script>
-    function setLang(lang) {
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.id === 'btn-' + lang);
-      });
-      document.querySelectorAll('.lang-view').forEach(view => {
-        view.classList.toggle('active', view.id === 'view-' + lang);
-      });
-      document.documentElement.lang = lang;
-      try {
-        localStorage.setItem('tdroid_site_lang', lang);
-      } catch(e) {}
-    }
-
-    // Auto-detect or restore preferred language
-    (function() {
-      try {
-        var saved = localStorage.getItem('tdroid_site_lang');
-        if (saved && ['ru', 'en', 'de', 'uk'].indexOf(saved) !== -1) {
-          setLang(saved);
-          return;
-        }
-      } catch(e) {}
-      var nav = (navigator.language || navigator.userLanguage || 'ru').toLowerCase();
-      if (nav.indexOf('uk') === 0) setLang('uk');
-      else if (nav.indexOf('de') === 0) setLang('de');
-      else if (nav.indexOf('en') === 0) setLang('en');
-      else setLang('ru');
-    })();
-  </script>
-
+  <script src="js/site.js"></script>
 </body>
 </html>

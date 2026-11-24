@@ -4,6 +4,12 @@
 > Developer: Anton Mykhailov (Halberstadt, Germany)
 > Contact: drmykhailov@gmail.com | Phone: +49 172 9735840
 > Full LLM Documentation: https://fido2465724100-creator.github.io/my-developer-site/llms-full.txt
+> TDscript Multi-Page Portal:
+>   - Ecosystem Hub: https://fido2465724100-creator.github.io/my-developer-site/tdscript/
+>   - Language Specification (v1.4.0 & v1.0.1): https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html
+>   - 10 Automation Scenarios & Examples: https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html
+>   - TDscript Studio IDE & Binary Packages: https://fido2465724100-creator.github.io/my-developer-site/tdscript/studio.html
+>   - Global LLM Benchmark (Test #3): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 
 ## Overview & Core Philosophy
 Anton Mykhailov specializes in systems programming, device & chip orchestration, and high-efficiency architectures:
@@ -19,6 +25,7 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
 ### 1. Tdroid (TUI Desktop & Launcher for Android)
 - **Platforms**: Android (Free & Pro editions on Google Play)
 - **Description**: Ultra-lightweight terminal/TUI desktop environment for Android smartphones and tablets. Replaces heavy graphical launchers with an efficient, keyboard-first text console interface.
+- **Embedded Engine**: Powered by **TDscript v1.0.1 (Legacy / Stable)** for terminal scripting and shell shortcuts.
 - **Key Features**:
   - Pure terminal interface with instantaneous launch time and minimal battery consumption (9–15 MB RAM footprint).
   - Built-in multitasking, app management, file navigation, and system diagnostics.
@@ -26,54 +33,62 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
 
 ### 2. TDscript Core 1.1 / TDModules v1.4.0 — Universal Device, Chip & Robotics Platform
 - **Platforms / Scope**: Cross-platform (Linux, Windows, Android, Embedded, Robotics, GUI & TUI Applications)
-- **Release Status**: Stable Release v1.4.0 (Core 1.1 Specification compliant)
-- **Description**:
-  TDscript (TextDroid Script) — компактная межплатформенная программная экосистема и детерминированный язык сценарного управления для робототехники, промышленной автоматизации, микросхем и физических шин (I2C, SPI, UART, CAN, Modbus TCP/RTU) с нулевым оверхедом видеопамяти (0 KB VRAM / Headless).
-- **Key Technical Innovations (Core 1.1)**:
-  - **Granular CapabilityScope Sandboxing**: Hardware-level whitelisting. Restricts scripts by physical address boundaries: authorized I2C addresses (e.g. Bosch BME280 @ 0x76), Modbus register ranges (100..200), and specific serial ports.
-  - **Native 109-Language Multilingualism**: Lexer-level `language: <code>;` directive. State-machine `CodeProjector` toggles keywords between languages (RU 🇷🇺, EN 🇬🇧, DE 🇩🇪) on the fly without touching string literals or comments. Safe `LString` symbolic resources prohibit direct concatenation (`TDS_E105`) to maintain grammar integrity across 109 languages.
-  - **Fail-Safe Watchdog & Step Limit**: Hardware watchdog (`WATCHDOG.feed()`, `WATCHDOG.emergencyStop()`) and runtime execution step limiter (`maxSteps = 10_000_000L` -> `TDS_E106_STEP_LIMIT_EXCEEDED`) preventing runaway loops in physical machinery.
-  - **Expanded Capabilities Matrix (16 flags)**: `NET_READ` (0x0001), `NET_SCAN` (0x0002), `PLC_READ` (0x0004), `PLC_WRITE` (0x0008), `BT_ACCESS` (0x0010), `HARDWARE` (0x0020), `UI_CORE` (0x0040), `BACKGROUND` (0x0080), `I2C_READ` (0x0100), `I2C_WRITE` (0x0200), `SPI_TRANSFER` (0x0400), `SERIAL_RAW` (0x0800), `CAN_BUS` (0x1000), `ROBOT_MOTION` (0x2000), `ROBOT_OVERRIDE` (0x4000), `DRIVER_INSTALL` (0x8000).
-  - **Deterministic Bytecode (.tbc)**: Binary opcode compilation (2–10 KB) with Ed25519 digital signatures and SHA-256 integrity checks.
+- **Release Status**: Stable Release v1.4.0 (Core 1.1 Specification compliant) alongside v1.0.1 (Legacy Stable)
+- **Documentation**: https://fido2465724100-creator.github.io/my-developer-site/tdscript/
+- **Two Coexisting Generations**:
+  1. **TDscript v1.4.0 / Core 1.1 (Modern / Studio / AI-First)**:
+     - Hexadecimal literals: `0x76`, `0xD0`, `0xF4`, `0x1000L`
+     - Deterministic byte array formatting (`[0x60]`) and indexing `bytes[i]` (returns 0..255)
+     - `LString` symbolic resources with `{varName}` scope interpolation (concatenation with `+` strictly prohibited via `TDS_E105`)
+     - Strict method dispatch: `TDS_E106: E106@line:col unknown_method=<name> on=<type>`
+     - Hardware watchdog subsystem: `WATCHDOG.feed()`, `WATCHDOG.emergencyStop()`
+     - Spatial sandboxing: `CapabilityScope` address whitelisting (I2C: `0x76`, Modbus: `100..200`)
+     - AI compact repair lines: `E104@1:5 exp=0x76 got=0x68` and formal GBNF grammar (`docs/tdscript-core-1.1.gbnf`)
+  2. **TDscript v1.0.1 / Core 1.0 (Classic / Legacy Stable)**:
+     - Maintained across Tdroid Launcher and older Android host apps
+     - Numeric literals: Decimal only (`118`, `208`)
+     - Symbolic `LString` resources (without `{var}` interpolation)
+     - Standard multi-line JSON error diagnostics (`CompilerErrorDiagnostic.toJson()`)
+- **Deterministic Bytecode (.tbc)**: Binary opcode compilation (2–10 KB) with Ed25519 digital signatures and SHA-256 integrity checks.
 
 ### 3. TDscript Studio IDE & Autonomous AI Agentic Loop
 - **Platforms**: Desktop (Linux / Windows) & Android (Mobile App)
-- **Description**: Cross-platform development and simulation environment for TDscript Core 1.1 with an integrated autonomous AI Agent.
+- **Downloads Hub**: https://fido2465724100-creator.github.io/my-developer-site/tdscript/studio.html
+- **Official Packages (v1.1.0)**:
+  - Debian/Ubuntu: `downloads/tdscript-studio_1.1.0-1_amd64.deb` (47 MB)
+  - Fedora/RHEL/openSUSE: `downloads/tdscript-studio-1.1.0-1.x86_64.rpm` (47 MB)
+  - Universal AppImage: `downloads/tdscript-studio-1.1.0-x86_64.AppImage` (54 MB)
+  - Portable Tarball: `downloads/tdscript-studio-1.1.0-linux-x64-portable.tar.gz` (56 MB)
+  - Universal Fat JAR: `downloads/tdscript-studio-linux-x64-1.1.0.jar` (31 MB)
+  - Android APK: `downloads/tdscript-studio-1.1.0.apk` (5.5 MB, USB-OTG + BLE)
 - **Key Architecture & Features**:
-  - **Autonomous Agentic Loop**: Closed-loop agent workflow: *Hardware Discovery (`probe()`) ➔ Prompt Construction with JSON environment ➔ Code Generation ➔ Execution in `AiHardwareSandbox` ➔ Machine-readable error capture (`CompilerErrorDiagnostic.toJson()`) ➔ Automated code fix (up to 3–5 iterations)*.
-  - **Zero-Dependency LlmClient**: Native OpenAI-compatible HTTP client for local engines (Ollama: `http://127.0.0.1:11434/v1`, LM Studio: `http://127.0.0.1:1234/v1`) and cloud APIs.
-  - **AiHardwareSandbox**: Virtual testbench emulating Bosch BME280 environmental IC (0x76, Chip ID 0x60 in register 0xD0) and Modbus PLC Gateway (127.0.0.1:502, registers 100 & 101).
-  - **Desktop & Linux Distributions**: Pre-packaged native binaries for all Linux distributions: Debian/Ubuntu package (`tdscript-studio_1.1.0-1_amd64.deb`), Fedora/RHEL/openSUSE package (`tdscript-studio-1.1.0-1.x86_64.rpm`), universal single-file executable (`tdscript-studio-1.1.0-x86_64.AppImage`), rootless portable archive (`tdscript-studio-1.1.0-linux-x64-portable.tar.gz`), and cross-platform executable JAR (`tdscript-studio-linux-x64-1.1.0.jar`).
-  - **Android Edition**: Mobile application (`tdscript-studio-1.1.0.apk`, 5.5 MB) with `AndroidHostSPI` supporting USB-OTG devices (`UsbManager`), Bluetooth LE GATT, and virtual sandbox.
+  - Autonomous Agentic Loop: *Hardware Discovery (`probe()`) ➔ Prompt Construction with JSON environment ➔ Code Generation ➔ Execution in `AiHardwareSandbox` ➔ Machine-readable error capture (`CompilerErrorDiagnostic`) ➔ Automated code fix (up to 3–5 iterations)*.
+  - Zero-Dependency `LlmClient` for local LLMs (Ollama: `http://127.0.0.1:11434/v1`, LM Studio: `http://127.0.0.1:1234/v1`) and cloud APIs.
+  - Live language projection switcher (RU/EN/DE) without touching string literals or comments.
 
-### 4. TDRobotics (Android Robotics Engineering Environment)
+### 4. Global LLM Benchmark (3B–9B Models)
+- **Report & Full Telemetry**: https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
+- **Model Tested**: Qwen 3.5 9B Instruct on `llama-server` (CUDA GTX 1070).
+- **Core Results**:
+  - TDscript Experimental achieved **90.0% Final Success** with lowest LOC across all 7 languages (**5.6 lines** vs 9.7 Python, 15.0 C++, 13.5 Kotlin).
+  - Cost per success reduced by 45% (2275.2 tokens vs 4149.9 in Base) thanks to compact repair error syntax.
+
+### 5. TDRobotics (Android Robotics Engineering Environment)
 - **Platforms**: Android (Standalone Engineering Tool)
 - **Description**: Mobile CAD and programming suite for building, simulating, and validating physical circuits and robots.
-- **Key Features**:
-  - **Circuit Canvas & Dynamic DIP Generator**: Parametric physical IC package generator for DIP-8, DIP-14, DIP-16, DIP-20, DIP-28, DIP-40.
-  - **Deterministic Circuit Analyzer**: Strict on-device physical safety audit (overvoltage protection 5V -> 3.3V, common ground verification, UART cross-wiring check).
-  - **Multi-Target Project Exporter**: Single-click compilation into signed Android APK (`.apk`), Windows executable (`.exe`), Linux AppImage (`.AppImage`), or desktop JAR (`.jar`).
+- **Key Features**: Parametric physical IC package generator (DIP-8 to DIP-40), deterministic circuit analyzer (overvoltage protection 5V -> 3.3V), and multi-target exporter (APK, EXE, AppImage, JAR).
 
-### 5. Sevens & Nines («Сімки та Дев'ятки» / «Семёрки и Девятки»)
+### 6. Sevens & Nines («Сімки та Дев'ятки» / «Семёрки и Девятки»)
 - **Platforms**: Android (Google Play) & Linux/Desktop
-- **Description**: Cross-platform card game simulator featuring classic regional and international rules:
-  - Eastern European / Ukrainian "Nine" (36-card deck)
-  - International "Sevens" (Parliament / Fan Tan, 52-card deck)
-  - Card Dominoes / Fan Tan with chips and pass penalties
-- **Key Features**:
-  - Heuristic AI bots with opponent hand analysis and tactical blocking.
-  - Custom decks and table felts (Emerald, Sapphire, Bordeaux, Graphite).
-  - Procedural lightweight audio.
+- **Description**: Cross-platform card game simulator featuring classic Eastern European Nine (36 cards) and International Sevens (Parliament / Fan Tan, 52 cards) with heuristic AI bots.
 
-### 6. TCM Canons («Каноны ТКМ: Древняя Мудрость»)
+### 7. TCM Canons («Каноны ТКМ: Древняя Мудрость»)
 - **Platforms**: Android (Capacitor/Vite), Web
-- **Description**: Interactive educational encyclopedia and study platform for Traditional Chinese Medicine (TCM) ancient treatises. Includes acupoints atlas, 5 elements (Wu Xing), pharmacology, and 100-question certification exam generating authentic PDF diplomas.
+- **Description**: Interactive educational encyclopedia for Traditional Chinese Medicine (TCM) treatises with 3D acupoints atlas and certification exam.
 
 ---
 
 ## Legal & Compliance (Impressum & Privacy)
 - **Publisher (§ 5 DDG Germany)**: Anton Mykhailov, Rudolf-Diesel-Straße 21b, 38820 Halberstadt, Germany.
 - **Taxation**: Small business status under § 19 UStG (Kleinunternehmerstatus, VAT exempt).
-- **Privacy Policy (GDPR / DSGVO)**:
-  - All apps (Tdroid, Sevens & Nines, TDscript Studio) require zero registration and collect zero personal data.
-  - All databases (SQLite), notes, and game saves remain strictly on the user's physical device.
+- **Privacy Policy (GDPR / DSGVO)**: All apps require zero registration and collect zero personal data. Databases (SQLite) remain strictly on the user's physical device.

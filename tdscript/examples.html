@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDscript Automation Tasks & Examples — 10 Benchmark Scenarios</title>
+  <meta name="description" content="10 practical hardware and network orchestration scenarios for TDscript: I2C BME280, Modbus TCP PLC, BLE sensors, Watchdog safety, and CapabilityScope sandboxing." />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="../index.html" class="logo">⚡ Anton Mykhailov — Systems & TUI</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UK</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>💡 Библиотека практических примеров TDscript</h1>
+    <p>10 эталонных аппаратно-сетевых сценариев управления датчиками, ПЛК, сторожевым таймером и шинами</p>
+    <nav class="nav-bar">
+      <a href="index.html">🏠 Обзор платформы</a>
+      <a href="language.html">📖 Спецификация языка</a>
+      <a href="examples.html" class="active">💡 10 задач автоматизации</a>
+      <a href="studio.html">📦 Студия и Загрузки</a>
+      <a href="benchmark.html">🤖 ИИ-Бенчмарк</a>
+      <a href="../index.html">← На главную</a>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <div class="breadcrumbs">
+    <a href="../index.html">Портал разработчика</a> <span>/</span> <a href="index.html">TDscript</a> <span>/</span> <strong>10 задач автоматизации</strong>
+  </div>
+
+  <div class="container">
+
+    <!-- ==================== RU VIEW ==================== -->
+    <div id="view-ru" class="lang-view active">
+
+      <section class="card">
+        <h2>🛠️ 10 эталонных сценариев автоматизации</h2>
+        <p>
+          Эти 10 задач легли в основу официального сравнительного бенчмарка <strong>TDscript</strong> против Python, C++, Lua, JavaScript и Kotlin. Они охватывают полный цикл промышленной автоматизации: опрос шины I2C, протокол Modbus TCP, беспроводной BLE, сетевой пинг, безопасный сторож Watchdog и аппаратную изоляцию.
+        </p>
+      </section>
+
+      <!-- ЗАДАЧА 1 -->
+      <section class="card">
+        <h2>Задача 1: Чтение Chip ID климатического сенсора Bosch BME280 по I2C <span class="badge badge-accent">Шина I2C</span></h2>
+        <p>
+          <strong>Постановка:</strong> Прочитать 1 байт из регистра <code>0xD0</code> чипа BME280 по адресу <code>0x76</code> и вывести полученный идентификатор микросхемы (ожидается <code>0x60</code> / 96).
+        </p>
+        <pre><code>// Решение на TDscript v1.4.0 (Студия, поддержка hex-литералов)
+let chip = 0x76;
+let reg = 0xD0;
+let bytes = I2C.read(chip, reg, 1);
+print(bytes); // Выведет: [0x60]</code></pre>
+        <div class="callout">
+          <strong>В классическом синтаксисе TDscript 1.0.1 (Tdroid):</strong>
+          <code>let bytes = I2C.read(118, 208, 1); print(bytes);</code> (используются десятичные 118 и 208).
+        </div>
+      </section>
+
+      <!-- ЗАДАЧА 2 -->
+      <section class="card">
+        <h2>Задача 2: Modbus TCP контроль температуры котла и защита насоса <span class="badge badge-green">Промышленный Modbus PLC</span></h2>
+        <p>
+          <strong>Постановка:</strong> Прочитать температуру из Holding Register 100 контроллера (<code>127.0.0.1</code>) и текущий статус насоса из регистра 101. Если температура превышает аварийный порог 250°C, принудительно отключить насос, записав <code>0</code> в регистр 101.
+        </p>
+        <pre><code>let host = "127.0.0.1";
+let temp = PLC.modbusRead(host, 100);
+let pump = PLC.modbusRead(host, 101);
+
+if (temp &gt; 250) {
+    PLC.modbusWrite(host, 101, 0);
+    print("EMERGENCY_SHUTDOWN: Pump stopped");
+} else {
+    print("TEMPERATURE_NORMAL");
+}</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 3 -->
+      <section class="card">
+        <h2>Задача 3: Безопасный опрос сенсора с аварийным остановом Watchdog <span class="badge badge-amber">Fail-Safe Безопасность</span></h2>
+        <p>
+          <strong>Постановка:</strong> Выполнить безопасный опрос регистра <code>0xD0</code> сенсора <code>0x76</code>. Если чтение возвращает ошибку или <code>null</code>, немедленно вызвать <code>WATCHDOG.emergencyStop()</code> для предотвращения повреждения оборудования. При успехе вывести <code>POLL_OK</code>.
+        </p>
+        <pre><code>let chip = 0x76;
+let reg = 0xD0;
+let data = I2C.read(chip, reg, 1);
+
+if (data == null) {
+    WATCHDOG.emergencyStop();
+} else {
+    print("POLL_OK: Sensor healthy at 0x76");
+}</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 4 -->
+      <section class="card">
+        <h2>Задача 4: Циклический опрос Modbus с подпиткой аппаратного сторожа <span class="badge badge-green">Watchdog Feed</span></h2>
+        <p>
+          <strong>Постановка:</strong> Выполнить цикл из 5 итераций: на каждом шаге опрашивать датчик (регистр 100) и регулярно подпитывать аппаратный сторожевой таймер через <code>WATCHDOG.feed()</code>.
+        </p>
+        <pre><code>var i = 0;
+while (i &lt; 5) {
+    let val = PLC.modbusRead("127.0.0.1", 100);
+    WATCHDOG.feed(); // Сигнал аппаратной подпитки
+    print("Iter: " + i + ", Val: " + val);
+    i = i + 1;
+}</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 5 -->
+      <section class="card">
+        <h2>Задача 5: Локализованное оповещение через LString <span class="badge badge-purple">Интерполяция 109 языков</span></h2>
+        <p>
+          <strong>Постановка:</strong> Сформировать локализованное уведомление с ключом <code>ALERT_TEMP</code> и динамическим параметром <code>temp = 24.5</code>. В TDscript сложение строк через <code>+</code> строго запрещено (ошибка <code>TDS_E105</code>), поэтому используется безопасная подстановка.
+        </p>
+        <pre><code>let temp = 24.5;
+// Интерполяция {temp} из локального скоупа переменных
+let notification = L"ALERT_TEMP:Current temperature is {temp}C";
+print(notification);</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 6 -->
+      <section class="card">
+        <h2>Задача 6: Подключение и запрос данных по Bluetooth LE (BLE) <span class="badge badge-accent">Беспроводные шины</span></h2>
+        <p>
+          <strong>Постановка:</strong> Подключиться к периферийному BLE-устройству с идентификатором <code>sensor_01</code>, отправить команду <code>READ</code> и распечатать полученную телеметрию.
+        </p>
+        <pre><code>let device = "sensor_01";
+let connected = BLE.connect(device);
+
+if (connected == true) {
+    let telemetry = BLE.send(device, "READ");
+    print("BT_OK: Received " + telemetry);
+} else {
+    print("BLE_CONNECTION_FAILED");
+}</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 7 -->
+      <section class="card">
+        <h2>Задача 7: Сетевая диагностика Ping перед запросом к Modbus ПЛК <span class="badge badge-green">Сетевая надежность</span></h2>
+        <p>
+          <strong>Постановка:</strong> Перед отправкой промышленных пакетов выполнить ICMP ping узла <code>192.168.1.50</code>. Если узел доступен (RTT &gt; 0), запросить регистр 100.
+        </p>
+        <pre><code>let targetIp = "192.168.1.50";
+let rtt = NET.ping(targetIp);
+
+if (rtt &gt; 0) {
+    let val = PLC.modbusRead(targetIp, 100);
+    print("Host reachable (" + rtt + " ms). Value: " + val);
+} else {
+    print("Host unreachable");
+}</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 8 -->
+      <section class="card">
+        <h2>Задача 8: Запись конфигурационного байта в регистр чипа по I2C <span class="badge badge-accent">I2C Конфигурация</span></h2>
+        <p>
+          <strong>Постановка:</strong> Записать управляющий байт режима измерений в регистр <code>0xF4</code> датчика <code>0x76</code> и распечатать статус успешности операции.
+        </p>
+        <pre><code>let chip = 0x76;
+let ctrlReg = 0xF4;
+let modeByte = 0x27; // Режим Normal, oversampling x1
+let status = I2C.write(chip, ctrlReg, modeByte);
+print("I2C_WRITE_0x76_0xF4: " + status);</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 9 -->
+      <section class="card">
+        <h2>Задача 9: Комплексная валидация дуальной системы (I2C + Modbus) <span class="badge badge-amber">Синхронный контроль</span></h2>
+        <p>
+          <strong>Постановка:</strong> Проверить Chip ID BME280 (<code>0x76</code>) и значение регистра Modbus 100. Если оба источника исправны, выдать <code>SYSTEM_OK</code>, иначе активировать аварийный останов <code>WATCHDOG.emergencyStop()</code>.
+        </p>
+        <pre><code>let chipData = I2C.read(0x76, 0xD0, 1);
+let modbusVal = PLC.modbusRead("127.0.0.1", 100);
+
+if (chipData != null &amp;&amp; modbusVal != null) {
+    print("SYSTEM_OK: Dual sensors verified");
+} else {
+    WATCHDOG.emergencyStop();
+}</code></pre>
+      </section>
+
+      <!-- ЗАДАЧА 10 -->
+      <section class="card">
+        <h2>Задача 10: Пространственная изоляция CapabilityScope и самоисправление <span class="badge badge-purple">AI-First Песочница</span></h2>
+        <p>
+          <strong>Постановка:</strong> Скрипт должен работать строго в рамках белого списка <code>CapabilityScope</code> (разрешён только адрес <code>0x76</code>). Если скрипт попытается обратиться к запрещенному адресу (например, <code>0x68</code>), хост заблокирует вызов. ИИ-агент перехватывает сбой и перенаправляет опрос на <code>0x76</code>.
+        </p>
+        <pre><code>// Попытка обращения к неавторизованному адресу 0x68:
+let invalidRes = I2C.read(0x68, 0x00, 1); // Возвратит null (SCOPE_VIOLATION)
+
+// Автоматическое переключение на разрешённый адрес из белого списка:
+let validRes = I2C.read(0x76, 0xD0, 1);
+print("SUCCESS_FALLBACK_0x76: " + validRes);</code></pre>
+      </section>
+
+    </div>
+
+    <!-- ==================== EN VIEW ==================== -->
+    <div id="view-en" class="lang-view">
+      <section class="card">
+        <h2>💡 10 Benchmark Automation Scenarios</h2>
+        <p>Practical walkthrough of 10 real industrial hardware tasks used in our global benchmark comparison against Python, C++, Lua, JavaScript, and Kotlin.</p>
+      </section>
+
+      <section class="card">
+        <h2>Task 1: Bosch BME280 Chip ID Read via I2C</h2>
+        <pre><code>let chip = 0x76;
+let reg = 0xD0;
+let bytes = I2C.read(chip, reg, 1);
+print(bytes); // Outputs: [0x60]</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 2: Modbus Boiler Temperature Emergency Control</h2>
+        <pre><code>let temp = PLC.modbusRead("127.0.0.1", 100);
+if (temp &gt; 250) {
+    PLC.modbusWrite("127.0.0.1", 101, 0);
+    print("EMERGENCY_SHUTDOWN: Pump stopped");
+}</code></pre>
+      </section>
+    </div>
+
+    <!-- ==================== DE VIEW ==================== -->
+    <div id="view-de" class="lang-view">
+      <section class="card">
+        <h2>💡 10 Automatisierungsaufgaben (Beispiele)</h2>
+        <p>Praxisnahe Beispiele für I2C-Sensoren (BME280), Modbus-TCP-Steuerung, Watchdog-Sicherheit und BLE.</p>
+      </section>
+    </div>
+
+    <!-- ==================== UK VIEW ==================== -->
+    <div id="view-uk" class="lang-view">
+      <section class="card">
+        <h2>💡 10 прикладів автоматизації</h2>
+        <p>Практичні приклади керування сенсорами I2C (BME280), протоколом Modbus TCP, сторожовим таймером Watchdog та BLE.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Halberstadt, Germany. | <a href="../index.html#impressum">Impressum</a> | <a href="../index.html#datenschutz">Datenschutz</a>
+    </div>
+
+  </div>
+
+  <script src="../js/site.js"></script>
+</body>
+</html>

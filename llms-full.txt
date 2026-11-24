@@ -151,23 +151,22 @@ while (i < 5) {
 ```
 
 ### 6.2. Peripheral & Bus Methods
-- `I2C.read(address: Int, register: Int, length: Int) -> ByteArray?`
-- `I2C.write(address: Int, register: Int, data: ByteArray) -> Boolean`
+- `I2C.read(address: Int, register: Int, length: Int) -> ByteArray?` (in v1.4.0 supports hex literals e.g. `0x76`, `0xD0`)
+- `I2C.write(address: Int, register: Int, data: Any) -> Boolean` (in v1.4.0 supports `I2C.write(0x76, 0xF4, 0x27)`)
 - `SERIAL.read(port: String, maxLength: Int) -> ByteArray?`
 - `SERIAL.write(port: String, data: ByteArray) -> Boolean`
 - `PLC.modbusRead(host: String, register: Int) -> Int`
 - `PLC.modbusWrite(host: String, register: Int, value: Int) -> Boolean`
+- `BLE.connect(deviceId: String) -> Boolean`
+- `BLE.send(deviceId: String, cmd: String) -> String`
+- `NET.ping(host: String) -> Int`
 - `WATCHDOG.feed() -> Boolean`
 - `WATCHDOG.emergencyStop() -> Unit`
-- `TD.httpGet(url: String) -> String?`
-- `TD.httpPost(url: String, body: String, contentType: String) -> String?`
-- `TD.ping(host: String) -> Float`
-- `TD.udp(host: String, port: Int, data: String) -> Boolean`
-- `TD.speak(text: String) -> Boolean`
-- `TD.torch(state: Boolean) -> Boolean`
-- `TD.vibrate(durationMs: Long) -> Boolean`
-- `TD.battery() -> Int`
-- `print(value: Any?) -> Unit`
+- `print(value: Any?) -> Unit` (in v1.4.0 formats ByteArray deterministically as `[0x60]`)
+
+### 6.3. Version Compatibility: v1.4.0 (Studio) vs v1.0.1 (Legacy)
+- **v1.4.0 / Core 1.1**: Hexadecimal literals (`0x76`, `0xD0`), `ByteArray[i]` indexing, `LString` interpolation `{var}`, strict method dispatch (`TDS_E106`), `WATCHDOG`, compact repair lines (`E104@line:col`), GBNF grammar.
+- **v1.0.1 / Core 1.0**: Maintained in Tdroid Android Launcher. Decimal literals only (`118`, `208`), symbolic LString without `{var}`, full multi-line JSON error diagnostics.
 
 ---
 
@@ -177,4 +176,11 @@ while (i < 5) {
 - **`TDscript-Studio`**: Cross-platform IDE repository (`/home/anton/TDscript-Studio`, v1.1.0):
   - Desktop Standalone JAR: `desktopApp/build/compose/jars/tdscript-studio-linux-x64-1.1.0.jar`
   - Android Debug APK: `androidApp/build/outputs/apk/debug/androidApp-debug.apk` (5.5 MB)
+- **Multi-Page Web Portal**:
+  - Main Ecosystem Hub: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/`
+  - Language Reference: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html`
+  - 10 Automation Scenarios: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html`
+  - Studio & Downloads: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/studio.html`
+  - Global AI Benchmark: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html`
 - **`TDRobotics`**: Android mobile engineering CAD & app exporter (`/home/anton/TDRobotics`).
+

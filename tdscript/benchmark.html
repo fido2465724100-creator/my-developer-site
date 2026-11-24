@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDscript Global LLM Benchmark — AI-First Automation vs Python, C++, Lua, JS, Kotlin</title>
+  <meta name="description" content="Official benchmark results of 7 languages across 10 hardware orchestration tasks tested with local Qwen 3.5 9B on llama-server." />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="../index.html" class="logo">⚡ Anton Mykhailov — Systems & TUI</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UK</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>🤖 Глобальный бенчмарк для локальных LLM (3B–9B)</h1>
+    <p>Объективное сравнение 7 языков на 10 одинаковых аппаратно-сетевых задачах на модели Qwen 3.5 9B</p>
+    <nav class="nav-bar">
+      <a href="index.html">🏠 Обзор платформы</a>
+      <a href="language.html">📖 Спецификация языка</a>
+      <a href="examples.html">💡 10 задач автоматизации</a>
+      <a href="studio.html">📦 Студия и Загрузки</a>
+      <a href="benchmark.html" class="active">🤖 ИИ-Бенчмарк</a>
+      <a href="../index.html">← На главную</a>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <div class="breadcrumbs">
+    <a href="../index.html">Портал разработчика</a> <span>/</span> <a href="index.html">TDscript</a> <span>/</span> <strong>ИИ-Бенчмарк</strong>
+  </div>
+
+  <div class="container">
+
+    <!-- ==================== RU VIEW ==================== -->
+    <div id="view-ru" class="lang-view active">
+
+      <!-- ВВЕДЕНИЕ -->
+      <section class="card">
+        <h2>⚡ О бенчмарке <span class="badge badge-accent">Тест №3 (Официальный)</span></h2>
+        <p>
+          Цель бенчмарка — проверить пригодность современных компактных локальных моделей искусственного интеллекта (3B–9B параметров) для генерации надёжного и компактного кода автоматизации физических микросхем, промышленных контроллеров и робототехники.
+        </p>
+        <p>
+          Тестирование проводилось в живом режиме на <strong>llama-server (llama.cpp)</strong> с моделью <strong>Qwen 3.5 9B Instruct</strong> с аппаратным CUDA-ускорением на видеокарте GeForce GTX 1070 по всем 7 целевым языкам/рантаймам на 10 идентичных аппаратно-сетевых задачах (70 задач суммарно, 148 попыток).
+        </p>
+      </section>
+
+      <!-- ТАБЛИЦА СРАВНЕНИЯ -->
+      <section class="card">
+        <h2>📊 Сводная таблица сравнения (Summary Comparison)</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Языковой профиль</th>
+                <th>Статус</th>
+                <th>First-Pass %</th>
+                <th>Final Success %</th>
+                <th>Итерации починки</th>
+                <th>Стоимость (Токенов / Успех)</th>
+                <th>Средний LOC (строк)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>TDscript Base (v1.4.0)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>10.0%</td>
+                <td>70.0%</td>
+                <td>1.43</td>
+                <td>4149.9</td>
+                <td><strong>5.7</strong></td>
+              </tr>
+              <tr style="background: rgba(56, 189, 248, 0.08);">
+                <td><strong>TDscript Experimental (AI-First)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>10.0%</td>
+                <td><strong>90.0%</strong></td>
+                <td><strong>1.00</strong></td>
+                <td><strong>2275.2</strong></td>
+                <td><strong>5.6</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Python</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>0.0%</td>
+                <td>100.0%</td>
+                <td>1.30</td>
+                <td>2332.9</td>
+                <td>9.7</td>
+              </tr>
+              <tr>
+                <td><strong>C++ (Arduino/ESP32 style)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>20.0%</td>
+                <td>70.0%</td>
+                <td>1.00</td>
+                <td>3429.6</td>
+                <td>15.0</td>
+              </tr>
+              <tr>
+                <td><strong>Lua</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>30.0%</td>
+                <td>90.0%</td>
+                <td>0.78</td>
+                <td>1914.1</td>
+                <td>12.4</td>
+              </tr>
+              <tr>
+                <td><strong>JavaScript (Node.js)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>60.0%</td>
+                <td>90.0%</td>
+                <td>0.56</td>
+                <td>2083.6</td>
+                <td>7.9</td>
+              </tr>
+              <tr>
+                <td><strong>Kotlin</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>40.0%</td>
+                <td>100.0%</td>
+                <td>0.90</td>
+                <td>1850.7</td>
+                <td>13.5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- РАЗБОР СБОЕВ -->
+      <section class="card">
+        <h2>🔍 Разбор причин отказов (Failure Breakdown)</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Языковой профиль</th>
+                <th>Таймаут рассуждений (TRUNCATED)</th>
+                <th>Синтаксис (SYNTAX)</th>
+                <th>Ошибки рантайма и скоупа (RUNTIME)</th>
+                <th>Неверный вывод (OUTPUT_MISMATCH)</th>
+                <th>Всего отказов</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>TDscript Base (v1.4.0)</strong></td>
+                <td>13</td>
+                <td>0</td>
+                <td>5</td>
+                <td>1</td>
+                <td>19</td>
+              </tr>
+              <tr style="background: rgba(56, 189, 248, 0.08);">
+                <td><strong>TDscript Experimental (AI-First)</strong></td>
+                <td>9</td>
+                <td>0</td>
+                <td>1</td>
+                <td>2</td>
+                <td><strong>12</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Python</strong></td>
+                <td>9</td>
+                <td>1</td>
+                <td>2</td>
+                <td>1</td>
+                <td>13</td>
+              </tr>
+              <tr>
+                <td><strong>C++ (Arduino/ESP32 style)</strong></td>
+                <td>7</td>
+                <td>3</td>
+                <td>0</td>
+                <td>6</td>
+                <td>16</td>
+              </tr>
+              <tr>
+                <td><strong>Lua</strong></td>
+                <td>3</td>
+                <td>0</td>
+                <td>4</td>
+                <td>3</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td><strong>JavaScript (Node.js)</strong></td>
+                <td>1</td>
+                <td>3</td>
+                <td>2</td>
+                <td>1</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td><strong>Kotlin</strong></td>
+                <td>0</td>
+                <td>6</td>
+                <td>1</td>
+                <td>2</td>
+                <td>9</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ВЫВОДЫ БЕНЧМАРКА -->
+      <section class="card">
+        <h2>💡 Почему TDscript превосходит традиционные языки в задачах автоматизации</h2>
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>📏 Экстремальная компактность (5.6 строк LOC)</h4>
+            <p>
+              TDscript код в <strong>1.7 раза компактнее Python</strong> (5.6 vs 9.7 строк) и в <strong>2.7 раза компактнее C++</strong> (5.6 vs 15.0 строк). Чем меньше строк генерирует LLM, тем ниже вероятность галлюцинаций и тем быстрее отрабатывает генерация.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>⚡ Экономия токенов на 45% (Cost / Success)</h4>
+            <p>
+              Внедрение сжатого формата ошибок <code>repair</code> (<code>E104@line:col exp=0x76 got=0x68</code>) снизило расход токенов на успешное решение с 4149.9 до 2275.2 токенов.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🛡️ 100% Синтаксическая гарантия с GBNF</h4>
+            <p>
+              Использование формальной грамматики GBNF в <code>llama.cpp</code> / Ollama полностью исключает синтаксические ошибки при генерации кода локальными моделями.
+            </p>
+          </div>
+          <div class="feature-box">
+            <h4>🚀 Нулевой оверхед (0 KB VRAM / Headless)</h4>
+            <p>
+              В отличие от Python, требующего внешних библиотек и тяжелого рантайма, TDscript исполняется детерминированно в компактном встраиваемом движке без зависимостей.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ПОДКЛЮЧЕНИЕ К ЛОКАЛЬНЫМ МОДЕЛЯМ -->
+      <section class="card">
+        <h2>🔌 Настройка и подключение к локальным LLM (Ollama, LM Studio)</h2>
+        <p>
+          В <strong>TDscript Studio</strong> встроен легковесный HTTP-клиент, совместимый с OpenAI API (без сторонних тяжелых SDK):
+        </p>
+        <pre><code># Запуск Ollama:
+ollama run qwen2.5:7b
+
+# Подключение из TDscript Studio:
+Endpoint URL: http://127.0.0.1:11434/v1
+Model Name:   qwen2.5:7b
+
+# Запуск llama-server с поддержкой GBNF-грамматики TDscript:
+./llama-server -m models/qwen3.5-9b.gguf --port 8765 --grammar-file docs/tdscript-core-1.1.gbnf</code></pre>
+      </section>
+
+    </div>
+
+    <!-- ==================== EN VIEW ==================== -->
+    <div id="view-en" class="lang-view">
+      <section class="card">
+        <h2>🤖 Global LLM Benchmark (3B–9B Models) <span class="badge badge-accent">Test #3 Official</span></h2>
+        <p>Objective comparison of 7 languages across 10 hardware orchestration tasks using local Qwen 3.5 9B on llama-server.</p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Profile</th>
+                <th>Final Success %</th>
+                <th>Cost / Success (Tokens)</th>
+                <th>Avg LOC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>TDscript Base (v1.4.0)</strong></td><td>70.0%</td><td>4149.9</td><td>5.7</td></tr>
+              <tr style="background: rgba(56, 189, 248, 0.08);"><td><strong>TDscript Experimental (AI-First)</strong></td><td><strong>90.0%</strong></td><td><strong>2275.2</strong></td><td><strong>5.6</strong></td></tr>
+              <tr><td><strong>Python</strong></td><td>100.0%</td><td>2332.9</td><td>9.7</td></tr>
+              <tr><td><strong>C++ (Arduino/ESP32 style)</strong></td><td>70.0%</td><td>3429.6</td><td>15.0</td></tr>
+              <tr><td><strong>Lua</strong></td><td>90.0%</td><td>1914.1</td><td>12.4</td></tr>
+              <tr><td><strong>JavaScript (Node.js)</strong></td><td>90.0%</td><td>2083.6</td><td>7.9</td></tr>
+              <tr><td><strong>Kotlin</strong></td><td>100.0%</td><td>1850.7</td><td>13.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== DE VIEW ==================== -->
+    <div id="view-de" class="lang-view">
+      <section class="card">
+        <h2>🤖 Globaler KI-Benchmark für Edge-Automatisierung</h2>
+        <p>Vergleich von 7 Programmiersprachen für IoT und Robotik mit Qwen 3.5 9B. TDscript erzielte die kompakteste Codebasis (5.6 LOC).</p>
+      </section>
+    </div>
+
+    <!-- ==================== UK VIEW ==================== -->
+    <div id="view-uk" class="lang-view">
+      <section class="card">
+        <h2>🤖 Глобальний ШІ-Бенчмарк для локальних моделей</h2>
+        <p>Об'єктивне порівняння 7 мов на 10 апаратно-мережевих задачах. TDscript показав найкомпактніший код (5.6 рядків).</p>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Halberstadt, Germany. | <a href="../index.html#impressum">Impressum</a> | <a href="../index.html#datenschutz">Datenschutz</a>
+    </div>
+
+  </div>
+
+  <script src="../js/site.js"></script>
+</body>
+</html>
