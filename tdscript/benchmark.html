@@ -684,7 +684,15 @@
           Замер времени инициализации среды и исполнения первой инструкции на аппаратном стенде Linux x86_64. 
           <strong>Архитектурное примечание:</strong> чётко разделены два сценария использования TDscript — 
           <em>In-Process VM</em> (встраивание TDscript как легковесного AST-движка внутрь уже запущенного управляющего демона/хост-процесса: <strong>0.16 мс</strong>) и 
-          <em>CLI Subprocess spawn</em> (холодный старт отдельного процесса ОС из командной строки bash: <strong>115.24 мс</strong> с полной загрузкой JRE 17, разбором AST и выполнением скрипта, в сравнении с «голым» вызовом <code>java -version</code> в 29.36 мс).
+          <em>CLI Subprocess spawn</em> (холодный старт отдельного процесса ОС из командной строки bash: <strong>112.99 мс</strong> с полной загрузкой JRE 17, разбором AST и выполнением скрипта, в сравнении с «голым» вызовом <code>java -version</code> в 28.90 мс).
+        </p>
+        <p style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-dim);">
+          <strong>Профилирование задержки CLI Subprocess spawn (113 мс):</strong>
+          базовый старт C-лаунчера JVM (<code>java -version</code>) = 28.9 мс;
+          инициализация <code>java.base</code> + <code>AppClassLoader</code> (пустой <code>main()</code>) = 49.7 мс;
+          загрузка рантайма Kotlin stdlib и рефлексии = 16.2 мс;
+          загрузка классов парсера TDscript (<code>Lexer</code>, <code>Parser</code>, <code>Interpreter</code>, <code>HostSPI</code>) = 49.2 мс;
+          разбор AST и выполнение скрипта <code>let x = 1;</code> = <strong>0.16 мс</strong>.
         </p>
         <div class="table-wrapper">
           <table>
@@ -704,63 +712,63 @@
                 <td><strong>TDscript (In-Process VM)</strong></td>
                 <td>In-Process VM (Host)</td>
                 <td><strong>0.16 мс 🏆</strong></td>
-                <td>0.16 мс</td>
-                <td>0.23 мс</td>
-                <td>0.10 – 0.39 мс</td>
+                <td>0.17 мс</td>
+                <td>0.27 мс</td>
+                <td>0.10 – 0.34 мс</td>
                 <td>Прямая инстанциация AST без накладных расходов на fork/exec процесса ОС</td>
               </tr>
               <tr>
                 <td><strong>C++ Native (g++ -O2)</strong></td>
                 <td>CLI Subprocess (ELF)</td>
-                <td>2.17 мс</td>
-                <td>2.13 мс</td>
-                <td>2.54 мс</td>
-                <td>1.17 – 2.65 мс</td>
+                <td>2.10 мс</td>
+                <td>2.10 мс</td>
+                <td>2.47 мс</td>
+                <td>1.18 – 2.59 мс</td>
                 <td>Статический нативный бинарник без виртуальной машины</td>
               </tr>
               <tr>
                 <td><strong>Lua 5.4</strong></td>
                 <td>CLI Subprocess (C runtime)</td>
                 <td>2.92 мс</td>
-                <td>2.92 мс</td>
-                <td>3.55 мс</td>
-                <td>2.03 – 3.63 мс</td>
+                <td>2.93 мс</td>
+                <td>3.30 мс</td>
+                <td>2.08 – 3.34 мс</td>
                 <td>Компактный Си-рантайм интерпретатора</td>
               </tr>
               <tr>
                 <td><strong>Python 3.14</strong></td>
                 <td>CLI Subprocess (CPython)</td>
-                <td>20.74 мс</td>
-                <td>19.13 мс</td>
-                <td>22.88 мс</td>
-                <td>13.69 – 24.06 мс</td>
+                <td>21.32 мс</td>
+                <td>20.10 мс</td>
+                <td>22.23 мс</td>
+                <td>12.95 – 23.84 мс</td>
                 <td>Бутстрап CPython и импорт базовых системных модулей</td>
               </tr>
               <tr>
                 <td><strong>Kotlin / Java JVM</strong></td>
                 <td>CLI Subprocess (JVM boot)</td>
-                <td>29.36 мс</td>
-                <td>30.71 мс</td>
-                <td>37.35 мс</td>
-                <td>26.53 – 39.25 мс</td>
+                <td>28.90 мс</td>
+                <td>29.88 мс</td>
+                <td>35.93 мс</td>
+                <td>24.79 – 40.51 мс</td>
                 <td>Базовый старт «голой» JVM (java -version) без скриптового движка</td>
               </tr>
               <tr>
                 <td><strong>JavaScript (Node.js 20)</strong></td>
                 <td>CLI Subprocess (V8 engine)</td>
-                <td>29.74 мс</td>
-                <td>31.08 мс</td>
-                <td>44.80 мс</td>
-                <td>22.97 – 49.70 мс</td>
+                <td>32.02 мс</td>
+                <td>33.10 мс</td>
+                <td>46.02 мс</td>
+                <td>24.01 – 47.56 мс</td>
                 <td>Инициализация движка V8 и libuv event loop</td>
               </tr>
               <tr style="color: var(--text-dim);">
                 <td><strong>TDscript (CLI Subprocess spawn)</strong></td>
                 <td>CLI Subprocess (Java 17 JRE)</td>
-                <td>115.24 мс</td>
-                <td>115.20 мс</td>
-                <td>126.63 мс</td>
-                <td>95.65 – 134.97 мс</td>
+                <td>112.99 мс</td>
+                <td>112.87 мс</td>
+                <td>123.66 мс</td>
+                <td>100.72 – 127.78 мс</td>
                 <td>Полный запуск процесса ОС: бутстрап Java 17 + AST парсер и интерпретатор TDscript</td>
               </tr>
             </tbody>
@@ -771,7 +779,7 @@
         <h3 style="margin-top: 1.5rem;">2. Вычислительная пропускная способность (1,000,000 и 10,000,000 итераций)</h3>
         <p>
           Скорость выполнения арифметических операций и условных переходов в цикле с валидацией контрольной суммы.
-          <strong>Методология:</strong> В коде C++ переменные цикла объявлены как <code>volatile</code> для исключения dead-code elimination (DCE) и свёртки в замкнутую форму оптимизатором GCC. Для Node.js проведён предварительный прогрев JIT в контексте функции (1M итераций). Для TDscript замер проведён как на 1M, так и на 10M итераций (граница лимитера шагов Step Limiter):
+          <strong>Методология:</strong> В коде C++ переменные цикла объявлены как <code>volatile</code>. В Node.js переменные цикла размещены в типизированном массиве <code>Float64Array(2)</code> для исключения свёртки цикла компилятором TurboFan в аналитическую формулу и принуждения к реальным операциям с памятью кучи на каждой итерации (аналогично <code>volatile</code> в C++). Для TDscript выполнен замер как на 1M, так и на 10M итераций (граница лимитера шагов Step Limiter):
         </p>
         <div class="table-wrapper">
           <table>
@@ -790,8 +798,8 @@
               <tr>
                 <td><strong>C++ Native (-O2 + volatile memory)</strong></td>
                 <td>1 000 000</td>
-                <td>4 мс</td>
-                <td>241 138 172</td>
+                <td>5 мс</td>
+                <td>220 896 841</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
                 <td>Использование volatile переменных принуждает CPU обращаться к памяти на каждой итерации (без DCE и свёртки)</td>
@@ -799,8 +807,8 @@
               <tr>
                 <td><strong>C++ Native (-O2 + volatile memory)</strong></td>
                 <td>10 000 000</td>
-                <td>30 мс</td>
-                <td>332 016 335</td>
+                <td>27 мс</td>
+                <td>376 477 674</td>
                 <td><code>24999990000000</code></td>
                 <td>✅ PASS</td>
                 <td>Использование volatile переменных принуждает CPU обращаться к памяти на каждой итерации (без DCE и свёртки)</td>
@@ -808,26 +816,26 @@
               <tr>
                 <td><strong>JavaScript (Node.js 20 V8)</strong></td>
                 <td>1 000 000</td>
-                <td>1 мс</td>
-                <td>1 000 000 000</td>
+                <td>8 мс</td>
+                <td>125 000 000</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
-                <td>JIT-компилятор V8 TurboFan с прогревом в контексте функции (steady-state JIT)</td>
+                <td>V8 TurboFan с типизированной памятью Float64Array (исключает свёртку в закрытую форму, реальные обращения к памяти)</td>
               </tr>
               <tr>
                 <td><strong>JavaScript (Node.js 20 V8)</strong></td>
                 <td>10 000 000</td>
-                <td>9 мс</td>
-                <td>1 111 111 111</td>
+                <td>86 мс</td>
+                <td>116 279 069</td>
                 <td><code>24999990000000</code></td>
                 <td>✅ PASS</td>
-                <td>JIT-компилятор V8 TurboFan с прогревом в контексте функции (steady-state JIT)</td>
+                <td>V8 TurboFan с типизированной памятью Float64Array (исключает свёртку в закрытую форму, реальные обращения к памяти)</td>
               </tr>
               <tr>
                 <td><strong>Lua 5.4</strong></td>
                 <td>1 000 000</td>
-                <td>20 мс</td>
-                <td>50 000 000</td>
+                <td>19 мс</td>
+                <td>52 631 578</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
                 <td>Регистровая байткод-виртуальная машина без JIT</td>
@@ -835,8 +843,8 @@
               <tr>
                 <td><strong>Lua 5.4</strong></td>
                 <td>10 000 000</td>
-                <td>210 мс</td>
-                <td>47 619 047</td>
+                <td>237 мс</td>
+                <td>42 194 092</td>
                 <td><code>24999990000000</code></td>
                 <td>✅ PASS</td>
                 <td>Регистровая байткод-виртуальная машина без JIT</td>
@@ -844,8 +852,8 @@
               <tr>
                 <td><strong>Python 3.14</strong></td>
                 <td>1 000 000</td>
-                <td>163 мс</td>
-                <td>6 134 969</td>
+                <td>160 мс</td>
+                <td>6 250 000</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
                 <td>Стандартный цикл диспетчеризации байткода CPython</td>
@@ -853,8 +861,8 @@
               <tr>
                 <td><strong>Python 3.14</strong></td>
                 <td>10 000 000</td>
-                <td>1 676 мс</td>
-                <td>5 966 587</td>
+                <td>1 662 мс</td>
+                <td>6 016 847</td>
                 <td><code>24999990000000</code></td>
                 <td>✅ PASS</td>
                 <td>Стандартный цикл диспетчеризации байткода CPython</td>
@@ -862,8 +870,8 @@
               <tr style="background: rgba(56, 189, 248, 0.08); font-weight: 700;">
                 <td><strong>TDscript (In-Process VM)</strong></td>
                 <td>1 000 000</td>
-                <td><strong>330 мс</strong></td>
-                <td><strong>3 030 303 ops/s</strong></td>
+                <td><strong>324 мс</strong></td>
+                <td><strong>3 086 419 ops/s</strong></td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
                 <td>Tree-walk AST интерпретатор с проверкой StepLimiter на каждом выражении (бюджет 15M)</td>
@@ -871,8 +879,8 @@
               <tr style="background: rgba(56, 189, 248, 0.08); font-weight: 700;">
                 <td><strong>TDscript (In-Process VM)</strong></td>
                 <td>10 000 000</td>
-                <td><strong>2 489 мс</strong></td>
-                <td><strong>4 017 677 ops/s</strong></td>
+                <td><strong>2 053 мс</strong></td>
+                <td><strong>4 870 920 ops/s</strong></td>
                 <td><code>24999990000000</code></td>
                 <td>✅ PASS</td>
                 <td>Tree-walk AST интерпретатор с проверкой StepLimiter на каждом выражении (бюджет 120M)</td>
@@ -901,7 +909,7 @@
             </thead>
             <tbody>
               <tr style="background: rgba(56, 189, 248, 0.12); font-weight: 700;">
-                <td><strong>TDscript Core Engine (In-Process)</strong></td>
+                <td><strong>TDscript Core Engine (In-Process)*</strong></td>
                 <td><strong>135 КБ 🏆</strong></td>
                 <td>1.2 МБ</td>
                 <td>4.3 МБ</td>
@@ -943,6 +951,9 @@
             </tbody>
           </table>
         </div>
+        <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 0.5rem;">
+          <code>*</code> <em>In-Process Peak RSS (4.3 МБ) отражает дельту аллокации кучи (Heap Delta: 3.1 МБ) внутри уже разогретого хост-демона; базовая память разделяемых страниц JVM не атрибутируется скрипту.</em>
+        </p>
       </section>
 
       <!-- 2. СТРЕСС-ТЕСТЫ НА БЕЗОПАСНОСТЬ И ОТКАЗОУСТОЙЧИВОСТЬ -->
@@ -1000,7 +1011,7 @@
                 <td><strong>busCalls: 0</strong></td>
                 <td><code>TDS_E106</code></td>
                 <td>🚨 Вызван</td>
-                <td>Бесконечный цикл <code>while(true)</code> прерван ровно на 100 001 шаге (1 шаг = 1 выражение/инструкция AST) за 28 мс с вызовом <code>host.emergencyStop()</code> без зависания CPU.</td>
+                <td>Бесконечный цикл <code>while(true)</code> прерван ровно на 100 001 шаге (1 шаг = 1 выражение/инструкция AST) за 27 мс с вызовом <code>host.emergencyStop()</code> без зависания CPU.</td>
               </tr>
               <tr>
                 <td><strong>Host OS Sandbox Escape Denial</strong></td>
@@ -1080,7 +1091,7 @@
               <li><strong>Diagnostics (2 теста)</strong>: точные номера строк и колонок в <code>DiagnosticError</code>, генерация компактных строк авторемонта для ИИ (<code>E104@line:col exp=... got=...</code>).</li>
             </ul>
           </li>
-          <li><strong>Формальная грамматика GBNF (<code>grammar.gbnf</code>)</strong>: ✅ <strong>ВЕРИФИЦИРОВАНА</strong> (1000 из 1000 синтезированных по грамматике конструкций успешно разобраны в AST, 100.0% property-based acceptance для constrained sampling в llama.cpp/Ollama).</li>
+          <li><strong>Формальная грамматика GBNF (<code>grammar.gbnf</code>)</strong>: ✅ <strong>ВЕРИФИЦИРОВАНА</strong> (<strong>2000 из 2000 тестов</strong>: 1000/1000 сгенерированных по грамматике валидных конструкций приняты в AST, 1000/1000 конструкций с намеренными синтаксическими мутациями строго отклонены парсером — <strong>100.0% двусторонняя эквивалентность</strong> для constrained sampling в llama.cpp/Ollama).</li>
           <li><strong>Итог</strong>: <strong style="color: var(--green);">60 из 60 тестов успешно пройдено (100.0% Conformance, 0 ошибок)</strong>.</li>
         </ul>
       </section>

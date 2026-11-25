@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-11-25T20:31:30.088028323",
-  "totalElapsedMs": 16329,
+  "timestamp": "2026-11-25T21:15:03.542546501",
+  "totalElapsedMs": 15995,
   "suites": 6,
   "coldStart": [
-    {"runtime": "TDscript (In-Process VM)", "mode": "In-Process VM (Pre-warmed JVM)", "p50Ms": 0.163211, "meanMs": 0.15864594, "minMs": 0.10144, "maxMs": 0.38654, "p95Ms": 0.232371, "notes": "Zero process spawn overhead; direct AST instantiation in embedded host"},
-    {"runtime": "TDscript (CLI Subprocess spawn)", "mode": "CLI Subprocess spawn (Java 17 JRE boot)", "p50Ms": 115.235902, "meanMs": 115.202065, "minMs": 95.647464, "maxMs": 134.96892, "p95Ms": 126.630062, "notes": "Full OS process launch: Java 17 JVM boot + TDscript AST parser & interpreter cold start"},
-    {"runtime": "C++ Native (g++ -O2)", "mode": "CLI Subprocess spawn (ELF binary)", "p50Ms": 2.167672, "meanMs": 2.12686406, "minMs": 1.165111, "maxMs": 2.653772, "p95Ms": 2.544832, "notes": "Static native binary without VM runtime overhead"},
-    {"runtime": "Lua 5.4", "mode": "CLI Subprocess spawn (C runtime)", "p50Ms": 2.921692, "meanMs": 2.92122198, "minMs": 2.030672, "maxMs": 3.626193, "p95Ms": 3.551214, "notes": "Compact C-based interpreter startup"},
-    {"runtime": "Python 3.14", "mode": "CLI Subprocess spawn (CPython)", "p50Ms": 20.739209, "meanMs": 19.12721018, "minMs": 13.685933, "maxMs": 24.061621, "p95Ms": 22.87678, "notes": "CPython interpreter boot and core module load"},
-    {"runtime": "JavaScript (Node.js 20)", "mode": "CLI Subprocess spawn (V8 engine)", "p50Ms": 29.739336, "meanMs": 31.08106438, "minMs": 22.968621, "maxMs": 49.696444, "p95Ms": 44.79892, "notes": "V8 engine bootstrap, libuv event loop initialization"},
-    {"runtime": "Kotlin / Java JVM", "mode": "CLI Subprocess spawn (JVM boot)", "p50Ms": 29.361226, "meanMs": 30.708063640000006, "minMs": 26.527374, "maxMs": 39.252245, "p95Ms": 37.352133, "notes": "Standard bare JVM process cold start (java -version)"}
+    {"runtime": "TDscript (In-Process VM)", "mode": "In-Process VM (Pre-warmed JVM)", "p50Ms": 0.16392, "meanMs": 0.17146860000000008, "minMs": 0.103941, "maxMs": 0.34011, "p95Ms": 0.26649, "notes": "Zero process spawn overhead; direct AST instantiation in embedded host"},
+    {"runtime": "TDscript (CLI Subprocess spawn)", "mode": "CLI Subprocess spawn (Java 17 JRE boot)", "p50Ms": 112.993122, "meanMs": 112.86778097999999, "minMs": 100.718737, "maxMs": 127.779408, "p95Ms": 123.659863, "notes": "Full OS process launch: Java 17 JVM boot + TDscript AST parser & interpreter cold start"},
+    {"runtime": "C++ Native (g++ -O2)", "mode": "CLI Subprocess spawn (ELF binary)", "p50Ms": 2.100892, "meanMs": 2.102964839999999, "minMs": 1.184641, "maxMs": 2.587123, "p95Ms": 2.471893, "notes": "Static native binary without VM runtime overhead"},
+    {"runtime": "Lua 5.4", "mode": "CLI Subprocess spawn (C runtime)", "p50Ms": 2.918253, "meanMs": 2.9265808200000003, "minMs": 2.082052, "maxMs": 3.335204, "p95Ms": 3.304684, "notes": "Compact C-based interpreter startup"},
+    {"runtime": "Python 3.14", "mode": "CLI Subprocess spawn (CPython)", "p50Ms": 21.317255, "meanMs": 20.09839918, "minMs": 12.945965, "maxMs": 23.844867, "p95Ms": 22.231566, "notes": "CPython interpreter boot and core module load"},
+    {"runtime": "JavaScript (Node.js 20)", "mode": "CLI Subprocess spawn (V8 engine)", "p50Ms": 32.019707, "meanMs": 33.09594948, "minMs": 24.007378, "maxMs": 47.558925, "p95Ms": 46.021144, "notes": "V8 engine bootstrap, libuv event loop initialization"},
+    {"runtime": "Kotlin / Java JVM", "mode": "CLI Subprocess spawn (JVM boot)", "p50Ms": 28.895463, "meanMs": 29.876878320000007, "minMs": 24.791548, "maxMs": 40.511498, "p95Ms": 35.933891, "notes": "Standard bare JVM process cold start (java -version)"}
   ],
   "throughput": [
-    {"runtime": "C++ Native (-O2 + volatile memory)", "iterations": 1000000, "elapsedMs": 4, "opsPerSec": 241138172, "verified": true, "optimizationNotes": "Enforced volatile variables force CPU memory access per iteration (no DCE, no closed-form)"},
-    {"runtime": "C++ Native (-O2 + volatile memory)", "iterations": 10000000, "elapsedMs": 30, "opsPerSec": 332016335, "verified": true, "optimizationNotes": "Enforced volatile variables force CPU memory access per iteration (no DCE, no closed-form)"},
-    {"runtime": "Lua 5.4", "iterations": 1000000, "elapsedMs": 20, "opsPerSec": 50000000, "verified": true, "optimizationNotes": "Bytecode register VM without JIT"},
-    {"runtime": "Lua 5.4", "iterations": 10000000, "elapsedMs": 210, "opsPerSec": 47619047, "verified": true, "optimizationNotes": "Bytecode register VM without JIT"},
-    {"runtime": "JavaScript (Node.js 20 V8)", "iterations": 1000000, "elapsedMs": 1, "opsPerSec": 1000000000, "verified": true, "optimizationNotes": "V8 TurboFan JIT with 1M iteration function-context warm-up (steady-state JIT)"},
-    {"runtime": "JavaScript (Node.js 20 V8)", "iterations": 10000000, "elapsedMs": 9, "opsPerSec": 1111111111, "verified": true, "optimizationNotes": "V8 TurboFan JIT with 1M iteration function-context warm-up (steady-state JIT)"},
-    {"runtime": "Python 3.14", "iterations": 1000000, "elapsedMs": 163, "opsPerSec": 6134969, "verified": true, "optimizationNotes": "Standard CPython 3.14 bytecode evaluation loop"},
-    {"runtime": "Python 3.14", "iterations": 10000000, "elapsedMs": 1676, "opsPerSec": 5966587, "verified": true, "optimizationNotes": "Standard CPython 3.14 bytecode evaluation loop"},
-    {"runtime": "TDscript (In-Process VM)", "iterations": 1000000, "elapsedMs": 330, "opsPerSec": 3030303, "verified": true, "optimizationNotes": "Tree-walk AST interpreter with per-statement StepLimiter check (15000000 step budget)"},
-    {"runtime": "TDscript (In-Process VM)", "iterations": 10000000, "elapsedMs": 2489, "opsPerSec": 4017677, "verified": true, "optimizationNotes": "Tree-walk AST interpreter with per-statement StepLimiter check (120000000 step budget)"}
+    {"runtime": "C++ Native (-O2 + volatile memory)", "iterations": 1000000, "elapsedMs": 5, "opsPerSec": 220896841, "verified": true, "optimizationNotes": "Enforced volatile variables force CPU memory access per iteration (no DCE, no closed-form)"},
+    {"runtime": "C++ Native (-O2 + volatile memory)", "iterations": 10000000, "elapsedMs": 27, "opsPerSec": 376477674, "verified": true, "optimizationNotes": "Enforced volatile variables force CPU memory access per iteration (no DCE, no closed-form)"},
+    {"runtime": "Lua 5.4", "iterations": 1000000, "elapsedMs": 19, "opsPerSec": 52631578, "verified": true, "optimizationNotes": "Bytecode register VM without JIT"},
+    {"runtime": "Lua 5.4", "iterations": 10000000, "elapsedMs": 237, "opsPerSec": 42194092, "verified": true, "optimizationNotes": "Bytecode register VM without JIT"},
+    {"runtime": "JavaScript (Node.js 20 V8)", "iterations": 1000000, "elapsedMs": 8, "opsPerSec": 125000000, "verified": true, "optimizationNotes": "V8 TurboFan with Float64Array typed memory (enforces memory access, prevents closed-form scalar folding)"},
+    {"runtime": "JavaScript (Node.js 20 V8)", "iterations": 10000000, "elapsedMs": 86, "opsPerSec": 116279069, "verified": true, "optimizationNotes": "V8 TurboFan with Float64Array typed memory (enforces memory access, prevents closed-form scalar folding)"},
+    {"runtime": "Python 3.14", "iterations": 1000000, "elapsedMs": 160, "opsPerSec": 6250000, "verified": true, "optimizationNotes": "Standard CPython 3.14 bytecode evaluation loop"},
+    {"runtime": "Python 3.14", "iterations": 10000000, "elapsedMs": 1662, "opsPerSec": 6016847, "verified": true, "optimizationNotes": "Standard CPython 3.14 bytecode evaluation loop"},
+    {"runtime": "TDscript (In-Process VM)", "iterations": 1000000, "elapsedMs": 324, "opsPerSec": 3086419, "verified": true, "optimizationNotes": "Tree-walk AST interpreter with per-statement StepLimiter check (15000000 step budget)"},
+    {"runtime": "TDscript (In-Process VM)", "iterations": 10000000, "elapsedMs": 2053, "opsPerSec": 4870920, "verified": true, "optimizationNotes": "Tree-walk AST interpreter with per-statement StepLimiter check (120000000 step budget)"}
   ],
   "memory": [
     {"runtime": "TDscript (In-Process Host)", "binarySizeKb": 135, "idleRssMb": 1.2, "peakRssMb": 4.3, "deltaRssMb": 3.1, "architectureNotes": "Standalone JAR 135 KB. In-process heap allocation delta in pre-warmed host"},
@@ -34,7 +34,7 @@
     {"scenario": "I2C Bus Address Whitelist", "passed": true, "busCallsDispatched": 0, "errorCode": "E104@line:col", "emergencyStopCalled": false, "description": "Reading from allowed 0x76 returns byte data; read to 0x68 strictly blocked before hardware dispatch (busCalls=0)."},
     {"scenario": "Modbus PLC Register Whitelist", "passed": true, "busCallsDispatched": 0, "errorCode": "E104@scope:modbus", "emergencyStopCalled": false, "description": "Reading register 100 succeeds (245); register 999 blocked at scope boundary (busCalls=0)."},
     {"scenario": "Serial Port Scope Whitelist", "passed": true, "busCallsDispatched": 0, "errorCode": "SCOPE_VIOLATION:serial", "emergencyStopCalled": false, "description": "Opening unapproved serial port /dev/ttyUSB99 blocked at HostSPI boundary (busCalls=0)."},
-    {"scenario": "Step Limiter DoS Protection", "passed": true, "busCallsDispatched": 0, "errorCode": "TDS_E106", "emergencyStopCalled": true, "description": "Execution terminated strictly at 100,001 steps in 28ms, triggering host.emergencyStop() with zero CPU hang."},
+    {"scenario": "Step Limiter DoS Protection", "passed": true, "busCallsDispatched": 0, "errorCode": "TDS_E106", "emergencyStopCalled": true, "description": "Execution terminated strictly at 100,001 steps in 27ms, triggering host.emergencyStop() with zero CPU hang."},
     {"scenario": "Host OS Sandbox Escape Denial", "passed": true, "busCallsDispatched": 0, "errorCode": "COMPILER_REJECT", "emergencyStopCalled": false, "description": "Grammar strictly isolates the script from JVM reflection, host process spawning, and OS access."},
     {"scenario": "Granular Capability Bitmask", "passed": true, "busCallsDispatched": 0, "errorCode": "PERMISSION_DENIED:I2C_WRITE", "emergencyStopCalled": false, "description": "Driver granted read-only rights is rejected before issuing I2C write transaction."}
   ],
