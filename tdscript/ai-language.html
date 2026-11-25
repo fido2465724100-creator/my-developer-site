@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDscript AI-First — Язык программирования, созданный для ИИ-агентов и LLM</title>
+  <meta name="description" content="Полное описание и архитектура TDscript AI-First: минимальный расход токенов, отсутствие галлюцинаций импортов, строгая песочница CapabilityScope, машиночитаемые ошибки и GBNF-грамматика." />
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <a href="../index.html" class="logo">⚡ Anton Mykhailov — Systems & TUI</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-ru" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-de" onclick="setLang('de')">DE</button>
+      <button class="lang-btn" id="btn-uk" onclick="setLang('uk')">UK</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <h1>🤖 TDscript AI-First (Experimental)</h1>
+    <p>Язык программирования нового поколения, спроектированный с нуля для генерации, верификации и самопочинки кода автономными нейросетями (LLM)</p>
+    <nav class="nav-bar">
+      <a href="index.html">🏠 Обзор платформы</a>
+      <a href="ai-language.html" class="active">🤖 Язык для ИИ</a>
+      <a href="language.html">📖 Спецификация (v1.0 / v1.4)</a>
+      <a href="examples.html">💡 10 задач автоматизации</a>
+      <a href="studio.html">📦 Студия и Загрузки</a>
+      <a href="benchmark.html">📊 ИИ-Бенчмарк</a>
+      <a href="../index.html">← На главную</a>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <div class="breadcrumbs">
+    <a href="../index.html">Портал разработчика</a> <span>/</span> <a href="index.html">TDscript</a> <span>/</span> <strong>Язык для ИИ (AI-First)</strong>
+  </div>
+
+  <div class="container">
+
+    <!-- ==================== RU VIEW ==================== -->
+    <div id="view-ru" class="lang-view active">
+
+      <!-- МАНИФЕСТ И ФИЛОСОФИЯ -->
+      <section class="card">
+        <h2>💡 Манифест: Зачем нужен специальный язык для ИИ?</h2>
+        <p>
+          Все существующие популярные языки программирования (<strong>C/C++, Python, JavaScript, Rust, Kotlin</strong>) создавались <strong>для человека</strong>:
+        </p>
+        <ul>
+          <li>Они оптимизированы под человеческое восприятие, гибкие абстракции, динамические импорты и сложный синтаксический сахар.</li>
+          <li>Для человека важны тысячи сторонних пакетов (PyPI, npm), но для компактной локальной нейросети (3B–9B параметров) это становится непреодолимым барьером.</li>
+        </ul>
+        <p>
+          В автономном цикле управления физическим оборудованием и робототехникой (<em>Agentic Loop</em>) традиционные языки страдают от фундаментальных проблем:
+        </p>
+
+        <div class="feature-grid" style="margin-top: 1.2rem;">
+          <div class="feature-box" style="border-left: 3px solid var(--red);">
+            <h4 style="color: var(--red);">❌ Галлюцинации библиотек и импортов</h4>
+            <p>В Python для работы с I2C модель может галлюцинировать <code>import smbus</code>, <code>smbus2</code>, <code>adafruit_bme280</code> или несуществующие методы. Ошибка импорта ломает весь цикл исполнения.</p>
+          </div>
+          <div class="feature-box" style="border-left: 3px solid var(--amber);">
+            <h4 style="color: var(--amber);">❌ Избыточный шаблонный код (Boilerplate)</h4>
+            <p>В C++ или Kotlin простая задача чтения регистра требует 15–20 строк обвязки (структуры, дескрипторы, includes, try-catch). Чем длиннее генерация, тем выше вероятность сбоя и тем больше токенов тратится впустую.</p>
+          </div>
+          <div class="feature-box" style="border-left: 3px solid var(--red);">
+            <h4 style="color: var(--red);">❌ Угроза аварии железа (Scope Leaks)</h4>
+            <p>Традиционные языки не имеют встроенных аппаратных ACL. Ошибившись в адресе устройства (например, записав в <code>0x68</code> вместо <code>0x76</code>), модель может необратимо сжечь подключенный датчик или привод.</p>
+          </div>
+          <div class="feature-box" style="border-left: 3px solid var(--amber);">
+            <h4 style="color: var(--amber);">❌ Неинформативные стектрейсы</h4>
+            <p>Многостраничные стектрейсы Python или ошибки линковки C++ перегружают контекстное окно модели, не давая четкой инструкции, какую именно строку и аргумент нужно исправить.</p>
+          </div>
+        </div>
+
+        <p style="margin-top: 1.4rem;">
+          <strong>TDscript AI-First (Experimental)</strong> решает эти проблемы на фундаментальном уровне. Это первый специализированный язык, где <strong>генератором кода является нейросеть</strong>, а <strong>исполнителем — строгая песочница безопасности</strong>.
+        </p>
+      </section>
+
+      <!-- 6 СТОЛПОВ AI-FIRST АРХИТЕКТУРЫ -->
+      <section class="card">
+        <h2>🛡️ 6 столпов архитектуры TDscript AI-First</h2>
+
+        <div class="feature-grid">
+          <div class="feature-box">
+            <h4>1. Экстремальный минимализм токенов (3.5–5.6 LOC)</h4>
+            <p>
+              Любая задача автоматизации выражается в <strong>3–5 строках чистого кода</strong>. Это в 2–3 раза компактнее Python и C++. Чем меньше токенов требуется сгенерировать модели, тем выше скорость инференса и ниже вероятность галлюцинаций.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <h4>2. Zero Imports — Аппаратные примитивы в ядре</h4>
+            <p>
+              В языке нет ключевых слов <code>import</code>, <code>#include</code> или <code>require</code>. Примитивы <code>I2C</code>, <code>MODBUS</code>, <code>BLE</code>, <code>PING</code> и <code>WATCHDOG</code> встроены в грамматику. Модель физически не может "забыть подключить библиотеку".
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <h4>3. Аппаратный мандат безопасности (CapabilityScope)</h4>
+            <p>
+              Перед запуском кода ядро передает скрипту мандат безопасности: разрешенные адреса I2C, порты и диапазоны регистров Modbus. Если модель пытается обратиться к неразрешенному узлу (например, <code>0x68</code> вместо <code>0x76</code>), рантайм моментально блокирует вызов и выдает ошибку безопасности без физического обращения к шине.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <h4>4. Машиночитаемый протокол диагностики ошибок</h4>
+            <p>
+              Вместо "человеческих" стектрейсов рантайм возвращает строгий компактный JSON диагностического протокола:
+              <code>{"code":"TDS_E104","expected":"0x76","actual":"0x68","suggestion":"..."}</code>. Модель мгновенно понимает причину ошибки и устраняет её с первой итерации.
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <h4>5. 100% Синтаксическая гарантия через GBNF</h4>
+            <p>
+              Грамматика TDscript AI-First формализована в файле GBNF (GGML BNF). При генерации через <code>llama-server</code> или Ollama движок на уровне семплирования токенов исключает любые синтаксические ошибки (0% Syntax Errors).
+            </p>
+          </div>
+
+          <div class="feature-box">
+            <h4>6. Мультиязычная проекция кода (Code Projection)</h4>
+            <p>
+              Модель генерирует код на лаконичном английском синтаксисе (<code>var</code>, <code>if</code>, <code>print</code>), а инженер-оператор на заводе в Германии или России может просматривать и редактировать его на немецком (<code>sei</code>, <code>wenn</code>, <code>drucken</code>) или русском (<code>пусть</code>, <code>если</code>, <code>печать</code>) в реальном времени благодаря обратимой AST-проекции.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- НАГЛЯДНОЕ СРАВНЕНИЕ КОДА -->
+      <section class="card">
+        <h2>⚔️ Наглядное сравнение: Python vs C++ vs TDscript AI-First</h2>
+        <p><strong>Задача</strong>: Прочитать Chip ID датчика BME280 по I2C (адрес <code>0x76</code>, регистр <code>0xD0</code>) и вывести в консоль.</p>
+
+        <div class="code-tabs">
+          <div class="tab-buttons">
+            <button class="tab-btn active" onclick="openCodeTab(event, 'cmp-tdscript')">TDscript AI-First (3 строки)</button>
+            <button class="tab-btn" onclick="openCodeTab(event, 'cmp-python')">Python (8 строк + зависимость)</button>
+            <button class="tab-btn" onclick="openCodeTab(event, 'cmp-cpp')">C++ Arduino (15 строк + обвязка)</button>
+          </div>
+
+          <div id="cmp-tdscript" class="code-tab-content active">
+            <pre><code>// TDscript AI-First: Ноль импортов, нативные шестнадцатеричные литералы и массивы
+val id = I2C.read(0x76, 0xD0, 1)
+print(id[0])</code></pre>
+            <p><span class="badge badge-green">Результат</span>: 2 токена на логику, 100% безопасность шины, гарантированное исполнение.</p>
+          </div>
+
+          <div id="cmp-python" class="code-tab-content">
+            <pre><code>import smbus2 # Модель часто галлюцинирует smbus вместо smbus2
+import time
+
+try:
+    bus = smbus2.SMBus(1)
+    chip_id = bus.read_byte_data(0x76, 0xD0)
+    print(chip_id)
+except Exception as e:
+    print(f"Error: {e}")</code></pre>
+            <p><span class="badge badge-amber">Проблема</span>: 8 строк, риск отсутствия библиотеки в системе, обработка дескриптора шины.</p>
+          </div>
+
+          <div id="cmp-cpp" class="code-tab-content">
+            <pre><code>#include &lt;Wire.h&gt;
+
+void setup() {
+    Serial.begin(115200);
+    Wire.begin();
+    Wire.beginTransmission(0x76);
+    Wire.write(0xD0);
+    Wire.endTransmission();
+    Wire.requestFrom(0x76, 1);
+    if (Wire.available()) {
+        uint8_t chip_id = Wire.read();
+        Serial.println(chip_id);
+    }
+}
+void loop() {}</code></pre>
+            <p><span class="badge badge-red">Проблема</span>: 15 строк, ручное управление транзакциями шины, риск зависания контроллера.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ПОЛНАЯ СПЕЦИФИКАЦИЯ СИНТАКСИСА ДЛЯ ИИ -->
+      <section class="card">
+        <h2>📖 Спецификация синтаксиса TDscript AI-First</h2>
+
+        <h3>1. Литералы и типы данных</h3>
+        <ul>
+          <li><strong>Числа</strong>: Десятичные (<code>42</code>, <code>3.14</code>) и шестнадцатеричные адреса и байты (<code>0x76</code>, <code>0xD0</code>, <code>0xFF</code>).</li>
+          <li><strong>Строки</strong>: Одинарные и двойные кавычки (<code>"POLL_OK"</code>, <code>'sensor_01'</code>).</li>
+          <li><strong>Логические</strong>: <code>true</code>, <code>false</code>.</li>
+          <li><strong>Массивы байт (ByteArray)</strong>: Возвращаются методами ввода-вывода (<code>I2C.read</code>). Доступ по индексу: <code>data[0]</code>, размер: <code>data.length</code>.</li>
+          <li><strong>Локализованные ресурсы (LString)</strong>: <code>LString("ALERT_TEMP", temp=24.5)</code>. Не допускает прямой конкатенации строк, что исключает ошибки локализации.</li>
+        </ul>
+
+        <h3>2. Управляющие конструкции</h3>
+        <pre><code>// Объявление переменных (неизменяемые val и изменяемые var)
+val targetAddr = 0x76
+var counter = 0
+
+// Ветвление
+if (temp > 250) {
+    MODBUS.write('127.0.0.1', 101, 0)
+} else {
+    print("Normal mode")
+}
+
+// Циклы
+while (counter < 5) {
+    WATCHDOG.feed()
+    counter = counter + 1
+}</code></pre>
+
+        <h3>3. Встроенная аппаратно-сетевая библиотека</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Метод</th>
+                <th>Сигнатура</th>
+                <th>Описание</th>
+                <th>Защита Scope</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>I2C.read</code></td>
+                <td><code>I2C.read(addr, reg, len): ByteArray</code></td>
+                <td>Чтение <code>len</code> байт из регистра I2C датчика</td>
+                <td>Проверка адреса <code>addr</code> в белом списке</td>
+              </tr>
+              <tr>
+                <td><code>I2C.write</code></td>
+                <td><code>I2C.write(addr, reg, data): Boolean</code></td>
+                <td>Запись байта или массива байт в регистр</td>
+                <td>Проверка адреса <code>addr</code> в белом списке</td>
+              </tr>
+              <tr>
+                <td><code>MODBUS.read</code></td>
+                <td><code>MODBUS.read(host, register): Number</code></td>
+                <td>Чтение регистра промышленного контроллера (Modbus TCP)</td>
+                <td>Проверка диапазона регистров</td>
+              </tr>
+              <tr>
+                <td><code>MODBUS.write</code></td>
+                <td><code>MODBUS.write(host, register, val): Boolean</code></td>
+                <td>Запись значения в управляющий регистр (PLC / насос / ТЭН)</td>
+                <td>Проверка разрешения на запись</td>
+              </tr>
+              <tr>
+                <td><code>BLE.connect</code></td>
+                <td><code>BLE.connect(deviceId, command): String</code></td>
+                <td>Подключение и обмен данными с Bluetooth LE датчиком</td>
+                <td>Проверка разрешенного Device ID</td>
+              </tr>
+              <tr>
+                <td><code>PING.check</code></td>
+                <td><code>PING.check(host): Number</code></td>
+                <td>Сетевой ICMP-пинг узла (возвращает RTT в мс или -1)</td>
+                <td>Проверка сетевой подсети</td>
+              </tr>
+              <tr>
+                <td><code>WATCHDOG.feed</code></td>
+                <td><code>WATCHDOG.feed()</code></td>
+                <td>Сброс аппаратного сторожевого таймера защиты от зависания</td>
+                <td>Всегда доступен</td>
+              </tr>
+              <tr>
+                <td><code>WATCHDOG.emergencyStop</code></td>
+                <td><code>WATCHDOG.emergencyStop()</code></td>
+                <td>Немедленный аварийный останов всех систем (E-Stop)</td>
+                <td>Всегда доступен</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>4. Протокол самоисправления ошибок (Self-Repair Diagnostic Protocol)</h3>
+        <p>
+          Когда сгенерированный ИИ-моделью код нарушает правила безопасности или содержит синтаксическую ошибку, компилятор не падает со стектрейсом, а возвращает структурированный контекст исправления:
+        </p>
+        <pre><code>{
+  "status": "ERROR",
+  "error_code": "TDS_E104_SCOPE_VIOLATION",
+  "line": 1,
+  "column": 19,
+  "message": "Access to I2C address 0x68 is forbidden by CapabilityScope",
+  "expected": "0x76",
+  "actual": "0x68",
+  "suggestion": "Replace I2C device address 0x68 with authorized address 0x76"
+}</code></pre>
+        <p>
+          В сжатом режиме (<strong>Compact Repair</strong>), используемом в TDscript Studio для экономии токенов, ошибка передается в виде:
+          <code>E104@1:19 exp=0x76 got=0x68</code>. Подобная компактная обратная связь позволяет локальной модели исправить код за 1 итерацию, снижая расход токенов на 45%.
+        </p>
+      </section>
+
+      <!-- ПРИМЕР АВТОНОМНОГО АГЕНТА -->
+      <section class="card">
+        <h2>🤖 Интеграция в автономный цикл агента (Agentic Loop)</h2>
+        <p>
+          В модуле <code>com.tdscript.studio.agent</code> реализован полный цикл автономной генерации и исполнения:
+        </p>
+        <ol>
+          <li><strong>Discovery Snapshot</strong>: Среда опрашивает аппаратный стенд (<code>sandbox.probe()</code>) и передает модели контекст доступных датчиков: <code>[I2C @ 0x76 (BME280), Modbus @ 127.0.0.1:502 (Regs 100..200)]</code>.</li>
+          <li><strong>LLM Generation</strong>: Модель генерирует компактный скрипт на TDscript AI-First (с GBNF-валидацией).</li>
+          <li><strong>Sandbox Verification</strong>: Скрипт выполняется в изолированной песочнице с эмуляцией шин и проверкой <code>CapabilityScope</code>.</li>
+          <li><strong>Diagnostic Feedback</strong>: Если возникла ошибка или неверный вывод, диагностический JSON автоматически передается на вход модели для самоисправления.</li>
+          <li><strong>Deployment</strong>: Проверенный код моментально передается на реальный контроллер или мобильное устройство.</li>
+        </ol>
+      </section>
+
+    </div>
+
+    <!-- ==================== EN VIEW ==================== -->
+    <div id="view-en" class="lang-view">
+      <section class="card">
+        <h2>🤖 TDscript AI-First Language Architecture</h2>
+        <p>A programming language designed specifically for autonomous AI agents and local Large Language Models (3B–9B).</p>
+        
+        <h3>Why AI Needs Its Own Language</h3>
+        <p>Traditional programming languages were designed for human developers, leading to hallucinations, dependency issues, and oversized token consumption when used with LLMs. TDscript AI-First eliminates imports, provides native hardware primitives, guarantees syntax through GBNF grammar, and enforces strict security via <code>CapabilityScope</code>.</p>
+        
+        <h3>Key Metrics from Benchmark</h3>
+        <ul>
+          <li><strong>Average LOC</strong>: 3.5 – 5.6 lines per task (vs 8.5–9.7 in Python and 11–15 in C++).</li>
+          <li><strong>Token Cost / Success</strong>: 2275 tokens (45% cheaper than traditional scripting).</li>
+          <li><strong>Syntax Errors</strong>: 0% thanks to formal GBNF grammars.</li>
+          <li><strong>Scope Safety</strong>: Automatic hardware sandbox intercepting unauthorized peripheral access.</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- ==================== DE VIEW ==================== -->
+    <div id="view-de" class="lang-view">
+      <section class="card">
+        <h2>🤖 TDscript AI-First: Die Sprache für KI-Agenten</h2>
+        <p>Eine revolutionäre Programmiersprache für Edge-Automatisierung und Robotik, die speziell für Large Language Models (LLMs) entwickelt wurde.</p>
+        <ul>
+          <li><strong>Zero Imports</strong>: Native I2C-, Modbus- und BLE-Befehle ohne Halluzinationen.</li>
+          <li><strong>CapabilityScope</strong>: Integrierte Sicherheitssandbox verhindert Schäden an physischer Hardware.</li>
+          <li><strong>Kompakter Code</strong>: Nur 3.5 bis 5.6 Zeilen pro Aufgabe.</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- ==================== UK VIEW ==================== -->
+    <div id="view-uk" class="lang-view">
+      <section class="card">
+        <h2>🤖 TDscript AI-First: Мова програмування для ШІ-агентів</h2>
+        <p>Спеціалізована мова автоматизації нового покоління, створена для генерації, верифікації та автовиправлення коду автономними нейромережами (LLM).</p>
+        <ul>
+          <li><strong>Мінімальний розхід токенів</strong>: усього 3.5–5.6 рядків на задачу (у 2–3 рази менше ніж Python та C++).</li>
+          <li><strong>Zero Imports</strong>: вбудовані апаратні примітиви I2C, Modbus, BLE, Ping, Watchdog.</li>
+          <li><strong>Пісочниця безпеки CapabilityScope</strong>: апаратний контроль доступу захищає контролери від збоїв.</li>
+          <li><strong>Машиночитані помилки</strong>: компактний діагностичний JSON для ремонту коду з першої спроби.</li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      &copy; 2026 Anton Mykhailov. Halberstadt, Germany. | <a href="../index.html#impressum">Impressum</a> | <a href="../index.html#datenschutz">Datenschutz</a>
+    </div>
+
+  </div>
+
+  <script src="../js/site.js"></script>
+</body>
+</html>

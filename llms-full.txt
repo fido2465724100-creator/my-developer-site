@@ -3,6 +3,8 @@
 > Author: Anton Mykhailov (Halberstadt, Germany)
 > Canonical Repository: TDModules (v1.4.0) & TDscript-Studio (v1.1.0)
 > Website: https://fido2465724100-creator.github.io/my-developer-site/
+> AI-First Language Portal: https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
+> Benchmark (Test #3 & Test #4): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 
 ---
 

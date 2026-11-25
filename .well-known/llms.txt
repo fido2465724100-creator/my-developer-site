@@ -6,10 +6,11 @@
 > Full LLM Documentation: https://fido2465724100-creator.github.io/my-developer-site/llms-full.txt
 > TDscript Multi-Page Portal:
 >   - Ecosystem Hub: https://fido2465724100-creator.github.io/my-developer-site/tdscript/
+>   - AI-First Language (Architecture & Manifesto): https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
 >   - Language Specification (v1.4.0 & v1.0.1): https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html
 >   - 10 Automation Scenarios & Examples: https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html
 >   - TDscript Studio IDE & Binary Packages: https://fido2465724100-creator.github.io/my-developer-site/tdscript/studio.html
->   - Global LLM Benchmark (Test #3): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
+>   - Global LLM Benchmark (Tests #3 & #4): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 
 ## Overview & Core Philosophy
 Anton Mykhailov specializes in systems programming, device & chip orchestration, and high-efficiency architectures:
