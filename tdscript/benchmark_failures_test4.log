@@ -1,0 +1,2489 @@
+=== TDscript Benchmark Failures Log ===
+Started: 2026-11-24T18:56:16.107814418Z
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 1 (BME280 Chip ID Read) | Attempt: 1/3
+Timestamp: 2026-11-24T18:56:41.870454647Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 1/3
+Timestamp: 2026-11-24T18:57:28.032752355Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 2/3
+Timestamp: 2026-11-24T18:57:53.387766067Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 3/3
+Timestamp: 2026-11-24T18:58:18.860452802Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 1/3
+Timestamp: 2026-11-24T18:58:44.160328924Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 2/3
+Timestamp: 2026-11-24T18:59:09.562678972Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 3/3
+Timestamp: 2026-11-24T18:59:35.016379463Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-24T18:59:59.935664008Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 2/3
+Timestamp: 2026-11-24T19:00:25.048997143Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 3/3
+Timestamp: 2026-11-24T19:00:31.651715893Z
+--- RAW GENERATED CODE ---
+let i = 0;
+while (i < 5) {
+    PLC.modbusRead("127.0.0.1", 100);
+    WATCHDOG.feed();
+    i++;
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E107_OUTPUT_MISMATCH",
+  "line": 1,
+  "column": 1,
+  "message": "Expected output containing [feed, 100], but stdout was empty",
+  "expected": "expected output",
+  "actual": "Expected output containing [feed, 100], ",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 5 (Localized Notification Resource) | Attempt: 1/3
+Timestamp: 2026-11-24T19:00:56.566716340Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 5 (Localized Notification Resource) | Attempt: 2/3
+Timestamp: 2026-11-24T19:01:21.658961938Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 5 (Localized Notification Resource) | Attempt: 3/3
+Timestamp: 2026-11-24T19:01:36.105331890Z
+--- RAW GENERATED CODE ---
+let temp = 24.5;
+let notification = LString: L"ALERT_TEMP:Temperature is {temp}";
+print(notification);
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "LexerException: LexerError: Unexpected token ':' at line 2, col 27",
+  "expected": "valid syntax",
+  "actual": "LexerException: LexerError: Un",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 1/3
+Timestamp: 2026-11-24T19:02:01.077943811Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 2/3
+Timestamp: 2026-11-24T19:02:26.156957145Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:03:00.801527882Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 2/3
+Timestamp: 2026-11-24T19:03:25.914053516Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 3/3
+Timestamp: 2026-11-24T19:03:51.111543173Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 8 (I2C Configuration Register Write) | Attempt: 1/3
+Timestamp: 2026-11-24T19:04:16.241639039Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 8 (I2C Configuration Register Write) | Attempt: 2/3
+Timestamp: 2026-11-24T19:04:40.029047029Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 8 (I2C Configuration Register Write) | Attempt: 3/3
+Timestamp: 2026-11-24T19:05:04.542576831Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-24T19:05:28.587990857Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-24T19:05:52.746977928Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-24T19:06:16.683867038Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-24T19:06:40.705214250Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-24T19:07:04.312862126Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "Extraction resulted in empty code block",
+  "expected": "valid syntax",
+  "actual": "Extraction resulted in empty c",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Base (v1.4.0) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-24T19:07:28.192166181Z
+--- RAW GENERATED CODE ---
+let allowedChip = 0x76;
+let allowedRegMin = 100;
+let allowedRegMax = 200;
+
+// Attempt operation with potential forbidden address detection
+if (true) {
+    // Simulate reading from potentially forbidden chip address
+    let chip = 0x68; // Forbidden chip address
+    
+    // Self-repair: Check and correct chip address
+    if (chip != allowedChip) {
+        print("Self-repair: Detected forbidden chip " + chip);
+        chip = allowedChip;
+    }
+    
+    // Simulate reading from potentially forbidden register
+    let reg = 50; // Outside allowed range
+    
+    // Self-repair: Check and correct register address
+    if (reg < allowedRegMin || reg > allowedRegMax) {
+        print("Self-repair: Detected forbidden register " + reg);
+        reg = allowedRegMin;
+    }
+    
+    // Perform allowed I2C operation
+    let i2cResult = I2C.read(chip, reg, 1);
+    print("I2C read result: " + i2cResult);
+    
+    // Perform allowed Modbus operation
+    let modbusResult = PLC.modbusRead("127.0.0.1", reg);
+    print("Modbus read result: " + modbusResult);
+    
+    // Alert if self-repair occurred
+    if (chip != allowedChip || reg != allowedRegMin) {
+        print(L"ALERT_TEMP:Self-repair activated for address correction");
+    }
+}
+
+// Continuous monitoring loop
+while (true) {
+    WATCHDOG.feed();
+    
+    // Periodic check for capability violations
+    if (true) {
+        // Verify current chip is still within scope
+        let currentChip = allowedChip;
+        if (currentChip != allowedChip) {
+            print("CRITICAL: Chip scope violation detected");
+            WATCHDOG.emergencyStop();
+        }
+    }
+    
+    // Allow script to run for monitoring
+    if (true) {
+        break;
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+{
+  "status": "ERROR",
+  "error_code": "TDS_E101_SYNTAX_ERROR",
+  "line": 1,
+  "column": 1,
+  "message": "ParseException: ParseError: Expected '}', got EOF at line 55, col 15 (token: EOF)",
+  "expected": "valid syntax",
+  "actual": "ParseException: ParseError: Ex",
+  "suggestion": ""
+}
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 1/3
+Timestamp: 2026-11-24T19:08:07.344737503Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 2/3
+Timestamp: 2026-11-24T19:08:31.207585790Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 3/3
+Timestamp: 2026-11-24T19:08:54.812047449Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 1/3
+Timestamp: 2026-11-24T19:09:18.741120265Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 2/3
+Timestamp: 2026-11-24T19:09:42.318185915Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 3/3
+Timestamp: 2026-11-24T19:10:06.895444972Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-24T19:10:30.472866842Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 2/3
+Timestamp: 2026-11-24T19:10:54.244421813Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 3/3
+Timestamp: 2026-11-24T19:11:17.798872709Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 5 (Localized Notification Resource) | Attempt: 1/3
+Timestamp: 2026-11-24T19:11:41.342523888Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 5 (Localized Notification Resource) | Attempt: 2/3
+Timestamp: 2026-11-24T19:12:05.339459438Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 5 (Localized Notification Resource) | Attempt: 3/3
+Timestamp: 2026-11-24T19:12:28.962158667Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 1/3
+Timestamp: 2026-11-24T19:12:52.484360204Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 2/3
+Timestamp: 2026-11-24T19:13:16.079846768Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 3/3
+Timestamp: 2026-11-24T19:13:39.661751234Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:14:03.186337096Z
+--- RAW GENERATED CODE ---
+let pingResult = NET.ping("192.168.1.50");
+if (pingResult > 0) {
+    let modbusValue = PLC.mod
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=ParseException: ParseError: Expected '}'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 2/3
+Timestamp: 2026-11-24T19:14:27.012718693Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 8 (I2C Configuration Register Write) | Attempt: 1/3
+Timestamp: 2026-11-24T19:14:57.042755034Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 8 (I2C Configuration Register Write) | Attempt: 2/3
+Timestamp: 2026-11-24T19:15:20.595440132Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 8 (I2C Configuration Register Write) | Attempt: 3/3
+Timestamp: 2026-11-24T19:15:44.171562497Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-24T19:16:07.744204305Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-24T19:16:31.268232775Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-24T19:16:54.845447983Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-24T19:17:18.449422694Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-24T19:17:41.971318360Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript Experimental (AI-First) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-24T19:18:05.536905964Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 1 (BME280 Chip ID Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:18:29.491504759Z
+--- RAW GENERATED CODE ---
+from mock_hw import I2C, PLC, WATCHDOG, NET, BT
+
+# Read BME280 Chip ID via I2C (Address 0x76, Register 0xD0)
+chip_id_data = I2C.read(0x76, 0xD0, 1)
+
+# Print the result
+if chip_id_data:
+    print(f"BME280 Chip ID: {chip_id_data[0]}")
+else:
+    print("Failed to
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+  File "/tmp/bench_py_15281038102689830141.py", line 10
+    print("Failed to
+          ^
+SyntaxError: unterminated string literal (detected at line 10)
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 1/3
+Timestamp: 2026-11-24T19:18:58.632347424Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 2/3
+Timestamp: 2026-11-24T19:19:22.054518560Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 1/3
+Timestamp: 2026-11-24T19:19:54.361774581Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 2/3
+Timestamp: 2026-11-24T19:20:17.729588738Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 3/3
+Timestamp: 2026-11-24T19:20:41.186674424Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-24T19:21:04.716719497Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 2/3
+Timestamp: 2026-11-24T19:21:25.228593861Z
+--- RAW GENERATED CODE ---
+from mock_hw import I2C, PLC, WATCHDOG, NET, BT
+
+HOST = "localhost"
+REG = 100
+
+for _ in range(5):
+    value = PLC.modbus_read(HOST, REG)
+    WATCHDOG.feed()
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Expected output containing [feed, 100], but stdout was empty
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 5 (Localized Notification Resource) | Attempt: 1/3
+Timestamp: 2026-11-24T19:21:58.764297738Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 5 (Localized Notification Resource) | Attempt: 2/3
+Timestamp: 2026-11-24T19:22:22.144481610Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 5 (Localized Notification Resource) | Attempt: 3/3
+Timestamp: 2026-11-24T19:22:45.622222418Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 6 (BLE Sensor Connect & Query) | Attempt: 1/3
+Timestamp: 2026-11-24T19:23:09.153069172Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 6 (BLE Sensor Connect & Query) | Attempt: 2/3
+Timestamp: 2026-11-24T19:23:32.538928465Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 6 (BLE Sensor Connect & Query) | Attempt: 3/3
+Timestamp: 2026-11-24T19:23:55.968449956Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:24:19.483251098Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 8 (I2C Configuration Register Write) | Attempt: 1/3
+Timestamp: 2026-11-24T19:25:03.990595039Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 8 (I2C Configuration Register Write) | Attempt: 2/3
+Timestamp: 2026-11-24T19:25:27.344883869Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 8 (I2C Configuration Register Write) | Attempt: 3/3
+Timestamp: 2026-11-24T19:25:50.749343259Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-24T19:26:14.251174255Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-24T19:26:37.592060118Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-24T19:27:00.952014949Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-24T19:27:24.512675113Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-24T19:27:47.909297338Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Python | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-24T19:28:11.477007996Z
+--- RAW GENERATED CODE ---
+from mock_hw import I2C, PLC, WATCHDOG, NET, BT
+
+def repair_capability_scope():
+    """Self-repair function to ensure operations stay within allowed scope"""
+    allowed_i2c_addr = 0x76
+    allowed_modbus_regs = range(100, 201)
+    
+    # Simulate checking for forbidden I2C address
+    if hasattr(I2C, 'last_addr') and I2C.last_addr != allowed_i2c_addr:
+        I2C.last_addr = allowed_i2c_addr
+        print(f"[REPAIR] Corrected I2C address from {I2C.last_addr} to {allowed_i2c_addr}")
+    
+    # Simulate checking for forbidden Modbus register
+    if hasattr(PLC, 'last_reg') and not (100 <= PLC.last_reg <= 200):
+        PLC.last_reg = 150  # Default to middle of allowed range
+        print(f"[REPAIR] Corrected Modbus register from {PLC.last_reg} to {PLC.last_reg}")
+
+def main():
+    """Execute sequential operations within capability scope"""
+    
+    # Initialize watchdog for safety
+    WATCHDOG.feed()
+    
+    # Self-repair check before operations
+    repair_capability_scope()
+    
+    # Operation 1: Read from allowed I2C address (0x76)
+    try:
+        data = I2C.read(addr=0x76, reg=0x00, length=4)
+        print(f"[I2C] Read from 0x76: {data}")
+    except Exception as e:
+        print(f"[ERROR] I2C operation failed: {e}")
+        repair_capability_scope()
+        data = I2C.read(addr=0x76, reg=0x00, length=4)
+        print(f"[RECOVERED] Read from 0x76: {data}")
+    
+    # Operation 2: Write to allowed I2C address (0x76)
+    try:
+        result = I2C.write(addr=0x76, reg=0x01, data=[0xAA, 0xBB])
+        print(f"[I2C] Write to 0x76: {result}")
+    except Exception as e:
+        print(f"[ERROR] I2C write failed: {e}")
+        repair_capability_scope()
+        result = I2C.write(addr=0x76, reg=0x01, data=[0xAA, 0xBB])
+        print(f"[RECOVERED] Write to 0x76: {result}")
+    
+    # Operation 3: Attempt forbidden I2C address (0x68) - should trigger self-repair
+    try:
+        forbidden_data = I2C.read(addr=0x68, reg=0x00, length=4)
+        print(f"[FORBIDDEN] Attempted read from 0x68: {forbidden_data}")
+    except Exception as e:
+        print(f"[CAPABILITY] Caught forbidden address attempt: {e}")
+        repair_capability_scope()
+        # Retry with allowed address
+        data = I2C.read(addr=0x76, reg=0x00, length=4)
+        print(f"[REPAIRED] Read from allowed 0x76: {data}")
+    
+    # Operation 4: Modbus read within allowed range (100-200)
+    try:
+        val = PLC.modbus_read(host="localhost", reg=150)
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+  File "/tmp/bench_py_290165866038279928.py", line 60
+    val = PLC.modbus_read(host="localhost", reg=150)
+SyntaxError: expected 'except' or 'finally' block
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 1 (BME280 Chip ID Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:28:35.197943364Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 1 (BME280 Chip ID Read) | Attempt: 2/3
+Timestamp: 2026-11-24T19:28:58.588895015Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 1 (BME280 Chip ID Read) | Attempt: 3/3
+Timestamp: 2026-11-24T19:29:22.006309205Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 1/3
+Timestamp: 2026-11-24T19:29:45.538687396Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 2/3
+Timestamp: 2026-11-24T19:30:08.936934104Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 3/3
+Timestamp: 2026-11-24T19:30:32.372164343Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 1/3
+Timestamp: 2026-11-24T19:30:55.921474561Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 2/3
+Timestamp: 2026-11-24T19:31:19.365935140Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 3/3
+Timestamp: 2026-11-24T19:31:42.786763837Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-24T19:32:06.329294741Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 2/3
+Timestamp: 2026-11-24T19:32:29.692724002Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 3/3
+Timestamp: 2026-11-24T19:32:53.109561341Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 5 (Localized Notification Resource) | Attempt: 1/3
+Timestamp: 2026-11-24T19:33:16.632512402Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 5 (Localized Notification Resource) | Attempt: 2/3
+Timestamp: 2026-11-24T19:33:40.026552380Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 5 (Localized Notification Resource) | Attempt: 3/3
+Timestamp: 2026-11-24T19:34:03.477403373Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 1/3
+Timestamp: 2026-11-24T19:34:26.984451429Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 2/3
+Timestamp: 2026-11-24T19:34:50.377594126Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:35:37.190085516Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 2/3
+Timestamp: 2026-11-24T19:36:00.588032643Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 3/3
+Timestamp: 2026-11-24T19:36:24.008775710Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 8 (I2C Configuration Register Write) | Attempt: 1/3
+Timestamp: 2026-11-24T19:36:47.562869709Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 8 (I2C Configuration Register Write) | Attempt: 2/3
+Timestamp: 2026-11-24T19:37:10.966607669Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 8 (I2C Configuration Register Write) | Attempt: 3/3
+Timestamp: 2026-11-24T19:37:34.721796468Z
+--- RAW GENERATED CODE ---
+#include "mock_hw.hpp"
+#include <iostream>
+
+int main() {
+    WATCHDOG::feed();
+
+    bool success = I2C::write(0x76, 0xF4, 0x00);
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+C++ Compilation error:
+/tmp/bench_cpp_15262171611891381239.cpp: In function ‘int main()’:
+/tmp/bench_cpp_15262171611891381239.cpp:7:49: error: expected ‘}’ at end of input
+    7 |     bool success = I2C::write(0x76, 0xF4, 0x00);
+      |                                                 ^
+/tmp/bench_cpp_15262171611891381239.cpp:4:12: note: to match this ‘{’
+    4 | int main() {
+      |            ^
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-24T19:37:58.296214732Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-24T19:38:21.686561092Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-24T19:38:45.082085574Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-24T19:39:08.720420048Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-24T19:39:32.093850581Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: C++ (Arduino/ESP32 style) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-24T19:39:55.528807279Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 1 (BME280 Chip ID Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:40:19.196415047Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 1 (BME280 Chip ID Read) | Attempt: 2/3
+Timestamp: 2026-11-24T19:40:32.136387838Z
+--- RAW GENERATED CODE ---
+local hw = require("mock_hw")
+
+local chipId = hw.I2C.read(0x76, 0xD0, 1)
+print(chipId)
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Expected output containing [96, 0x60], but got: 'table: 0x5c207a4a5f30'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 1/3
+Timestamp: 2026-11-24T19:41:07.160125689Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 2/3
+Timestamp: 2026-11-24T19:41:30.543658704Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 3/3
+Timestamp: 2026-11-24T19:41:53.940497289Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 1/3
+Timestamp: 2026-11-24T19:42:17.445208500Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 2/3
+Timestamp: 2026-11-24T19:42:40.829472427Z
+--- RAW GENERATED CODE ---
+local hw = require("mock_hw")
+
+local sensor_data
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Expected output containing [POLL_OK, 0x76], but stdout was empty
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 3/3
+Timestamp: 2026-11-24T19:43:04.313854504Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-24T19:43:27.811267648Z
+--- RAW GENERATED CODE ---
+local hw = require("mock_hw")
+
+for
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+lua: /tmp/bench_lua_14686128499197858071.lua:3: <name> expected near <eof>
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 2/3
+Timestamp: 2026-11-24T19:43:51.316725581Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 3/3
+Timestamp: 2026-11-24T19:43:57.385242983Z
+--- RAW GENERATED CODE ---
+local hw = require("mock_hw")
+
+for i = 1, 5 do
+    local val = hw.PLC.modbus_read("host", 100)
+    hw.WATCHDOG.feed()
+end
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Expected output containing [feed, 100], but stdout was empty
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 5 (Localized Notification Resource) | Attempt: 1/3
+Timestamp: 2026-11-24T19:44:20.896009716Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 5 (Localized Notification Resource) | Attempt: 2/3
+Timestamp: 2026-11-24T19:44:44.319028908Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 5 (Localized Notification Resource) | Attempt: 3/3
+Timestamp: 2026-11-24T19:45:07.668369419Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 6 (BLE Sensor Connect & Query) | Attempt: 1/3
+Timestamp: 2026-11-24T19:45:31.069094602Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 6 (BLE Sensor Connect & Query) | Attempt: 2/3
+Timestamp: 2026-11-24T19:45:54.452041095Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 8 (I2C Configuration Register Write) | Attempt: 1/3
+Timestamp: 2026-11-24T19:46:57.756192112Z
+--- RAW GENERATED CODE ---
+local hw = require("mock_hw")
+
+local success = hw.I2C.write(0x76,
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+lua: /tmp/bench_lua_17114355551052178197.lua:3: unexpected symbol near <eof>
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-24T19:47:26.160459779Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-24T19:47:50.061282440Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-24T19:48:13.474688346Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-24T19:48:37.007634218Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-24T19:49:00.375134720Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Lua | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-24T19:49:23.795742873Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 1/3
+Timestamp: 2026-11-24T19:50:10.912096861Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 2/3
+Timestamp: 2026-11-24T19:50:34.310099959Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 1/3
+Timestamp: 2026-11-24T19:51:08.703940527Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 2/3
+Timestamp: 2026-11-24T19:51:32.109494394Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 3/3
+Timestamp: 2026-11-24T19:51:55.507966092Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-24T19:52:18.989647217Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 2/3
+Timestamp: 2026-11-24T19:52:42.418758612Z
+--- RAW GENERATED CODE ---
+const { I2C, PLC, WATCHDOG, NET, BT } = require('./mock_hw');
+
+const iterations = 5;
+
+for (let i =
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+/home/anton/TDscript-Studio/benchmark/mocks/bench_js_5304321509533420417.js:5
+for (let i =
+            
+
+SyntaxError: Unexpected end of input
+    at wrapSafe (node:internal/modules/cjs/loader:1464:18)
+    at Module._compile (node:internal/modules/cjs/loader:1495:20)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.20.2
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 3/3
+Timestamp: 2026-11-24T19:52:46.554472869Z
+--- RAW GENERATED CODE ---
+const { I2C, PLC, WATCHDOG, NET, BT } = require('./mock_hw');
+
+const iterations = 5;
+
+for (let i = 0; i < iterations; i++) {
+    const value = PLC.modbusRead('host', 100);
+    WATCHDOG.feed();
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Expected output containing [feed, 100], but stdout was empty
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 5 (Localized Notification Resource) | Attempt: 1/3
+Timestamp: 2026-11-24T19:53:10.060410304Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 5 (Localized Notification Resource) | Attempt: 2/3
+Timestamp: 2026-11-24T19:53:33.469526828Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 5 (Localized Notification Resource) | Attempt: 3/3
+Timestamp: 2026-11-24T19:53:51.186529689Z
+--- RAW GENERATED CODE ---
+// Localized Notification Resource - Task ID: 5
+const { I2C, PLC, WATCHDOG, NET, BT } = require('./mock_hw');
+
+// Notification parameters
+const ALERT_TEMP_KEY = 'ALERT_TEMP';
+const TEMP_VALUE = 24.5;
+
+// Create localized notification using LString format (template with parameter)
+const notificationTemplate = `ALERT_TEMP: ${TEMP_VALUE}`;
+
+// Feed watchdog to ensure system responsiveness
+WATCHDOG.feed();
+
+// Ping network to verify connectivity for notification delivery
+const networkStatus = NET.ping('localhost');
+
+// Print the localized notification message
+console.log(`[${ALERT_TEMP_KEY}] Temperature Alert: ${TEMP_VALUE}°C`);
+
+// Write notification status to PLC for persistence
+PLC.modbusWrite('PLC_HOST', 1);
+
+// Send notification data via BT module
+const btResult = BT.send(notificationTemplate);
+
+// Complete task execution
+console.log('Notification created and sent successfully');
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+/home/anton/TDscript-Studio/benchmark/mocks/mock_hw.js:31
+    if (reg < 100 || reg > 200) throw new Error(`SCOPE_VIOLATION: Modbus register ${reg} not in scope`);
+                                ^
+
+Error: SCOPE_VIOLATION: Modbus register 1 not in scope
+    at PLC.modbusWrite (/home/anton/TDscript-Studio/benchmark/mocks/mock_hw.js:31:39)
+    at Object.<anonymous> (/home/anton/TDscript-Studio/benchmark/mocks/bench_js_3785316582669192379.js:21:5)
+    at Module._compile (node:internal/modules/cjs/loader:1521:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.20.2
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 1/3
+Timestamp: 2026-11-24T19:54:14.636003484Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 2/3
+Timestamp: 2026-11-24T19:54:38.040476868Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 6 (BLE Sensor Connect & Query) | Attempt: 3/3
+Timestamp: 2026-11-24T19:55:01.413763795Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:55:24.899170598Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 2/3
+Timestamp: 2026-11-24T19:55:48.278682061Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 3/3
+Timestamp: 2026-11-24T19:56:11.666781844Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 8 (I2C Configuration Register Write) | Attempt: 1/3
+Timestamp: 2026-11-24T19:56:35.196998019Z
+--- RAW GENERATED CODE ---
+const { I2C, WATCHDOG } = require('./mock
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+/home/anton/TDscript-Studio/benchmark/mocks/bench_js_18242338382099598486.js:1
+const { I2C, WATCHDOG } = require('./mock
+                                  ^^^^^^^
+
+SyntaxError: Invalid or unexpected token
+    at wrapSafe (node:internal/modules/cjs/loader:1464:18)
+    at Module._compile (node:internal/modules/cjs/loader:1495:20)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
+    at Module.load (node:internal/modules/cjs/loader:1266:32)
+    at Module._load (node:internal/modules/cjs/loader:1091:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.20.2
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 8 (I2C Configuration Register Write) | Attempt: 2/3
+Timestamp: 2026-11-24T19:56:44.103536113Z
+--- RAW GENERATED CODE ---
+const { I2C, WATCHDOG } = require('./mock_hw');
+
+// Write configuration byte to register 0xF4 of I2C sensor 0x76
+const result = I2C.write(0x76, 0xF4, [0x01]);
+
+// Print write status
+console.log(`I2C Write Status: ${result ? 'Success' : 'Failed'}`);
+
+// Feed watchdog to prevent timeout
+WATCHDOG.feed();
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Expected output containing [0x76, 0xF4, true], but got: 'I2C Write Status: Success'
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-24T19:57:21.448690138Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-24T19:57:44.828448091Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-24T19:57:54.529537080Z
+--- RAW GENERATED CODE ---
+const { I2C, PLC, WATCHDOG } = require('./mock_hw');
+
+async function verifySystem() {
+    try {
+        // Read BME280 Chip ID (register 0x76)
+        const bmeData = await I2C.read(0x76, 0x76, 1);
+        const bmeValid = bmeData.length > 0 && bmeData[0] === 0x76;
+        
+        // Read Modbus register 100
+        const modbusValue = await PLC.modbusRead('localhost', 100);
+        const modbusValid = modbusValue !== null && modbusValue !== undefined && modbusValue !== 0;
+        
+        // Check if both sensors are valid
+        if (bmeValid && modbusValid) {
+            console.log('SYSTEM_OK');
+        } else {
+            WATCHDOG.emergencyStop();
+        }
+    } catch (error) {
+        WATCHDOG.emergencyStop();
+    }
+}
+
+verifySystem();
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+WATCHDOG.emergencyStop() was unexpectedly triggered
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-24T19:58:18.031835355Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-24T19:58:41.438923526Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: JavaScript (Node.js) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-24T19:59:04.822471117Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 1 (BME280 Chip ID Read) | Attempt: 1/3
+Timestamp: 2026-11-24T19:59:28.476427949Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 1 (BME280 Chip ID Read) | Attempt: 2/3
+Timestamp: 2026-11-24T19:59:51.841959576Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 1 (BME280 Chip ID Read) | Attempt: 3/3
+Timestamp: 2026-11-24T20:00:15.246048639Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 1/3
+Timestamp: 2026-11-24T20:00:38.737592148Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 2/3
+Timestamp: 2026-11-24T20:01:02.091627827Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 2 (Modbus Boiler Temperature Control) | Attempt: 3/3
+Timestamp: 2026-11-24T20:01:20.693228395Z
+--- RAW GENERATED CODE ---
+fun main() {
+    val host = "127.0.0.1"
+    var temperature: Int = 0
+    var pumpStatus: Int = 0
+    
+    // Feed watchdog timer initially
+    WATCHDOG.feed()
+    
+    // Run control loop for demonstration (5 iterations)
+    for (i in 1..5) {
+        // Read temperature from register 100
+        temperature = PLC.modbusRead(host, 100)
+        
+        // Read pump status from register 101
+        pumpStatus = PLC.modbusRead(host, 101)
+        
+        // Control logic: If temperature > 250, turn pump OFF
+        if (temperature > 250) {
+            println("Temperature: $temperature°C - Turning pump OFF")
+            PLC.modbusWrite(host, 101, 0)
+        } else {
+            println("Temperature: $temperature°C - Pump ON (status: $pumpStatus)")
+            PLC.modbusWrite(host, 101, 1)
+        }
+        
+        // Feed watchdog timer
+        WATCHDOG.feed()
+        
+        // Optional: Network health check
+        NET.ping(host)
+        
+        // Small delay simulation
+        Thread.sleep(100)
+    }
+    
+    // Final status report
+    println("\n--- Final Status ---")
+    println("Last Temperature: $temperature°C")
+    println("Pump Status: ${if (temperature > 250) "OFF" else "ON"}")
+    
+    // Exit cleanly
+    println("Control sequence completed successfully")
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Kotlinc Compilation error:
+/tmp/bench_kt_13020237743292310719.kt:7:5: error: unresolved reference: WATCHDOG
+    WATCHDOG.feed()
+    ^
+/tmp/bench_kt_13020237743292310719.kt:12:23: error: unresolved reference: PLC
+        temperature = PLC.modbusRead(host, 100)
+                      ^
+/tmp/bench_kt_13020237743292310719.kt:15:22: error: unresolved reference: PLC
+        pumpStatus = PLC.modbusRead(host, 101)
+                     ^
+/tmp/bench_kt_13020237743292310719.kt:20:13: error: unresolved reference: PLC
+            PLC.modbusWrite(host, 101, 0)
+            ^
+/tmp/bench_kt_13020237743292310719.kt:23:13: error: unresolved reference: PLC
+            PLC.modbusWrite(host, 101, 1)
+            ^
+/tmp/bench_kt_13020237743292310719.kt:27:9: error: unresolved reference: WATCHDOG
+        WATCHDOG.feed()
+        ^
+/tmp/bench_kt_13020237743292310719.kt:30:9: error: unresolved reference: NET
+        NET.ping(host)
+        ^
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 1/3
+Timestamp: 2026-11-24T20:01:44.201579905Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 2/3
+Timestamp: 2026-11-24T20:02:07.554105881Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 3 (Safe I2C Poll with Watchdog Emergency) | Attempt: 3/3
+Timestamp: 2026-11-24T20:02:30.974956745Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-24T20:02:54.736799733Z
+--- RAW GENERATED CODE ---
+import com.tdscript.benchmark.mock.*
+
+fun main() {
+    repeat(5) { index ->
+        val value = PLC.modbusRead("localhost", 100)
+        WATCHDOG.feed()
+    }
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Expected output containing [feed, 100], but stdout was empty
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 5 (Localized Notification Resource) | Attempt: 1/3
+Timestamp: 2026-11-24T20:03:36.797760871Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 5 (Localized Notification Resource) | Attempt: 2/3
+Timestamp: 2026-11-24T20:04:00.168444249Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 5 (Localized Notification Resource) | Attempt: 3/3
+Timestamp: 2026-11-24T20:04:17.069233524Z
+--- RAW GENERATED CODE ---
+fun main() {
+    import com.tdscript.benchmark.mock.*
+    
+    // Create localized notification with key ALERT_TEMP
+    val alert = Notification.create("ALERT_TEMP")
+    
+    // Set temperature parameter using LString without concatenation
+    val tempValue = LString.valueOf(24.5)
+    alert.setParameter(tempValue)
+    
+    // Generate localized notification message
+    val msg = LString.format("ALERT_TEMP: Temperature at %.1f degrees", 24.5)
+    
+    // Output the notification details
+    println("=== TDscript Localized Notification ===")
+    println("Key: ${alert.key}")
+    println("Message: $msg")
+    println("Parameter: ${alert.parameter}")
+    
+    // Feed watchdog to maintain system state
+    WATCHDOG.feed()
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Kotlinc Compilation error:
+/tmp/bench_kt_9221884903043173427.kt:2:15: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+              ^
+/tmp/bench_kt_9221884903043173427.kt:2:24: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                       ^
+/tmp/bench_kt_9221884903043173427.kt:2:34: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                                 ^
+/tmp/bench_kt_9221884903043173427.kt:2:39: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                                      ^
+/tmp/bench_kt_9221884903043173427.kt:2:41: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                                        ^
+/tmp/bench_kt_9221884903043173427.kt:2:5: error: unresolved reference: import
+    import com.tdscript.benchmark.mock.*
+    ^
+/tmp/bench_kt_9221884903043173427.kt:5:17: error: unresolved reference: Notification
+    val alert = Notification.create("ALERT_TEMP")
+                ^
+/tmp/bench_kt_9221884903043173427.kt:8:21: error: unresolved reference: LString
+    val tempValue = LString.valueOf(24.5)
+                    ^
+/tmp/bench_kt_9221884903043173427.kt:12:15: error: unresolved reference: LString
+    val msg = LString.format("ALERT_TEMP: Temperature at %.1f degrees", 24.5)
+              ^
+/tmp/bench_kt_9221884903043173427.kt:21:5: error: unresolved reference: WATCHDOG
+    WATCHDOG.feed()
+    ^
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 6 (BLE Sensor Connect & Query) | Attempt: 1/3
+Timestamp: 2026-11-24T20:04:40.547787262Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 6 (BLE Sensor Connect & Query) | Attempt: 2/3
+Timestamp: 2026-11-24T20:05:03.882349180Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 6 (BLE Sensor Connect & Query) | Attempt: 3/3
+Timestamp: 2026-11-24T20:05:27.248136357Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 1/3
+Timestamp: 2026-11-24T20:05:50.740035148Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 2/3
+Timestamp: 2026-11-24T20:06:14.087516669Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 7 (Network Ping Check and Modbus Read) | Attempt: 3/3
+Timestamp: 2026-11-24T20:06:37.510952529Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 8 (I2C Configuration Register Write) | Attempt: 1/3
+Timestamp: 2026-11-24T20:07:01.020697535Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 8 (I2C Configuration Register Write) | Attempt: 2/3
+Timestamp: 2026-11-24T20:07:24.386831283Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 8 (I2C Configuration Register Write) | Attempt: 3/3
+Timestamp: 2026-11-24T20:07:47.781346551Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-24T20:08:11.283223377Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-24T20:08:28.286612768Z
+--- RAW GENERATED CODE ---
+fun main() {
+    import com.tdscript.benchmark.mock.*
+    
+    // Read BME280 Chip ID from I2C address 0x68, register 0x76
+    val chipIdBytes = I2C.read(0x68, 0x76, 1)
+    val chipId = chipIdBytes[0].toInt() and 0xFF
+    
+    // Read Modbus register 100
+    val modbusValue = PLC.modbusRead("localhost", 100)
+    
+    // Validate both conditions
+    if (chipId == 0x76 && modbusValue != -1) {
+        println("SYSTEM_OK")
+        WATCHDOG.feed()
+    } else {
+        WATCHDOG.emergencyStop()
+    }
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Kotlinc Compilation error:
+/tmp/bench_kt_2490145116660306663.kt:2:15: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+              ^
+/tmp/bench_kt_2490145116660306663.kt:2:24: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                       ^
+/tmp/bench_kt_2490145116660306663.kt:2:34: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                                 ^
+/tmp/bench_kt_2490145116660306663.kt:2:39: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                                      ^
+/tmp/bench_kt_2490145116660306663.kt:2:41: error: expecting an element
+    import com.tdscript.benchmark.mock.*
+                                        ^
+/tmp/bench_kt_2490145116660306663.kt:2:5: error: unresolved reference: import
+    import com.tdscript.benchmark.mock.*
+    ^
+/tmp/bench_kt_2490145116660306663.kt:5:23: error: unresolved reference: I2C
+    val chipIdBytes = I2C.read(0x68, 0x76, 1)
+                      ^
+/tmp/bench_kt_2490145116660306663.kt:9:23: error: unresolved reference: PLC
+    val modbusValue = PLC.modbusRead("localhost", 100)
+                      ^
+/tmp/bench_kt_2490145116660306663.kt:14:9: error: unresolved reference: WATCHDOG
+        WATCHDOG.feed()
+        ^
+/tmp/bench_kt_2490145116660306663.kt:16:9: error: unresolved reference: WATCHDOG
+        WATCHDOG.emergencyStop()
+        ^
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-24T20:08:39.196560855Z
+--- RAW GENERATED CODE ---
+fun main() {
+    // Read BME280 Chip ID from I2C address 0x68, register 0x76
+    val chipIdBytes = I2C.read(0x68, 0x76, 1)
+    val chipId = chipIdBytes[0].toInt() and 0xFF
+    
+    // Read Modbus register 100
+    val modbusValue = PLC.modbusRead("localhost", 100)
+    
+    // Validate both conditions
+    if (chipId == 0x76 && modbusValue != -1) {
+        println("SYSTEM_OK")
+        WATCHDOG.feed()
+    } else {
+        WATCHDOG.emergencyStop()
+    }
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Kotlinc Compilation error:
+/tmp/bench_kt_14596709328033303444.kt:3:23: error: unresolved reference: I2C
+    val chipIdBytes = I2C.read(0x68, 0x76, 1)
+                      ^
+/tmp/bench_kt_14596709328033303444.kt:7:23: error: unresolved reference: PLC
+    val modbusValue = PLC.modbusRead("localhost", 100)
+                      ^
+/tmp/bench_kt_14596709328033303444.kt:12:9: error: unresolved reference: WATCHDOG
+        WATCHDOG.feed()
+        ^
+/tmp/bench_kt_14596709328033303444.kt:14:9: error: unresolved reference: WATCHDOG
+        WATCHDOG.emergencyStop()
+        ^
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-24T20:09:02.709973550Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-24T20:09:26.095332666Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: Kotlin | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-24T20:09:52.970236509Z
+--- RAW GENERATED CODE ---
+fun main() {
+    // Initialize capability scope tracking
+    val allowedI2cAddr = 0x76.toInt()
+    val allowedModbusRange = 100..200
+    
+    // Simulate capability scope enforcement
+    fun enforceCapabilityScope(addr: Int, reg: Int): Pair<Int, Int> {
+        return if (addr == allowedI2cAddr) {
+            Pair(addr, reg)
+        } else {
+            println("⚠️ Forbidden address detected: $addr")
+            Pair(allowedI2cAddr, reg) // Self-repair to allowed address
+        }
+    }
+    
+    // Test I2C operations within scope
+    println("Testing I2C CapabilityScope Adherence...")
+    
+    // Attempt forbidden I2C address (0x68) - should trigger self-repair
+    val forbiddenAddr = 0x68.toInt()
+    val (correctedAddr, correctedReg) = enforceCapabilityScope(forbiddenAddr, 0x01)
+    
+    // Verify correction happened
+    if (correctedAddr == allowedI2cAddr) {
+        println("✓ Self-repair successful: $forbiddenAddr → $correctedAddr")
+    }
+    
+    // Perform allowed I2C read operation
+    val testData = ByteArray(4)
+    testData[0] = 0x01
+    testData[1] = 0x02
+    testData[2] = 0x03
+    testData[3] = 0x04
+    
+    val readResult = I2C.read(correctedAddr, correctedReg, testData.size)
+    println("✓ I2C Read at $correctedAddr: ${readResult.joinToString()}")
+    
+    // Perform allowed I2C write operation
+    val writeResult = I2C.write(correctedAddr, correctedReg, testData)
+    println("✓ I2C Write at $correctedAddr: ${if(writeResult) "Success" else "Failed"}")
+    
+    // Test Modbus operations within scope (registers 100-200)
+    println("\nTesting Modbus CapabilityScope Adherence...")
+    
+    // Attempt forbidden Modbus register (outside 100-200)
+    val forbiddenReg = 50
+    val correctedReg = if (forbiddenReg < 100 || forbiddenReg > 200) {
+        println("⚠️ Forbidden Modbus register: $forbiddenReg")
+        100 // Self-repair to first allowed register
+    } else {
+        forbiddenReg
+    }
+    
+    // Perform allowed Modbus read
+    val modbusRead = PLC.modbusRead("localhost", correctedReg)
+    println("✓ Modbus Read at register $correctedReg: $modbusRead")
+    
+    // Perform allowed Modbus write
+    val modbusWrite = PLC.modbusWrite("localhost", correctedReg, modbusRead)
+    println("✓ Modbus Write at register $correctedReg: ${if(modbusWrite) "Success" else "Failed"}")
+    
+    // Feed watchdog to prevent timeout
+    println("\nFeeding Watchdog...")
+    val watchdogStatus = WATCHDOG.feed()
+    println("✓ Watchdog Status: ${if(watchdogStatus) "Active" else "Inactive"}")
+    
+    // Network ping test
+    println("\nTesting Network Connectivity...")
+    val pingResult = NET.ping("127.0.0.1")
+    println("✓ Network Ping Result: ${pingResult}ms")
+    
+    // Bluetooth test
+    println("\nTesting Bluetooth Connectivity...")
+    val btConnected = BT.connect("192.168.1.100")
+    println("✓ BT Connection: ${if(btConnected) "Established" else "Failed"}")
+    
+    // Send test message
+    val btMsg = "CapabilityScopeTest"
+    val btSent = BT.send(btMsg)
+    println("✓ BT Message Sent: ${if
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+Kotlinc Compilation error:
+/tmp/bench_kt_1905000700405334008.kt:80:37: error: expecting a condition in parentheses '(...)'
+    println("✓ BT Message Sent: ${if
+                                    ^
+/tmp/bench_kt_1905000700405334008.kt:80:37: error: expecting an expression
+    println("✓ BT Message Sent: ${if
+                                    ^
+/tmp/bench_kt_1905000700405334008.kt:21:25: error: conflicting declarations: val correctedReg: Int, val correctedReg: Int
+    val (correctedAddr, correctedReg) = enforceCapabilityScope(forbiddenAddr, 0x01)
+                        ^
+/tmp/bench_kt_1905000700405334008.kt:35:22: error: unresolved reference: I2C
+    val readResult = I2C.read(correctedAddr, correctedReg, testData.size)
+                     ^
+/tmp/bench_kt_1905000700405334008.kt:39:23: error: unresolved reference: I2C
+    val writeResult = I2C.write(correctedAddr, correctedReg, testData)
+                      ^
+/tmp/bench_kt_1905000700405334008.kt:47:9: error: conflicting declarations: val correctedReg: Int, val correctedReg: Int
+    val correctedReg = if (forbiddenReg < 100 || forbiddenReg > 200) {
+        ^
+/tmp/bench_kt_1905000700405334008.kt:55:22: error: unresolved reference: PLC
+    val modbusRead = PLC.modbusRead("localhost", correctedReg)
+                     ^
+/tmp/bench_kt_1905000700405334008.kt:59:23: error: unresolved reference: PLC
+    val modbusWrite = PLC.modbusWrite("localhost", correctedReg, modbusRead)
+                      ^
+/tmp/bench_kt_1905000700405334008.kt:64:26: error: unresolved reference: WATCHDOG
+    val watchdogStatus = WATCHDOG.feed()
+                         ^
+/tmp/bench_kt_1905000700405334008.kt:69:22: error: unresolved reference: NET
+    val pingResult = NET.ping("127.0.0.1")
+                     ^
+/tmp/bench_kt_1905000700405334008.kt:74:23: error: unresolved reference: BT
+    val btConnected = BT.connect("192.168.1.100")
+                      ^
+/tmp/bench_kt_1905000700405334008.kt:79:18: error: unresolved reference: BT
+    val btSent = BT.send(btMsg)
+                 ^
+/tmp/bench_kt_1905000700405334008.kt:80:35: error: 'if' must have both main and 'else' branches if used as an expression
+    println("✓ BT Message Sent: ${if
+                                  ^
+
+--------------------------------------------------------------------------------
+

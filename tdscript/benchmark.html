@@ -440,6 +440,178 @@
         </div>
       </section>
 
+      <!-- ТЕСТ №5 (ВАЛИДАЦИЯ AI-FIRST: БЮДЖЕТ 4096 ТОКЕНОВ) -->
+      <section class="card">
+        <h2>🚀 Результаты Теста №5: Валидация AI-First (Qwen 3.5 4B Unloop, max_tokens = 4096)</h2>
+        <p>
+          В ответ на замечания независимых рецензентов был снят искусственный лимит токенов генерации (бюджет увеличен с 1000 до <strong>4096 токенов</strong> при таймауте 300 секунд). Это позволило рассуждающей модели (Reasoning Model) полностью завершать внутренний анализ (Thinking Process) перед выводом исполняемого кода.
+        </p>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Языковой профиль</th>
+                <th>Статус</th>
+                <th>First-Pass %</th>
+                <th>Final Success %</th>
+                <th>Итерации ремонта</th>
+                <th>Токенов на успех</th>
+                <th>Средний LOC (строк)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>TDscript Base (v1.4.0)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>40.0%</td>
+                <td>60.0%</td>
+                <td>0.33</td>
+                <td>9698.5</td>
+                <td><strong>4.3</strong></td>
+              </tr>
+              <tr style="background: rgba(56, 189, 248, 0.08); font-weight: 600;">
+                <td><strong>TDscript Experimental (AI-First)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>40.0%</td>
+                <td>60.0%</td>
+                <td>0.50</td>
+                <td>8321.0</td>
+                <td><strong>3.7 🏆</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Python</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>60.0%</td>
+                <td>90.0%</td>
+                <td>0.33</td>
+                <td>3176.8</td>
+                <td>10.7</td>
+              </tr>
+              <tr>
+                <td><strong>C++ (Arduino/ESP32 style)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>30.0%</td>
+                <td>80.0%</td>
+                <td>1.00</td>
+                <td>7910.1</td>
+                <td>9.3</td>
+              </tr>
+              <tr>
+                <td><strong>Lua</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>40.0%</td>
+                <td>90.0%</td>
+                <td>0.67</td>
+                <td>4799.0</td>
+                <td>9.7</td>
+              </tr>
+              <tr>
+                <td><strong>JavaScript (Node.js)</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>40.0%</td>
+                <td>80.0%</td>
+                <td>0.63</td>
+                <td>5831.5</td>
+                <td>8.0</td>
+              </tr>
+              <tr>
+                <td><strong>Kotlin</strong></td>
+                <td><code>COMPLETED</code></td>
+                <td>30.0%</td>
+                <td>70.0%</td>
+                <td>0.71</td>
+                <td>7559.0</td>
+                <td>12.1</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">Разбор причин сбоев (Тест №5):</h3>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Профиль</th>
+                <th>Обрыв мыслей (TRUNCATED)</th>
+                <th>Синтаксис (SYNTAX)</th>
+                <th>Рантайм и Scope (RUNTIME)</th>
+                <th>Несовпадение stdout (OUTPUT)</th>
+                <th>Всего отказов</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>TDscript Base</td><td>8</td><td>1</td><td>2</td><td>3</td><td>14</td></tr>
+              <tr style="background: rgba(56, 189, 248, 0.08);"><td><strong>TDscript Experimental</strong></td><td>7</td><td>2</td><td>0</td><td>6</td><td>15</td></tr>
+              <tr><td>Python</td><td>1</td><td>0</td><td>2</td><td>3</td><td>6</td></tr>
+              <tr><td>C++</td><td>10</td><td>0</td><td>0</td><td>4</td><td>14</td></tr>
+              <tr><td>Lua</td><td>3</td><td>0</td><td>1</td><td>5</td><td>9</td></tr>
+              <tr><td>JavaScript</td><td>6</td><td>0</td><td>0</td><td>5</td><td>11</td></tr>
+              <tr><td>Kotlin</td><td>8</td><td>3</td><td>0</td><td>3</td><td>14</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ПЕРВОИСТОЧНИКИ И ТРЕКЕРЫ ТЕСТОВ (OPEN DATA) -->
+      <section class="card">
+        <h2>📦 Полные трекеры и первоисточники всех тестов (Open Data)</h2>
+        <p>
+          Мы гарантируем 100% научную прозрачность и независимую воспроизводимость результатов. Ниже опубликованы полные логи, поминутные трассировки генерации (JSONL), отчёты и наборы задач для каждого раунда бенчмарка:
+        </p>
+
+        <div class="table-wrapper" style="margin-top: 1rem;">
+          <table>
+            <thead>
+              <tr>
+                <th>Раунд тестирования</th>
+                <th>Модель и параметры</th>
+                <th>Полная трассировка (JSONL)</th>
+                <th>Лог отказов (Log)</th>
+                <th>Итоговый отчёт (Markdown)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Тест №3 (Benchmark v3)</strong></td>
+                <td>Qwen 2.5 9B (GPU, 1000 tok)</td>
+                <td><a href="benchmark_full_trace_test3.jsonl" download>📥 benchmark_full_trace_test3.jsonl</a></td>
+                <td><a href="benchmark_failures_test3.log" download>📄 failures_test3.log</a></td>
+                <td><a href="BENCHMARK_REPORT_TEST3.md" target="_blank">📋 REPORT_TEST3.md</a></td>
+              </tr>
+              <tr>
+                <td><strong>Тест №4 (Benchmark v4)</strong></td>
+                <td>Qwen 3.5 4B Unloop (1000 tok)</td>
+                <td><a href="benchmark_full_trace_test4.jsonl" download>📥 benchmark_full_trace_test4.jsonl</a></td>
+                <td><a href="benchmark_failures_test4.log" download>📄 failures_test4.log</a></td>
+                <td><a href="BENCHMARK_REPORT_TEST4.md" target="_blank">📋 REPORT_TEST4.md</a></td>
+              </tr>
+              <tr>
+                <td><strong>Тест №5 (Benchmark v5)</strong></td>
+                <td>Qwen 3.5 4B Unloop (4096 tok)</td>
+                <td><a href="benchmark_full_trace_test5.jsonl" download>📥 benchmark_full_trace_test5.jsonl</a></td>
+                <td><a href="benchmark_failures_test5.log" download>📄 failures_test5.log</a></td>
+                <td><a href="BENCHMARK_REPORT_TEST5.md" target="_blank">📋 REPORT_TEST5.md</a></td>
+              </tr>
+              <tr style="background: rgba(56, 189, 248, 0.08);">
+                <td><strong>Тест №6 (AI-Native)</strong></td>
+                <td>Qwen 3.5 4B Unloop (Full Diagnostics & Self-Repair)</td>
+                <td><a href="benchmark_full_trace_test6.jsonl" download>📥 benchmark_full_trace_test6.jsonl (в процессе)</a></td>
+                <td><a href="benchmark_failures_test6.log" download>📄 failures_test6.log</a></td>
+                <td><a href="BENCHMARK_REPORT_TEST6.md" target="_blank">📋 REPORT_TEST6.md</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 1.2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="tasks.json" class="btn btn-outline" download>📋 Задачи бенчмарка (tasks.json)</a>
+          <a href="grammar.gbnf" class="btn btn-outline" download>📐 Формальная GBNF-грамматика</a>
+          <a href="https://github.com/fido2465724100-creator/TDscript-Studio" class="btn btn-primary" target="_blank">⭐ Исходный код бенчмарка на GitHub</a>
+        </div>
+      </section>
+
       <!-- АНАЛИЗ И ВЫВОДЫ -->
       <section class="card">
         <h2>💡 Глубокий анализ: Почему языки ведут себя по-разному в руках ИИ?</h2>
@@ -509,16 +681,16 @@ cd TDscript-Studio
         <div class="table-wrapper">
           <table>
             <thead>
-              <tr><th>Profile</th><th>Test #3 (9B) Success</th><th>Test #4 (4B) Success</th><th>Tokens / Success</th><th>Avg LOC</th></tr>
+              <tr><th>Profile</th><th>Test #3 (9B)</th><th>Test #4 (4B, 1k)</th><th>Test #5 (4B, 4k)</th><th>First-Pass (Test 5)</th><th>Avg LOC</th></tr>
             </thead>
             <tbody>
-              <tr><td><strong>TDscript Base (v1.4.0)</strong></td><td>70.0%</td><td>20.0%</td><td>4149.9</td><td>5.7</td></tr>
-              <tr style="background: rgba(56, 189, 248, 0.08);"><td><strong>TDscript Experimental</strong></td><td><strong>90.0%</strong></td><td>20.0%</td><td><strong>2275.2</strong></td><td><strong>3.5 – 5.6</strong></td></tr>
-              <tr><td><strong>Python</strong></td><td>100.0%</td><td>40.0%</td><td>2332.9</td><td>8.5 – 9.7</td></tr>
-              <tr><td><strong>C++ (Arduino/ESP32)</strong></td><td>70.0%</td><td>10.0%</td><td>3429.6</td><td>11.0 – 15.0</td></tr>
-              <tr><td><strong>Lua</strong></td><td>90.0%</td><td>40.0%</td><td>1914.1</td><td>4.3 – 12.4</td></tr>
-              <tr><td><strong>JavaScript (Node.js)</strong></td><td>90.0%</td><td>30.0%</td><td>2083.6</td><td>7.9 – 12.7</td></tr>
-              <tr><td><strong>Kotlin</strong></td><td>100.0%</td><td>10.0%</td><td>1850.7</td><td>9.0 – 13.5</td></tr>
+              <tr><td><strong>TDscript Base (v1.4.0)</strong></td><td>70.0%</td><td>20.0%</td><td>60.0%</td><td>40.0%</td><td><strong>4.3</strong></td></tr>
+              <tr style="background: rgba(56, 189, 248, 0.08);"><td><strong>TDscript Experimental</strong></td><td><strong>90.0%</strong></td><td>20.0%</td><td>60.0%</td><td><strong>40.0%</strong></td><td><strong>3.7 🏆</strong></td></tr>
+              <tr><td><strong>Python</strong></td><td>100.0%</td><td>40.0%</td><td>90.0%</td><td>60.0%</td><td>10.7</td></tr>
+              <tr><td><strong>C++ (Arduino/ESP32)</strong></td><td>70.0%</td><td>10.0%</td><td>80.0%</td><td>30.0%</td><td>9.3</td></tr>
+              <tr><td><strong>Lua</strong></td><td>90.0%</td><td>40.0%</td><td>90.0%</td><td>40.0%</td><td>9.7</td></tr>
+              <tr><td><strong>JavaScript (Node.js)</strong></td><td>90.0%</td><td>30.0%</td><td>80.0%</td><td>40.0%</td><td>8.0</td></tr>
+              <tr><td><strong>Kotlin</strong></td><td>100.0%</td><td>10.0%</td><td>70.0%</td><td>30.0%</td><td>12.1</td></tr>
             </tbody>
           </table>
         </div>
