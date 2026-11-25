@@ -9,6 +9,8 @@
 >   - AI-First Language (Architecture & Manifesto): https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
 >   - Language Specification (v1.4.0 & v1.0.1): https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html
 >   - 10 Automation Scenarios & Examples: https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html
+>   - Raw Plain-Text Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.txt
+>   - Machine-Readable JSON Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tasks.json
 >   - TDscript Studio IDE & Binary Packages: https://fido2465724100-creator.github.io/my-developer-site/tdscript/studio.html
 >   - Global LLM Benchmark (Tests #3 & #4): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 

@@ -1,0 +1,300 @@
+# TDscript Benchmark: 10 Hardware Automation Tasks & Reference Implementations
+# Formatted for LLMs, AI Agents, and Automated Evaluation Pipelines
+# Website: https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html
+# Machine-readable JSON: https://fido2465724100-creator.github.io/my-developer-site/tdscript/tasks.json
+# Full context: https://fido2465724100-creator.github.io/my-developer-site/llms-full.txt
+
+================================================================================
+OVERVIEW
+================================================================================
+This dataset contains the 10 real-world edge automation and hardware orchestration tasks
+used in the TDscript Global LLM Benchmark (evaluating TDscript vs Python, C++, Lua, JavaScript, and Kotlin).
+Each task defines:
+1. Task ID and Title
+2. Goal & Hardware Description
+3. Hardware Bus & Addresses
+4. Expected Outputs / Verification Criteria
+5. Canonical TDscript AI-First Solution (3-5 LOC, 0 imports, hex literals)
+6. Canonical TDscript Base (v1.4.0) Solution (decimal literals)
+7. Cross-Language Reference Solutions (Python, C++, Lua, JavaScript, Kotlin)
+
+================================================================================
+TASK 1: BME280 Chip ID Read
+================================================================================
+- ID: 1
+- Title: BME280 Chip ID Read
+- Interface: I2C (Address: 0x76 / 118, Register: 0xD0 / 208, Length: 1 byte)
+- Description: Read Bosch BME280 Chip ID via I2C and print the result.
+- Expected Keywords: ["96", "0x60"]
+- Expected Output: [0x60] or 96
+
+--- TDscript AI-First (v1.4.0 Hex) ---
+```tdscript
+let id = I2C.read(0x76, 0xD0, 1);
+print(id);
+```
+
+--- TDscript Base (v1.4.0 Decimal) ---
+```tdscript
+let id = I2C.read(118, 208, 1);
+print(id);
+```
+
+--- Python Reference ---
+```python
+from mock_hw import I2C
+val = I2C.read(0x76, 0xD0, 1)
+print(val)
+```
+
+--- C++ Reference ---
+```cpp
+#include "mock_hw.hpp"
+#include <iostream>
+
+int main() {
+    auto val = I2C::read(0x76, 0xD0, 1);
+    std::cout << val[0] << std::endl;
+    return 0;
+}
+```
+
+================================================================================
+TASK 2: Modbus Boiler Temperature Control
+================================================================================
+- ID: 2
+- Title: Modbus Boiler Temperature Control
+- Interface: Modbus TCP (Host: "127.0.0.1", Register 100: Boiler Temp, Register 101: Pump Status)
+- Description: Read boiler temperature from Modbus register 100 ('127.0.0.1') and pump status from register 101. If temperature > 250, write pump status 0 (OFF).
+- Expected Keywords: ["245", "100", "101"]
+
+--- TDscript AI-First ---
+```tdscript
+let temp = PLC.modbusRead("127.0.0.1", 100);
+let pump = PLC.modbusRead("127.0.0.1", 101);
+print(temp);
+if (temp > 250) {
+    PLC.modbusWrite("127.0.0.1", 101, 0);
+}
+```
+
+--- Python Reference ---
+```python
+from mock_hw import PLC
+temp = PLC.modbus_read("127.0.0.1", 100)
+pump = PLC.modbus_read("127.0.0.1", 101)
+print(f"temp={temp}, pump={pump}")
+if temp > 250:
+    PLC.modbus_write("127.0.0.1", 101, 0)
+```
+
+================================================================================
+TASK 3: Safe I2C Poll with Watchdog Emergency
+================================================================================
+- ID: 3
+- Title: Safe I2C Poll with Watchdog Emergency
+- Interface: I2C (0x76, 0xD0) + Watchdog Subsystem
+- Description: Safely read I2C sensor at address 0x76 (register 0xD0, 1 byte). If read returns error or null, call WATCHDOG.emergencyStop(), otherwise print 'POLL_OK'.
+- Expected Keywords: ["POLL_OK", "0x76"]
+
+--- TDscript AI-First ---
+```tdscript
+let data = I2C.read(0x76, 0xD0, 1);
+if (data == null) {
+    WATCHDOG.emergencyStop();
+} else {
+    print("POLL_OK");
+}
+```
+
+--- Python Reference ---
+```python
+from mock_hw import I2C, WATCHDOG
+data = I2C.read(0x76, 0xD0, 1)
+if not data:
+    WATCHDOG.emergency_stop()
+else:
+    print("POLL_OK")
+```
+
+================================================================================
+TASK 4: Modbus 5-Iteration Loop with Watchdog Feed
+================================================================================
+- ID: 4
+- Title: Modbus 5-Iteration Loop with Watchdog Feed
+- Interface: Modbus TCP + Watchdog Hardware Feed
+- Description: Execute a loop for 5 iterations: in each iteration read Modbus register 100 and call WATCHDOG.feed().
+- Expected Keywords: ["feed", "100"]
+
+--- TDscript AI-First ---
+```tdscript
+var i = 0;
+while (i < 5) {
+    let v = PLC.modbusRead("127.0.0.1", 100);
+    WATCHDOG.feed();
+    print(v);
+    i = i + 1;
+}
+```
+
+--- Python Reference ---
+```python
+from mock_hw import PLC, WATCHDOG
+for i in range(5):
+    val = PLC.modbus_read("127.0.0.1", 100)
+    WATCHDOG.feed()
+    print(f"feed:{i}, val:{val}")
+```
+
+================================================================================
+TASK 5: Localized Notification Resource
+================================================================================
+- ID: 5
+- Title: Localized Notification Resource
+- Interface: Runtime Localization Engine (LString)
+- Description: Create and print a localized notification with key ALERT_TEMP and parameter temp=24.5 (in TDscript use LString without direct string concatenation).
+- Expected Keywords: ["ALERT_TEMP", "24.5"]
+
+--- TDscript AI-First ---
+```tdscript
+let temp = 24.5;
+let msg = L"ALERT_TEMP:Temperature alert {temp}";
+print(msg);
+```
+
+--- Python Reference ---
+```python
+temp = 24.5
+print(f"ALERT_TEMP: temp={temp}")
+```
+
+================================================================================
+TASK 6: BLE Sensor Connect & Query
+================================================================================
+- ID: 6
+- Title: BLE Sensor Connect & Query
+- Interface: Bluetooth Low Energy (BLE) Client
+- Description: Connect to BLE device 'sensor_01', send 'READ' command, and print the response string.
+- Expected Keywords: ["BT_OK", "24.5C", "sensor_01"]
+
+--- TDscript AI-First ---
+```tdscript
+let ok = BT.connect("sensor_01");
+if (ok == true) {
+    BT.send("READ");
+    let resp = BT.readLine();
+    print("BT_OK: " + resp);
+}
+```
+
+--- Python Reference ---
+```python
+from mock_hw import BT
+if BT.connect("sensor_01"):
+    BT.send("READ")
+    res = BT.read_line()
+    print(f"BT_OK: {res} from sensor_01")
+```
+
+================================================================================
+TASK 7: Network Ping Check and Modbus Read
+================================================================================
+- ID: 7
+- Title: Network Ping Check and Modbus Read
+- Interface: ICMP Network Ping + Modbus TCP
+- Description: Ping host '192.168.1.50'. If ping is successful (> 0), read Modbus register 100 and print it.
+- Expected Keywords: ["192.168.1.50", "245"]
+
+--- TDscript AI-First ---
+```tdscript
+let rtt = NET.ping("192.168.1.50");
+if (rtt > 0) {
+    let val = PLC.modbusRead("192.168.1.50", 100);
+    print(val);
+}
+```
+
+--- Python Reference ---
+```python
+from mock_hw import NET, PLC
+rtt = NET.ping("192.168.1.50")
+if rtt > 0:
+    val = PLC.modbus_read("192.168.1.50", 100)
+    print(f"Host 192.168.1.50 ping {rtt}ms, val={val}")
+```
+
+================================================================================
+TASK 8: I2C Configuration Register Write
+================================================================================
+- ID: 8
+- Title: I2C Configuration Register Write
+- Interface: I2C (Sensor: 0x76, Register: 0xF4, Value: 1 / 0x27)
+- Description: Write configuration byte to register 0xF4 of I2C sensor 0x76 and print write status.
+- Expected Keywords: ["0x76", "0xF4", "true"]
+
+--- TDscript AI-First ---
+```tdscript
+let status = I2C.write(0x76, 0xF4, 1);
+print("0x76 0xF4 status=" + status);
+```
+
+--- Python Reference ---
+```python
+from mock_hw import I2C
+res = I2C.write(0x76, 0xF4, 1)
+print(f"I2C write 0x76 0xF4 status: {res}")
+```
+
+================================================================================
+TASK 9: Combined Dual-Sensor Verification
+================================================================================
+- ID: 9
+- Title: Combined Dual-Sensor Verification
+- Interface: I2C + Modbus TCP + Watchdog Subsystem
+- Description: Read BME280 Chip ID (0x76) and Modbus register 100. If both are valid, print 'SYSTEM_OK', otherwise call WATCHDOG.emergencyStop().
+- Expected Keywords: ["SYSTEM_OK"]
+
+--- TDscript AI-First ---
+```tdscript
+let id = I2C.read(0x76, 0xD0, 1);
+let reg = PLC.modbusRead("127.0.0.1", 100);
+if (id != null && reg != null) {
+    print("SYSTEM_OK");
+} else {
+    WATCHDOG.emergencyStop();
+}
+```
+
+--- Python Reference ---
+```python
+from mock_hw import I2C, PLC, WATCHDOG
+chip = I2C.read(0x76, 0xD0, 1)
+mb = PLC.modbus_read("127.0.0.1", 100)
+if chip and mb is not None:
+    print("SYSTEM_OK")
+else:
+    WATCHDOG.emergency_stop()
+```
+
+================================================================================
+TASK 10: Strict CapabilityScope Adherence & Self-Repair
+================================================================================
+- ID: 10
+- Title: Strict CapabilityScope Adherence & Self-Repair
+- Interface: Hardware Sandbox Security ACL (CapabilityScope)
+- Description: Operate strictly within granted CapabilityScope (I2C allowed only on 0x76, Modbus registers 100..200). If forbidden address (e.g. 0x68) is attempted, catch or self-repair to 0x76.
+- Expected Keywords: ["0x76"]
+- Is Scope Security Test: true
+
+--- TDscript AI-First (Repair Target) ---
+```tdscript
+let val = I2C.read(0x76, 0xD0, 1);
+print("Authorized 0x76: " + val);
+```
+
+--- Python Reference ---
+```python
+from mock_hw import I2C
+val = I2C.read(0x76, 0xD0, 1)
+print(f"Scope adherence: {val} at 0x76")
+```

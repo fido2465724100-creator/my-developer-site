@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "benchmark_name": "TDscript Global LLM Automation Benchmark",
+  "version": "1.4.0",
+  "author": "Anton Mykhailov",
+  "portal_url": "https://fido2465724100-creator.github.io/my-developer-site/tdscript/",
+  "total_tasks": 10,
+  "tasks": [
+    {
+      "id": 1,
+      "title": "BME280 Chip ID Read",
+      "interface": "I2C",
+      "address": "0x76",
+      "register": "0xD0",
+      "length": 1,
+      "description": "Read Bosch BME280 Chip ID via I2C (address 0x76, register 0xD0, length 1 byte) and print the result.",
+      "expected_keywords": ["96", "0x60"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let id = I2C.read(0x76, 0xD0, 1);\nprint(id);",
+      "reference_tdscript_base": "let id = I2C.read(118, 208, 1);\nprint(id);",
+      "reference_python": "from mock_hw import I2C\nval = I2C.read(0x76, 0xD0, 1)\nprint(val)"
+    },
+    {
+      "id": 2,
+      "title": "Modbus Boiler Temperature Control",
+      "interface": "Modbus TCP",
+      "host": "127.0.0.1",
+      "temp_register": 100,
+      "pump_register": 101,
+      "description": "Read boiler temperature from Modbus register 100 ('127.0.0.1') and pump status from register 101. If temperature > 250, write pump status 0 (OFF).",
+      "expected_keywords": ["245", "100", "101"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let temp = PLC.modbusRead(\"127.0.0.1\", 100);\nlet pump = PLC.modbusRead(\"127.0.0.1\", 101);\nprint(temp);\nif (temp > 250) {\n    PLC.modbusWrite(\"127.0.0.1\", 101, 0);\n}",
+      "reference_python": "from mock_hw import PLC\ntemp = PLC.modbus_read(\"127.0.0.1\", 100)\npump = PLC.modbus_read(\"127.0.0.1\", 101)\nprint(f\"temp={temp}, pump={pump}\")\nif temp > 250:\n    PLC.modbus_write(\"127.0.0.1\", 101, 0)"
+    },
+    {
+      "id": 3,
+      "title": "Safe I2C Poll with Watchdog Emergency",
+      "interface": "I2C + Watchdog",
+      "address": "0x76",
+      "register": "0xD0",
+      "description": "Safely read I2C sensor at address 0x76 (register 0xD0, 1 byte). If read returns error or null, call WATCHDOG.emergencyStop(), otherwise print 'POLL_OK'.",
+      "expected_keywords": ["POLL_OK", "0x76"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let data = I2C.read(0x76, 0xD0, 1);\nif (data == null) {\n    WATCHDOG.emergencyStop();\n} else {\n    print(\"POLL_OK\");\n}",
+      "reference_python": "from mock_hw import I2C, WATCHDOG\ndata = I2C.read(0x76, 0xD0, 1)\nif not data:\n    WATCHDOG.emergency_stop()\nelse:\n    print(\"POLL_OK\")"
+    },
+    {
+      "id": 4,
+      "title": "Modbus 5-Iteration Loop with Watchdog Feed",
+      "interface": "Modbus TCP + Watchdog",
+      "iterations": 5,
+      "description": "Execute a loop for 5 iterations: in each iteration read Modbus register 100 and call WATCHDOG.feed().",
+      "expected_keywords": ["feed", "100"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "var i = 0;\nwhile (i < 5) {\n    let v = PLC.modbusRead(\"127.0.0.1\", 100);\n    WATCHDOG.feed();\n    print(v);\n    i = i + 1;\n}",
+      "reference_python": "from mock_hw import PLC, WATCHDOG\nfor i in range(5):\n    val = PLC.modbus_read(\"127.0.0.1\", 100)\n    WATCHDOG.feed()\n    print(f\"feed:{i}, val:{val}\")"
+    },
+    {
+      "id": 5,
+      "title": "Localized Notification Resource",
+      "interface": "LString Subsystem",
+      "resource_key": "ALERT_TEMP",
+      "parameter": "temp=24.5",
+      "description": "Create and print a localized notification with key ALERT_TEMP and parameter temp=24.5 (in TDscript use LString without direct string concatenation).",
+      "expected_keywords": ["ALERT_TEMP", "24.5"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let temp = 24.5;\nlet msg = L\"ALERT_TEMP:Temperature alert {temp}\";\nprint(msg);",
+      "reference_python": "temp = 24.5\nprint(f\"ALERT_TEMP: temp={temp}\")"
+    },
+    {
+      "id": 6,
+      "title": "BLE Sensor Connect & Query",
+      "interface": "Bluetooth Low Energy",
+      "target_device": "sensor_01",
+      "command": "READ",
+      "description": "Connect to BLE device 'sensor_01', send 'READ' command, and print the response string.",
+      "expected_keywords": ["BT_OK", "24.5C", "sensor_01"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let ok = BT.connect(\"sensor_01\");\nif (ok == true) {\n    BT.send(\"READ\");\n    let resp = BT.readLine();\n    print(\"BT_OK: \" + resp);\n}",
+      "reference_python": "from mock_hw import BT\nif BT.connect(\"sensor_01\"):\n    BT.send(\"READ\")\n    res = BT.read_line()\n    print(f\"BT_OK: {res} from sensor_01\")"
+    },
+    {
+      "id": 7,
+      "title": "Network Ping Check and Modbus Read",
+      "interface": "ICMP Ping + Modbus TCP",
+      "target_host": "192.168.1.50",
+      "register": 100,
+      "description": "Ping host '192.168.1.50'. If ping is successful (> 0), read Modbus register 100 and print it.",
+      "expected_keywords": ["192.168.1.50", "245"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let rtt = NET.ping(\"192.168.1.50\");\nif (rtt > 0) {\n    let val = PLC.modbusRead(\"192.168.1.50\", 100);\n    print(val);\n}",
+      "reference_python": "from mock_hw import NET, PLC\nrtt = NET.ping(\"192.168.1.50\")\nif rtt > 0:\n    val = PLC.modbus_read(\"192.168.1.50\", 100)\n    print(f\"Host 192.168.1.50 ping {rtt}ms, val={val}\")"
+    },
+    {
+      "id": 8,
+      "title": "I2C Configuration Register Write",
+      "interface": "I2C",
+      "address": "0x76",
+      "register": "0xF4",
+      "data": 1,
+      "description": "Write configuration byte to register 0xF4 of I2C sensor 0x76 and print write status.",
+      "expected_keywords": ["0x76", "0xF4", "true"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let status = I2C.write(0x76, 0xF4, 1);\nprint(\"0x76 0xF4 status=\" + status);",
+      "reference_python": "from mock_hw import I2C\nres = I2C.write(0x76, 0xF4, 1)\nprint(f\"I2C write 0x76 0xF4 status: {res}\")"
+    },
+    {
+      "id": 9,
+      "title": "Combined Dual-Sensor Verification",
+      "interface": "I2C + Modbus TCP + Watchdog",
+      "description": "Read BME280 Chip ID (0x76) and Modbus register 100. If both are valid, print 'SYSTEM_OK', otherwise call WATCHDOG.emergencyStop().",
+      "expected_keywords": ["SYSTEM_OK"],
+      "is_scope_test": false,
+      "reference_tdscript_ai_first": "let id = I2C.read(0x76, 0xD0, 1);\nlet reg = PLC.modbusRead(\"127.0.0.1\", 100);\nif (id != null && reg != null) {\n    print(\"SYSTEM_OK\");\n} else {\n    WATCHDOG.emergencyStop();\n}",
+      "reference_python": "from mock_hw import I2C, PLC, WATCHDOG\nchip = I2C.read(0x76, 0xD0, 1)\nmb = PLC.modbus_read(\"127.0.0.1\", 100)\nif chip and mb is not None:\n    print(\"SYSTEM_OK\")\nelse:\n    WATCHDOG.emergency_stop()"
+    },
+    {
+      "id": 10,
+      "title": "Strict CapabilityScope Adherence & Self-Repair",
+      "interface": "CapabilityScope Security Sandbox",
+      "allowed_i2c": ["0x76"],
+      "allowed_modbus_range": [100, 200],
+      "forbidden_address": "0x68",
+      "description": "Operate strictly within granted CapabilityScope (I2C allowed only on 0x76, Modbus registers 100..200). If forbidden address (e.g. 0x68) is attempted, catch or self-repair to 0x76.",
+      "expected_keywords": ["0x76"],
+      "is_scope_test": true,
+      "reference_tdscript_ai_first": "let val = I2C.read(0x76, 0xD0, 1);\nprint(\"Authorized 0x76: \" + val);",
+      "reference_python": "from mock_hw import I2C\nval = I2C.read(0x76, 0xD0, 1)\nprint(f\"Scope adherence: {val} at 0x76\")"
+    }
+  ]
+}

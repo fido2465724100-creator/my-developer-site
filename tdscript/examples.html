@@ -7,6 +7,7 @@
   <meta name="description" content="10 practical hardware and network orchestration scenarios for TDscript: I2C BME280, Modbus TCP PLC, BLE sensors, Watchdog safety, and CapabilityScope sandboxing." />
   <link rel="stylesheet" href="../css/style.css">
   <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
+  <link rel="alternate" type="text/plain" href="examples.txt" title="Plain text automation tasks for LLMs" />
 </head>
 <body>
 
@@ -51,6 +52,20 @@
         <p>
           Эти 10 задач легли в основу официального сравнительного бенчмарка <strong>TDscript</strong> против Python, C++, Lua, JavaScript и Kotlin. Они охватывают полный цикл промышленной автоматизации: опрос шины I2C, протокол Modbus TCP, беспроводной BLE, сетевой пинг, безопасный сторож Watchdog и аппаратную изоляцию.
         </p>
+        <div class="callout callout-green" style="margin-top: 1rem;">
+          🤖 <strong>Для ИИ-моделей и LLM-агентов:</strong> Полная спецификация и машиночитаемый датасет всех 10 задач и эталонных скриптов доступны напрямую в форматах Plain-Text и JSON.
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.2rem;">
+          <a href="examples.txt" target="_blank" class="btn" style="background: linear-gradient(135deg, #38bdf8, #818cf8); color: #090d16; font-weight: bold; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+            📄 Plain-Text для LLM (examples.txt)
+          </a>
+          <a href="tasks.json" target="_blank" class="btn" style="background: #1e293b; color: #34d399; border: 1px solid #34d399; font-weight: bold; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+            🤖 JSON-датасет для ИИ (tasks.json)
+          </a>
+          <a href="../llms-full.txt" target="_blank" class="btn" style="background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+            🧠 Полный контекст LLM (llms-full.txt)
+          </a>
+        </div>
       </section>
 
       <!-- ЗАДАЧА 1 -->
@@ -215,40 +230,135 @@ print("SUCCESS_FALLBACK_0x76: " + validRes);</code></pre>
     <div id="view-en" class="lang-view">
       <section class="card">
         <h2>💡 10 Benchmark Automation Scenarios</h2>
-        <p>Practical walkthrough of 10 real industrial hardware tasks used in our global benchmark comparison against Python, C++, Lua, JavaScript, and Kotlin.</p>
+        <p>Practical walkthrough of all 10 real industrial hardware tasks used in our global benchmark comparison against Python, C++, Lua, JavaScript, and Kotlin.</p>
+        <div class="callout callout-green" style="margin-top: 1rem;">
+          🤖 <strong>For AI Models &amp; LLM Agents:</strong> All 10 tasks with full specifications and reference solutions are directly downloadable in plain-text and JSON:
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.2rem;">
+          <a href="examples.txt" target="_blank" class="btn" style="background: linear-gradient(135deg, #38bdf8, #818cf8); color: #090d16; font-weight: bold; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none;">📄 Raw Plain-Text (examples.txt)</a>
+          <a href="tasks.json" target="_blank" class="btn" style="background: #1e293b; color: #34d399; border: 1px solid #34d399; font-weight: bold; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none;">🤖 Machine JSON Dataset (tasks.json)</a>
+          <a href="../llms-full.txt" target="_blank" class="btn" style="background: #1e293b; color: #cbd5e1; border: 1px solid #334155; padding: 0.6rem 1.2rem; border-radius: 8px; text-decoration: none;">🧠 Full LLM Context (llms-full.txt)</a>
+        </div>
       </section>
 
       <section class="card">
         <h2>Task 1: Bosch BME280 Chip ID Read via I2C</h2>
-        <pre><code>let chip = 0x76;
-let reg = 0xD0;
-let bytes = I2C.read(chip, reg, 1);
-print(bytes); // Outputs: [0x60]</code></pre>
+        <p><strong>Goal:</strong> Read 1 byte from register <code>0xD0</code> at I2C address <code>0x76</code> and print the chip ID (expects <code>0x60</code> / 96).</p>
+        <pre><code>let id = I2C.read(0x76, 0xD0, 1);
+print(id); // [0x60]</code></pre>
       </section>
 
       <section class="card">
         <h2>Task 2: Modbus Boiler Temperature Emergency Control</h2>
+        <p><strong>Goal:</strong> Read boiler temp from reg 100 ('127.0.0.1') and pump from reg 101. If temp &gt; 250, write pump status 0 (OFF).</p>
         <pre><code>let temp = PLC.modbusRead("127.0.0.1", 100);
+let pump = PLC.modbusRead("127.0.0.1", 101);
+print(temp);
 if (temp &gt; 250) {
     PLC.modbusWrite("127.0.0.1", 101, 0);
-    print("EMERGENCY_SHUTDOWN: Pump stopped");
 }</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 3: Safe I2C Poll with Watchdog Emergency</h2>
+        <p><strong>Goal:</strong> Safely read sensor at address 0x76. If null, call <code>WATCHDOG.emergencyStop()</code>, otherwise print <code>POLL_OK</code>.</p>
+        <pre><code>let data = I2C.read(0x76, 0xD0, 1);
+if (data == null) {
+    WATCHDOG.emergencyStop();
+} else {
+    print("POLL_OK");
+}</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 4: Modbus 5-Iteration Loop with Watchdog Feed</h2>
+        <p><strong>Goal:</strong> Loop 5 iterations: read Modbus register 100 and call <code>WATCHDOG.feed()</code> on each iteration.</p>
+        <pre><code>var i = 0;
+while (i &lt; 5) {
+    let v = PLC.modbusRead("127.0.0.1", 100);
+    WATCHDOG.feed();
+    print(v);
+    i = i + 1;
+}</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 5: Localized Notification Resource via LString</h2>
+        <p><strong>Goal:</strong> Create localized alert <code>ALERT_TEMP</code> with parameter <code>temp=24.5</code> without string concatenation.</p>
+        <pre><code>let temp = 24.5;
+let msg = L"ALERT_TEMP:Temperature alert {temp}";
+print(msg);</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 6: Bluetooth LE (BLE) Sensor Connect &amp; Query</h2>
+        <p><strong>Goal:</strong> Connect to BLE peripheral <code>sensor_01</code>, send <code>READ</code>, and print the response string.</p>
+        <pre><code>let ok = BT.connect("sensor_01");
+if (ok == true) {
+    BT.send("READ");
+    let resp = BT.readLine();
+    print("BT_OK: " + resp);
+}</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 7: Network ICMP Ping Check and Modbus Read</h2>
+        <p><strong>Goal:</strong> Ping host <code>192.168.1.50</code>. If reachable (RTT &gt; 0), read Modbus register 100.</p>
+        <pre><code>let rtt = NET.ping("192.168.1.50");
+if (rtt &gt; 0) {
+    let val = PLC.modbusRead("192.168.1.50", 100);
+    print(val);
+}</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 8: I2C Configuration Register Write</h2>
+        <p><strong>Goal:</strong> Write configuration byte to register <code>0xF4</code> of I2C sensor <code>0x76</code> and print write status.</p>
+        <pre><code>let status = I2C.write(0x76, 0xF4, 1);
+print("0x76 0xF4 status=" + status);</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 9: Combined Dual-Sensor Verification (I2C + Modbus)</h2>
+        <p><strong>Goal:</strong> Verify both BME280 Chip ID (0x76) and Modbus reg 100. If valid, print <code>SYSTEM_OK</code>, else trigger E-Stop.</p>
+        <pre><code>let id = I2C.read(0x76, 0xD0, 1);
+let reg = PLC.modbusRead("127.0.0.1", 100);
+if (id != null &amp;&amp; reg != null) {
+    print("SYSTEM_OK");
+} else {
+    WATCHDOG.emergencyStop();
+}</code></pre>
+      </section>
+
+      <section class="card">
+        <h2>Task 10: Strict CapabilityScope Adherence &amp; Self-Repair</h2>
+        <p><strong>Goal:</strong> Operate within granted whitelist (I2C 0x76 only). Prevent unauthorized address <code>0x68</code> and auto-repair to <code>0x76</code>.</p>
+        <pre><code>let val = I2C.read(0x76, 0xD0, 1);
+print("Authorized 0x76: " + val);</code></pre>
       </section>
     </div>
 
     <!-- ==================== DE VIEW ==================== -->
     <div id="view-de" class="lang-view">
       <section class="card">
-        <h2>💡 10 Automatisierungsaufgaben (Beispiele)</h2>
-        <p>Praxisnahe Beispiele für I2C-Sensoren (BME280), Modbus-TCP-Steuerung, Watchdog-Sicherheit und BLE.</p>
+        <h2>💡 10 Automatisierungsaufgaben (Benchmark-Szenarien)</h2>
+        <p>Praxisnahe Beispiele für I2C-Sensoren (BME280), Modbus-TCP-Steuerung, Watchdog-Sicherheit, BLE und Sandbox-Isolation.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem;">
+          <a href="examples.txt" target="_blank" class="btn" style="background: #1e293b; color: #38bdf8; border: 1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none;">📄 Plain-Text (examples.txt)</a>
+          <a href="tasks.json" target="_blank" class="btn" style="background: #1e293b; color: #34d399; border: 1px solid #34d399; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none;">🤖 JSON-Datensatz (tasks.json)</a>
+        </div>
       </section>
     </div>
 
     <!-- ==================== UK VIEW ==================== -->
     <div id="view-uk" class="lang-view">
       <section class="card">
-        <h2>💡 10 прикладів автоматизації</h2>
-        <p>Практичні приклади керування сенсорами I2C (BME280), протоколом Modbus TCP, сторожовим таймером Watchdog та BLE.</p>
+        <h2>💡 10 еталонних завдань автоматизації</h2>
+        <p>Практичні приклади керування сенсорами I2C (BME280), протоколом Modbus TCP, сторожовим таймером Watchdog, BLE та пісочницею безпеки.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem;">
+          <a href="examples.txt" target="_blank" class="btn" style="background: #1e293b; color: #38bdf8; border: 1px solid #38bdf8; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none;">📄 Plain-Text (examples.txt)</a>
+          <a href="tasks.json" target="_blank" class="btn" style="background: #1e293b; color: #34d399; border: 1px solid #34d399; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none;">🤖 JSON-датасет (tasks.json)</a>
+        </div>
       </section>
     </div>
 
