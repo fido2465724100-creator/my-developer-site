@@ -40,7 +40,38 @@ function switchTab(containerId, tabName) {
   });
   
   var panes = container.querySelectorAll('.tab-pane');
+  if (panes.length === 0 && container.parentElement) {
+    panes = container.parentElement.querySelectorAll('.tab-pane');
+  }
   panes.forEach(function(pane) {
     pane.classList.toggle('active', pane.getAttribute('data-tab') === tabName);
   });
 }
+
+// Switch code tabs (e.g. TDscript vs Python vs C++ in ai-language.html)
+function openCodeTab(evt, tabId) {
+  var e = evt || window.event;
+  var currentBtn = e ? (e.currentTarget || e.target) : null;
+  var container = currentBtn ? currentBtn.closest('.code-tabs') : null;
+  var root = container || document;
+
+  var buttons = root.querySelectorAll('.tab-btn');
+  buttons.forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+
+  var panes = root.querySelectorAll('.code-tab-content, .tab-pane');
+  panes.forEach(function(pane) {
+    pane.classList.remove('active');
+  });
+
+  if (currentBtn) {
+    currentBtn.classList.add('active');
+  }
+
+  var target = document.getElementById(tabId);
+  if (target) {
+    target.classList.add('active');
+  }
+}
+

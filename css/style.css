@@ -374,13 +374,15 @@ tr:nth-child(even) {
   background: rgba(255, 255, 255, 0.02);
 }
 
-/* VERSION TABS */
-.version-tabs {
+/* VERSION & CODE TABS */
+.version-tabs,
+.tab-buttons {
   display: flex;
   gap: 0.5rem;
   margin: 1.2rem 0 0.8rem 0;
   border-bottom: 2px solid var(--border);
   padding-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .tab-btn {
@@ -406,11 +408,13 @@ tr:nth-child(even) {
   border-color: var(--accent);
 }
 
-.tab-pane {
+.tab-pane,
+.code-tab-content {
   display: none;
 }
 
-.tab-pane.active {
+.tab-pane.active,
+.code-tab-content.active {
   display: block;
 }
 
