@@ -8,6 +8,7 @@
 >   - Ecosystem Hub: https://fido2465724100-creator.github.io/my-developer-site/tdscript/
 >   - AI-First Language (Architecture & Manifesto): https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
 >   - Language Specification (v1.4.0 & v1.0.1): https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html
+>   - Formal GBNF Grammar (Machine-Readable): https://fido2465724100-creator.github.io/my-developer-site/tdscript/grammar.gbnf
 >   - 10 Automation Scenarios & Examples: https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html
 >   - Raw Plain-Text Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.txt
 >   - Machine-Readable JSON Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tasks.json
@@ -34,21 +35,22 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
   - Built-in multitasking, app management, file navigation, and system diagnostics.
   - Zero telemetry and full offline capability.
 
-### 2. TDscript Core 1.1 / TDModules v1.4.0 — Universal Device, Chip & Robotics Platform
-- **Platforms / Scope**: Cross-platform (Linux, Windows, Android, Embedded, Robotics, GUI & TUI Applications)
-- **Release Status**: Stable Release v1.4.0 (Core 1.1 Specification compliant) alongside v1.0.1 (Legacy Stable)
+### 2. TDscript — Independent Programming Language & Ecosystem (Core 1.1 / v1.4.0)
+- **Nature & Scope**: Standalone, general-purpose embedded programming language and hardware orchestration ecosystem. TDscript is NOT an internal plugin or sub-feature of Tdroid. It possesses its own standalone Studio IDE, standalone CLI runner/compiler, embeddable runtime SDK (TDModules), and AI-First Agentic Loop. Tdroid is merely one external client application utilizing its legacy engine.
+- **Platforms**: Cross-platform (Linux DEB/RPM/AppImage/Tarball/JAR, Android APK with USB-OTG and BLE, Windows, Embedded, Robotics ROS 2, Modbus PLC).
+- **Release Status**: Current Production Standard: v1.4.0 (Core 1.1 Specification compliant) alongside v1.0.1 (Legacy Stable archive).
 - **Documentation**: https://fido2465724100-creator.github.io/my-developer-site/tdscript/
 - **Two Coexisting Generations**:
-  1. **TDscript v1.4.0 / Core 1.1 (Modern / Studio / AI-First)**:
+  1. **TDscript v1.4.0 / Core 1.1 (Current Production Standard / Studio / AI-First)**:
      - Hexadecimal literals: `0x76`, `0xD0`, `0xF4`, `0x1000L`
      - Deterministic byte array formatting (`[0x60]`) and indexing `bytes[i]` (returns 0..255)
      - `LString` symbolic resources with `{varName}` scope interpolation (concatenation with `+` strictly prohibited via `TDS_E105`)
      - Strict method dispatch: `TDS_E106: E106@line:col unknown_method=<name> on=<type>`
      - Hardware watchdog subsystem: `WATCHDOG.feed()`, `WATCHDOG.emergencyStop()`
      - Spatial sandboxing: `CapabilityScope` address whitelisting (I2C: `0x76`, Modbus: `100..200`)
-     - AI compact repair lines: `E104@1:5 exp=0x76 got=0x68` and formal GBNF grammar (`docs/tdscript-core-1.1.gbnf`)
-  2. **TDscript v1.0.1 / Core 1.0 (Classic / Legacy Stable)**:
-     - Maintained across Tdroid Launcher and older Android host apps
+     - AI compact repair lines: `E104@1:5 exp=0x76 got=0x68` and formal GBNF grammar (`grammar.gbnf`)
+  2. **TDscript v1.0.1 / Core 1.0 (Archival / Legacy Stable)**:
+     - Preserved in Tdroid Android Launcher for backwards compatibility of legacy scripts
      - Numeric literals: Decimal only (`118`, `208`)
      - Symbolic `LString` resources (without `{var}` interpolation)
      - Standard multi-line JSON error diagnostics (`CompilerErrorDiagnostic.toJson()`)

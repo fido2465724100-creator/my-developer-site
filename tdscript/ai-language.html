@@ -23,12 +23,13 @@
 
   <!-- HEADER -->
   <header>
-    <h1>🤖 TDscript AI-First (Experimental)</h1>
+    <h1>🤖 TDscript AI-First (Спецификация Core 1.1)</h1>
     <p>Язык программирования нового поколения, спроектированный с нуля для генерации, верификации и самопочинки кода автономными нейросетями (LLM)</p>
     <nav class="nav-bar">
       <a href="index.html">🏠 Обзор платформы</a>
       <a href="ai-language.html" class="active">🤖 Язык для ИИ</a>
-      <a href="language.html">📖 Спецификация (v1.0 / v1.4)</a>
+      <a href="language.html">📖 Спецификация</a>
+      <a href="grammar.gbnf" target="_blank">📐 GBNF-грамматика</a>
       <a href="examples.html">💡 10 задач автоматизации</a>
       <a href="studio.html">📦 Студия и Загрузки</a>
       <a href="benchmark.html">📊 ИИ-Бенчмарк</a>
@@ -118,11 +119,16 @@
             </p>
           </div>
 
-          <div class="feature-box">
-            <h4>5. 100% Синтаксическая гарантия через GBNF</h4>
+          <div class="feature-box" style="border-left: 3px solid #f59e0b;">
+            <h4 style="color: #f59e0b;">5. 100% Синтаксическая гарантия через GBNF</h4>
             <p>
-              Грамматика TDscript AI-First формализована в файле GBNF (GGML BNF). При генерации через <code>llama-server</code> или Ollama движок на уровне семплирования токенов исключает любые синтаксические ошибки (0% Syntax Errors).
+              Грамматика TDscript Core 1.1 формализована в эталонном файле GBNF (GGML BNF). При генерации через <code>llama-server</code> или Ollama движок на уровне семплирования токенов исключает любые синтаксические ошибки (0% Syntax Errors).
             </p>
+            <div style="margin-top: 0.6rem;">
+              <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                📐 Скачать / Просмотреть grammar.gbnf
+              </a>
+            </div>
           </div>
 
           <div class="feature-box">
@@ -335,6 +341,11 @@ while (counter < 5) {
           <li><strong>Syntax Errors</strong>: 0% thanks to formal GBNF grammars.</li>
           <li><strong>Scope Safety</strong>: Automatic hardware sandbox intercepting unauthorized peripheral access.</li>
         </ul>
+        <div style="margin-top: 1rem;">
+          <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
+            📐 Download Formal GBNF Grammar (grammar.gbnf)
+          </a>
+        </div>
       </section>
     </div>
 
@@ -348,6 +359,11 @@ while (counter < 5) {
           <li><strong>CapabilityScope</strong>: Integrierte Sicherheitssandbox verhindert Schäden an physischer Hardware.</li>
           <li><strong>Kompakter Code</strong>: Nur 3.5 bis 5.6 Zeilen pro Aufgabe.</li>
         </ul>
+        <div style="margin-top: 1rem;">
+          <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
+            📐 Formale GBNF-Grammatik herunterladen (grammar.gbnf)
+          </a>
+        </div>
       </section>
     </div>
 
@@ -362,6 +378,11 @@ while (counter < 5) {
           <li><strong>Пісочниця безпеки CapabilityScope</strong>: апаратний контроль доступу захищає контролери від збоїв.</li>
           <li><strong>Машиночитані помилки</strong>: компактний діагностичний JSON для ремонту коду з першої спроби.</li>
         </ul>
+        <div style="margin-top: 1rem;">
+          <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
+            📐 Завантажити формальну GBNF-граматику (grammar.gbnf)
+          </a>
+        </div>
       </section>
     </div>
 

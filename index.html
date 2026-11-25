@@ -49,11 +49,11 @@
       <section class="card" id="about">
         <h2>👨‍💻 Об авторе и разработчике</h2>
         <p>
-          Приветствую! Меня зовут Антон Михайлов. Моя инженерная деятельность охватывает два специализированных направления:
+          Приветствую! Меня зовут Антон Михайлов. Я создатель независимого встраиваемого языка программирования и платформы автоматизации <strong>TDscript v1.4.0 (Core 1.1)</strong> с собственной средой разработки <strong>TDscript Studio IDE</strong>. Моя инженерная деятельность охватывает два специализированных направления:
         </p>
         <ul>
-          <li><strong>Системы с экстремальным минимализмом (0 KB VRAM / Headless):</strong> консольная операционная среда <strong>Tdroid</strong> и встраиваемый язык <strong>TDscript Core VM</strong>, работающие исключительно в текстовой псевдографике (TUI / Turbo Vision) или в фоновом безголовом режиме без малейшей нагрузки на видеочип и с потреблением 9–15 МБ ОЗУ.</li>
-          <li><strong>Графические и прикладные инженерные комплексы:</strong> мобильные интерактивные 3D-атласы (OpenGL), картографирование сетей (Network Audit) и настольные игры, где графический процессор задействуется целевым образом.</li>
+          <li><strong>Системы с экстремальным минимализмом (0 KB VRAM / Headless):</strong> виртуальная машина и компилятор байткода <strong>TDscript Core VM</strong>, консольная операционная среда <strong>Tdroid</strong>, работающие исключительно в текстовой псевдографике (TUI / Turbo Vision) или в фоновом безголовом режиме без малейшей нагрузки на видеочип и с потреблением 9–15 МБ ОЗУ.</li>
+          <li><strong>Графические и прикладные инженерные комплексы:</strong> среда разработки <strong>TDscript Studio</strong> (Compose Desktop / Android), мобильные интерактивные 3D-атласы (OpenGL), картографирование сетей (Network Audit) и настольные игры, где графический процессор задействуется целевым образом.</li>
         </ul>
 
         <div class="feature-grid">
@@ -155,7 +155,7 @@
                 <br>• <em>Свои API-ключи</em>: прямое подключение Google Gemini, OpenAI ChatGPT, Claude, DeepSeek, OpenRouter.
                 <br>• <em>Локальные LLM (100% приватность)</em>: подключение к домашнему серверу Ollama или LM Studio по Wi-Fi без выхода в интернет.</li>
               <li><strong>Двухпанельный Т-Командер (T-Commander)</strong>: файловый менеджер (память телефона, SD-карты, USB-OTG, FTP и WebDAV).</li>
-              <li><strong>Встроенная среда TDScript Studio</strong>: IDE для разработки и запуска микро-скриптов прямо на смартфоне.</li>
+              <li><strong>Интеграция с TDscript</strong>: запуск скриптов классического ядра TDscript v1.0.1 (Legacy) непосредственно из терминала лаунчера (для полноценной разработки создана отдельная IDE <a href="#tdscript">TDscript Studio</a>).</li>
               <li><strong>Компиляция и экспорт</strong>: сборка автономных APK, Linux-пакетов (.sh/.desktop), Windows (.bat) и байткода .tbc.</li>
               <li><strong>Аппаратный доступ</strong>: GPS, камера, фонарик, синтез речи TTS, датчики движения, SQLite.</li>
               <li><strong>Сетевой стек SecOps</strong>: сканер портов, ping, аудит Wi-Fi, прямое управление Modbus TCP и UDP.</li>
@@ -217,21 +217,33 @@
 
       <!-- 4. TDSCRIPT ЭКОСИСТЕМА: ПОРТАЛ И СТУДИЯ -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript — Платформа сценарного управления для микросхем, робототехники и IoT <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
+        <h2>⚡ TDscript v1.4.0 (Core 1.1) — Независимый язык программирования и открытая экосистема <span class="badge badge-accent">Стабильный релиз</span></h2>
         <p>
-          <strong>TDscript (TextDroid Script)</strong> — компактная программная экосистема и легковесный детерминированный язык автоматизации, созданный Антоном Михайловым. Платформа связывает воедино микросхемы физических шин (I2C, SPI, UART, CAN), промышленные ПЛК (Modbus TCP/RTU), робототехнику (ROS 2) и автономных ИИ-агентов с нулевым оверхедом видеопамяти (0 KB VRAM / Headless).
+          <strong>TDscript</strong> — это самостоятельный, полнофункциональный встраиваемый язык программирования и открытая программная экосистема, созданная Антоном Михайловым. Язык спроектирован как <strong>универсальный слой оркестрации аппаратуры и микросхем (Device &amp; Chip Orchestration)</strong>: от физических шин (I2C, SPI, UART, CAN) и промышленных ПЛК (Modbus TCP/RTU) до робототехники (ROS 2) и автономных локальных ИИ-агентов с нулевым оверхедом видеопамяти (0 KB VRAM / Headless).
         </p>
 
+        <div class="callout callout-blue" style="margin: 1rem 0;">
+          <strong>Архитектурная независимость и статус платформы:</strong>
+          <br>TDscript <strong>не является внутренней надстройкой одного лишь лаунчера Tdroid</strong>. Это полностью самостоятельный открытый технологический стек:
+          <ul style="margin: 0.5rem 0 0.5rem 1.2rem; padding: 0;">
+            <li><strong>Собственная кроссплатформенная IDE:</strong> <a href="tdscript/studio.html" style="color:var(--accent); font-weight:600;">TDscript Studio</a> (нативные сборки для Ubuntu/Debian, Fedora, Arch/AppImage, портативный архив, исполняемый Fat JAR и Android APK с поддержкой USB-OTG шинных адаптеров и Bluetooth LE).</li>
+            <li><strong>Автономная виртуальная машина и компилятор:</strong> TDscript Core 1.1 компилирует исходный код в компактный детерминированный байткод <code>.tbc</code> с криптографической валидацией цифровых подписей Ed25519 и контролем целостности SHA-256.</li>
+            <li><strong>Встраиваемый SDK (библиотека TDModules):</strong> подключается как независимый движок в сторонние Java/Kotlin, Android, Linux и ROS 2 системы. Лаунчер Tdroid — лишь один из внешних клиентов, использующий этот интерпретатор.</li>
+            <li><strong>AI-First агентный цикл:</strong> встроенная формальная GBNF-грамматика, машиночитаемые компактные ошибки и замкнутый контур самопочинки кода (Agentic Loop) без галлюцинаций внешних импортов.</li>
+          </ul>
+        </div>
+
         <div class="callout callout-green">
-          <strong>Сосуществование версий платформы:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Современная AI-First):</strong> используется в среде <strong>TDscript Studio</strong>, аппаратных стендах автоматизации и робототехнике. Поддерживает hex-литералы (<code>0x76</code>), индексацию <code>ByteArray[i]</code>, интерполяцию <code>LString</code>, сторож <code>WATCHDOG</code> и GBNF-грамматику для LLM.
-          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Классическая / Стабильная):</strong> сохраняется и поддерживается во всех ранее созданных программах автора, включая мобильный лаунчер <strong>Tdroid</strong> и системные сервисы Android (десятичные регистры, базовый LString, классический JSON ошибок).
+          <strong>Иерархия версий языка:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Текущий промышленный стандарт / Modern AI-First):</strong> основной рабочий релиз. Включает нативные шестнадцатеричные литералы (<code>0x76</code>, <code>0xD0</code>), индексацию <code>ByteArray[i]</code> (0..255), интерполяцию переменных в <code>LString</code> (запрет конкатенации <code>+</code>), строгую диспетчеризацию методов <code>TDS_E106</code>, аппаратный сторожевой таймер <code>WATCHDOG</code>, пространственную песочницу <code>CapabilityScope</code> и формальную GBNF-грамматику для LLM.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Архивная / Legacy Stable):</strong> ранняя базовая редакция 2024 года, сохранённая для 100% обратной совместимости старых скриптов в мобильном лаунчере <strong>Tdroid</strong> (десятичные адреса регистров, символический LString без интерполяции, полный JSON ошибок).
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
-          <a href="tdscript/index.html" class="btn-primary">🌐 Портал TDscript</a>
+          <a href="tdscript/index.html" class="btn-primary">🌐 Портал экосистемы TDscript</a>
           <a href="tdscript/ai-language.html" class="btn-secondary" style="border-color: var(--accent);">🤖 Язык для ИИ (AI-First)</a>
           <a href="tdscript/language.html" class="btn-secondary">📖 Спецификация языка</a>
+          <a href="tdscript/grammar.gbnf" target="_blank" class="btn-secondary" style="border-color: #f59e0b; color: #f59e0b;">📐 Формальная GBNF-грамматика</a>
           <a href="tdscript/examples.html" class="btn-secondary">💡 10 задач автоматизации</a>
           <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Загрузки</a>
           <a href="tdscript/benchmark.html" class="btn-secondary">📊 ИИ-Бенчмарк</a>
@@ -260,6 +272,9 @@ if (boilerTemp > 250) {
           <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
             <a href="https://github.com/fido2465724100-creator/my-developer-site" target="_blank" rel="noopener noreferrer" class="btn" style="background:#1e293b; color:var(--accent); border:1px solid var(--accent); font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               🐙 Исходный код на GitHub
+            </a>
+            <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📐 Формальная грамматика GBNF (grammar.gbnf)
             </a>
             <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📄 Plain-Text датасет 10 задач (examples.txt)
@@ -500,8 +515,12 @@ if (boilerTemp > 250) {
       <section class="card" id="about">
         <h2>👨‍💻 About Author & Developer</h2>
         <p>
-          Welcome! I am Anton Mykhailov. My engineering philosophy centers on extreme resource optimization: zero GPU overhead (0 KB VRAM), maximum battery life, clean architecture, and full hardware control without bloated high-level frameworks.
+          Welcome! I am Anton Mykhailov, creator of the independent embedded programming language and automation platform <strong>TDscript v1.4.0 (Core 1.1)</strong> and its dedicated IDE <strong>TDscript Studio</strong>. My engineering activities span two specialized domains:
         </p>
+        <ul>
+          <li><strong>Systems with Extreme Minimalism (0 KB VRAM / Headless):</strong> The <strong>TDscript Core VM</strong> runtime and the <strong>Tdroid</strong> text-based mobile operating environment, engineered strictly with text-mode pseudographics (TUI / Turbo Vision) or headless daemon execution with zero GPU memory overhead (0 KB VRAM) and an ultralow 9–15 MB RAM footprint.</li>
+          <li><strong>Graphical & Applied Engineering Suites:</strong> The <strong>TDscript Studio IDE</strong> (Compose Desktop / Android), mobile interactive 3D anatomy atlases (OpenGL), OT/ICS network auditing (Network Audit), and algorithmic strategy games, where GPU acceleration is utilized with purpose.</li>
+        </ul>
 
         <div class="feature-grid">
           <div class="feature-box">
@@ -541,7 +560,7 @@ if (boilerTemp > 250) {
             <h4>🔒 Exclusive Tdroid Pro Capabilities</h4>
             <p style="margin-bottom:0.6rem; color:var(--text-muted);">Features available exclusively in the commercial Pro edition:</p>
             <ul>
-              <li><strong>Integrated TDScript Studio IDE</strong>: build, test, and run micro-applications right on your phone.</li>
+              <li><strong>TDscript CLI Integration</strong>: Execute automation scripts via the embedded TDscript v1.0.1 (Legacy) engine directly from the terminal console. (For comprehensive development, use the standalone <a href="#tdscript">TDscript Studio IDE</a>).</li>
               <li><strong>Full Android Hardware API access</strong>: GPS, Text-to-Speech (TTS), camera flash, sensors, vibration.</li>
               <li><strong>Relational SQLite Database</strong>: store persistent structured tables with native SQL queries.</li>
               <li><strong>SecOps Network Toolkit</strong>: active port scanner, network ping, Wi-Fi auditing tools.</li>
@@ -597,21 +616,33 @@ if (boilerTemp > 250) {
 
       <!-- 4. TDSCRIPT ECOSYSTEM: PORTAL & STUDIO -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript — Device Orchestration, Robotics &amp; IoT Scripting Platform <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
+        <h2>⚡ TDscript v1.4.0 (Core 1.1) — Independent Programming Language &amp; Open Ecosystem <span class="badge badge-accent">Stable Release</span></h2>
         <p>
-          <strong>TDscript (TextDroid Script)</strong> is a compact cross-platform runtime and lightweight deterministic scripting language created by Anton Mykhailov. Engineered as a <strong>connective Device &amp; Chip Orchestration layer</strong>, TDscript bridges physical buses &amp; IC chips (I2C, SPI, UART, CAN), industrial PLCs (Modbus TCP, OPC UA), robotic systems (ROS 2 / DDS), and autonomous AI agents with zero GPU memory overhead (0 KB VRAM / Headless).
+          <strong>TDscript</strong> is an independent, full-fledged embedded scripting language and software ecosystem created by Anton Mykhailov. Engineered as a <strong>connective Device &amp; Chip Orchestration layer</strong>, TDscript bridges physical buses &amp; IC chips (I2C, SPI, UART, CAN), industrial PLCs (Modbus TCP, OPC UA), robotic systems (ROS 2 / DDS), and autonomous local AI agents with zero GPU memory overhead (0 KB VRAM / Headless).
         </p>
 
+        <div class="callout callout-blue" style="margin: 1rem 0;">
+          <strong>Architectural Independence &amp; Platform Status:</strong>
+          <br>TDscript is <strong>not merely an internal plugin of the Tdroid launcher</strong>. It is a completely autonomous open technology stack:
+          <ul style="margin: 0.5rem 0 0.5rem 1.2rem; padding: 0;">
+            <li><strong>Standalone Cross-Platform IDE:</strong> <a href="tdscript/studio.html" style="color:var(--accent); font-weight:600;">TDscript Studio</a> (native packages for Ubuntu/Debian, Fedora, Arch/AppImage, portable tarball, universal executable Fat JAR, and Android APK supporting USB-OTG bus bridges and Bluetooth LE).</li>
+            <li><strong>Autonomous Virtual Machine &amp; Compiler:</strong> TDscript Core 1.1 compiles source code into deterministic, compact <code>.tbc</code> bytecode secured with Ed25519 cryptographic signatures and SHA-256 integrity hashing.</li>
+            <li><strong>Embeddable SDK (TDModules Library):</strong> Integrates as an independent engine into third-party Java/Kotlin, Android, Linux, and ROS 2 systems. The Tdroid launcher is merely one client application utilizing this runtime.</li>
+            <li><strong>AI-First Agentic Loop:</strong> Built-in formal GBNF grammar, machine-readable compact repair diagnostics, and closed-loop self-healing code execution without external library import hallucinations.</li>
+          </ul>
+        </div>
+
         <div class="callout callout-green">
-          <strong>Coexistence of Platform Versions:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Modern AI-First):</strong> Powering <strong>TDscript Studio IDE</strong>, hardware testbenches, and robotics. Features hex literals (<code>0x76</code>), <code>ByteArray[i]</code> indexing, <code>LString</code> interpolation, fail-safe <code>WATCHDOG</code>, and GBNF grammar for local LLMs.
-          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Classic / Stable):</strong> Maintained in the <strong>Tdroid</strong> Android launcher and background system utilities (decimal register addresses, symbolic LString, full JSON diagnostics).
+          <strong>Language Version Hierarchy:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Current Production Standard / Modern AI-First):</strong> Primary production release. Features native hexadecimal literals (<code>0x76</code>, <code>0xD0</code>), <code>ByteArray[i]</code> indexing (0..255), scoped variable interpolation in <code>LString</code> (concatenation <code>+</code> strictly banned), strict method dispatch <code>TDS_E106</code>, fail-safe <code>WATCHDOG</code> hardware protection, spatial sandboxing with <code>CapabilityScope</code>, and formal GBNF grammar for local LLMs.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Archival / Legacy Stable):</strong> Early foundational release (2024), preserved for 100% backwards compatibility of legacy terminal scripts in the <strong>Tdroid</strong> mobile launcher (decimal-only register addresses, symbolic LString without interpolation, full JSON diagnostics).
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
-          <a href="tdscript/index.html" class="btn-primary">🌐 TDscript Portal</a>
+          <a href="tdscript/index.html" class="btn-primary">🌐 TDscript Ecosystem Portal</a>
           <a href="tdscript/ai-language.html" class="btn-secondary" style="border-color: var(--accent);">🤖 AI-First Language</a>
           <a href="tdscript/language.html" class="btn-secondary">📖 Language Specification</a>
+          <a href="tdscript/grammar.gbnf" target="_blank" class="btn-secondary" style="border-color: #f59e0b; color: #f59e0b;">📐 Formal GBNF Grammar</a>
           <a href="tdscript/examples.html" class="btn-secondary">💡 10 Automation Tasks</a>
           <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Downloads</a>
           <a href="tdscript/benchmark.html" class="btn-secondary">📊 AI Benchmark</a>
@@ -640,6 +671,9 @@ if (boilerTemp > 250) {
           <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
             <a href="https://github.com/fido2465724100-creator/my-developer-site" target="_blank" rel="noopener noreferrer" class="btn" style="background:#1e293b; color:var(--accent); border:1px solid var(--accent); font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               🐙 GitHub Repository
+            </a>
+            <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📐 Formal GBNF Grammar (grammar.gbnf)
             </a>
             <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📄 Plain-Text 10 Tasks Dataset (examples.txt)
@@ -880,8 +914,12 @@ if (boilerTemp > 250) {
       <section class="card" id="about">
         <h2>👨‍💻 Über den Autor & Entwickler</h2>
         <p>
-          Herzlich willkommen! Mein Name ist Anton Mykhailov. Meine Ingenieurphilosophie basiert auf extremer Ressourceneffizienz: kein GPU-Overhead (0 KB VRAM), maximale Akkulaufzeit, klare Softwarearchitektur und direkte Hardwarekontrolle ohne überladene Frameworks.
+          Herzlich willkommen! Mein Name ist Anton Mykhailov, Entwickler der eigenständigen eingebetteten Programmiersprache und Automatisierungsplattform <strong>TDscript v1.4.0 (Core 1.1)</strong> sowie der dazugehörigen Entwicklungsumgebung <strong>TDscript Studio IDE</strong>. Meine Ingenieurtätigkeit konzentriert sich auf zwei spezialisierte Domänen:
         </p>
+        <ul>
+          <li><strong>Systeme mit extremem Minimalismus (0 KB VRAM / Headless):</strong> Die <strong>TDscript Core VM</strong> und die mobile <strong>Tdroid</strong> TUI-Betriebsumgebung, die rein textbasiert (Turbo Vision / VT100) oder als kopflose Hintergrunddienste mit 0 KB GPU-Speicher und rekordverdächtigen 9–15 MB RAM-Verbrauch arbeiten.</li>
+          <li><strong>Grafische und angewandte Ingenieursuiten:</strong> Die <strong>TDscript Studio IDE</strong> (Compose Desktop / Android), interaktive 3D-Akupunktur-Atlanten (OpenGL), OT/ICS-Netzwerkaudits (Network Audit) sowie Strategiespiele, bei denen Grafikhardware gezielt eingesetzt wird.</li>
+        </ul>
 
         <div class="feature-grid">
           <div class="feature-box">
@@ -968,7 +1006,7 @@ if (boilerTemp > 250) {
             <h4>🔒 Exklusive Funktionen in Tdroid Pro</h4>
             <p style="margin-bottom:0.6rem; color:var(--text-muted);">Funktionen exklusiv in der kommerziellen Pro-Edition:</p>
             <ul>
-              <li><strong>Integrierte TDScript Studio IDE</strong>: Eigene Mini-Apps direkt auf dem Smartphone programmieren und ausführen.</li>
+              <li><strong>TDscript CLI-Integration</strong>: Ausführung von Automatisierungsskripten über die integrierte TDscript v1.0.1 (Legacy)-Engine direkt im Terminal (zur vollständigen Entwicklung steht die separate <a href="#tdscript">TDscript Studio IDE</a> bereit).</li>
               <li><strong>Voller Zugriff auf Android-Hardware</strong>: GPS, Sprachausgabe (TTS), Kamera-Blitzlicht, Sensoren, Vibration.</li>
               <li><strong>Relationale SQLite-Datenbank</strong>: Lokale strukturierte Datenspeicherung mit nativen SQL-Abfragen.</li>
               <li><strong>SecOps-Netzwerkwerkzeuge</strong>: Portscanner, Ping-Dienstprogramme, WLAN-Auditing.</li>
@@ -1022,27 +1060,77 @@ if (boilerTemp > 250) {
         </div>
       </section>
 
-      <!-- 4. TDSCRIPT, BYTECODE & SCHUTZ -->
       <!-- 4. TDSCRIPT-ÖKOSYSTEM: PORTAL & STUDIO -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript — Chip-Orchestrierung, Robotik &amp; IoT-Skriptplattform <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
+        <h2>⚡ TDscript v1.4.0 (Core 1.1) — Unabhängige Programmiersprache &amp; Offenes Ökosystem <span class="badge badge-accent">Stabiles Release</span></h2>
         <p>
-          <strong>TDscript (TextDroid Script)</strong> ist ein extrem leichtgewichtiges deterministisches Skript- und Software-Ökosystem von Anton Mykhailov für I2C/SPI-Busse, Modbus-SPS, Robotik und autonome lokale KI-Agenten mit 0 KB VRAM Overhead.
+          <strong>TDscript</strong> ist eine eigenständige, vollwertige eingebettete Programmiersprache und ein Software-Ökosystem von Anton Mykhailov für <strong>Geräte- und Chip-Orchestrierung</strong>: von I2C/SPI/UART/CAN-Mikrocontroller-Bussen und Modbus-SPS bis hin zu Robotik (ROS 2) und autonomen lokalen KI-Agenten mit 0 KB VRAM Overhead.
         </p>
 
+        <div class="callout callout-blue" style="margin: 1rem 0;">
+          <strong>Architektonische Unabhängigkeit &amp; Plattformstatus:</strong>
+          <br>TDscript ist <strong>kein internes Plug-in des Tdroid-Launchers</strong>, sondern ein eigenständiger offener Technologie-Stack:
+          <ul style="margin: 0.5rem 0 0.5rem 1.2rem; padding: 0;">
+            <li><strong>Eigenständige plattformübergreifende IDE:</strong> <a href="tdscript/studio.html" style="color:var(--accent); font-weight:600;">TDscript Studio</a> (native Pakete für Ubuntu/Debian, Fedora, Arch/AppImage, portabler Tarball, ausführbares Fat JAR und Android APK mit USB-OTG Bus-Bridges und BLE).</li>
+            <li><strong>Autonome virtuelle Maschine &amp; Compiler:</strong> TDscript Core 1.1 kompiliert Quellcode in deterministischen Bytecode <code>.tbc</code> mit Ed25519-Signaturprüfung und SHA-256-Integritätskontrolle.</li>
+            <li><strong>Einbettbares SDK (TDModules-Bibliothek):</strong> Lässt sich als unabhängige Engine in Java/Kotlin-, Android-, Linux- und ROS 2-Systeme einbinden. Der Tdroid-Launcher ist lediglich ein Client, der diese Laufzeit nutzt.</li>
+            <li><strong>AI-First Agentic Loop:</strong> Integrierte formale GBNF-Grammatik, maschinenlesbare Reparaturzeilen und autonomer Selbstkorrekturzyklus ohne fehlerhafte Import-Halluzinationen.</li>
+          </ul>
+        </div>
+
         <div class="callout callout-green">
-          <strong>Koexistenz der Versionen:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Modern / AI-First):</strong> In <strong>TDscript Studio IDE</strong>, Hardware-Prüfständen und Robotik aktiv. Unterstützt Hexadezimal-Literale (<code>0x76</code>), ByteArray-Indexierung, LString-Interpolation, Watchdog und GBNF-Grammatik.
-          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Klassisch / Stabil):</strong> Im <strong>Tdroid</strong> Android Launcher und Hintergrunddiensten gepflegt (Dezimalregister, Standard-LString, Voll-JSON).
+          <strong>Hierarchie der Sprachversionen:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Aktueller Industriestandard / Modern AI-First):</strong> Hauptproduktions-Release. Enthält native Hexadezimal-Literale (<code>0x76</code>, <code>0xD0</code>), <code>ByteArray[i]</code>-Indexierung (0..255), Variablen-Interpolation in <code>LString</code> (Verkettung mit <code>+</code> strikt verboten), strikte Methodenprüfung <code>TDS_E106</code>, Hardware-Watchdog <code>WATCHDOG</code>, <code>CapabilityScope</code>-Sandboxing und formale GBNF-Grammatik für lokale LLMs.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Archiviert / Legacy-Stabil):</strong> Frühe Basisversion (2024), aktiv im mobilen Launcher <strong>Tdroid</strong> für vollständige Abwärtskompatibilität (Dezimalregister, Standard-LString ohne Interpolation, vollständiges JSON-Fehlerformat).
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
-          <a href="tdscript/index.html" class="btn-primary">🌐 TDscript-Portal</a>
+          <a href="tdscript/index.html" class="btn-primary">🌐 TDscript-Ökosystem-Portal</a>
           <a href="tdscript/ai-language.html" class="btn-secondary" style="border-color: var(--accent);">🤖 Sprache für KI (AI-First)</a>
           <a href="tdscript/language.html" class="btn-secondary">📖 Sprachspezifikation</a>
+          <a href="tdscript/grammar.gbnf" target="_blank" class="btn-secondary" style="border-color: #f59e0b; color: #f59e0b;">📐 Formale GBNF-Grammatik</a>
           <a href="tdscript/examples.html" class="btn-secondary">💡 10 Automatisierungsaufgaben</a>
           <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Downloads</a>
           <a href="tdscript/benchmark.html" class="btn-secondary">📊 KI-Benchmark</a>
+        </div>
+
+        <!-- LIVE-SYNTAX-BEISPIEL & QUELLEN -->
+        <div style="margin: 1.2rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 0.5rem;">💻 Live TDscript AI-First Syntax (Geprüfter Code aus dem Benchmark):</h4>
+          <pre><code>// 1. Bosch BME280 Chip-ID über I2C-Bus lesen (0x76, Register 0xD0)
+let chipId = I2C.read(0x76, 0xD0, 1);
+
+// 2. Temperatur aus Modbus-TCP-Halberegister der SPS lesen
+let boilerTemp = PLC.modbusRead("127.0.0.1", 100);
+
+if (boilerTemp > 250) {
+    PLC.modbusWrite("127.0.0.1", 101, 0); // Notabschaltung Pumpe
+    WATCHDOG.emergencyStop();
+} else {
+    WATCHDOG.feed(); // Hardware-Watchdog füttern
+    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+}</code></pre>
+        </div>
+
+        <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1.2rem 0;">
+          <h4 style="margin-bottom: 0.5rem; color: var(--green);">📂 Open-Source-Materialien, Repositorien &amp; LLM-Datensätze:</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+            <a href="https://github.com/fido2465724100-creator/my-developer-site" target="_blank" rel="noopener noreferrer" class="btn" style="background:#1e293b; color:var(--accent); border:1px solid var(--accent); font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🐙 GitHub-Repository
+            </a>
+            <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📐 Formale GBNF-Grammatik (grammar.gbnf)
+            </a>
+            <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📄 Plain-Text 10 Aufgaben Datensatz (examples.txt)
+            </a>
+            <a href="tdscript/tasks.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 JSON-Datensatz für KI (tasks.json)
+            </a>
+            <a href="llms-full.txt" target="_blank" class="btn" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🧠 Vollständiger Kontext (llms-full.txt)
+            </a>
+          </div>
         </div>
 
         <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">
@@ -1256,8 +1344,12 @@ if (boilerTemp > 250) {
       <section class="card" id="about">
         <h2>👨‍💻 Про автора та розробника</h2>
         <p>
-          Вітаю! Мене звати Антон Михайлов. Моя інженерна філософія — створення програмних систем з екстремальною оптимізацією: нульове навантаження на відеопам'ять (0 КБ VRAM), максимальна автономність пристроїв, чиста архітектура та повний контроль над апаратною частиною без зайвих важких фреймворків.
+          Вітаю! Мене звати Антон Михайлов. Я творець незалежної вбудованої мови програмування та платформи автоматизації <strong>TDscript v1.4.0 (Core 1.1)</strong> з власною IDE <strong>TDscript Studio</strong>. Моя інженерна діяльність охоплює два спеціалізовані напрямки:
         </p>
+        <ul>
+          <li><strong>Системи з екстремальним мінімалізмом (0 КБ VRAM / Headless):</strong> віртуальна машина <strong>TDscript Core VM</strong> та текстове середовище <strong>Tdroid</strong>, що працюють виключно у псевдографіці (TUI / Turbo Vision) або у фоновому безголовому режимі з 0 КБ навантаження на GPU та 9–15 МБ оперативної пам'яті.</li>
+          <li><strong>Графічні та прикладні інженерні комплекси:</strong> середовище розробки <strong>TDscript Studio IDE</strong> (Compose Desktop / Android), інтерактивні 3D-атласи акупунктури (OpenGL), аудит промислових мереж (Network Audit) та алгоритмічні ігри.</li>
+        </ul>
 
         <div class="feature-grid">
           <div class="feature-box">
@@ -1297,7 +1389,7 @@ if (boilerTemp > 250) {
             <h4>🔒 Ексклюзивні можливості Tdroid Pro</h4>
             <p style="margin-bottom:0.6rem; color:var(--text-muted);">Можливості, доступні лише у комерційній редакції Pro:</p>
             <ul>
-              <li><strong>Вбудоване середовище TDScript Studio</strong>: створення та виконання власних міні-програм прямо на телефоні.</li>
+              <li><strong>Інтеграція з TDscript</strong>: виконання автоматизаційних сценаріїв ядра TDscript v1.0.1 (Legacy) безпосередньо з консолі лаунчера (для повноцінної розробки створено окрему IDE <a href="#tdscript">TDscript Studio</a>).</li>
               <li><strong>Повний доступ до датчиків та апаратури Android</strong>: GPS, синтез мови (TTS), ліхтарик, сенсори, вібрація.</li>
               <li><strong>Реляційна база даних SQLite</strong>: структуроване зберігання локальних таблиць з SQL-запитами.</li>
               <li><strong>Інструменти безпеки SecOps</strong>: сканер відкритих портів, мережевий ping, аудит Wi-Fi.</li>
@@ -1351,27 +1443,77 @@ if (boilerTemp > 250) {
         </div>
       </section>
 
-      <!-- 4. TDSCRIPT, БАЙТКОД ТА ЗАХИСТ КОДУ -->
       <!-- 4. ЕКОСИСТЕМА TDSCRIPT: ПОРТАЛ ТА СТУДІЯ -->
       <section class="card" id="tdscript">
-        <h2>⚡ TDscript — Платформа сценарного керування для мікросхем, робототехніки та IoT <span class="badge badge-accent">Core 1.1 / v1.4.0</span></h2>
+        <h2>⚡ TDscript v1.4.0 (Core 1.1) — Незалежна мова програмування та відкрита екосистема <span class="badge badge-accent">Стабільний реліз</span></h2>
         <p>
-          <strong>TDscript (TextDroid Script)</strong> — компактна програмна екосистема та детермінована мова автоматизації від Антона Михайлова. Платформа об'єднує мікросхеми фізичних шин (I2C, SPI, UART, CAN), промислові ПЛК (Modbus TCP/RTU), робототехніку (ROS 2) та автономних ШІ-агентів з 0 KB VRAM оверхедом.
+          <strong>TDscript</strong> — це самостійна, повнофункціональна вбудована мова програмування та відкрита програмна екосистема від Антона Михайлова. Вона спроектована як <strong>універсальний шар оркестрації апаратури та мікросхем (Device &amp; Chip Orchestration)</strong>: від фізичних шин (I2C, SPI, UART, CAN) та промислових ПЛК (Modbus TCP/RTU) до робототехніки (ROS 2) та автономних локальних ШІ-агентів з 0 КБ VRAM оверхедом.
         </p>
 
+        <div class="callout callout-blue" style="margin: 1rem 0;">
+          <strong>Архітектурна незалежність та статус платформи:</strong>
+          <br>TDscript <strong>не є внутрішньою надбудовою одного лише лаунчера Tdroid</strong>. Це повністю автономний відкритий технологічний стек:
+          <ul style="margin: 0.5rem 0 0.5rem 1.2rem; padding: 0;">
+            <li><strong>Власна кросплатформна IDE:</strong> <a href="tdscript/studio.html" style="color:var(--accent); font-weight:600;">TDscript Studio</a> (готові пакунки для Ubuntu/Debian, Fedora, Arch/AppImage, портативний архів, Fat JAR та Android APK з підтримкою USB-OTG шинних адаптерів та Bluetooth LE).</li>
+            <li><strong>Автономна віртуальна машина та компілятор:</strong> TDscript Core 1.1 транслює код у детермінований байткод <code>.tbc</code> з перевіркою цифрових підписів Ed25519 та хешів SHA-256.</li>
+            <li><strong>Вбудований SDK (бібліотека TDModules):</strong> підключається як незалежний рушій у сторонні системи на Java/Kotlin, Android, Linux та ROS 2. Лаунчер Tdroid — лише один з клієнтів, що використовує цей рантайм.</li>
+            <li><strong>AI-First агентний цикл:</strong> вбудована формальна GBNF-граматика, машиночитні компактні помилки та замкнений цикл самовідновлення коду (Agentic Loop) без галюцинацій імпортів.</li>
+          </ul>
+        </div>
+
         <div class="callout callout-green">
-          <strong>Співіснування версій платформи:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Сучасна AI-First):</strong> використовується в <strong>TDscript Studio IDE</strong>, стендах автоматизації та робототехніці. Підтримує hex-літерали (<code>0x76</code>), індексацію <code>ByteArray[i]</code>, інтерполяцію <code>LString</code>, сторож <code>WATCHDOG</code> та GBNF-граматику.
-          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Класична / Стабільна):</strong> зберігається та підтримується у лаунчері <strong>Tdroid</strong> та фонових службах Android (десяткові регістри, базовий LString, класичний JSON помилок).
+          <strong>Ієрархія версій мови:</strong>
+          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Поточний промисловий стандарт / Modern AI-First):</strong> головний робочий реліз. Включає нативні шістнадцяткові літерали (<code>0x76</code>, <code>0xD0</code>), індексацію <code>ByteArray[i]</code> (0..255), інтерполяцію змінних в <code>LString</code> (заборона конкатенації через <code>+</code>), строгу перевірку методів <code>TDS_E106</code>, сторожовий таймер <code>WATCHDOG</code>, пісочницю <code>CapabilityScope</code> та формальну GBNF-граматику для LLM.
+          <br>• <strong>TDscript v1.0.1 / Core 1.0 (Архівна / Legacy Stable):</strong> рання базова редакція 2024 року, збережена для 100% сумісності старих скриптів у мобільному лаунчері <strong>Tdroid</strong> (десяткові адреси регістрів, базовий LString без інтерполяції, повний JSON діагностик).
         </div>
 
         <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.2rem 0;">
-          <a href="tdscript/index.html" class="btn-primary">🌐 Портал TDscript</a>
+          <a href="tdscript/index.html" class="btn-primary">🌐 Портал екосистеми TDscript</a>
           <a href="tdscript/ai-language.html" class="btn-secondary" style="border-color: var(--accent);">🤖 Мова для ШІ (AI-First)</a>
           <a href="tdscript/language.html" class="btn-secondary">📖 Специфікація мови</a>
+          <a href="tdscript/grammar.gbnf" target="_blank" class="btn-secondary" style="border-color: #f59e0b; color: #f59e0b;">📐 Формальна GBNF-граматика</a>
           <a href="tdscript/examples.html" class="btn-secondary">💡 10 завдань автоматизації</a>
           <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Завантаження</a>
           <a href="tdscript/benchmark.html" class="btn-secondary">📊 ШІ-Бенчмарк</a>
+        </div>
+
+        <!-- ЖИВИЙ ПРИКЛАД СИНТАКСИСУ ТА ВІДКРИТІ РЕСУРСИ -->
+        <div style="margin: 1.2rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 0.5rem;">💻 Живий синтаксис TDscript AI-First (реальний код з бенчмарка):</h4>
+          <pre><code>// 1. Опитування датчика Bosch BME280 по шині I2C (0x76, регістр 0xD0)
+let chipId = I2C.read(0x76, 0xD0, 1);
+
+// 2. Зчитування температури з Modbus TCP регістра контролера
+let boilerTemp = PLC.modbusRead("127.0.0.1", 100);
+
+if (boilerTemp > 250) {
+    PLC.modbusWrite("127.0.0.1", 101, 0); // Аварійне вимкнення насоса
+    WATCHDOG.emergencyStop();
+} else {
+    WATCHDOG.feed(); // Підживлення апаратного сторожа
+    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+}</code></pre>
+        </div>
+
+        <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1.2rem 0;">
+          <h4 style="margin-bottom: 0.5rem; color: var(--green);">📂 Відкриті матеріали, репозиторії та датасети для LLM:</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+            <a href="https://github.com/fido2465724100-creator/my-developer-site" target="_blank" rel="noopener noreferrer" class="btn" style="background:#1e293b; color:var(--accent); border:1px solid var(--accent); font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🐙 Сирцевий код на GitHub
+            </a>
+            <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📐 Формальна граматика GBNF (grammar.gbnf)
+            </a>
+            <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📄 Plain-Text датасет 10 задач (examples.txt)
+            </a>
+            <a href="tdscript/tasks.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 JSON датасет для ШІ (tasks.json)
+            </a>
+            <a href="llms-full.txt" target="_blank" class="btn" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🧠 Повний контекст специфікації (llms-full.txt)
+            </a>
+          </div>
         </div>
 
         <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">

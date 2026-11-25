@@ -29,6 +29,7 @@
       <a href="index.html">🏠 Обзор платформы</a>
       <a href="ai-language.html">🤖 Язык для ИИ</a>
       <a href="language.html" class="active">📖 Спецификация языка</a>
+      <a href="grammar.gbnf" target="_blank">📐 GBNF-грамматика</a>
       <a href="examples.html">💡 10 задач автоматизации</a>
       <a href="studio.html">📦 Студия и Загрузки</a>
       <a href="benchmark.html">📊 ИИ-Бенчмарк</a>
@@ -59,8 +60,13 @@
         <!-- ТАБ 1: v1.4.0 -->
         <div class="tab-pane active" data-tab="v140">
           <div class="callout callout-green">
-            <strong>Актуальная спецификация (TDscript Studio 1.1.0 / TDModules 1.4.0):</strong>
+            <strong>Основная спецификация (TDscript Studio 1.1.0 / TDModules 1.4.0, Спецификация Core 1.1):</strong>
             Включает поддержку шестнадцатеричных литералов (<code>0x76</code>), индексации <code>ByteArray[i]</code>, интерполяции переменных в <code>LString</code>, строгой диспетчеризации методов (<code>TDS_E106</code>), сторожа <code>WATCHDOG</code> и компактных диагностических строк для локальных LLM.
+            <div style="margin-top: 0.6rem;">
+              <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                📐 Скачать / Просмотреть эталонную GBNF-грамматику (grammar.gbnf)
+              </a>
+            </div>
           </div>
 
           <h3>1. Базовый синтаксис и управление потоком</h3>
@@ -243,8 +249,13 @@ if (data != null) {
 
         <div class="tab-pane active" data-tab="v140">
           <div class="callout callout-green">
-            <strong>Modern Specification (v1.4.0 / Core 1.1):</strong>
-            Hexadecimal literals (<code>0x76</code>), <code>ByteArray[i]</code> indexing, <code>LString</code> variable interpolation, strict method dispatch (<code>TDS_E106</code>), <code>WATCHDOG</code> subsystem, and GBNF grammar.
+            <strong>Modern Production Specification (v1.4.0 / Core 1.1):</strong>
+            Hexadecimal literals (<code>0x76</code>), <code>ByteArray[i]</code> indexing, <code>LString</code> variable interpolation, strict method dispatch (<code>TDS_E106</code>), <code>WATCHDOG</code> subsystem, and formal GBNF grammar.
+            <div style="margin-top: 0.6rem;">
+              <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                📐 Download / View Formal GBNF Grammar (grammar.gbnf)
+              </a>
+            </div>
           </div>
           <pre><code>let chip = 0x76;
 let reg = 0xD0;
@@ -274,6 +285,11 @@ print("BME280 Read");</code></pre>
         <p>Vollständige Referenz für die Versionen <strong>v1.4.0 (Studio / AI-First)</strong> und <strong>v1.0.1 (Klassisch / Tdroid)</strong>.</p>
         <div class="callout callout-green">
           Moderne Syntax v1.4.0 unterstützt Hex-Literale (<code>0x76</code>), ByteArray-Indexierung und LString-Interpolation.
+          <div style="margin-top: 0.6rem;">
+            <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
+              📐 Formale GBNF-Grammatik öffnen (grammar.gbnf)
+            </a>
+          </div>
         </div>
       </section>
     </div>
@@ -285,6 +301,11 @@ print("BME280 Read");</code></pre>
         <p>Повний довідник синтаксису для версій <strong>v1.4.0 (Студія / AI-First)</strong> та <strong>v1.0.1 (Класична / Tdroid)</strong>.</p>
         <div class="callout callout-green">
           Сучасний синтаксис v1.4.0 підтримує шістнадцяткові літерали (<code>0x76</code>), індексацію ByteArray та інтерполяцію LString.
+          <div style="margin-top: 0.6rem;">
+            <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
+              📐 Відкрити формальну GBNF-граматику (grammar.gbnf)
+            </a>
+          </div>
         </div>
       </section>
     </div>

@@ -1,0 +1,57 @@
+# TDscript Core 1.1 GBNF Grammar for llama.cpp / Ollama / LM Studio
+# Constrained decoding grammar ensuring 100% syntactically valid TDscript scripts
+
+root ::= (language-directive)? ws (statement)* ws
+
+language-directive ::= "language:" ws [a-zA-Z_\-]+ ws ";" ws
+
+statement ::= (let-statement | var-statement | if-statement | while-statement | expr-statement | block) ws
+
+let-statement ::= ("let" | "пусть" | "sei" | "sea") ws identifier ws "=" ws expr (";" | "\n")
+var-statement ::= ("var" | "перем") ws identifier ws "=" ws expr (";" | "\n")
+
+if-statement ::= ("if" | "если" | "wenn" | "si") ws "(" ws expr ws ")" ws statement (ws ("else" | "иначе" | "sonst" | "sino") ws statement)?
+while-statement ::= ("while" | "пока" | "solange" | "mientras") ws "(" ws expr ws ")" ws statement
+
+expr-statement ::= (assignment | call-expr) (";" | "\n")
+
+assignment ::= identifier ws ("=" | "+=" | "-=" | "*=" | "/=") ws expr
+
+block ::= "{" ws (statement)* ws "}"
+
+expr ::= logic-or-expr
+
+logic-or-expr ::= logic-and-expr (ws ("||" | "or" | "или") ws logic-and-expr)*
+logic-and-expr ::= equality-expr (ws ("&&" | "and" | "и") ws equality-expr)*
+equality-expr ::= relational-expr (ws ("==" | "!=") ws relational-expr)*
+relational-expr ::= additive-expr (ws ("<" | "<=" | ">" | ">=") ws additive-expr)*
+additive-expr ::= multiplicative-expr (ws ("+" | "-") ws multiplicative-expr)*
+multiplicative-expr ::= unary-expr (ws ("*" | "/" | "%") ws unary-expr)*
+
+unary-expr ::= ("!" | "-" | "+")? ws primary-expr
+
+primary-expr ::= hex-literal | float-literal | int-literal | lstring-literal | string-literal | bool-literal | null-literal | call-expr | identifier | "(" ws expr ws ")"
+
+call-expr ::= subsystem-call | print-call | generic-call
+
+subsystem-call ::= ("I2C" | "PLC" | "WATCHDOG" | "NET" | "BT" | "SERIAL" | "HOST" | "ROBOT") "." identifier "(" ws (arg-list)? ws ")"
+print-call ::= ("print" | "печать") "(" ws (arg-list)? ws ")"
+generic-call ::= identifier "(" ws (arg-list)? ws ")"
+
+arg-list ::= expr (ws "," ws expr)*
+
+# Literals
+hex-literal ::= "0x" [0-9a-fA-F]+ ("L" | "l")?
+float-literal ::= [0-9]+ "." [0-9]+
+int-literal ::= [0-9]+ ("L" | "l")?
+
+string-literal ::= "\"" ([^"\\] | "\\" .)* "\"" | "'" ([^'\\] | "\\" .)* "'"
+lstring-literal ::= "L\"" ([^"\\] | "\\" .)* "\"" | "L'" ([^'\\] | "\\" .)* "'"
+
+bool-literal ::= "true" | "false" | "истина" | "ложь" | "wahr" | "falsch" | "verdadero" | "falso"
+null-literal ::= "null" | "пусто" | "nulo"
+
+identifier ::= [a-zA-Z_] [a-zA-Z0-9_]*
+
+ws ::= ([ \t\n\r] | comment)*
+comment ::= "//" [^\n]* | "#" [^\n]* | "/*" ([^*] | "*" [^/])* "*/"

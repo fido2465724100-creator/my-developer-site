@@ -1,9 +1,10 @@
 # TDscript Core 1.1 / TDModules v1.4.0 — Full Technical Specification for AI & LLM Systems
-> Comprehensive technical guide and normative architecture for TDscript, TDscript Studio IDE, and TDRobotics.
+> Comprehensive technical guide and normative architecture for the independent TDscript programming language, TDscript Studio IDE, and TDRobotics.
 > Author: Anton Mykhailov (Halberstadt, Germany)
 > Canonical Repository: TDModules (v1.4.0) & TDscript-Studio (v1.1.0)
 > Website: https://fido2465724100-creator.github.io/my-developer-site/
 > AI-First Language Portal: https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
+> Formal GBNF Grammar: https://fido2465724100-creator.github.io/my-developer-site/tdscript/grammar.gbnf
 > Benchmark (Test #3 & Test #4): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 
 ---
@@ -166,21 +167,23 @@ while (i < 5) {
 - `WATCHDOG.emergencyStop() -> Unit`
 - `print(value: Any?) -> Unit` (in v1.4.0 formats ByteArray deterministically as `[0x60]`)
 
-### 6.3. Version Compatibility: v1.4.0 (Studio) vs v1.0.1 (Legacy)
-- **v1.4.0 / Core 1.1**: Hexadecimal literals (`0x76`, `0xD0`), `ByteArray[i]` indexing, `LString` interpolation `{var}`, strict method dispatch (`TDS_E106`), `WATCHDOG`, compact repair lines (`E104@line:col`), GBNF grammar.
-- **v1.0.1 / Core 1.0**: Maintained in Tdroid Android Launcher. Decimal literals only (`118`, `208`), symbolic LString without `{var}`, full multi-line JSON error diagnostics.
+### 6.3. Version Compatibility: v1.4.0 (Production) vs v1.0.1 (Legacy)
+- **v1.4.0 / Core 1.1 (Current Production Standard)**: Standalone language standard. Hexadecimal literals (`0x76`, `0xD0`), `ByteArray[i]` indexing, `LString` interpolation `{var}`, strict method dispatch (`TDS_E106`), `WATCHDOG`, compact repair lines (`E104@line:col`), and formal GBNF grammar (`grammar.gbnf`).
+- **v1.0.1 / Core 1.0 (Archival / Legacy Stable)**: Maintained for backwards compatibility in the Tdroid Android Launcher terminal. Decimal literals only (`118`, `208`), symbolic LString without `{var}`, full multi-line JSON error diagnostics.
 
 ---
 
 ## 7. Artifacts & Deliverables
 
-- **`TDModules`**: Shared library repository (`/home/anton/TDModules`, v1.4.0).
-- **`TDscript-Studio`**: Cross-platform IDE repository (`/home/anton/TDscript-Studio`, v1.1.0):
+- **`TDModules`**: Shared library repository (`/home/anton/TDModules`, v1.4.0) — Embeddable SDK runtime.
+- **`TDscript-Studio`**: Cross-platform standalone IDE repository (`/home/anton/TDscript-Studio`, v1.1.0):
   - Desktop Standalone JAR: `desktopApp/build/compose/jars/tdscript-studio-linux-x64-1.1.0.jar`
-  - Android Debug APK: `androidApp/build/outputs/apk/debug/androidApp-debug.apk` (5.5 MB)
+  - Linux Packages: DEB, RPM, AppImage, Portable Tarball.
+  - Android Debug APK: `androidApp/build/outputs/apk/debug/androidApp-debug.apk` (5.5 MB, USB-OTG + BLE)
 - **Multi-Page Web Portal**:
   - Main Ecosystem Hub: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/`
   - Language Reference: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html`
+  - Formal GBNF Grammar: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/grammar.gbnf`
   - 10 Automation Scenarios: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html`
   - Studio & Downloads: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/studio.html`
   - Global AI Benchmark: `https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html`
