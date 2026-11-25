@@ -49,8 +49,12 @@
       <section class="card" id="about">
         <h2>👨‍💻 Об авторе и разработчике</h2>
         <p>
-          Приветствую! Меня зовут Антон Михайлов. Моя инженерная философия — создание программных решений с экстремальной оптимизацией ресурсов: нулевой графический оверхед (0 KB VRAM), максимальная автономность мобильных устройств, чистая архитектура и полный контроль над аппаратурой без раздутых тяжелых фреймворков.
+          Приветствую! Меня зовут Антон Михайлов. Моя инженерная деятельность охватывает два специализированных направления:
         </p>
+        <ul>
+          <li><strong>Системы с экстремальным минимализмом (0 KB VRAM / Headless):</strong> консольная операционная среда <strong>Tdroid</strong> и встраиваемый язык <strong>TDscript Core VM</strong>, работающие исключительно в текстовой псевдографике (TUI / Turbo Vision) или в фоновом безголовом режиме без малейшей нагрузки на видеочип и с потреблением 9–15 МБ ОЗУ.</li>
+          <li><strong>Графические и прикладные инженерные комплексы:</strong> мобильные интерактивные 3D-атласы (OpenGL), картографирование сетей (Network Audit) и настольные игры, где графический процессор задействуется целевым образом.</li>
+        </ul>
 
         <div class="feature-grid">
           <div class="feature-box">
@@ -62,7 +66,7 @@
           <div class="feature-box">
             <h4>🌱 Принципы конфиденциальности</h4>
             <p>
-              100% On-Device обработка данных. Никакой телеметрии, никаких скрытых трекеров и рекламных SDK. Все вычисления, пользовательские скрипты и персональные базы данных выполняются исключительно на вашем телефоне.
+              100% On-Device обработка данных. Никакой телеметрии, никаких скрытых трекеров и рекламных SDK. Все вычисления, пользовательские скрипты и персональные базы данных выполняются исключительно на вашем физическом устройстве.
             </p>
           </div>
         </div>
@@ -231,6 +235,42 @@
           <a href="tdscript/examples.html" class="btn-secondary">💡 10 задач автоматизации</a>
           <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Загрузки</a>
           <a href="tdscript/benchmark.html" class="btn-secondary">📊 ИИ-Бенчмарк</a>
+        </div>
+
+        <!-- ЖИВОЙ ПРИМЕР СИНТАКСИСА И РЕПОЗИТОРИИ -->
+        <div style="margin: 1.2rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 0.5rem;">💻 Живой синтаксис TDscript AI-First (реальный рабочий код из бенчмарка):</h4>
+          <pre><code>// 1. Опрос сенсора Bosch BME280 по шине I2C (0x76, регистр 0xD0)
+let chipId = I2C.read(0x76, 0xD0, 1);
+
+// 2. Чтение температуры из Modbus TCP регистра контроллера
+let boilerTemp = PLC.modbusRead("127.0.0.1", 100);
+
+if (boilerTemp > 250) {
+    PLC.modbusWrite("127.0.0.1", 101, 0); // Аварийное отключение насоса
+    WATCHDOG.emergencyStop();
+} else {
+    WATCHDOG.feed(); // Подпитка аппаратного сторожевого таймера
+    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+}</code></pre>
+        </div>
+
+        <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1.2rem 0;">
+          <h4 style="margin-bottom: 0.5rem; color: var(--green);">📂 Открытые материалы, репозитории и датасеты для LLM:</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+            <a href="https://github.com/fido2465724100-creator/my-developer-site" target="_blank" rel="noopener noreferrer" class="btn" style="background:#1e293b; color:var(--accent); border:1px solid var(--accent); font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🐙 Исходный код на GitHub
+            </a>
+            <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📄 Plain-Text датасет 10 задач (examples.txt)
+            </a>
+            <a href="tdscript/tasks.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 JSON датасет для ИИ (tasks.json)
+            </a>
+            <a href="llms-full.txt" target="_blank" class="btn" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🧠 Полный контекст спецификации (llms-full.txt)
+            </a>
+          </div>
         </div>
 
         <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">
@@ -514,7 +554,7 @@
 
       <!-- 3. TDROID PRO -->
       <section class="card" id="tdroid">
-        <h2>📟 Tdroid Pro — Text-based TUI OS & Launcher for Android <span class="badge badge-green">v1.0.3 • 3.1 MB</span></h2>
+        <h2>📟 Tdroid Pro — Text-based TUI OS & Launcher for Android <span class="badge badge-green">v1.0.8 • 3.1–3.4 MB</span></h2>
         <p>
           Tdroid Pro is a retro-console operating environment and launcher for Android inspired by Turbo Vision / DOS / VT100 terminals. Weighing only 3.1 MB with an ultra-low 9-15 MB RAM footprint (15-20x less than conventional graphic launchers), it turns any Android phone into a high-efficiency terminal for developers, sysadmins, and tech enthusiasts.
         </p>
@@ -575,6 +615,42 @@
           <a href="tdscript/examples.html" class="btn-secondary">💡 10 Automation Tasks</a>
           <a href="tdscript/studio.html" class="btn-secondary">📦 TDscript Studio &amp; Downloads</a>
           <a href="tdscript/benchmark.html" class="btn-secondary">📊 AI Benchmark</a>
+        </div>
+
+        <!-- LIVE SYNTAX EXAMPLE & REPOSITORIES -->
+        <div style="margin: 1.2rem 0;">
+          <h4 style="color: var(--accent); margin-bottom: 0.5rem;">💻 Live TDscript AI-First Syntax (Actual Verified Code from Benchmark):</h4>
+          <pre><code>// 1. Read Bosch BME280 Chip ID via I2C bus (0x76, reg 0xD0)
+let chipId = I2C.read(0x76, 0xD0, 1);
+
+// 2. Read temperature from Modbus TCP PLC holding register
+let boilerTemp = PLC.modbusRead("127.0.0.1", 100);
+
+if (boilerTemp > 250) {
+    PLC.modbusWrite("127.0.0.1", 101, 0); // Emergency shutdown pump
+    WATCHDOG.emergencyStop();
+} else {
+    WATCHDOG.feed(); // Feed hardware safety watchdog timer
+    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+}</code></pre>
+        </div>
+
+        <div style="background: rgba(30, 41, 59, 0.5); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1.2rem 0;">
+          <h4 style="margin-bottom: 0.5rem; color: var(--green);">📂 Open-Source Materials, Repositories &amp; LLM Datasets:</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+            <a href="https://github.com/fido2465724100-creator/my-developer-site" target="_blank" rel="noopener noreferrer" class="btn" style="background:#1e293b; color:var(--accent); border:1px solid var(--accent); font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🐙 GitHub Repository
+            </a>
+            <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              📄 Plain-Text 10 Tasks Dataset (examples.txt)
+            </a>
+            <a href="tdscript/tasks.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 Machine JSON Dataset for AI (tasks.json)
+            </a>
+            <a href="llms-full.txt" target="_blank" class="btn" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🧠 Full Specification Context (llms-full.txt)
+            </a>
+          </div>
         </div>
 
         <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 8px; padding: 1.25rem; margin: 1.5rem 0;">
@@ -905,7 +981,7 @@
 
       <!-- 3. TDROID PRO -->
       <section class="card" id="tdroid">
-        <h2>📟 Tdroid Pro — Textbasierte TUI OS & Launcher für Android <span class="badge badge-green">v1.0.3 • 3.1 MB</span></h2>
+        <h2>📟 Tdroid Pro — Textbasierte TUI OS & Launcher für Android <span class="badge badge-green">v1.0.8 • 3.1–3.4 MB</span></h2>
         <p>
           Tdroid Pro ist eine textbasierte Konsolen-Betriebsumgebung und Launcher für Android im Stil von Turbo Vision / DOS / VT100. Das Paket wiegt lediglich 3.1 MB und verbraucht nur 9-15 MB RAM (15- bis 20-mal weniger als herkömmliche Launcher). Es verwandelt Smartphones in hocheffiziente Arbeitsstationen für Entwickler, Administratoren und Technik-Enthusiasten.
         </p>
@@ -1234,7 +1310,7 @@
 
       <!-- 3. TDROID PRO -->
       <section class="card" id="tdroid">
-        <h2>📟 Tdroid Pro — Текстове TUI середовище та Лаунчер для Android <span class="badge badge-green">v1.0.3 • 3.1 МБ</span></h2>
+        <h2>📟 Tdroid Pro — Текстове TUI середовище та Лаунчер для Android <span class="badge badge-green">v1.0.8 • 3.1–3.4 МБ</span></h2>
         <p>
           Tdroid Pro — це текстова консольна операційна система та лаунчер для Android у стилі Turbo Vision / DOS / VT100. Додаток важить лише 3.1 МБ та споживає рекордні 9-15 МБ оперативної пам'яті (у 15-20 разів менше стандартних графічних оболонок). Перетворює смартфон на швидкий робочий термінал інженера, системного адміністратора чи ентузіаста.
         </p>
