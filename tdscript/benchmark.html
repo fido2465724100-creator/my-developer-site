@@ -673,74 +673,95 @@
 
       <!-- 1. БАЗОВЫЕ СИСТЕМНЫЕ ТЕСТЫ: ПРОИЗВОДИТЕЛЬНОСТЬ И РЕСУРСЫ -->
       <section class="card">
-        <h2>⚡ Базовые системные тесты: Скорость виртуальной машины и ресурсы (Core VM & Performance)</h2>
+        <h2>⚡ Базовые системные тесты: Скорость виртуальной машины и ресурсы (Core VM &amp; Performance)</h2>
         <p>
           В дополнение к тестированию автономной генерации кода нейросетями, мы провели объективные замеры базовой производительности и эффективности использования системных ресурсов виртуальной машины <strong>TDscript Core 1.1</strong> в сравнении с популярными системными средами (Python 3.14, Lua 5.4, Node.js 20, C++ 15, Kotlin JVM):
         </p>
 
         <!-- 1. Холодный старт -->
         <h3 style="margin-top: 1.5rem;">1. Задержка холодного старта (Cold Start Latency — 50 итераций)</h3>
-        <p>Время инициализации среды и выполнения первой инструкции на аппаратном стенде Linux x86_64:</p>
+        <p>
+          Замер времени инициализации среды и исполнения первой инструкции на аппаратном стенде Linux x86_64. 
+          <strong>Архитектурное примечание:</strong> чётко разделены два сценария использования TDscript — 
+          <em>In-Process VM</em> (встраивание TDscript как легковесного AST-движка внутрь уже запущенного управляющего демона/хост-процесса) и 
+          <em>CLI Subprocess spawn</em> (холодный старт отдельного процесса операционной системы из командной строки bash с бутстрапом 64-битного рантайма Java 17).
+        </p>
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Среда исполнения / Рантайм</th>
+                <th>Режим запуска</th>
                 <th>P50 Медиана (мс)</th>
                 <th>Mean Среднее (мс)</th>
                 <th>P95 (мс)</th>
                 <th>Min – Max (мс)</th>
-                <th>Преимущество TDscript</th>
+                <th>Архитектурная заметка</th>
               </tr>
             </thead>
             <tbody>
               <tr style="background: rgba(56, 189, 248, 0.12); font-weight: 700;">
                 <td><strong>TDscript (In-Process VM)</strong></td>
-                <td><strong>0.14 мс 🏆</strong></td>
-                <td>0.15 мс</td>
-                <td>0.21 мс</td>
-                <td>0.10 – 0.21 мс</td>
-                <td><strong>База (1.0x)</strong></td>
+                <td>In-Process VM (Host)</td>
+                <td><strong>0.17 мс 🏆</strong></td>
+                <td>0.18 мс</td>
+                <td>0.25 мс</td>
+                <td>0.12 – 0.35 мс</td>
+                <td>Прямая инстанциация AST без накладных расходов на fork/exec процесса ОС</td>
               </tr>
               <tr>
                 <td><strong>C++ Native (g++ -O2)</strong></td>
-                <td>1.80 мс</td>
-                <td>1.81 мс</td>
-                <td>2.55 мс</td>
-                <td>1.09 – 2.83 мс</td>
-                <td>В 12.9x медленнее</td>
+                <td>CLI Subprocess (ELF)</td>
+                <td>2.01 мс</td>
+                <td>1.86 мс</td>
+                <td>2.49 мс</td>
+                <td>1.11 – 2.59 мс</td>
+                <td>Статический нативный бинарник без виртуальной машины</td>
               </tr>
               <tr>
-                <td><strong>Lua 5.4 (CLI spawn)</strong></td>
-                <td>2.18 мс</td>
-                <td>2.59 мс</td>
-                <td>3.39 мс</td>
-                <td>1.55 – 16.75 мс</td>
-                <td>В 15.7x медленнее</td>
+                <td><strong>Lua 5.4</strong></td>
+                <td>CLI Subprocess (C runtime)</td>
+                <td>2.95 мс</td>
+                <td>2.74 мс</td>
+                <td>3.65 мс</td>
+                <td>1.72 – 3.72 мс</td>
+                <td>Компактный Си-рантайм интерпретатора</td>
               </tr>
               <tr>
-                <td><strong>Python 3.14 (CLI spawn)</strong></td>
-                <td>21.20 мс</td>
-                <td>19.52 мс</td>
-                <td>23.80 мс</td>
-                <td>12.94 – 25.20 мс</td>
-                <td>В 152.3x медленнее</td>
+                <td><strong>Python 3.14</strong></td>
+                <td>CLI Subprocess (CPython)</td>
+                <td>18.93 мс</td>
+                <td>18.29 мс</td>
+                <td>23.32 мс</td>
+                <td>13.21 – 24.10 мс</td>
+                <td>Бутстрап CPython и импорт базовых системных модулей</td>
               </tr>
               <tr>
-                <td><strong>Kotlin / Java JVM (Subprocess)</strong></td>
-                <td>29.41 мс</td>
-                <td>30.55 мс</td>
-                <td>39.13 мс</td>
-                <td>26.22 – 43.16 мс</td>
-                <td>В 211.2x медленнее</td>
+                <td><strong>Kotlin / Java JVM</strong></td>
+                <td>CLI Subprocess (JVM boot)</td>
+                <td>29.88 мс</td>
+                <td>31.24 мс</td>
+                <td>38.85 мс</td>
+                <td>26.42 – 50.14 мс</td>
+                <td>Стандартный запуск JVM с базовой загрузкой классов</td>
               </tr>
               <tr>
                 <td><strong>JavaScript (Node.js 20)</strong></td>
-                <td>32.12 мс</td>
-                <td>31.57 мс</td>
-                <td>44.75 мс</td>
-                <td>22.93 – 52.00 мс</td>
-                <td>В 230.7x медленнее</td>
+                <td>CLI Subprocess (V8 engine)</td>
+                <td>30.86 мс</td>
+                <td>31.90 мс</td>
+                <td>47.63 мс</td>
+                <td>23.65 – 55.54 мс</td>
+                <td>Инициализация движка V8 и libuv event loop</td>
+              </tr>
+              <tr style="color: var(--text-dim);">
+                <td><strong>TDscript (CLI Subprocess spawn)</strong></td>
+                <td>CLI Subprocess (Java 17 JRE)</td>
+                <td>156.16 мс</td>
+                <td>155.24 мс</td>
+                <td>167.95 мс</td>
+                <td>134.95 – 175.65 мс</td>
+                <td>Полный запуск процесса ОС из bash с инициализацией Java 17 JRE</td>
               </tr>
             </tbody>
           </table>
@@ -748,7 +769,10 @@
 
         <!-- 2. Пропускная способность циклов -->
         <h3 style="margin-top: 1.5rem;">2. Вычислительная пропускная способность (1,000,000 и 10,000,000 итераций)</h3>
-        <p>Скорость выполнения арифметических операций и условных переходов в цикле с валидацией контрольной суммы:</p>
+        <p>
+          Скорость выполнения арифметических операций и условных переходов в цикле с валидацией контрольной суммы.
+          <strong>Методология:</strong> В коде C++ добавлен аппаратный барьер памяти <code>asm volatile("" : "+r"(s), "+r"(i) :: "memory");</code> для исключения dead-code elimination (DCE) оптимизатором GCC 15. Для Node.js проведён предварительный прогрев JIT (100k итераций). Для TDscript замер проведён как на 1M, так и на 10M итераций (граница лимитера шагов Step Limiter):
+        </p>
         <div class="table-wrapper">
           <table>
             <thead>
@@ -759,55 +783,106 @@
                 <th>Скорость (ops/sec)</th>
                 <th>Контрольная сумма</th>
                 <th>Валидация</th>
+                <th>Особенности оптимизации</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>C++ Native (-O2)</strong></td>
+                <td><strong>C++ Native (-O2 + asm barrier)</strong></td>
                 <td>1 000 000</td>
-                <td>2 мс</td>
-                <td>500 000 000</td>
+                <td>1 мс</td>
+                <td>2 028 397 565</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
+                <td>Аппаратный барьер памяти исключает свёртку цикла компилятором</td>
+              </tr>
+              <tr>
+                <td><strong>C++ Native (-O2 + asm barrier)</strong></td>
+                <td>10 000 000</td>
+                <td>5 мс</td>
+                <td>1 819 836 214</td>
+                <td><code>24999990000000</code></td>
+                <td>✅ PASS</td>
+                <td>Аппаратный барьер памяти исключает свёртку цикла компилятором</td>
               </tr>
               <tr>
                 <td><strong>JavaScript (Node.js 20 V8)</strong></td>
                 <td>1 000 000</td>
-                <td>40 мс</td>
-                <td>25 000 000</td>
+                <td>5 мс</td>
+                <td>200 000 000</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
+                <td>JIT-компилятор V8 TurboFan с предварительным прогревом (100k итераций)</td>
+              </tr>
+              <tr>
+                <td><strong>JavaScript (Node.js 20 V8)</strong></td>
+                <td>10 000 000</td>
+                <td>14 мс</td>
+                <td>714 285 714</td>
+                <td><code>24999990000000</code></td>
+                <td>✅ PASS</td>
+                <td>JIT-компилятор V8 TurboFan с предварительным прогревом (100k итераций)</td>
               </tr>
               <tr>
                 <td><strong>Lua 5.4</strong></td>
                 <td>1 000 000</td>
-                <td>30 мс</td>
-                <td>33 333 333</td>
+                <td>27 мс</td>
+                <td>37 037 037</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
+                <td>Регистровая байткод-виртуальная машина без JIT</td>
+              </tr>
+              <tr>
+                <td><strong>Lua 5.4</strong></td>
+                <td>10 000 000</td>
+                <td>190 мс</td>
+                <td>52 631 578</td>
+                <td><code>24999990000000</code></td>
+                <td>✅ PASS</td>
+                <td>Регистровая байткод-виртуальная машина без JIT</td>
               </tr>
               <tr>
                 <td><strong>Python 3.14</strong></td>
                 <td>1 000 000</td>
-                <td>178 мс</td>
-                <td>5 617 977</td>
+                <td>175 мс</td>
+                <td>5 714 285</td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
+                <td>Стандартный цикл диспетчеризации байткода CPython</td>
+              </tr>
+              <tr>
+                <td><strong>Python 3.14</strong></td>
+                <td>10 000 000</td>
+                <td>1 724 мс</td>
+                <td>5 800 464</td>
+                <td><code>24999990000000</code></td>
+                <td>✅ PASS</td>
+                <td>Стандартный цикл диспетчеризации байткода CPython</td>
               </tr>
               <tr style="background: rgba(56, 189, 248, 0.08); font-weight: 700;">
                 <td><strong>TDscript (In-Process VM)</strong></td>
                 <td>1 000 000</td>
-                <td><strong>341 мс</strong></td>
-                <td><strong>2 932 551 ops/s</strong></td>
+                <td><strong>335 мс</strong></td>
+                <td><strong>2 985 074 ops/s</strong></td>
                 <td><code>249999000000</code></td>
                 <td>✅ PASS</td>
+                <td>Tree-walk AST интерпретатор с проверкой StepLimiter на каждом выражении (бюджет 15M)</td>
+              </tr>
+              <tr style="background: rgba(56, 189, 248, 0.08); font-weight: 700;">
+                <td><strong>TDscript (In-Process VM)</strong></td>
+                <td>10 000 000</td>
+                <td><strong>2 112 мс</strong></td>
+                <td><strong>4 734 848 ops/s</strong></td>
+                <td><code>24999990000000</code></td>
+                <td>✅ PASS</td>
+                <td>Tree-walk AST интерпретатор с проверкой StepLimiter на каждом выражении (бюджет 120M)</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <!-- 3. Потребление памяти и размер дистрибутива -->
-        <h3 style="margin-top: 1.5rem;">3. Потребление памяти (RAM RSS) и размер дистрибутива</h3>
+        <h3 style="margin-top: 1.5rem;">3. Потребление оперативной памяти (RSS RAM) и размер дистрибутива</h3>
         <p>Статический размер исполняемого файла/модуля и динамическое потребление оперативной памяти под нагрузкой:</p>
         <div class="table-wrapper">
           <table>
@@ -818,17 +893,25 @@
                 <th>Idle RSS (МБ)</th>
                 <th>Peak RSS (МБ)</th>
                 <th>Дельта памяти (МБ)</th>
-                <th>Компактность к Python</th>
+                <th>Архитектурная заметка</th>
               </tr>
             </thead>
             <tbody>
               <tr style="background: rgba(56, 189, 248, 0.12); font-weight: 700;">
-                <td><strong>TDscript Core Engine (JAR)</strong></td>
+                <td><strong>TDscript Core Engine (In-Process)</strong></td>
                 <td><strong>135 КБ 🏆</strong></td>
                 <td>1.2 МБ</td>
-                <td>6.4 МБ</td>
-                <td>5.2 МБ</td>
-                <td><strong>В 467x компактнее (0.2%)</strong></td>
+                <td>4.3 МБ</td>
+                <td>3.1 МБ</td>
+                <td>Автономный JAR 135 КБ. Дельта кучи внутри работающего хост-демона</td>
+              </tr>
+              <tr>
+                <td><strong>TDscript (CLI Subprocess)</strong></td>
+                <td>35.1 МБ</td>
+                <td>31.5 МБ</td>
+                <td>38.2 МБ</td>
+                <td>6.7 МБ</td>
+                <td>Режим отдельного процесса ОС: включает базовые страницы JRE 17 64-bit</td>
               </tr>
               <tr>
                 <td><strong>Lua 5.4</strong></td>
@@ -836,15 +919,7 @@
                 <td>2.4 МБ</td>
                 <td>4.8 МБ</td>
                 <td>2.4 МБ</td>
-                <td>В 212x компактнее</td>
-              </tr>
-              <tr>
-                <td><strong>Kotlin JVM (JRE 17)</strong></td>
-                <td>35.0 МБ</td>
-                <td>42.0 МБ</td>
-                <td>84.5 МБ</td>
-                <td>42.5 МБ</td>
-                <td>В 1.8x компактнее</td>
+                <td>Ультракомпактный статический ANSI C бинарник</td>
               </tr>
               <tr>
                 <td><strong>Python 3.14 (+StdLib 56MB)</strong></td>
@@ -852,7 +927,7 @@
                 <td>14.8 МБ</td>
                 <td>26.5 МБ</td>
                 <td>11.7 МБ</td>
-                <td>База (100%)</td>
+                <td>Бинарник 7.2 МБ + стандартная библиотека Python 56 МБ</td>
               </tr>
               <tr>
                 <td><strong>JavaScript (Node.js 20)</strong></td>
@@ -860,7 +935,7 @@
                 <td>34.2 МБ</td>
                 <td>58.6 МБ</td>
                 <td>24.4 МБ</td>
-                <td>В 1.5x тяжелее</td>
+                <td>Монолитный бинарник V8 (95 МБ) со встроенным аллокатором кучи</td>
               </tr>
             </tbody>
           </table>
@@ -869,21 +944,25 @@
 
       <!-- 2. СТРЕСС-ТЕСТЫ НА БЕЗОПАСНОСТЬ И ОТКАЗОУСТОЙЧИВОСТЬ -->
       <section class="card">
-        <h2>🛡️ Стресс-тесты: Аппаратная безопасность и отказоустойчивость (Reliability & Fault Tolerance)</h2>
+        <h2>🛡️ Стресс-тесты: Аппаратная безопасность и отказоустойчивость (Reliability &amp; Fault Tolerance)</h2>
         <p>
           В физической автоматизации критически важна не только скорость, но и предсказуемость при сбоях оборудования. Виртуальная машина TDscript спроектирована по принципу «Zero Unhandled Crashes» с аппаратной изоляцией доступа (CapabilityScope) и детерминированным сторожем:
         </p>
 
         <!-- 1. Безопасность и изоляция -->
         <h3 style="margin-top: 1.5rem;">1. Аппаратная безопасность и изоляция песочницы (CapabilityScope &amp; DoS Protection)</h3>
+        <p>
+          Проверка блокировки несанкционированного доступа <strong>до</strong> отправки сигналов в шину (busCalls=0) и локализации диагностических кодов ошибок:
+        </p>
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Сценарий защиты</th>
                 <th>Статус защиты</th>
+                <th>Физических вызовов шины</th>
+                <th>Код ошибки</th>
                 <th>Аварийный останов</th>
-                <th>Фиксация в журнале безопасности</th>
                 <th>Механизм защиты</th>
               </tr>
             </thead>
@@ -891,30 +970,50 @@
               <tr>
                 <td><strong>I2C Bus Address Whitelist</strong></td>
                 <td>🛡️ PASS (Блокировано)</td>
+                <td><strong>busCalls: 0</strong></td>
+                <td><code>E104@line:col</code></td>
                 <td>—</td>
-                <td><code>SecurityException: SCOPE_VIOLATION: Address 0x68 not in I2C scope</code></td>
-                <td>Адрес 0x76 разрешён; обращение к 0x68 строго блокируется на границе SPI без падения VM.</td>
+                <td>Чтение 0x76 возвращает данные; чтение 0x68 строго блокируется до диспетчеризации в шину.</td>
               </tr>
               <tr>
                 <td><strong>Modbus PLC Register Whitelist</strong></td>
                 <td>🛡️ PASS (Блокировано)</td>
+                <td><strong>busCalls: 0</strong></td>
+                <td><code>E104@scope:modbus</code></td>
                 <td>—</td>
-                <td><code>SecurityException: SCOPE_VIOLATION: Modbus register 999 not in scope</code></td>
-                <td>Регистр 100 прочитан (245); запрещённый регистр 999 возвращает -1 и ошибку доступа.</td>
+                <td>Чтение регистра 100 успешно (245); регистр 999 отсекается на границе CapabilityScope.</td>
+              </tr>
+              <tr>
+                <td><strong>Serial Port Scope Whitelist</strong></td>
+                <td>🛡️ PASS (Блокировано)</td>
+                <td><strong>busCalls: 0</strong></td>
+                <td><code>SCOPE_VIOLATION:serial</code></td>
+                <td>—</td>
+                <td>Попытка записи в запрещённый порт <code>/dev/ttyUSB99</code> отклонена на уровне HostSPI.</td>
               </tr>
               <tr>
                 <td><strong>Step Limiter DoS Protection</strong></td>
                 <td>🛡️ PASS (Блокировано)</td>
+                <td><strong>busCalls: 0</strong></td>
+                <td><code>TDS_E106</code></td>
                 <td>🚨 Вызван</td>
-                <td><code>TDS_E106_STEP_LIMIT_EXCEEDED (100,000 steps)</code></td>
-                <td>Бесконечный цикл <code>while(true)</code> прерван ровно за 12 мс с вызовом <code>host.emergencyStop()</code>.</td>
+                <td>Бесконечный цикл <code>while(true)</code> прерван ровно на 100 001 шаге за 25 мс с вызовом <code>host.emergencyStop()</code> без зависания CPU.</td>
               </tr>
               <tr>
                 <td><strong>Host OS Sandbox Escape Denial</strong></td>
                 <td>🛡️ PASS (Блокировано)</td>
+                <td><strong>busCalls: 0</strong></td>
+                <td><code>COMPILER_REJECT</code></td>
                 <td>—</td>
-                <td><code>Compiler rejection: No reflection, no import, no syscalls</code></td>
-                <td>Грамматика принципиально исключает рефлексию, импорты и порождение системных процессов ОС.</td>
+                <td>Грамматика принципиально исключает рефлексию JVM, вызовы <code>system()</code> и запуск внешних процессов ОС.</td>
+              </tr>
+              <tr>
+                <td><strong>Granular Capability Bitmask</strong></td>
+                <td>🛡️ PASS (Блокировано)</td>
+                <td><strong>busCalls: 0</strong></td>
+                <td><code>PERMISSION_DENIED:I2C_WRITE</code></td>
+                <td>—</td>
+                <td>Драйвер с правами только на чтение (read-only) блокируется при попытке транзакции записи в I2C.</td>
               </tr>
             </tbody>
           </table>
@@ -926,49 +1025,59 @@
           <table>
             <thead>
               <tr>
-                <th>Смоделированный сбой</th>
-                <th>Физическое условие</th>
-                <th>Обработка скриптом</th>
+                <th>Тип сбоя</th>
+                <th>Точка инжекции</th>
+                <th>Ожидаемое поведение</th>
+                <th>Фактический результат</th>
+                <th>Состояние шины</th>
                 <th>Краш процесса</th>
-                <th>Диагностика HostSPI</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>I2C Bus NACK / Arbitration Loss</strong></td>
-                <td>Обрыв провода SDA или зависание чипа датчика</td>
-                <td>✅ Graceful Recovery (ветка fallback)</td>
+                <td>Транзакция #1 на чтении регистра 0xD0 (обрыв SDA/SCL)</td>
+                <td>Возврат null в скрипт, запись в лог диагностики, запуск ветки fallback</td>
+                <td>Возвращён null, fallback выполнен штатно, крашей процесса 0</td>
+                <td><code>CLEAN_CLOSED_NO_HANG</code></td>
                 <td>🛡️ НЕТ (0 крашей)</td>
-                <td><code>HARDWARE_ERROR: I2C_BUS_NACK: Device @ 0x76 did not acknowledge</code></td>
               </tr>
               <tr>
                 <td><strong>Modbus TCP Gateway Timeout</strong></td>
-                <td>Обрыв Ethernet кабеля промышленного ПЛК</td>
-                <td>✅ Graceful Recovery (безопасное состояние)</td>
+                <td>Транзакция #1 при опросе регистра 100 (обрыв Ethernet)</td>
+                <td>Возврат кода ошибки -1, переход в безопасное состояние fail-safe</td>
+                <td>Возвращено -1, безопасный режим активирован, крашей процесса 0</td>
+                <td><code>SOCKET_CLOSED_SAFE</code></td>
                 <td>🛡️ НЕТ (0 крашей)</td>
-                <td><code>COMM_ERROR: MODBUS_TCP_TIMEOUT: Gateway failed to reply</code></td>
               </tr>
               <tr>
                 <td><strong>BLE Connection Loss Mid-Stream</strong></td>
-                <td>Выход Bluetooth LE маяка из зоны радиовидимости</td>
-                <td>✅ Graceful Recovery (счётчик повторов)</td>
+                <td>Транзакция #1 в потоке btReadLine() (потеря радиомаяка)</td>
+                <td>Возврат null, инкремент счётчика повторов, очистка GATT-хэндла</td>
+                <td>Возвращён null, счётчик повторов увеличен, дескрипторы очищены</td>
+                <td><code>RADIO_DISCONNECTED_SAFE</code></td>
                 <td>🛡️ НЕТ (0 крашей)</td>
-                <td><code>BLE_ERROR: GATT_DISCONNECT: Peripheral dropped (0x13)</code></td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <!-- 3. Спецификация языка -->
-        <h3 style="margin-top: 1.5rem;">3. Соответствие спецификации языка (Language Conformance Battery — 60 тестов)</h3>
+        <h3 style="margin-top: 1.5rem;">3. Соответствие спецификации языка TDscript (Language Conformance Battery — 60 тестов)</h3>
         <p>Полный набор из <strong>60 модульных тестов</strong> проверил все языковые конструкции TDscript:</p>
         <ul>
-          <li><strong>Арифметика и приоритеты (10/10)</strong>: верный порядок <code>*</code>, <code>/</code>, <code>+</code>, <code>-</code>, <code>%</code>, скобок, постфиксных <code>++</code>/<code>--</code> и авторасширение в 64-битный Long при переполнении 32 бит.</li>
-          <li><strong>Логика и сравнения (10/10)</strong>: короткое замыкание <code>&&</code>/<code>||</code>, оператор <code>!</code>, строгое сравнение типов <code>==</code>/<code>!=</code>, реляционные операторы.</li>
-          <li><strong>Ветвления и циклы (10/10)</strong>: вложенные блоки <code>if/else</code>, циклы <code>while</code>, счётчик шагов виртуальной машины.</li>
-          <li><strong>Строки и мультиязычные LString (10/10)</strong>: интерполяция <code>L"VAL:Temp is {temp}"</code>, запрет некорректной конкатенации LString через <code>+</code> (E105), поддержка Unicode.</li>
-          <li><strong>Шестнадцатеричные литералы (10/10)</strong>: парсинг <code>0x76</code>, <code>0xFF</code>, <code>0x00</code>, <code>0xFFFF</code>, арифметика и сравнение шестнадцатеричных констант.</li>
-          <li><strong>Локализация ошибок и песочница (10/10)</strong>: точные номера строк и колонок в <code>DiagnosticError</code>, генерация компактных строк авторемонта для ИИ (<code>E104@line:col exp=... got=...</code>).</li>
+          <li><strong>Позитивные тесты (Positive)</strong>: <strong>47 тестов (78.3%)</strong> — проверка валидного синтаксиса и рантайм-поведения.</li>
+          <li><strong>Негативные тесты (Negative)</strong>: <strong>13 тестов (21.7%)</strong> — строгий отказ и диагностика невалидного кода на этапе компиляции/рантайма.</li>
+          <li><strong>Разбивка по компонентам виртуальной машины</strong>:
+            <ul>
+              <li><strong>Runtime (32 теста)</strong>: арифметика, авторасширение в 64-битный Long при переполнении, приоритеты операторов, логика с коротким замыканием <code>&amp;&amp;</code>/<code>||</code>, ветвления <code>if/else</code>, циклы <code>while</code>, строковая интерполяция <code>L"VAL:Temp is {temp}"</code>, шестнадцатеричные литералы <code>0x76</code>, <code>0xFF</code>, <code>0xFFFF</code>.</li>
+              <li><strong>Lexer (13 тестов)</strong>: корректная токенизация идентификаторов, ключевых слов, числовых литералов и строковых литералов.</li>
+              <li><strong>Security (7 тестов)</strong>: гранулярные маски возможностей, белый список адресов I2C, регистров Modbus, портов Serial, лимитер шагов StepLimiter.</li>
+              <li><strong>Parser (6 тестов)</strong>: построение AST, синтаксический анализ выражений и инструкций.</li>
+              <li><strong>Diagnostics (2 теста)</strong>: точные номера строк и колонок в <code>DiagnosticError</code>, генерация компактных строк авторемонта для ИИ (<code>E104@line:col exp=... got=...</code>).</li>
+            </ul>
+          </li>
+          <li><strong>Формальная грамматика GBNF (<code>grammar.gbnf</code>)</strong>: ✅ <strong>ВЕРИФИЦИРОВАНА</strong> (полное соответствие грамматике для constrained sampling локальных LLM).</li>
           <li><strong>Итог</strong>: <strong style="color: var(--green);">60 из 60 тестов успешно пройдено (100.0% Conformance, 0 ошибок)</strong>.</li>
         </ul>
       </section>

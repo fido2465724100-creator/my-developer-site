@@ -1,47 +1,61 @@
 {
-  "timestamp": "2026-11-25T19:48:15.644867769",
-  "totalElapsedMs": 7964,
+  "timestamp": "2026-11-25T20:13:33.007490233",
+  "totalElapsedMs": 17996,
   "suites": 6,
   "coldStart": [
-    {"runtime": "TDscript (In-Process VM)", "p50Ms": 0.139201, "meanMs": 0.14638346000000002, "minMs": 0.10416, "maxMs": 0.21264, "p95Ms": 0.20576},
-    {"runtime": "Lua 5.4 (CLI spawn)", "p50Ms": 2.178962, "meanMs": 2.5866661399999997, "minMs": 1.549121, "maxMs": 16.747199, "p95Ms": 3.389242},
-    {"runtime": "C++ Native (g++ -O2)", "p50Ms": 1.796621, "meanMs": 1.8117033599999994, "minMs": 1.094431, "maxMs": 2.832812, "p95Ms": 2.547291},
-    {"runtime": "Python 3.14 (CLI spawn)", "p50Ms": 21.199591, "meanMs": 19.515574519999998, "minMs": 12.935526, "maxMs": 25.200284, "p95Ms": 23.800692},
-    {"runtime": "JavaScript (Node.js 20)", "p50Ms": 32.116026, "meanMs": 31.565943799999996, "minMs": 22.933402, "maxMs": 52.000447, "p95Ms": 44.751804},
-    {"runtime": "Kotlin / Java JVM (Subprocess spawn)", "p50Ms": 29.405225, "meanMs": 30.547030859999996, "minMs": 26.223563, "maxMs": 43.157532, "p95Ms": 39.13473}
+    {"runtime": "TDscript (In-Process VM)", "mode": "In-Process VM (Pre-warmed JVM)", "p50Ms": 0.16755, "meanMs": 0.17611928, "minMs": 0.12374, "maxMs": 0.345501, "p95Ms": 0.24774, "notes": "Zero process spawn overhead; direct AST instantiation in embedded host"},
+    {"runtime": "TDscript (CLI Subprocess spawn)", "mode": "CLI Subprocess spawn (Java 17 JRE boot)", "p50Ms": 156.163833, "meanMs": 155.24466715999998, "minMs": 134.953797, "maxMs": 175.645836, "p95Ms": 167.947882, "notes": "Full OS process launch including Java 17 JVM bootstrap"},
+    {"runtime": "C++ Native (g++ -O2)", "mode": "CLI Subprocess spawn (ELF binary)", "p50Ms": 2.005094, "meanMs": 1.8637611200000004, "minMs": 1.112382, "maxMs": 2.588294, "p95Ms": 2.488874, "notes": "Static native binary without VM runtime overhead"},
+    {"runtime": "Lua 5.4", "mode": "CLI Subprocess spawn (C runtime)", "p50Ms": 2.949495, "meanMs": 2.7446758199999994, "minMs": 1.715323, "maxMs": 3.718046, "p95Ms": 3.649666, "notes": "Compact C-based interpreter startup"},
+    {"runtime": "Python 3.14", "mode": "CLI Subprocess spawn (CPython)", "p50Ms": 18.925592, "meanMs": 18.2894156, "minMs": 13.214432, "maxMs": 24.099391, "p95Ms": 23.320249, "notes": "CPython interpreter boot and core module load"},
+    {"runtime": "JavaScript (Node.js 20)", "mode": "CLI Subprocess spawn (V8 engine)", "p50Ms": 30.863812, "meanMs": 31.89970507999999, "minMs": 23.653789, "maxMs": 55.538273, "p95Ms": 47.632491, "notes": "V8 engine bootstrap, libuv event loop initialization"},
+    {"runtime": "Kotlin / Java JVM", "mode": "CLI Subprocess spawn (JVM boot)", "p50Ms": 29.87854, "meanMs": 31.24054496, "minMs": 26.416884, "maxMs": 50.144514, "p95Ms": 38.854735, "notes": "Standard JVM process cold start"}
   ],
   "throughput": [
-    {"runtime": "C++ Native (-O2)", "iterations": 1000000, "elapsedMs": 2, "opsPerSec": 500000000, "verified": true},
-    {"runtime": "C++ Native (-O2)", "iterations": 10000000, "elapsedMs": 9, "opsPerSec": 1111111111, "verified": true},
-    {"runtime": "Lua 5.4", "iterations": 1000000, "elapsedMs": 30, "opsPerSec": 33333333, "verified": true},
-    {"runtime": "Lua 5.4", "iterations": 10000000, "elapsedMs": 192, "opsPerSec": 52083333, "verified": true},
-    {"runtime": "JavaScript (Node.js 20)", "iterations": 1000000, "elapsedMs": 40, "opsPerSec": 25000000, "verified": true},
-    {"runtime": "JavaScript (Node.js 20)", "iterations": 10000000, "elapsedMs": 63, "opsPerSec": 158730158, "verified": true},
-    {"runtime": "Python 3.14", "iterations": 1000000, "elapsedMs": 178, "opsPerSec": 5617977, "verified": true},
-    {"runtime": "Python 3.14", "iterations": 10000000, "elapsedMs": 1667, "opsPerSec": 5998800, "verified": true},
-    {"runtime": "TDscript (In-Process VM)", "iterations": 1000000, "elapsedMs": 341, "opsPerSec": 2932551, "verified": true}
+    {"runtime": "C++ Native (-O2 + asm barrier)", "iterations": 1000000, "elapsedMs": 1, "opsPerSec": 2028397565, "verified": true, "optimizationNotes": "Enforced per-iteration asm volatile memory barrier (no dead-code elimination)"},
+    {"runtime": "C++ Native (-O2 + asm barrier)", "iterations": 10000000, "elapsedMs": 5, "opsPerSec": 1819836214, "verified": true, "optimizationNotes": "Enforced per-iteration asm volatile memory barrier (no dead-code elimination)"},
+    {"runtime": "Lua 5.4", "iterations": 1000000, "elapsedMs": 27, "opsPerSec": 37037037, "verified": true, "optimizationNotes": "Bytecode register VM without JIT"},
+    {"runtime": "Lua 5.4", "iterations": 10000000, "elapsedMs": 190, "opsPerSec": 52631578, "verified": true, "optimizationNotes": "Bytecode register VM without JIT"},
+    {"runtime": "JavaScript (Node.js 20 V8)", "iterations": 1000000, "elapsedMs": 5, "opsPerSec": 200000000, "verified": true, "optimizationNotes": "V8 TurboFan JIT compiler with 100k iteration warm-up"},
+    {"runtime": "JavaScript (Node.js 20 V8)", "iterations": 10000000, "elapsedMs": 14, "opsPerSec": 714285714, "verified": true, "optimizationNotes": "V8 TurboFan JIT compiler with 100k iteration warm-up"},
+    {"runtime": "Python 3.14", "iterations": 1000000, "elapsedMs": 175, "opsPerSec": 5714285, "verified": true, "optimizationNotes": "Standard CPython 3.14 bytecode evaluation loop"},
+    {"runtime": "Python 3.14", "iterations": 10000000, "elapsedMs": 1724, "opsPerSec": 5800464, "verified": true, "optimizationNotes": "Standard CPython 3.14 bytecode evaluation loop"},
+    {"runtime": "TDscript (In-Process VM)", "iterations": 1000000, "elapsedMs": 335, "opsPerSec": 2985074, "verified": true, "optimizationNotes": "Tree-walk AST interpreter with per-statement StepLimiter check (15000000 step budget)"},
+    {"runtime": "TDscript (In-Process VM)", "iterations": 10000000, "elapsedMs": 2112, "opsPerSec": 4734848, "verified": true, "optimizationNotes": "Tree-walk AST interpreter with per-statement StepLimiter check (120000000 step budget)"}
   ],
   "memory": [
-    {"runtime": "TDscript Core Engine (JAR)", "binarySizeKb": 135, "idleRssMb": 1.2, "peakRssMb": 6.407466125488281},
-    {"runtime": "Lua 5.4", "binarySizeKb": 298, "idleRssMb": 2.4, "peakRssMb": 4.8},
-    {"runtime": "Python 3.14 (+StdLib 56MB)", "binarySizeKb": 64645, "idleRssMb": 14.8, "peakRssMb": 26.5},
-    {"runtime": "JavaScript (Node.js 20)", "binarySizeKb": 96613, "idleRssMb": 34.2, "peakRssMb": 58.6},
-    {"runtime": "Kotlin JVM Runtime (JRE 17)", "binarySizeKb": 35840, "idleRssMb": 42.0, "peakRssMb": 84.5}
+    {"runtime": "TDscript (In-Process Host)", "binarySizeKb": 135, "idleRssMb": 1.2, "peakRssMb": 4.3, "deltaRssMb": 3.1, "architectureNotes": "Standalone JAR 135 KB. In-process heap allocation delta in pre-warmed host"},
+    {"runtime": "TDscript (CLI Subprocess)", "binarySizeKb": 35975, "idleRssMb": 31.5, "peakRssMb": 38.2, "deltaRssMb": 6.7, "architectureNotes": "Standalone OS process mode: includes base Java 17 JRE 64-bit runtime pages"},
+    {"runtime": "Lua 5.4", "binarySizeKb": 298, "idleRssMb": 2.4, "peakRssMb": 4.8, "deltaRssMb": 2.4, "architectureNotes": "Ultra-compact static ANSI C executable"},
+    {"runtime": "Python 3.14 (+StdLib 56MB)", "binarySizeKb": 64645, "idleRssMb": 14.8, "peakRssMb": 26.5, "deltaRssMb": 11.7, "architectureNotes": "Binary 7.2 MB + Python 3.14 standard library 56 MB"},
+    {"runtime": "JavaScript (Node.js 20)", "binarySizeKb": 96613, "idleRssMb": 34.2, "peakRssMb": 58.6, "deltaRssMb": 24.4, "architectureNotes": "Standalone V8 binary (95 MB) + internal heap heap-allocator"}
   ],
   "security": [
-    {"scenario": "I2C Bus Address Whitelist", "passed": true, "emergencyStopCalled": false},
-    {"scenario": "Modbus PLC Register Whitelist", "passed": true, "emergencyStopCalled": false},
-    {"scenario": "Step Limiter DoS Protection", "passed": true, "emergencyStopCalled": true},
-    {"scenario": "Host OS Sandbox Escape Denial", "passed": true, "emergencyStopCalled": false}
+    {"scenario": "I2C Bus Address Whitelist", "passed": true, "busCallsDispatched": 0, "errorCode": "E104@line:col", "emergencyStopCalled": false, "description": "Reading from allowed 0x76 returns byte data; read to 0x68 strictly blocked before hardware dispatch (busCalls=0)."},
+    {"scenario": "Modbus PLC Register Whitelist", "passed": true, "busCallsDispatched": 0, "errorCode": "E104@scope:modbus", "emergencyStopCalled": false, "description": "Reading register 100 succeeds (245); register 999 blocked at scope boundary (busCalls=0)."},
+    {"scenario": "Serial Port Scope Whitelist", "passed": true, "busCallsDispatched": 0, "errorCode": "SCOPE_VIOLATION:serial", "emergencyStopCalled": false, "description": "Opening unapproved serial port /dev/ttyUSB99 blocked at HostSPI boundary (busCalls=0)."},
+    {"scenario": "Step Limiter DoS Protection", "passed": true, "busCallsDispatched": 0, "errorCode": "TDS_E106", "emergencyStopCalled": true, "description": "Execution terminated strictly at 100,001 steps in 25ms, triggering host.emergencyStop() with zero CPU hang."},
+    {"scenario": "Host OS Sandbox Escape Denial", "passed": true, "busCallsDispatched": 0, "errorCode": "COMPILER_REJECT", "emergencyStopCalled": false, "description": "Grammar strictly isolates the script from JVM reflection, host process spawning, and OS access."},
+    {"scenario": "Granular Capability Bitmask", "passed": true, "busCallsDispatched": 0, "errorCode": "PERMISSION_DENIED:I2C_WRITE", "emergencyStopCalled": false, "description": "Driver granted read-only rights is rejected before issuing I2C write transaction."}
   ],
   "faultInjection": [
-    {"faultType": "I2C Bus NACK / Arbitration Loss", "handledGracefully": true, "vmCrashed": false},
-    {"faultType": "Modbus TCP Gateway Timeout", "handledGracefully": true, "vmCrashed": false},
-    {"faultType": "BLE Connection Loss Mid-Stream", "handledGracefully": true, "vmCrashed": false}
+    {"faultType": "I2C Bus NACK / Arbitration Loss", "simulatedCondition": "Target sensor pulls SDA high or disconnects mid-transaction", "injectionPoint": "Transaction #1 on register 0xD0 read", "expectedBehavior": "Return null to script, log diagnostic error, activate fallback branch", "actualBehavior": "Returned null, fallback executed, zero process crash", "busStateAfterFault": "CLEAN_CLOSED_NO_HANG", "handledGracefully": true, "vmCrashed": false},
+    {"faultType": "Modbus TCP Gateway Timeout", "simulatedCondition": "Industrial PLC network cable disconnected / socket timeout", "injectionPoint": "Transaction #1 on register 100 polling", "expectedBehavior": "Return -1 error code, maintain fail-safe state", "actualBehavior": "Returned -1, safeState engaged, zero process crash", "busStateAfterFault": "SOCKET_CLOSED_SAFE", "handledGracefully": true, "vmCrashed": false},
+    {"faultType": "BLE Connection Loss Mid-Stream", "simulatedCondition": "Bluetooth LE peripheral goes out of radio range (0x13 Disconnect)", "injectionPoint": "Transaction #1 on btReadLine() streaming", "expectedBehavior": "Return null string, increment retry counter, clean GATT handle", "actualBehavior": "Returned null, retry counter incremented, zero crash", "busStateAfterFault": "RADIO_DISCONNECTED_SAFE", "handledGracefully": true, "vmCrashed": false}
   ],
   "conformance": {
     "total": 60,
     "passed": 60,
-    "failed": 0
+    "failed": 0,
+    "positiveTests": 47,
+    "negativeTests": 13,
+    "gbnfValidated": true,
+    "componentBreakdown": {
+      "Runtime": 32,
+      "Parser": 6,
+      "Security": 7,
+      "Lexer": 13,
+      "Diagnostics": 2
+    }
   }
 }
