@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-11-25T19:48:15.644867769",
+  "totalElapsedMs": 7964,
+  "suites": 6,
+  "coldStart": [
+    {"runtime": "TDscript (In-Process VM)", "p50Ms": 0.139201, "meanMs": 0.14638346000000002, "minMs": 0.10416, "maxMs": 0.21264, "p95Ms": 0.20576},
+    {"runtime": "Lua 5.4 (CLI spawn)", "p50Ms": 2.178962, "meanMs": 2.5866661399999997, "minMs": 1.549121, "maxMs": 16.747199, "p95Ms": 3.389242},
+    {"runtime": "C++ Native (g++ -O2)", "p50Ms": 1.796621, "meanMs": 1.8117033599999994, "minMs": 1.094431, "maxMs": 2.832812, "p95Ms": 2.547291},
+    {"runtime": "Python 3.14 (CLI spawn)", "p50Ms": 21.199591, "meanMs": 19.515574519999998, "minMs": 12.935526, "maxMs": 25.200284, "p95Ms": 23.800692},
+    {"runtime": "JavaScript (Node.js 20)", "p50Ms": 32.116026, "meanMs": 31.565943799999996, "minMs": 22.933402, "maxMs": 52.000447, "p95Ms": 44.751804},
+    {"runtime": "Kotlin / Java JVM (Subprocess spawn)", "p50Ms": 29.405225, "meanMs": 30.547030859999996, "minMs": 26.223563, "maxMs": 43.157532, "p95Ms": 39.13473}
+  ],
+  "throughput": [
+    {"runtime": "C++ Native (-O2)", "iterations": 1000000, "elapsedMs": 2, "opsPerSec": 500000000, "verified": true},
+    {"runtime": "C++ Native (-O2)", "iterations": 10000000, "elapsedMs": 9, "opsPerSec": 1111111111, "verified": true},
+    {"runtime": "Lua 5.4", "iterations": 1000000, "elapsedMs": 30, "opsPerSec": 33333333, "verified": true},
+    {"runtime": "Lua 5.4", "iterations": 10000000, "elapsedMs": 192, "opsPerSec": 52083333, "verified": true},
+    {"runtime": "JavaScript (Node.js 20)", "iterations": 1000000, "elapsedMs": 40, "opsPerSec": 25000000, "verified": true},
+    {"runtime": "JavaScript (Node.js 20)", "iterations": 10000000, "elapsedMs": 63, "opsPerSec": 158730158, "verified": true},
+    {"runtime": "Python 3.14", "iterations": 1000000, "elapsedMs": 178, "opsPerSec": 5617977, "verified": true},
+    {"runtime": "Python 3.14", "iterations": 10000000, "elapsedMs": 1667, "opsPerSec": 5998800, "verified": true},
+    {"runtime": "TDscript (In-Process VM)", "iterations": 1000000, "elapsedMs": 341, "opsPerSec": 2932551, "verified": true}
+  ],
+  "memory": [
+    {"runtime": "TDscript Core Engine (JAR)", "binarySizeKb": 135, "idleRssMb": 1.2, "peakRssMb": 6.407466125488281},
+    {"runtime": "Lua 5.4", "binarySizeKb": 298, "idleRssMb": 2.4, "peakRssMb": 4.8},
+    {"runtime": "Python 3.14 (+StdLib 56MB)", "binarySizeKb": 64645, "idleRssMb": 14.8, "peakRssMb": 26.5},
+    {"runtime": "JavaScript (Node.js 20)", "binarySizeKb": 96613, "idleRssMb": 34.2, "peakRssMb": 58.6},
+    {"runtime": "Kotlin JVM Runtime (JRE 17)", "binarySizeKb": 35840, "idleRssMb": 42.0, "peakRssMb": 84.5}
+  ],
+  "security": [
+    {"scenario": "I2C Bus Address Whitelist", "passed": true, "emergencyStopCalled": false},
+    {"scenario": "Modbus PLC Register Whitelist", "passed": true, "emergencyStopCalled": false},
+    {"scenario": "Step Limiter DoS Protection", "passed": true, "emergencyStopCalled": true},
+    {"scenario": "Host OS Sandbox Escape Denial", "passed": true, "emergencyStopCalled": false}
+  ],
+  "faultInjection": [
+    {"faultType": "I2C Bus NACK / Arbitration Loss", "handledGracefully": true, "vmCrashed": false},
+    {"faultType": "Modbus TCP Gateway Timeout", "handledGracefully": true, "vmCrashed": false},
+    {"faultType": "BLE Connection Loss Mid-Stream", "handledGracefully": true, "vmCrashed": false}
+  ],
+  "conformance": {
+    "total": 60,
+    "passed": 60,
+    "failed": 0
+  }
+}
