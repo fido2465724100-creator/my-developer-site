@@ -13,7 +13,7 @@
 >   - Raw Plain-Text Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.txt
 >   - Machine-Readable JSON Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tasks.json
 >   - TDscript Studio IDE & Binary Packages: https://fido2465724100-creator.github.io/my-developer-site/tdscript/studio.html
->   - Global LLM Benchmark (Tests #3 & #4): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
+>   - Global LLM Benchmark (Tests #3–#6): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 
 ## Overview & Core Philosophy
 Anton Mykhailov specializes in systems programming, device & chip orchestration, and high-efficiency architectures:
@@ -90,12 +90,13 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
   - Zero-Dependency `LlmClient` for local LLMs (Ollama: `http://127.0.0.1:11434/v1`, LM Studio: `http://127.0.0.1:1234/v1`) and cloud APIs.
   - Live language projection switcher (RU/EN/DE) without touching string literals or comments.
 
-### 5. Global LLM Benchmark (3B–9B Models)
+### 5. Global LLM Benchmark (3B–9B Models, Tests #3–#6)
 - **Report & Full Telemetry**: https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
-- **Model Tested**: Qwen 3.5 9B Instruct on `llama-server` (CUDA GTX 1070).
+- **Models Tested**: Qwen 3.5 9B & Qwen 3.5 4B Unloop on `llama-server` (CUDA GTX 1070).
 - **Core Results**:
-  - TDscript Experimental achieved **90.0% Final Success** with lowest LOC across all 7 languages (**5.6 lines** vs 9.7 Python, 15.0 C++, 13.5 Kotlin).
-  - Cost per success reduced by 45% (2275.2 tokens vs 4149.9 in Base) thanks to compact repair error syntax.
+  - Test #6 (AI-Native Diagnostics): TDscript Base achieved **80.0% Final Success** and **60.0% First-Pass** (tied with Python 60% and 3× higher than C++ 20%), with 0 syntax errors and 0 runtime errors at 5.0 LOC!
+  - TDscript Experimental maintained lowest LOC across all 7 targets (**4.3 lines** vs 9.1 Python, 11.6 C++, 12.7 JS).
+  - Open Data: Full JSONL traces, failure logs, and tasks dataset available for all test rounds (#3, #4, #5, #6).
 
 ### 6. TDRobotics (Android Robotics Engineering Environment)
 - **Platforms**: Android (Standalone Engineering Tool)

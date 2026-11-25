@@ -5,7 +5,7 @@
 > Website: https://fido2465724100-creator.github.io/my-developer-site/
 > AI-First Language Portal: https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
 > Formal GBNF Grammar: https://fido2465724100-creator.github.io/my-developer-site/tdscript/grammar.gbnf
-> Benchmark (Test #3 & Test #4): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
+> Benchmark (Tests #3–#6): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 
 ---
 
