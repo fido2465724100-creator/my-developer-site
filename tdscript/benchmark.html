@@ -671,11 +671,11 @@
         </div>
       </section>
 
-      <!-- СИСТЕМНЫЙ БЕНЧМАРК РАНТАЙМА (OVERNIGHT SYSTEM SUITE) -->
+      <!-- 1. БАЗОВЫЕ СИСТЕМНЫЕ ТЕСТЫ: ПРОИЗВОДИТЕЛЬНОСТЬ И РЕСУРСЫ -->
       <section class="card">
-        <h2>⚡ Системный бенчмарк виртуальной машины и рантайма (System & Engine Benchmark)</h2>
+        <h2>⚡ Базовые системные тесты: Скорость виртуальной машины и ресурсы (Core VM & Performance)</h2>
         <p>
-          В дополнение к тестированию автономной генерации кода нейросетями, мы провели всесторонний стресс-тест самой виртуальной машины <strong>TDscript Core 1.1</strong> в сравнении с классическими системными средами (Python 3.14, Lua 5.4, Node.js 20, C++ 15, Kotlin JVM) по 6 критическим инженерным направлениям:
+          В дополнение к тестированию автономной генерации кода нейросетями, мы провели объективные замеры базовой производительности и эффективности использования системных ресурсов виртуальной машины <strong>TDscript Core 1.1</strong> в сравнении с популярными системными средами (Python 3.14, Lua 5.4, Node.js 20, C++ 15, Kotlin JVM):
         </p>
 
         <!-- 1. Холодный старт -->
@@ -865,9 +865,17 @@
             </tbody>
           </table>
         </div>
+      </section>
 
-        <!-- 4. Безопасность и изоляция -->
-        <h3 style="margin-top: 1.5rem;">4. Аппаратная безопасность и изоляция песочницы</h3>
+      <!-- 2. СТРЕСС-ТЕСТЫ НА БЕЗОПАСНОСТЬ И ОТКАЗОУСТОЙЧИВОСТЬ -->
+      <section class="card">
+        <h2>🛡️ Стресс-тесты: Аппаратная безопасность и отказоустойчивость (Reliability & Fault Tolerance)</h2>
+        <p>
+          В физической автоматизации критически важна не только скорость, но и предсказуемость при сбоях оборудования. Виртуальная машина TDscript спроектирована по принципу «Zero Unhandled Crashes» с аппаратной изоляцией доступа (CapabilityScope) и детерминированным сторожем:
+        </p>
+
+        <!-- 1. Безопасность и изоляция -->
+        <h3 style="margin-top: 1.5rem;">1. Аппаратная безопасность и изоляция песочницы (CapabilityScope &amp; DoS Protection)</h3>
         <div class="table-wrapper">
           <table>
             <thead>
@@ -912,8 +920,8 @@
           </table>
         </div>
 
-        <!-- 5. Стресс-тестирование аппаратных сбоев -->
-        <h3 style="margin-top: 1.5rem;">5. Стресс-тестирование аппаратных сбоев (Hardware Fault Injection)</h3>
+        <!-- 2. Стресс-тестирование аппаратных сбоев -->
+        <h3 style="margin-top: 1.5rem;">2. Стресс-тестирование аппаратных сбоев (Hardware Fault Injection)</h3>
         <div class="table-wrapper">
           <table>
             <thead>
@@ -951,8 +959,8 @@
           </table>
         </div>
 
-        <!-- 6. Спецификация языка -->
-        <h3 style="margin-top: 1.5rem;">6. Соответствие спецификации языка (Language Conformance Battery)</h3>
+        <!-- 3. Спецификация языка -->
+        <h3 style="margin-top: 1.5rem;">3. Соответствие спецификации языка (Language Conformance Battery — 60 тестов)</h3>
         <p>Полный набор из <strong>60 модульных тестов</strong> проверил все языковые конструкции TDscript:</p>
         <ul>
           <li><strong>Арифметика и приоритеты (10/10)</strong>: верный порядок <code>*</code>, <code>/</code>, <code>+</code>, <code>-</code>, <code>%</code>, скобок, постфиксных <code>++</code>/<code>--</code> и авторасширение в 64-битный Long при переполнении 32 бит.</li>
@@ -1006,11 +1014,11 @@
                 <td><a href="BENCHMARK_REPORT_TEST5.md" target="_blank">📋 REPORT_TEST5.md</a></td>
               </tr>
               <tr style="background: rgba(34, 197, 94, 0.08); font-weight: 600;">
-                <td><strong>Ночной системный бенчмарк</strong></td>
-                <td>Все 6 сьютов: Cold Start, Throughput, Memory, Security, Faults, Conformance</td>
-                <td><a href="benchmark_overnight_results.json" download>📥 benchmark_overnight_results.json</a></td>
-                <td><a href="OVERNIGHT_BENCHMARK_REPORT.md" target="_blank">📋 OVERNIGHT_REPORT.md</a></td>
-                <td><a href="OVERNIGHT_BENCHMARK_REPORT.md" target="_blank">📋 OVERNIGHT_REPORT.md</a></td>
+                <td><strong>Базовые тесты и проверка отказоустойчивости</strong></td>
+                <td>Холодный старт 0.14мс, память 135 КБ, безопасность Scope, стресс-сбои, 60 тестов спецификации</td>
+                <td><a href="system_benchmark_results.json" download>📥 system_benchmark_results.json</a></td>
+                <td><a href="SYSTEM_BENCHMARK_REPORT.md" target="_blank">📋 SYSTEM_BENCHMARK_REPORT.md</a></td>
+                <td><a href="SYSTEM_BENCHMARK_REPORT.md" target="_blank">📋 SYSTEM_BENCHMARK_REPORT.md</a></td>
               </tr>
               <tr style="background: rgba(56, 189, 248, 0.08);">
                 <td><strong>Тест №6 (Benchmark v6)</strong></td>
@@ -1113,9 +1121,9 @@ cd TDscript-Studio
           </table>
         </div>
       </section>
-      <!-- SYSTEM & RUNTIME BENCHMARK (EN) -->
+      <!-- CORE ENGINE & FAULT RESILIENCE BENCHMARK (EN) -->
       <section class="card">
-        <h2>⚡ System & Virtual Machine Benchmark (Cold Start, Memory & Safety)</h2>
+        <h2>⚡ Core VM Performance &amp; Hardware Fault Tolerance Benchmark</h2>
         <p>Comprehensive system benchmark comparing TDscript Core 1.1 against Python 3.14, Lua 5.4, Node.js 20, C++ 15, and Kotlin JVM across 6 systems dimensions:</p>
 
         <div class="table-wrapper">
@@ -1137,8 +1145,8 @@ cd TDscript-Studio
 
         <h3 style="margin-top: 1.5rem;">📦 Open Data & Comprehensive Reports</h3>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem;">
-          <a href="benchmark_overnight_results.json" class="btn btn-outline" download>📥 Overnight Benchmark JSON</a>
-          <a href="OVERNIGHT_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 Full Overnight Report (MD)</a>
+          <a href="system_benchmark_results.json" class="btn btn-outline" download>📥 System Benchmark Results (JSON)</a>
+          <a href="SYSTEM_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 System &amp; Resilience Report (MD)</a>
           <a href="benchmark_full_trace_test6.jsonl" class="btn btn-outline" download>📥 Test #6 Trace (JSONL)</a>
         </div>
       </section>
@@ -1170,8 +1178,8 @@ cd TDscript-Studio
         <h3 style="margin-top: 1.5rem;">📦 Open Data & Vollständige Protokolle</h3>
         <p>Laden Sie die unveränderten JSONL-Traces und Fehlerprotokolle für alle Testrunden herunter:</p>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem;">
-          <a href="benchmark_overnight_results.json" class="btn btn-outline" download>📥 System-Benchmark JSON</a>
-          <a href="OVERNIGHT_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 System-Report (MD)</a>
+          <a href="system_benchmark_results.json" class="btn btn-outline" download>📥 System-Benchmark (JSON)</a>
+          <a href="SYSTEM_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 System- &amp; Fehlertoleranz-Bericht (MD)</a>
           <a href="benchmark_full_trace_test6.jsonl" class="btn btn-outline" download>📥 Test #6 Trace (JSONL)</a>
           <a href="benchmark_full_trace_test5.jsonl" class="btn btn-outline" download>📥 Test #5 Trace (JSONL)</a>
           <a href="benchmark_full_trace_test4.jsonl" class="btn btn-outline" download>📥 Test #4 Trace (JSONL)</a>
@@ -1207,8 +1215,8 @@ cd TDscript-Studio
         <h3 style="margin-top: 1.5rem;">📦 Відкриті дані та повні трекери тестування</h3>
         <p>Завантажуйте прямі сирі JSONL-трасування та журнали помилок для кожного раунду бенчмарка:</p>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem;">
-          <a href="benchmark_overnight_results.json" class="btn btn-outline" download>📥 Системний бенчмарк JSON</a>
-          <a href="OVERNIGHT_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 Системний звіт (MD)</a>
+          <a href="system_benchmark_results.json" class="btn btn-outline" download>📥 Системний бенчмарк (JSON)</a>
+          <a href="SYSTEM_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 Звіт відмовостійкості (MD)</a>
           <a href="benchmark_full_trace_test6.jsonl" class="btn btn-outline" download>📥 Трекер Тесту #6 (JSONL)</a>
           <a href="benchmark_full_trace_test5.jsonl" class="btn btn-outline" download>📥 Трекер Тесту #5 (JSONL)</a>
           <a href="benchmark_full_trace_test4.jsonl" class="btn btn-outline" download>📥 Трекер Тесту #4 (JSONL)</a>
