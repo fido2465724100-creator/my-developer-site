@@ -45,8 +45,8 @@ hex-literal ::= "0x" [0-9a-fA-F]+ ("L" | "l")?
 float-literal ::= [0-9]+ "." [0-9]+
 int-literal ::= [0-9]+ ("L" | "l")?
 
-string-literal ::= "\"" ([^"\\] | "\\" .)* "\"" | "'" ([^'\\] | "\\" .)* "'"
-lstring-literal ::= "L\"" ([^"\\] | "\\" .)* "\"" | "L'" ([^'\\] | "\\" .)* "'"
+string-literal ::= "\"" ([^"\\\n\r] | "\\" [^\n\r])* "\"" | "'" ([^'\\\n\r] | "\\" [^\n\r])* "'"
+lstring-literal ::= "L\"" ([^"\\\n\r] | "\\" [^\n\r])* "\"" | "L'" ([^'\\\n\r] | "\\" [^\n\r])* "'"
 
 bool-literal ::= "true" | "false" | "истина" | "ложь" | "wahr" | "falsch" | "verdadero" | "falso"
 null-literal ::= "null" | "пусто" | "nulo"
