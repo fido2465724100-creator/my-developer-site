@@ -1,0 +1,96 @@
+=== TDscript Benchmark Failures Log ===
+Started: 2026-11-26T14:35:12.090449046Z
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 1/3
+Timestamp: 2026-11-26T14:39:07.010964146Z
+--- RAW GENERATED CODE ---
+language: ai;
+count = 0;
+while (count < 5) {
+    data = PLC.modbusRead("127.0.0.1", 100);
+    WATCHDOG.feed();
+    count += 1;
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E107@1:1 exp=stdout_match got=Expected output containing [feed, 100], but stdout was empty
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 2/3
+Timestamp: 2026-11-26T14:40:35.948300232Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 4 (Modbus 5-Iteration Loop with Watchdog Feed) | Attempt: 3/3
+Timestamp: 2026-11-26T14:40:43.003913207Z
+--- RAW GENERATED CODE ---
+language: ai;
+count = 0;
+while (count < 5) {
+    PLC.modbusRead("127.0.0.1", 100);
+    WATCHDOG.feed();
+    count += 1;
+}
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E107@1:1 exp=stdout_match got=Expected output containing [feed, 100], but stdout was empty
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 1/3
+Timestamp: 2026-11-26T14:44:04.314525815Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 2/3
+Timestamp: 2026-11-26T14:45:36.660519274Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 9 (Combined Dual-Sensor Verification) | Attempt: 3/3
+Timestamp: 2026-11-26T14:47:07.325355105Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 1/3
+Timestamp: 2026-11-26T14:48:50.657359992Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 2/3
+Timestamp: 2026-11-26T14:50:22.928563846Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+[FAILURE] Target: TDscript AI-First (v1.5.0) | Task: 10 (Strict CapabilityScope Adherence & Self-Repair) | Attempt: 3/3
+Timestamp: 2026-11-26T14:51:52.969923063Z
+--- RAW GENERATED CODE ---
+<EMPTY CODE>
+--- ERROR / DIAGNOSTIC SENT TO LLM ---
+E101@1:1 exp=valid_syntax got=Extraction resulted in empty code block
+--------------------------------------------------------------------------------
+
