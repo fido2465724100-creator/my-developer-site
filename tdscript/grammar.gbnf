@@ -7,7 +7,7 @@ language-directive ::= (("language:" | "язык:" | "мова:" | "sprache:") w
 
 statement ::= (let-statement | var-statement | if-statement | while-statement | break-statement | continue-statement | expr-statement | block) ws
 
-let-statement ::= ("let" | "пусть" | "нехай" | "sei" | "sea") ws identifier ws "=" ws expr (";" | "\n")
+let-statement ::= ("let" | "val" | "пусть" | "нехай" | "sei" | "sea") ws identifier ws "=" ws expr (";" | "\n")
 var-statement ::= ("var" | "переменная" | "змінна" | "variable" | "перем") ws identifier ws "=" ws expr (";" | "\n")
 
 if-statement ::= ("if" | "если" | "якщо" | "wenn" | "si") ws "(" ws expr ws ")" ws statement (ws ("else" | "иначе" | "інакше" | "sonst" | "sino") ws statement)?
