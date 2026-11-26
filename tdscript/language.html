@@ -53,15 +53,15 @@
         <p>Выберите версию спецификации для просмотра синтаксиса и контрактов подсистем:</p>
         
         <div id="version-tabs-ru" class="version-tabs">
-          <button class="tab-btn active" data-tab="v140" onclick="switchTab('version-tabs-ru', 'v140')">🚀 TDscript v1.4.0 / Core 1.1 (Студия & AI-First)</button>
+          <button class="tab-btn active" data-tab="v140" onclick="switchTab('version-tabs-ru', 'v140')">🚀 TDscript v1.5.0 / Core 1.1 (Студия & AI-First)</button>
           <button class="tab-btn" data-tab="v101" onclick="switchTab('version-tabs-ru', 'v101')">🏛️ TDscript v1.0.1 / Core 1.0 (Классическая / Tdroid)</button>
         </div>
 
-        <!-- ТАБ 1: v1.4.0 -->
+        <!-- ТАБ 1: v1.5.0 -->
         <div class="tab-pane active" data-tab="v140">
           <div class="callout callout-green">
-            <strong>Основная спецификация (TDscript Studio 1.1.0 / TDModules 1.4.0, Спецификация Core 1.1):</strong>
-            Включает поддержку шестнадцатеричных литералов (<code>0x76</code>), индексации <code>ByteArray[i]</code>, интерполяции переменных в <code>LString</code>, строгой диспетчеризации методов (<code>TDS_E106</code>), сторожа <code>WATCHDOG</code> и компактных диагностических строк для локальных LLM.
+            <strong>Основная спецификация (TDscript Studio 1.1.0 / TDModules 1.5.0, Спецификация Core 1.1):</strong>
+            Включает поддержку шестнадцатеричных литералов (<code>0x76</code>), операторов прерывания циклов (<code>break</code> / <code>continue</code>), директивы <code>language: ai;</code> для LLM-агентов, человеческих ключевых слов без сокращений (<code>переменная</code>, <code>печать</code>), индексации <code>ByteArray[i]</code>, интерполяции переменных в <code>LString</code>, строгой диспетчеризации методов (<code>TDS_E106</code>) и сторожа <code>WATCHDOG</code>.
             <div style="margin-top: 0.6rem;">
               <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
                 📐 Скачать / Просмотреть эталонную GBNF-грамматику (grammar.gbnf)
@@ -69,23 +69,31 @@
             </div>
           </div>
 
-          <h3>1. Базовый синтаксис и управление потоком</h3>
-          <pre><code>// Объявление неизменяемой (let) и изменяемой (var) переменной
-let chipAddress = 0x76;
-var status = false;
+          <h3>1. Базовый синтаксис и управление потоком (v1.5.0)</h3>
+          <pre><code>// Объявление языка: language: ru; (человеческий) или language: ai; (для ИИ-агентов)
+language: ru;
 
-// Ветвление if / else
-if (status == true) {
-    print("Device is ready");
-} else {
-    print("Device offline");
+// Объявление неизменяемой (пусть / let) и изменяемой (переменная / var) переменной
+пусть адресЧипа = 0x76;
+переменная готовность = false;
+
+// Ветвление если / иначе (if / else)
+если (готовность == истина) {
+    печать("Устройство готово к обмену");
+} иначе {
+    печать("Ожидание инициализации...");
 }
 
-// Цикл while со встроенным лимитом шагов (Step Limiter 10M)
-var i = 0;
-while (i &lt; 5) {
-    WATCHDOG.feed(); // Подпитка сторожа на каждой итерации
-    i = i + 1;
+// Цикл пока (while) с выходом по break (прервать) и continue (продолжить)
+переменная попытка = 0;
+пока (попытка &lt; 10) {
+    попытка = попытка + 1;
+    let data = I2C.read(адресЧипа, 0xD0, 1);
+    если (data != пусто) {
+        печать("Датчик ответил на попытке: ", попытка);
+        прервать; // Выход из цикла без лишних флаговых переменных
+    }
+    WATCHDOG.feed(); // Подпитка сторожа
 }</code></pre>
 
           <h3>2. Литералы и детерминированные типы данных</h3>

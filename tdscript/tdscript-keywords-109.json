@@ -1,0 +1,4091 @@
+{
+  "en": {
+    "if": [
+      "if"
+    ],
+    "else": [
+      "else"
+    ],
+    "while": [
+      "while"
+    ],
+    "let": [
+      "let"
+    ],
+    "var": [
+      "var"
+    ],
+    "true": [
+      "true"
+    ],
+    "false": [
+      "false"
+    ],
+    "null": [
+      "null"
+    ],
+    "print": [
+      "print"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ai": {
+    "if": [
+      "if"
+    ],
+    "else": [
+      "else"
+    ],
+    "while": [
+      "while"
+    ],
+    "let": [
+      "let"
+    ],
+    "var": [
+      "var"
+    ],
+    "true": [
+      "true"
+    ],
+    "false": [
+      "false"
+    ],
+    "null": [
+      "null"
+    ],
+    "print": [
+      "print"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ru": {
+    "if": [
+      "если"
+    ],
+    "else": [
+      "иначе"
+    ],
+    "while": [
+      "пока"
+    ],
+    "let": [
+      "пусть",
+      "переменная"
+    ],
+    "var": [
+      "переменная",
+      "перем"
+    ],
+    "true": [
+      "истина",
+      "правда"
+    ],
+    "false": [
+      "ложь",
+      "неправда"
+    ],
+    "null": [
+      "пусто",
+      "ничто"
+    ],
+    "print": [
+      "печать"
+    ],
+    "break": [
+      "прервать",
+      "выход",
+      "стоп"
+    ],
+    "continue": [
+      "продолжить"
+    ]
+  },
+  "uk": {
+    "if": [
+      "якщо"
+    ],
+    "else": [
+      "інакше"
+    ],
+    "while": [
+      "поки"
+    ],
+    "let": [
+      "нехай",
+      "змінна",
+      "пусть"
+    ],
+    "var": [
+      "змінна",
+      "перем"
+    ],
+    "true": [
+      "істина",
+      "правда"
+    ],
+    "false": [
+      "хиба",
+      "неправда"
+    ],
+    "null": [
+      "пусто",
+      "ніщо"
+    ],
+    "print": [
+      "друк"
+    ],
+    "break": [
+      "перервати",
+      "вихід",
+      "стоп"
+    ],
+    "continue": [
+      "продовжити"
+    ]
+  },
+  "de": {
+    "if": [
+      "wenn"
+    ],
+    "else": [
+      "sonst"
+    ],
+    "while": [
+      "solange"
+    ],
+    "let": [
+      "sei",
+      "variable",
+      "lassen"
+    ],
+    "var": [
+      "variable"
+    ],
+    "true": [
+      "wahr"
+    ],
+    "false": [
+      "falsch"
+    ],
+    "null": [
+      "nichts",
+      "null"
+    ],
+    "print": [
+      "drucken"
+    ],
+    "break": [
+      "abbrechen",
+      "stopp"
+    ],
+    "continue": [
+      "fortsetzen",
+      "weiter"
+    ]
+  },
+  "es": {
+    "if": [
+      "si"
+    ],
+    "else": [
+      "sino"
+    ],
+    "while": [
+      "mientras"
+    ],
+    "let": [
+      "sea",
+      "variable"
+    ],
+    "var": [
+      "variable"
+    ],
+    "true": [
+      "verdadero"
+    ],
+    "false": [
+      "falso"
+    ],
+    "null": [
+      "nulo"
+    ],
+    "print": [
+      "imprimir"
+    ],
+    "break": [
+      "romper",
+      "parar"
+    ],
+    "continue": [
+      "continuar"
+    ]
+  },
+  "fr": {
+    "if": [
+      "si"
+    ],
+    "else": [
+      "sinon"
+    ],
+    "while": [
+      "tantque",
+      "pendant"
+    ],
+    "let": [
+      "soit",
+      "variable"
+    ],
+    "var": [
+      "variable"
+    ],
+    "true": [
+      "vrai"
+    ],
+    "false": [
+      "faux"
+    ],
+    "null": [
+      "nul",
+      "vide"
+    ],
+    "print": [
+      "imprimer",
+      "afficher"
+    ],
+    "break": [
+      "rompre",
+      "arreter"
+    ],
+    "continue": [
+      "continuer"
+    ]
+  },
+  "it": {
+    "if": [
+      "se"
+    ],
+    "else": [
+      "altrimenti"
+    ],
+    "while": [
+      "mentre"
+    ],
+    "let": [
+      "sia",
+      "variabile"
+    ],
+    "var": [
+      "variabile"
+    ],
+    "true": [
+      "vero"
+    ],
+    "false": [
+      "falso"
+    ],
+    "null": [
+      "nullo"
+    ],
+    "print": [
+      "stampa"
+    ],
+    "break": [
+      "interrompi",
+      "stop"
+    ],
+    "continue": [
+      "continua"
+    ]
+  },
+  "pt": {
+    "if": [
+      "se"
+    ],
+    "else": [
+      "senao",
+      "senão"
+    ],
+    "while": [
+      "enquanto"
+    ],
+    "let": [
+      "seja",
+      "variavel",
+      "variável"
+    ],
+    "var": [
+      "variavel",
+      "variável"
+    ],
+    "true": [
+      "verdadeiro"
+    ],
+    "false": [
+      "falso"
+    ],
+    "null": [
+      "nulo"
+    ],
+    "print": [
+      "imprimir"
+    ],
+    "break": [
+      "parar",
+      "interromper"
+    ],
+    "continue": [
+      "continuar"
+    ]
+  },
+  "zh": {
+    "if": [
+      "如果"
+    ],
+    "else": [
+      "否则"
+    ],
+    "while": [
+      "当"
+    ],
+    "let": [
+      "让",
+      "变量"
+    ],
+    "var": [
+      "变量"
+    ],
+    "true": [
+      "真"
+    ],
+    "false": [
+      "假"
+    ],
+    "null": [
+      "空"
+    ],
+    "print": [
+      "打印"
+    ],
+    "break": [
+      "跳出",
+      "中断"
+    ],
+    "continue": [
+      "继续"
+    ]
+  },
+  "zh-tw": {
+    "if": [
+      "如果"
+    ],
+    "else": [
+      "否則"
+    ],
+    "while": [
+      "當"
+    ],
+    "let": [
+      "讓",
+      "變數"
+    ],
+    "var": [
+      "變數"
+    ],
+    "true": [
+      "真"
+    ],
+    "false": [
+      "假"
+    ],
+    "null": [
+      "空"
+    ],
+    "print": [
+      "列印"
+    ],
+    "break": [
+      "跳出",
+      "中斷"
+    ],
+    "continue": [
+      "繼續"
+    ]
+  },
+  "ja": {
+    "if": [
+      "もし"
+    ],
+    "else": [
+      "それ以外"
+    ],
+    "while": [
+      "の間"
+    ],
+    "let": [
+      "宣言",
+      "変数"
+    ],
+    "var": [
+      "変数"
+    ],
+    "true": [
+      "真"
+    ],
+    "false": [
+      "偽"
+    ],
+    "null": [
+      "無"
+    ],
+    "print": [
+      "出力"
+    ],
+    "break": [
+      "中断",
+      "脱出"
+    ],
+    "continue": [
+      "継続",
+      "続ける"
+    ]
+  },
+  "ko": {
+    "if": [
+      "만약"
+    ],
+    "else": [
+      "아니면"
+    ],
+    "while": [
+      "동안"
+    ],
+    "let": [
+      "변수"
+    ],
+    "var": [
+      "변수"
+    ],
+    "true": [
+      "참"
+    ],
+    "false": [
+      "거짓"
+    ],
+    "null": [
+      "없음"
+    ],
+    "print": [
+      "출력"
+    ],
+    "break": [
+      "중단",
+      "멈춤"
+    ],
+    "continue": [
+      "계속"
+    ]
+  },
+  "ar": {
+    "if": [
+      "إذا"
+    ],
+    "else": [
+      "وإلا"
+    ],
+    "while": [
+      "طالما"
+    ],
+    "let": [
+      "ليكن",
+      "متغير"
+    ],
+    "var": [
+      "متغير"
+    ],
+    "true": [
+      "صحيح"
+    ],
+    "false": [
+      "خطأ"
+    ],
+    "null": [
+      "فارغ"
+    ],
+    "print": [
+      "طباعة"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "he": {
+    "if": [
+      "אם"
+    ],
+    "else": [
+      "אחרת"
+    ],
+    "while": [
+      "כלעוד"
+    ],
+    "let": [
+      "יהי",
+      "משתנה"
+    ],
+    "var": [
+      "משתנה"
+    ],
+    "true": [
+      "אמת"
+    ],
+    "false": [
+      "שקר"
+    ],
+    "null": [
+      "ריק"
+    ],
+    "print": [
+      "הדפס"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "hi": {
+    "if": [
+      "यदि",
+      "अगर"
+    ],
+    "else": [
+      "अन्यथा",
+      "वरना"
+    ],
+    "while": [
+      "जबतक"
+    ],
+    "let": [
+      "मान",
+      "चर"
+    ],
+    "var": [
+      "चर"
+    ],
+    "true": [
+      "सत्य"
+    ],
+    "false": [
+      "असत्य"
+    ],
+    "null": [
+      "शून्य"
+    ],
+    "print": [
+      "छापो"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "tr": {
+    "if": [
+      "eğer",
+      "eger"
+    ],
+    "else": [
+      "değilse",
+      "degilse"
+    ],
+    "while": [
+      "iken"
+    ],
+    "let": [
+      "olsun",
+      "değişken",
+      "degisken"
+    ],
+    "var": [
+      "değişken",
+      "degisken"
+    ],
+    "true": [
+      "doğru",
+      "dogru"
+    ],
+    "false": [
+      "yanlış",
+      "yanlis"
+    ],
+    "null": [
+      "boş",
+      "bos"
+    ],
+    "print": [
+      "yazdır",
+      "yazdir"
+    ],
+    "break": [
+      "kır",
+      "kir",
+      "dur"
+    ],
+    "continue": [
+      "devam"
+    ]
+  },
+  "pl": {
+    "if": [
+      "jeśli",
+      "jesli"
+    ],
+    "else": [
+      "inaczej"
+    ],
+    "while": [
+      "dopóki",
+      "dopoki"
+    ],
+    "let": [
+      "niech",
+      "zmienna"
+    ],
+    "var": [
+      "zmienna"
+    ],
+    "true": [
+      "prawda"
+    ],
+    "false": [
+      "fałsz",
+      "falsz"
+    ],
+    "null": [
+      "pusty"
+    ],
+    "print": [
+      "drukuj"
+    ],
+    "break": [
+      "przerwij"
+    ],
+    "continue": [
+      "kontynuuj"
+    ]
+  },
+  "nl": {
+    "if": [
+      "als"
+    ],
+    "else": [
+      "anders"
+    ],
+    "while": [
+      "zolang"
+    ],
+    "let": [
+      "laat",
+      "variabele"
+    ],
+    "var": [
+      "variabele"
+    ],
+    "true": [
+      "waar"
+    ],
+    "false": [
+      "onwaar"
+    ],
+    "null": [
+      "niets"
+    ],
+    "print": [
+      "print"
+    ],
+    "break": [
+      "breek",
+      "stop"
+    ],
+    "continue": [
+      "doorgaan"
+    ]
+  },
+  "cs": {
+    "if": [
+      "když",
+      "kdyz"
+    ],
+    "else": [
+      "jinak"
+    ],
+    "while": [
+      "dokud"
+    ],
+    "let": [
+      "nechť",
+      "necht",
+      "proměnná"
+    ],
+    "var": [
+      "proměnná",
+      "promenna"
+    ],
+    "true": [
+      "pravda"
+    ],
+    "false": [
+      "nepravda"
+    ],
+    "null": [
+      "prázdný",
+      "prazdny"
+    ],
+    "print": [
+      "tisk"
+    ],
+    "break": [
+      "přeruš",
+      "prerus"
+    ],
+    "continue": [
+      "pokračuj",
+      "pokracuj"
+    ]
+  },
+  "sv": {
+    "if": [
+      "om"
+    ],
+    "else": [
+      "annars"
+    ],
+    "while": [
+      "medan"
+    ],
+    "let": [
+      "låt",
+      "lat",
+      "variabel"
+    ],
+    "var": [
+      "variabel"
+    ],
+    "true": [
+      "sant"
+    ],
+    "false": [
+      "falskt"
+    ],
+    "null": [
+      "inget"
+    ],
+    "print": [
+      "skriv"
+    ],
+    "break": [
+      "avbryt"
+    ],
+    "continue": [
+      "fortsätt",
+      "fortsatt"
+    ]
+  },
+  "fi": {
+    "if": [
+      "jos"
+    ],
+    "else": [
+      "muuten"
+    ],
+    "while": [
+      "kunnes",
+      "kun"
+    ],
+    "let": [
+      "olkoon",
+      "muuttuja"
+    ],
+    "var": [
+      "muuttuja"
+    ],
+    "true": [
+      "tosi"
+    ],
+    "false": [
+      "epätosi",
+      "epatosi"
+    ],
+    "null": [
+      "tyhjä",
+      "tyhja"
+    ],
+    "print": [
+      "tulosta"
+    ],
+    "break": [
+      "keskeytä",
+      "keskeyta"
+    ],
+    "continue": [
+      "jatka"
+    ]
+  },
+  "da": {
+    "if": [
+      "hvis"
+    ],
+    "else": [
+      "ellers"
+    ],
+    "while": [
+      "mens"
+    ],
+    "let": [
+      "lad",
+      "variabel"
+    ],
+    "var": [
+      "variabel"
+    ],
+    "true": [
+      "sandt"
+    ],
+    "false": [
+      "falsk"
+    ],
+    "null": [
+      "tom"
+    ],
+    "print": [
+      "udskriv"
+    ],
+    "break": [
+      "afbryd"
+    ],
+    "continue": [
+      "fortsæt",
+      "fortsaet"
+    ]
+  },
+  "no": {
+    "if": [
+      "hvis"
+    ],
+    "else": [
+      "ellers"
+    ],
+    "while": [
+      "mens"
+    ],
+    "let": [
+      "la",
+      "variabel"
+    ],
+    "var": [
+      "variabel"
+    ],
+    "true": [
+      "sant"
+    ],
+    "false": [
+      "usant"
+    ],
+    "null": [
+      "tom"
+    ],
+    "print": [
+      "skriv"
+    ],
+    "break": [
+      "avbryt"
+    ],
+    "continue": [
+      "fortsett"
+    ]
+  },
+  "el": {
+    "if": [
+      "εάν",
+      "εαν"
+    ],
+    "else": [
+      "αλλιώς",
+      "αλλιως"
+    ],
+    "while": [
+      "ενώ",
+      "ενω"
+    ],
+    "let": [
+      "έστω",
+      "εστω",
+      "μεταβλητή"
+    ],
+    "var": [
+      "μεταβλητή",
+      "μεταβλητη"
+    ],
+    "true": [
+      "αληθές",
+      "αληθες"
+    ],
+    "false": [
+      "ψευδές",
+      "ψευδες"
+    ],
+    "null": [
+      "κενό",
+      "κενο"
+    ],
+    "print": [
+      "τύπωσε",
+      "τυπωσε"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ro": {
+    "if": [
+      "dacă",
+      "daca"
+    ],
+    "else": [
+      "altfel"
+    ],
+    "while": [
+      "cattimp",
+      "în_timp_ce"
+    ],
+    "let": [
+      "fie",
+      "variabilă",
+      "variabila"
+    ],
+    "var": [
+      "variabilă",
+      "variabila"
+    ],
+    "true": [
+      "adevărat",
+      "adevarat"
+    ],
+    "false": [
+      "fals"
+    ],
+    "null": [
+      "nul"
+    ],
+    "print": [
+      "scrie"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "hu": {
+    "if": [
+      "ha"
+    ],
+    "else": [
+      "különben",
+      "kulonben"
+    ],
+    "while": [
+      "amíg",
+      "amig"
+    ],
+    "let": [
+      "legyen",
+      "változó",
+      "valtozo"
+    ],
+    "var": [
+      "változó",
+      "valtozo"
+    ],
+    "true": [
+      "igaz"
+    ],
+    "false": [
+      "hamis"
+    ],
+    "null": [
+      "semmi"
+    ],
+    "print": [
+      "kiír",
+      "kiir"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "vi": {
+    "if": [
+      "nếu",
+      "neu"
+    ],
+    "else": [
+      "nếu_không",
+      "khac"
+    ],
+    "while": [
+      "khi",
+      "trong_khi"
+    ],
+    "let": [
+      "gán",
+      "biến",
+      "bien"
+    ],
+    "var": [
+      "biến",
+      "bien"
+    ],
+    "true": [
+      "đúng",
+      "dung"
+    ],
+    "false": [
+      "sai"
+    ],
+    "null": [
+      "rỗng",
+      "rong"
+    ],
+    "print": [
+      "in"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "id": {
+    "if": [
+      "jika"
+    ],
+    "else": [
+      "lainnya"
+    ],
+    "while": [
+      "selama"
+    ],
+    "let": [
+      "misal",
+      "variabel"
+    ],
+    "var": [
+      "variabel"
+    ],
+    "true": [
+      "benar"
+    ],
+    "false": [
+      "salah"
+    ],
+    "null": [
+      "kosong"
+    ],
+    "print": [
+      "cetak"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ms": {
+    "if": [
+      "jika"
+    ],
+    "else": [
+      "jika_tidak"
+    ],
+    "while": [
+      "selagi"
+    ],
+    "let": [
+      "biar",
+      "pembolehubah"
+    ],
+    "var": [
+      "pembolehubah"
+    ],
+    "true": [
+      "benar"
+    ],
+    "false": [
+      "palsu"
+    ],
+    "null": [
+      "kosong"
+    ],
+    "print": [
+      "cetak"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "bg": {
+    "if": [
+      "ако"
+    ],
+    "else": [
+      "иначе"
+    ],
+    "while": [
+      "докато"
+    ],
+    "let": [
+      "нека",
+      "променлива"
+    ],
+    "var": [
+      "променлива"
+    ],
+    "true": [
+      "истина"
+    ],
+    "false": [
+      "лъжа",
+      "неистина"
+    ],
+    "null": [
+      "празно"
+    ],
+    "print": [
+      "печат"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sr": {
+    "if": [
+      "ако",
+      "ako"
+    ],
+    "else": [
+      "иначе",
+      "inace"
+    ],
+    "while": [
+      "док",
+      "dok"
+    ],
+    "let": [
+      "нека",
+      "neka",
+      "променљива"
+    ],
+    "var": [
+      "променљива",
+      "promenljiva"
+    ],
+    "true": [
+      "тачно",
+      "tacno"
+    ],
+    "false": [
+      "нетачно",
+      "netacno"
+    ],
+    "null": [
+      "празно",
+      "prazno"
+    ],
+    "print": [
+      "штампај",
+      "stampaj"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "hr": {
+    "if": [
+      "ako"
+    ],
+    "else": [
+      "inače",
+      "inace"
+    ],
+    "while": [
+      "dok"
+    ],
+    "let": [
+      "neka",
+      "varijabla"
+    ],
+    "var": [
+      "varijabla"
+    ],
+    "true": [
+      "istina",
+      "točno"
+    ],
+    "false": [
+      "laž",
+      "netočno"
+    ],
+    "null": [
+      "prazno"
+    ],
+    "print": [
+      "ispiši",
+      "ispisi"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sk": {
+    "if": [
+      "ak"
+    ],
+    "else": [
+      "inak"
+    ],
+    "while": [
+      "pokiaľ",
+      "pokial"
+    ],
+    "let": [
+      "nech",
+      "premenná",
+      "premenna"
+    ],
+    "var": [
+      "premenná",
+      "premenna"
+    ],
+    "true": [
+      "pravda"
+    ],
+    "false": [
+      "nepravda"
+    ],
+    "null": [
+      "prázdny",
+      "prazdny"
+    ],
+    "print": [
+      "tlač",
+      "tlac"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sl": {
+    "if": [
+      "če",
+      "ce"
+    ],
+    "else": [
+      "sicer"
+    ],
+    "while": [
+      "dokler"
+    ],
+    "let": [
+      "naj",
+      "spremenljivka"
+    ],
+    "var": [
+      "spremenljivka"
+    ],
+    "true": [
+      "resnično",
+      "resnicno"
+    ],
+    "false": [
+      "neresnično",
+      "neresnicno"
+    ],
+    "null": [
+      "prazno"
+    ],
+    "print": [
+      "natisni"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "lt": {
+    "if": [
+      "jei"
+    ],
+    "else": [
+      "kitu_atveju"
+    ],
+    "while": [
+      "kol"
+    ],
+    "let": [
+      "tebūnie",
+      "kintamasis"
+    ],
+    "var": [
+      "kintamasis"
+    ],
+    "true": [
+      "tiesa"
+    ],
+    "false": [
+      "netiesa"
+    ],
+    "null": [
+      "tuščias",
+      "tuscias"
+    ],
+    "print": [
+      "spausdinti"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "lv": {
+    "if": [
+      "ja"
+    ],
+    "else": [
+      "citādi",
+      "citadi"
+    ],
+    "while": [
+      "kamēr",
+      "kamer"
+    ],
+    "let": [
+      "lai",
+      "mainīgais",
+      "mainigais"
+    ],
+    "var": [
+      "mainīgais",
+      "mainigais"
+    ],
+    "true": [
+      "patiess"
+    ],
+    "false": [
+      "aplams"
+    ],
+    "null": [
+      "tukšs",
+      "tukss"
+    ],
+    "print": [
+      "drukāt",
+      "drukat"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "et": {
+    "if": [
+      "kui"
+    ],
+    "else": [
+      "muidu"
+    ],
+    "while": [
+      "kuni"
+    ],
+    "let": [
+      "olgu",
+      "muutuja"
+    ],
+    "var": [
+      "muutuja"
+    ],
+    "true": [
+      "tõene",
+      "toene"
+    ],
+    "false": [
+      "väär",
+      "vaar"
+    ],
+    "null": [
+      "tühi",
+      "tyhi"
+    ],
+    "print": [
+      "trüki",
+      "tryki"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ka": {
+    "if": [
+      "თუ"
+    ],
+    "else": [
+      "სხვაგვარად"
+    ],
+    "while": [
+      "სანამ"
+    ],
+    "let": [
+      "დაე",
+      "ცვლადი"
+    ],
+    "var": [
+      "ცვლადი"
+    ],
+    "true": [
+      "ჭეშმარიტი"
+    ],
+    "false": [
+      "მცდარი"
+    ],
+    "null": [
+      "ცარიელი"
+    ],
+    "print": [
+      "ბეჭდვა"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "hy": {
+    "if": [
+      "եթե"
+    ],
+    "else": [
+      "այլապես"
+    ],
+    "while": [
+      "քանի_դեռ"
+    ],
+    "let": [
+      "թող",
+      "փոփոխական"
+    ],
+    "var": [
+      "փոփոխական"
+    ],
+    "true": [
+      "ճշմարիտ"
+    ],
+    "false": [
+      "կեղծ"
+    ],
+    "null": [
+      "դատարկ"
+    ],
+    "print": [
+      "տպել"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "az": {
+    "if": [
+      "əgər",
+      "eger"
+    ],
+    "else": [
+      "əks_halda",
+      "eks_halda"
+    ],
+    "while": [
+      "hələ_ki",
+      "hele_ki"
+    ],
+    "let": [
+      "qoy",
+      "dəyişən",
+      "deyisen"
+    ],
+    "var": [
+      "dəyişən",
+      "deyisen"
+    ],
+    "true": [
+      "doğru",
+      "dogru"
+    ],
+    "false": [
+      "yalan"
+    ],
+    "null": [
+      "boş",
+      "bos"
+    ],
+    "print": [
+      "çap",
+      "cap"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "kk": {
+    "if": [
+      "егер"
+    ],
+    "else": [
+      "әйтпесе"
+    ],
+    "while": [
+      "әзірше"
+    ],
+    "let": [
+      "болсын",
+      "айнымалы"
+    ],
+    "var": [
+      "айнымалы"
+    ],
+    "true": [
+      "ақиқат"
+    ],
+    "false": [
+      "жалған"
+    ],
+    "null": [
+      "бос"
+    ],
+    "print": [
+      "басып_шығару"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "uz": {
+    "if": [
+      "agar"
+    ],
+    "else": [
+      "aks_holda"
+    ],
+    "while": [
+      "toki"
+    ],
+    "let": [
+      "mayli",
+      "o'zgaruvchi"
+    ],
+    "var": [
+      "o'zgaruvchi"
+    ],
+    "true": [
+      "rost"
+    ],
+    "false": [
+      "yolg'on"
+    ],
+    "null": [
+      "bo'sh"
+    ],
+    "print": [
+      "chop_etish"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "be": {
+    "if": [
+      "калі"
+    ],
+    "else": [
+      "інакш"
+    ],
+    "while": [
+      "пакуль"
+    ],
+    "let": [
+      "няхай",
+      "зменная"
+    ],
+    "var": [
+      "зменная"
+    ],
+    "true": [
+      "ісціна"
+    ],
+    "false": [
+      "хлусня"
+    ],
+    "null": [
+      "пуста"
+    ],
+    "print": [
+      "друк"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "mn": {
+    "if": [
+      "хэрэв"
+    ],
+    "else": [
+      "эсвэл"
+    ],
+    "while": [
+      "хүртэл"
+    ],
+    "let": [
+      "хувьсагч"
+    ],
+    "var": [
+      "хувьсагч"
+    ],
+    "true": [
+      "үнэн"
+    ],
+    "false": [
+      "худал"
+    ],
+    "null": [
+      "хоосон"
+    ],
+    "print": [
+      "хэвлэх"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "th": {
+    "if": [
+      "ถ้า"
+    ],
+    "else": [
+      "มิฉะนั้น"
+    ],
+    "while": [
+      "ในขณะที่"
+    ],
+    "let": [
+      "กำหนด",
+      "ตัวแปร"
+    ],
+    "var": [
+      "ตัวแปร"
+    ],
+    "true": [
+      "จริง"
+    ],
+    "false": [
+      "เท็จ"
+    ],
+    "null": [
+      "ว่าง"
+    ],
+    "print": [
+      "พิมพ์"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "fa": {
+    "if": [
+      "اگر"
+    ],
+    "else": [
+      "وگرنه"
+    ],
+    "while": [
+      "مادامی‌که"
+    ],
+    "let": [
+      "باشد",
+      "متغیر"
+    ],
+    "var": [
+      "متغیر"
+    ],
+    "true": [
+      "درست"
+    ],
+    "false": [
+      "نادرست"
+    ],
+    "null": [
+      "تهی"
+    ],
+    "print": [
+      "چاپ"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ur": {
+    "if": [
+      "اگر"
+    ],
+    "else": [
+      "ورنہ"
+    ],
+    "while": [
+      "جب_تک"
+    ],
+    "let": [
+      "فرض",
+      "متغیر"
+    ],
+    "var": [
+      "متغیر"
+    ],
+    "true": [
+      "سچ"
+    ],
+    "false": [
+      "جھوٹ"
+    ],
+    "null": [
+      "خالی"
+    ],
+    "print": [
+      "چھاپیں"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "bn": {
+    "if": [
+      "যদি"
+    ],
+    "else": [
+      "অন্যথায়"
+    ],
+    "while": [
+      "যতক্ষণ"
+    ],
+    "let": [
+      "ধরি",
+      "চলক"
+    ],
+    "var": [
+      "চলক"
+    ],
+    "true": [
+      "সত্য"
+    ],
+    "false": [
+      "মিথ্যা"
+    ],
+    "null": [
+      "শূন্য"
+    ],
+    "print": [
+      "ছাপাও"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ta": {
+    "if": [
+      "என்றால்"
+    ],
+    "else": [
+      "இல்லையெனில்"
+    ],
+    "while": [
+      "வரை"
+    ],
+    "let": [
+      "மாறி"
+    ],
+    "var": [
+      "மாறி"
+    ],
+    "true": [
+      "உண்மை"
+    ],
+    "false": [
+      "பொய்"
+    ],
+    "null": [
+      "வெற்று"
+    ],
+    "print": [
+      "அச்சிடு"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "te": {
+    "if": [
+      "అయితే"
+    ],
+    "else": [
+      "లేకపోతే"
+    ],
+    "while": [
+      "వరకు"
+    ],
+    "let": [
+      "చరరాశి"
+    ],
+    "var": [
+      "చరరాశి"
+    ],
+    "true": [
+      "నిజం"
+    ],
+    "false": [
+      "అబద్ధం"
+    ],
+    "null": [
+      "శూన్యం"
+    ],
+    "print": [
+      "ముద్రించు"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "mr": {
+    "if": [
+      "जर"
+    ],
+    "else": [
+      "नाहीतर"
+    ],
+    "while": [
+      "जोपर्यंत"
+    ],
+    "let": [
+      "चलन"
+    ],
+    "var": [
+      "चलन"
+    ],
+    "true": [
+      "खरे"
+    ],
+    "false": [
+      "खोटे"
+    ],
+    "null": [
+      "रिक्त"
+    ],
+    "print": [
+      "छापा"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "gu": {
+    "if": [
+      "જો"
+    ],
+    "else": [
+      "નહીંતર"
+    ],
+    "while": [
+      "જ્યાં_સુધી"
+    ],
+    "let": [
+      "ચલ"
+    ],
+    "var": [
+      "ચલ"
+    ],
+    "true": [
+      "સાચું"
+    ],
+    "false": [
+      "ખોટું"
+    ],
+    "null": [
+      "ખાલી"
+    ],
+    "print": [
+      "છાપો"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "kn": {
+    "if": [
+      "ಆದರೆ"
+    ],
+    "else": [
+      "ಇಲ್ಲದಿದ್ದರೆ"
+    ],
+    "while": [
+      "ವರೆಗೆ"
+    ],
+    "let": [
+      "ಚರಾಂಶ"
+    ],
+    "var": [
+      "ಚರಾಂಶ"
+    ],
+    "true": [
+      "ಸತ್ಯ"
+    ],
+    "false": [
+      "ಸುಳ್ಳು"
+    ],
+    "null": [
+      "ಖಾಲಿ"
+    ],
+    "print": [
+      "ಮುದ್ರಿಸು"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ml": {
+    "if": [
+      "എങ്കിൽ"
+    ],
+    "else": [
+      "അല്ലെങ്കിൽ"
+    ],
+    "while": [
+      "വരെ"
+    ],
+    "let": [
+      "ചരകം"
+    ],
+    "var": [
+      "ചരകം"
+    ],
+    "true": [
+      "ശരി"
+    ],
+    "false": [
+      "തെറ്റ്"
+    ],
+    "null": [
+      "ശൂന്യം"
+    ],
+    "print": [
+      "അച്ചടിക്കുക"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "pa": {
+    "if": [
+      "ਜੇ"
+    ],
+    "else": [
+      "ਨਹੀਂ_ਤਾਂ"
+    ],
+    "while": [
+      "ਜਦ_ਤੱਕ"
+    ],
+    "let": [
+      "ਵੇਰੀਏਬਲ"
+    ],
+    "var": [
+      "ਵੇਰੀਏਬਲ"
+    ],
+    "true": [
+      "ਸੱਚ"
+    ],
+    "false": [
+      "ਝੂਠ"
+    ],
+    "null": [
+      "ਖਾਲੀ"
+    ],
+    "print": [
+      "ਛਾਪੋ"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "my": {
+    "if": [
+      "လျှင်"
+    ],
+    "else": [
+      "မဟုတ်လျှင်"
+    ],
+    "while": [
+      "စဉ်"
+    ],
+    "let": [
+      "ကိန်းရှင်"
+    ],
+    "var": [
+      "ကိန်းရှင်"
+    ],
+    "true": [
+      "မှန်"
+    ],
+    "false": [
+      "မှား"
+    ],
+    "null": [
+      "ဗလာ"
+    ],
+    "print": [
+      "ထုတ်ပါ"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "km": {
+    "if": [
+      "ប្រសិនបើ"
+    ],
+    "else": [
+      "បើ_មិន_ដូច្នេះ_ទេ"
+    ],
+    "while": [
+      "ខណៈ_ពេល"
+    ],
+    "let": [
+      "អថេរ"
+    ],
+    "var": [
+      "អថេរ"
+    ],
+    "true": [
+      "ពិត"
+    ],
+    "false": [
+      "មិន_ពិត"
+    ],
+    "null": [
+      "ទទេ"
+    ],
+    "print": [
+      "បោះពុម្ព"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "lo": {
+    "if": [
+      "ຖ້າ"
+    ],
+    "else": [
+      "ຖ້າ_ບໍ່_ດັ່ງ_ນັ້ນ"
+    ],
+    "while": [
+      "ໃນ_ຂະ_ນະ_ທີ່"
+    ],
+    "let": [
+      "ຕົວ_ປ່ຽນ"
+    ],
+    "var": [
+      "ຕົວ_ປ່ຽນ"
+    ],
+    "true": [
+      "ແທ້"
+    ],
+    "false": [
+      "ປອມ"
+    ],
+    "null": [
+      "ຫວ່າງ"
+    ],
+    "print": [
+      "ພິມ"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ne": {
+    "if": [
+      "यदि"
+    ],
+    "else": [
+      "अन्यथा"
+    ],
+    "while": [
+      "जबसम्म"
+    ],
+    "let": [
+      "चल"
+    ],
+    "var": [
+      "चल"
+    ],
+    "true": [
+      "सत्य"
+    ],
+    "false": [
+      "असत्य"
+    ],
+    "null": [
+      "खाली"
+    ],
+    "print": [
+      "छाप्नुहोस्"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "si": {
+    "if": [
+      "නම්"
+    ],
+    "else": [
+      "නැතහොත්"
+    ],
+    "while": [
+      "තුරු"
+    ],
+    "let": [
+      "විචල්‍යය"
+    ],
+    "var": [
+      "විචල්‍යය"
+    ],
+    "true": [
+      "සත්‍ය"
+    ],
+    "false": [
+      "අසත්‍ය"
+    ],
+    "null": [
+      "හිස්"
+    ],
+    "print": [
+      "මුද්‍රණය"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sw": {
+    "if": [
+      "kama"
+    ],
+    "else": [
+      "vinginevyo"
+    ],
+    "while": [
+      "wakati"
+    ],
+    "let": [
+      "iwe",
+      "badiliko"
+    ],
+    "var": [
+      "badiliko"
+    ],
+    "true": [
+      "kweli"
+    ],
+    "false": [
+      "si_kweli"
+    ],
+    "null": [
+      "tupu"
+    ],
+    "print": [
+      "chapa"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "am": {
+    "if": [
+      "ከሆነ"
+    ],
+    "else": [
+      "ካልሆነ"
+    ],
+    "while": [
+      "እስከ"
+    ],
+    "let": [
+      "ተለዋዋጭ"
+    ],
+    "var": [
+      "ተለዋዋጭ"
+    ],
+    "true": [
+      "እውነት"
+    ],
+    "false": [
+      "ሐሰት"
+    ],
+    "null": [
+      "ባዶ"
+    ],
+    "print": [
+      "አትም"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "yo": {
+    "if": [
+      "ti"
+    ],
+    "else": [
+      "bibẹkọ"
+    ],
+    "while": [
+      "nigba_ti"
+    ],
+    "let": [
+      "jẹ_ki",
+      "oniyipada"
+    ],
+    "var": [
+      "oniyipada"
+    ],
+    "true": [
+      "otitọ"
+    ],
+    "false": [
+      "iro"
+    ],
+    "null": [
+      "ofo"
+    ],
+    "print": [
+      "tẹjade"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ig": {
+    "if": [
+      "ọ_bụrụ"
+    ],
+    "else": [
+      "ọ_zọ"
+    ],
+    "while": [
+      "mgbe"
+    ],
+    "let": [
+      "ka",
+      "agbanwe"
+    ],
+    "var": [
+      "agbanwe"
+    ],
+    "true": [
+      "eziokwu"
+    ],
+    "false": [
+      "ụgha"
+    ],
+    "null": [
+      "efu"
+    ],
+    "print": [
+      "bipụta"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ha": {
+    "if": [
+      "idan"
+    ],
+    "else": [
+      "in_ba_haka_ba"
+    ],
+    "while": [
+      "yayin_da"
+    ],
+    "let": [
+      "bari",
+      "mai_canzawa"
+    ],
+    "var": [
+      "mai_canzawa"
+    ],
+    "true": [
+      "gaskiya"
+    ],
+    "false": [
+      "karya"
+    ],
+    "null": [
+      "babu"
+    ],
+    "print": [
+      "buga"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "zu": {
+    "if": [
+      "uma"
+    ],
+    "else": [
+      "uma_kungenjalo"
+    ],
+    "while": [
+      "ngenkathi"
+    ],
+    "let": [
+      "vumela",
+      "okuguqukayo"
+    ],
+    "var": [
+      "okuguqukayo"
+    ],
+    "true": [
+      "iqiniso"
+    ],
+    "false": [
+      "amanga"
+    ],
+    "null": [
+      "lutho"
+    ],
+    "print": [
+      "shicilela"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "xh": {
+    "if": [
+      "ukuba"
+    ],
+    "else": [
+      "kungenjalo"
+    ],
+    "while": [
+      "ngelixa"
+    ],
+    "let": [
+      "yiba",
+      "into_eguqukayo"
+    ],
+    "var": [
+      "into_eguqukayo"
+    ],
+    "true": [
+      "inyaniso"
+    ],
+    "false": [
+      "ubuxoki"
+    ],
+    "null": [
+      "into_engekhoyo"
+    ],
+    "print": [
+      "shicilela"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "st": {
+    "if": [
+      "ha"
+    ],
+    "else": [
+      "ho_seng_jalo"
+    ],
+    "while": [
+      "ha_ntse"
+    ],
+    "let": [
+      "e_be",
+      "e_fetohang"
+    ],
+    "var": [
+      "e_fetohang"
+    ],
+    "true": [
+      "nete"
+    ],
+    "false": [
+      "bohata"
+    ],
+    "null": [
+      "lefeela"
+    ],
+    "print": [
+      "hatisa"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sn": {
+    "if": [
+      "kana"
+    ],
+    "else": [
+      "zvisina_kudaro"
+    ],
+    "while": [
+      "apo"
+    ],
+    "let": [
+      "ngaive",
+      "shanduko"
+    ],
+    "var": [
+      "shanduko"
+    ],
+    "true": [
+      "chokwadi"
+    ],
+    "false": [
+      "nhema"
+    ],
+    "null": [
+      "hapana"
+    ],
+    "print": [
+      "dhinda"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "so": {
+    "if": [
+      "haddii"
+    ],
+    "else": [
+      "haddii_kale"
+    ],
+    "while": [
+      "inta"
+    ],
+    "let": [
+      "ha_ahaato",
+      "isbeddel"
+    ],
+    "var": [
+      "isbeddel"
+    ],
+    "true": [
+      "run"
+    ],
+    "false": [
+      "been"
+    ],
+    "null": [
+      "ebor"
+    ],
+    "print": [
+      "daabac"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "rw": {
+    "if": [
+      "niba"
+    ],
+    "else": [
+      "naho_ubundi"
+    ],
+    "while": [
+      "mugihe"
+    ],
+    "let": [
+      "reka",
+      "ihinduka"
+    ],
+    "var": [
+      "ihinduka"
+    ],
+    "true": [
+      "ukuri"
+    ],
+    "false": [
+      "ikinyoma"
+    ],
+    "null": [
+      "ubusa"
+    ],
+    "print": [
+      "icapiro"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "mg": {
+    "if": [
+      "raha"
+    ],
+    "else": [
+      "raha_tsy_izany"
+    ],
+    "while": [
+      "raha_mbola"
+    ],
+    "let": [
+      "aoka",
+      "miovaova"
+    ],
+    "var": [
+      "miovaova"
+    ],
+    "true": [
+      "marina"
+    ],
+    "false": [
+      "diso"
+    ],
+    "null": [
+      "foana"
+    ],
+    "print": [
+      "manonta"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "eo": {
+    "if": [
+      "se"
+    ],
+    "else": [
+      "alie"
+    ],
+    "while": [
+      "dum"
+    ],
+    "let": [
+      "estu",
+      "variablo"
+    ],
+    "var": [
+      "variablo"
+    ],
+    "true": [
+      "vera"
+    ],
+    "false": [
+      "malvera"
+    ],
+    "null": [
+      "nulo"
+    ],
+    "print": [
+      "presi"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "la": {
+    "if": [
+      "si"
+    ],
+    "else": [
+      "aliter"
+    ],
+    "while": [
+      "dum"
+    ],
+    "let": [
+      "esto",
+      "variabilis"
+    ],
+    "var": [
+      "variabilis"
+    ],
+    "true": [
+      "verum"
+    ],
+    "false": [
+      "falsum"
+    ],
+    "null": [
+      "nihil"
+    ],
+    "print": [
+      "imprime"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "is": {
+    "if": [
+      "ef"
+    ],
+    "else": [
+      "annars"
+    ],
+    "while": [
+      "meðan",
+      "medan"
+    ],
+    "let": [
+      "látum",
+      "breyta"
+    ],
+    "var": [
+      "breyta"
+    ],
+    "true": [
+      "satt"
+    ],
+    "false": [
+      "ósatt",
+      "osatt"
+    ],
+    "null": [
+      "tómt",
+      "tomt"
+    ],
+    "print": [
+      "prenta"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ga": {
+    "if": [
+      "má",
+      "ma"
+    ],
+    "else": [
+      "eile"
+    ],
+    "while": [
+      "fad_is"
+    ],
+    "let": [
+      "bíodh",
+      "athróg"
+    ],
+    "var": [
+      "athróg",
+      "athrog"
+    ],
+    "true": [
+      "fíor",
+      "fior"
+    ],
+    "false": [
+      "bréagach",
+      "breagach"
+    ],
+    "null": [
+      "folamh"
+    ],
+    "print": [
+      "priontáil"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "cy": {
+    "if": [
+      "os"
+    ],
+    "else": [
+      "fel_arall"
+    ],
+    "while": [
+      "tra"
+    ],
+    "let": [
+      "boed",
+      "newidyn"
+    ],
+    "var": [
+      "newidyn"
+    ],
+    "true": [
+      "gwir"
+    ],
+    "false": [
+      "ffug"
+    ],
+    "null": [
+      "gwag"
+    ],
+    "print": [
+      "argraffu"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sq": {
+    "if": [
+      "nëse",
+      "nese"
+    ],
+    "else": [
+      "përndryshe",
+      "perndryshe"
+    ],
+    "while": [
+      "ndërsa",
+      "ndersa"
+    ],
+    "let": [
+      "le_të",
+      "ndryshore"
+    ],
+    "var": [
+      "ndryshore"
+    ],
+    "true": [
+      "e_vërtetë",
+      "e_vertete"
+    ],
+    "false": [
+      "e_reme"
+    ],
+    "null": [
+      "bosh"
+    ],
+    "print": [
+      "shtyp"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "bs": {
+    "if": [
+      "ako"
+    ],
+    "else": [
+      "inače",
+      "inace"
+    ],
+    "while": [
+      "dok"
+    ],
+    "let": [
+      "neka",
+      "varijabla"
+    ],
+    "var": [
+      "varijabla"
+    ],
+    "true": [
+      "tačno",
+      "tacno"
+    ],
+    "false": [
+      "netačno",
+      "netacno"
+    ],
+    "null": [
+      "prazno"
+    ],
+    "print": [
+      "ispiši",
+      "ispisi"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "mk": {
+    "if": [
+      "ако"
+    ],
+    "else": [
+      "инаку"
+    ],
+    "while": [
+      "додека"
+    ],
+    "let": [
+      "нека",
+      "променлива"
+    ],
+    "var": [
+      "променлива"
+    ],
+    "true": [
+      "вистина"
+    ],
+    "false": [
+      "лажно"
+    ],
+    "null": [
+      "празно"
+    ],
+    "print": [
+      "печати"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "tg": {
+    "if": [
+      "агар"
+    ],
+    "else": [
+      "вагарна"
+    ],
+    "while": [
+      "то_вақте"
+    ],
+    "let": [
+      "бигзор",
+      "тағйирёбанда"
+    ],
+    "var": [
+      "тағйирёбанда"
+    ],
+    "true": [
+      "дуруст"
+    ],
+    "false": [
+      "нодуруст"
+    ],
+    "null": [
+      "холӣ"
+    ],
+    "print": [
+      "чоп"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ky": {
+    "if": [
+      "эгер"
+    ],
+    "else": [
+      "болбосо"
+    ],
+    "while": [
+      "учурда"
+    ],
+    "let": [
+      "мейли",
+      "өзгөрмө"
+    ],
+    "var": [
+      "өзгөрмө"
+    ],
+    "true": [
+      "чын"
+    ],
+    "false": [
+      "жалган"
+    ],
+    "null": [
+      "бош"
+    ],
+    "print": [
+      "басып_чыгаруу"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "tk": {
+    "if": [
+      "eger"
+    ],
+    "else": [
+      "ýogsam",
+      "yogsam"
+    ],
+    "while": [
+      "wagtynda"
+    ],
+    "let": [
+      "goý",
+      "üýtgeýän",
+      "uytgeyan"
+    ],
+    "var": [
+      "üýtgeýän",
+      "uytgeyan"
+    ],
+    "true": [
+      "dogry"
+    ],
+    "false": [
+      "ýalňyş",
+      "yalnys"
+    ],
+    "null": [
+      "boş",
+      "bos"
+    ],
+    "print": [
+      "çap_et"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "tt": {
+    "if": [
+      "әгәр"
+    ],
+    "else": [
+      "югыйсә"
+    ],
+    "while": [
+      "вакытта"
+    ],
+    "let": [
+      "булсын",
+      "үзгәрүче"
+    ],
+    "var": [
+      "үзгәрүче"
+    ],
+    "true": [
+      "дөрес"
+    ],
+    "false": [
+      "ялган"
+    ],
+    "null": [
+      "буш"
+    ],
+    "print": [
+      "бастыру"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ug": {
+    "if": [
+      "ئەگەر"
+    ],
+    "else": [
+      "بولمىسا"
+    ],
+    "while": [
+      "داۋامىدا"
+    ],
+    "let": [
+      "بولسۇن",
+      "ئۆزگەرگۈچى"
+    ],
+    "var": [
+      "ئۆزگەرگۈچى"
+    ],
+    "true": [
+      "راس"
+    ],
+    "false": [
+      "يالغان"
+    ],
+    "null": [
+      "بوش"
+    ],
+    "print": [
+      "بېسىش"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ps": {
+    "if": [
+      "که"
+    ],
+    "else": [
+      "که_نه"
+    ],
+    "while": [
+      "ترڅو"
+    ],
+    "let": [
+      "فرض",
+      "متغیر"
+    ],
+    "var": [
+      "متغیر"
+    ],
+    "true": [
+      "ریښتیا"
+    ],
+    "false": [
+      "درواغ"
+    ],
+    "null": [
+      "خالي"
+    ],
+    "print": [
+      "چاپ"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sd": {
+    "if": [
+      "جيڪڏهن"
+    ],
+    "else": [
+      "نه_ته"
+    ],
+    "while": [
+      "جڏهن_تائين"
+    ],
+    "let": [
+      "متغير"
+    ],
+    "var": [
+      "متغير"
+    ],
+    "true": [
+      "سچ"
+    ],
+    "false": [
+      "ڪوڙ"
+    ],
+    "null": [
+      "خالي"
+    ],
+    "print": [
+      "ڇاپيو"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ku": {
+    "if": [
+      "heke"
+    ],
+    "else": [
+      "nexwe"
+    ],
+    "while": [
+      "dema_ku"
+    ],
+    "let": [
+      "bila",
+      "guhêrbar"
+    ],
+    "var": [
+      "guhêrbar"
+    ],
+    "true": [
+      "rast"
+    ],
+    "false": [
+      "şaş"
+    ],
+    "null": [
+      "vala"
+    ],
+    "print": [
+      "çap_bike"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "yi": {
+    "if": [
+      "אויב"
+    ],
+    "else": [
+      "אַנדערש"
+    ],
+    "while": [
+      "בשעת"
+    ],
+    "let": [
+      "לאָזן",
+      "וואַריאַבלע"
+    ],
+    "var": [
+      "וואַריאַבלע"
+    ],
+    "true": [
+      "אמת"
+    ],
+    "false": [
+      "פאַלש"
+    ],
+    "null": [
+      "ליידיק"
+    ],
+    "print": [
+      "דרוקן"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "lb": {
+    "if": [
+      "wann"
+    ],
+    "else": [
+      "soss"
+    ],
+    "while": [
+      "wärend"
+    ],
+    "let": [
+      "looss",
+      "variabel"
+    ],
+    "var": [
+      "variabel"
+    ],
+    "true": [
+      "wouer"
+    ],
+    "false": [
+      "falsch"
+    ],
+    "null": [
+      "eidel"
+    ],
+    "print": [
+      "drécken"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ht": {
+    "if": [
+      "si"
+    ],
+    "else": [
+      "sinon"
+    ],
+    "while": [
+      "pandan"
+    ],
+    "let": [
+      "kite",
+      "varyab"
+    ],
+    "var": [
+      "varyab"
+    ],
+    "true": [
+      "vrè"
+    ],
+    "false": [
+      "fo"
+    ],
+    "null": [
+      "vid"
+    ],
+    "print": [
+      "enprime"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "sm": {
+    "if": [
+      "afai"
+    ],
+    "else": [
+      "ae_leai"
+    ],
+    "while": [
+      "a_o"
+    ],
+    "let": [
+      "tuu",
+      "fesuiaiga"
+    ],
+    "var": [
+      "fesuiaiga"
+    ],
+    "true": [
+      "moni"
+    ],
+    "false": [
+      "pepelo"
+    ],
+    "null": [
+      "gaogao"
+    ],
+    "print": [
+      "lolomi"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "mi": {
+    "if": [
+      "me_hemea"
+    ],
+    "else": [
+      "ki_te_kore"
+    ],
+    "while": [
+      "i_te_wā"
+    ],
+    "let": [
+      "kia",
+      "taupe"
+    ],
+    "var": [
+      "taupe"
+    ],
+    "true": [
+      "tika"
+    ],
+    "false": [
+      "teka"
+    ],
+    "null": [
+      "kore"
+    ],
+    "print": [
+      "tā"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "haw": {
+    "if": [
+      "inā"
+    ],
+    "else": [
+      "inā_ʻaʻole"
+    ],
+    "while": [
+      "ʻoiai"
+    ],
+    "let": [
+      "e_lilo",
+      "loli"
+    ],
+    "var": [
+      "loli"
+    ],
+    "true": [
+      "ʻoiaʻiʻo"
+    ],
+    "false": [
+      "wahaheʻe"
+    ],
+    "null": [
+      "ʻole"
+    ],
+    "print": [
+      "paʻi"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ceb": {
+    "if": [
+      "kung"
+    ],
+    "else": [
+      "kon_dili"
+    ],
+    "while": [
+      "samtang"
+    ],
+    "let": [
+      "himoa",
+      "baryabol"
+    ],
+    "var": [
+      "baryabol"
+    ],
+    "true": [
+      "tinuod"
+    ],
+    "false": [
+      "bakak"
+    ],
+    "null": [
+      "walay_sulod"
+    ],
+    "print": [
+      "imprinta"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "tl": {
+    "if": [
+      "kung"
+    ],
+    "else": [
+      "kung_hindi"
+    ],
+    "while": [
+      "habang"
+    ],
+    "let": [
+      "hayaan",
+      "baryabol"
+    ],
+    "var": [
+      "baryabol"
+    ],
+    "true": [
+      "totoo"
+    ],
+    "false": [
+      "mali"
+    ],
+    "null": [
+      "wala"
+    ],
+    "print": [
+      "i-print"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "jv": {
+    "if": [
+      "yen"
+    ],
+    "else": [
+      "yen_ora"
+    ],
+    "while": [
+      "nalika"
+    ],
+    "let": [
+      "ayo",
+      "variabel"
+    ],
+    "var": [
+      "variabel"
+    ],
+    "true": [
+      "bener"
+    ],
+    "false": [
+      "salah"
+    ],
+    "null": [
+      "kosong"
+    ],
+    "print": [
+      "nyitak"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "su": {
+    "if": [
+      "upami"
+    ],
+    "else": [
+      "upami_henteu"
+    ],
+    "while": [
+      "nalika"
+    ],
+    "let": [
+      "antep",
+      "variabel"
+    ],
+    "var": [
+      "variabel"
+    ],
+    "true": [
+      "leres"
+    ],
+    "false": [
+      "lepat"
+    ],
+    "null": [
+      "kosong"
+    ],
+    "print": [
+      "nyitak"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "hmn": {
+    "if": [
+      "yog"
+    ],
+    "else": [
+      "tsis_li_ntawd"
+    ],
+    "while": [
+      "thaum"
+    ],
+    "let": [
+      "cia",
+      "hloov"
+    ],
+    "var": [
+      "hloov"
+    ],
+    "true": [
+      "tseeb"
+    ],
+    "false": [
+      "cuav"
+    ],
+    "null": [
+      "khoom"
+    ],
+    "print": [
+      "luam_taw"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "mt": {
+    "if": [
+      "jekk"
+    ],
+    "else": [
+      "inkella"
+    ],
+    "while": [
+      "waqt_li"
+    ],
+    "let": [
+      "ħalli",
+      "varjabbli"
+    ],
+    "var": [
+      "varjabbli"
+    ],
+    "true": [
+      "veru"
+    ],
+    "false": [
+      "falz"
+    ],
+    "null": [
+      "vojt"
+    ],
+    "print": [
+      "ipprintja"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "gd": {
+    "if": [
+      "ma"
+    ],
+    "else": [
+      "air_neo"
+    ],
+    "while": [
+      "fhad_s"
+    ],
+    "let": [
+      "biodh",
+      "caochlaideach"
+    ],
+    "var": [
+      "caochlaideach"
+    ],
+    "true": [
+      "fìor"
+    ],
+    "false": [
+      "breugach"
+    ],
+    "null": [
+      "falamh"
+    ],
+    "print": [
+      "clò-bhualadh"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "fy": {
+    "if": [
+      "as"
+    ],
+    "else": [
+      "oars"
+    ],
+    "while": [
+      "wylst"
+    ],
+    "let": [
+      "lit",
+      "fariabele"
+    ],
+    "var": [
+      "fariabele"
+    ],
+    "true": [
+      "wier"
+    ],
+    "false": [
+      "falsk"
+    ],
+    "null": [
+      "leech"
+    ],
+    "print": [
+      "printsje"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "gl": {
+    "if": [
+      "se"
+    ],
+    "else": [
+      "senón"
+    ],
+    "while": [
+      "mentres"
+    ],
+    "let": [
+      "sexa",
+      "variable"
+    ],
+    "var": [
+      "variable"
+    ],
+    "true": [
+      "verdadeiro"
+    ],
+    "false": [
+      "falso"
+    ],
+    "null": [
+      "nulo"
+    ],
+    "print": [
+      "imprimir"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "eu": {
+    "if": [
+      "baldin"
+    ],
+    "else": [
+      "bestela"
+    ],
+    "while": [
+      "bitartean"
+    ],
+    "let": [
+      "bila",
+      "aldagaia"
+    ],
+    "var": [
+      "aldagaia"
+    ],
+    "true": [
+      "egia"
+    ],
+    "false": [
+      "gezurra"
+    ],
+    "null": [
+      "hutsa"
+    ],
+    "print": [
+      "inprimatu"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ca": {
+    "if": [
+      "si"
+    ],
+    "else": [
+      "sino"
+    ],
+    "while": [
+      "mentre"
+    ],
+    "let": [
+      "sigui",
+      "variable"
+    ],
+    "var": [
+      "variable"
+    ],
+    "true": [
+      "cert"
+    ],
+    "false": [
+      "fals"
+    ],
+    "null": [
+      "nul"
+    ],
+    "print": [
+      "imprimir"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "co": {
+    "if": [
+      "sì"
+    ],
+    "else": [
+      "altrimenti"
+    ],
+    "while": [
+      "mentre"
+    ],
+    "let": [
+      "sia",
+      "variabile"
+    ],
+    "var": [
+      "variabile"
+    ],
+    "true": [
+      "veru"
+    ],
+    "false": [
+      "falsu"
+    ],
+    "null": [
+      "nullu"
+    ],
+    "print": [
+      "stampà"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "af": {
+    "if": [
+      "as"
+    ],
+    "else": [
+      "anders"
+    ],
+    "while": [
+      "terwyl"
+    ],
+    "let": [
+      "laat",
+      "veranderlike"
+    ],
+    "var": [
+      "veranderlike"
+    ],
+    "true": [
+      "waar"
+    ],
+    "false": [
+      "onwaar"
+    ],
+    "null": [
+      "leeg"
+    ],
+    "print": [
+      "druk"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "ny": {
+    "if": [
+      "ngati"
+    ],
+    "else": [
+      "kapena"
+    ],
+    "while": [
+      "pamene"
+    ],
+    "let": [
+      "tiyeni",
+      "zosinthika"
+    ],
+    "var": [
+      "zosinthika"
+    ],
+    "true": [
+      "zoona"
+    ],
+    "false": [
+      "zonama"
+    ],
+    "null": [
+      "chopanda_kanthu"
+    ],
+    "print": [
+      "sindikiza"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  },
+  "or": {
+    "if": [
+      "ଯଦି"
+    ],
+    "else": [
+      "ଅନ୍ୟଥା"
+    ],
+    "while": [
+      "ଯେପର୍ଯ୍ୟନ୍ତ"
+    ],
+    "let": [
+      "ଚଳକ"
+    ],
+    "var": [
+      "ଚଳକ"
+    ],
+    "true": [
+      "ସତ"
+    ],
+    "false": [
+      "ମିଛ"
+    ],
+    "null": [
+      "ଶୂନ୍ୟ"
+    ],
+    "print": [
+      "ଛାପନ୍ତୁ"
+    ],
+    "break": [
+      "break"
+    ],
+    "continue": [
+      "continue"
+    ]
+  }
+}

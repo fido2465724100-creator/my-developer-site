@@ -3,15 +3,17 @@
 
 root ::= (language-directive)? ws (statement)* ws
 
-language-directive ::= "language:" ws [a-zA-Z_\-]+ ws ";" ws
+language-directive ::= (("language:" | "язык:" | "мова:" | "sprache:") ws [a-zA-Z_\-]+ ws (";")?) ws
 
-statement ::= (let-statement | var-statement | if-statement | while-statement | expr-statement | block) ws
+statement ::= (let-statement | var-statement | if-statement | while-statement | break-statement | continue-statement | expr-statement | block) ws
 
-let-statement ::= ("let" | "пусть" | "sei" | "sea") ws identifier ws "=" ws expr (";" | "\n")
-var-statement ::= ("var" | "перем") ws identifier ws "=" ws expr (";" | "\n")
+let-statement ::= ("let" | "пусть" | "нехай" | "sei" | "sea") ws identifier ws "=" ws expr (";" | "\n")
+var-statement ::= ("var" | "переменная" | "змінна" | "variable" | "перем") ws identifier ws "=" ws expr (";" | "\n")
 
-if-statement ::= ("if" | "если" | "wenn" | "si") ws "(" ws expr ws ")" ws statement (ws ("else" | "иначе" | "sonst" | "sino") ws statement)?
-while-statement ::= ("while" | "пока" | "solange" | "mientras") ws "(" ws expr ws ")" ws statement
+if-statement ::= ("if" | "если" | "якщо" | "wenn" | "si") ws "(" ws expr ws ")" ws statement (ws ("else" | "иначе" | "інакше" | "sonst" | "sino") ws statement)?
+while-statement ::= ("while" | "пока" | "поки" | "solange" | "mientras") ws "(" ws expr ws ")" ws statement
+break-statement ::= ("break" | "прервать" | "перервати" | "abbrechen") (";" | "\n")
+continue-statement ::= ("continue" | "продолжить" | "продовжити" | "fortsetzen") (";" | "\n")
 
 expr-statement ::= (assignment | call-expr) (";" | "\n")
 
@@ -35,7 +37,7 @@ primary-expr ::= hex-literal | float-literal | int-literal | lstring-literal | s
 call-expr ::= subsystem-call | print-call | generic-call
 
 subsystem-call ::= ("I2C" | "PLC" | "WATCHDOG" | "NET" | "BT" | "BLE" | "SERIAL" | "HOST" | "ROBOT") "." identifier "(" ws (arg-list)? ws ")"
-print-call ::= ("print" | "печать") "(" ws (arg-list)? ws ")"
+print-call ::= ("print" | "печать" | "друк" | "drucken") "(" ws (arg-list)? ws ")"
 generic-call ::= identifier "(" ws (arg-list)? ws ")"
 
 arg-list ::= expr (ws "," ws expr)*
@@ -48,8 +50,8 @@ int-literal ::= [0-9]+ ("L" | "l")?
 string-literal ::= "\"" ([^"\\\n\r] | "\\" [^\n\r])* "\"" | "'" ([^'\\\n\r] | "\\" [^\n\r])* "'"
 lstring-literal ::= "L\"" ([^"\\\n\r] | "\\" [^\n\r])* "\"" | "L'" ([^'\\\n\r] | "\\" [^\n\r])* "'"
 
-bool-literal ::= "true" | "false" | "истина" | "ложь" | "wahr" | "falsch" | "verdadero" | "falso"
-null-literal ::= "null" | "пусто" | "nulo"
+bool-literal ::= "true" | "false" | "истина" | "ложь" | "правда" | "хиба" | "wahr" | "falsch" | "verdadero" | "falso"
+null-literal ::= "null" | "пусто" | "nichts" | "nulo"
 
 identifier ::= [a-zA-Z_] [a-zA-Z0-9_]*
 
