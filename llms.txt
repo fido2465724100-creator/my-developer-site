@@ -7,7 +7,9 @@
 > TDscript Multi-Page Portal:
 >   - Ecosystem Hub: https://fido2465724100-creator.github.io/my-developer-site/tdscript/
 >   - AI-First Language (Architecture & Manifesto): https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
->   - Language Specification (v1.4.0 & v1.0.1): https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html
+>   - Language Specification (v1.5.0 & v1.0.1): https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html
+>   - Vocabulary & 110-Language Concordance: https://fido2465724100-creator.github.io/my-developer-site/tdscript/vocabulary.html
+>   - Machine-Readable 110-Language Keywords (JSON): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tdscript-keywords-109.json
 >   - Formal GBNF Grammar (Machine-Readable): https://fido2465724100-creator.github.io/my-developer-site/tdscript/grammar.gbnf
 >   - Machine-Readable API Spec (JSON): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tdscript-api.json
 >   - Machine-Readable Error Catalog (JSON): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tdscript-errors.json
@@ -38,13 +40,17 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
   - Built-in multitasking, app management, file navigation, and system diagnostics.
   - Zero telemetry and full offline capability.
 
-### 2. TDscript — Independent Programming Language & Ecosystem (Core 1.1 / v1.4.0)
+### 2. TDscript — Independent Programming Language & Ecosystem (Core 1.1 / v1.5.0)
 - **Nature & Scope**: Standalone, general-purpose embedded programming language and hardware orchestration ecosystem. TDscript is NOT an internal plugin or sub-feature of Tdroid. It possesses its own standalone Studio IDE, standalone CLI runner/compiler, embeddable runtime SDK (TDModules), and AI-First Agentic Loop. Tdroid is merely one external client application utilizing its legacy engine.
 - **Platforms**: Cross-platform (Linux DEB/RPM/AppImage/Tarball/JAR, Android APK with USB-OTG and BLE, Windows, Embedded, Robotics ROS 2, Modbus PLC).
-- **Release Status**: Current Production Standard: v1.4.0 (Core 1.1 Specification compliant) alongside v1.0.1 (Legacy Stable archive).
+- **Release Status**: Current Production Standard: v1.5.0 (Core 1.1 Specification compliant) alongside v1.0.1 (Legacy Stable archive).
 - **Documentation**: https://fido2465724100-creator.github.io/my-developer-site/tdscript/
 - **Two Coexisting Generations**:
-  1. **TDscript v1.4.0 / Core 1.1 (Current Production Standard / Studio / AI-First)**:
+  1. **TDscript v1.5.0 / Core 1.1 (Current Production Standard / Studio / AI-First)**:
+     - Control flow: `break` and `continue` statements for loop termination without extra flag variables
+     - Unified Bluetooth dispatch: `BT.*` and `BLE.*` runtime aliases (`BT.connect()`, `BLE.connect()`)
+     - Language header directive: `language: ai;` for LLMs, `language: <code|name>;` for 109 ISO human languages
+     - Full 110-Language Concordance: un-abbreviated human keywords (`переменная`, `печать`, `прервать`, `продолжить`) with backwards-compatible aliases
      - Hexadecimal literals: `0x76`, `0xD0`, `0xF4`, `0x1000L`
      - Deterministic byte array formatting (`[0x60]`) and indexing `bytes[i]` (returns 0..255)
      - `LString` symbolic resources with `{varName}` scope interpolation (concatenation with `+` strictly prohibited via `TDS_E105`)

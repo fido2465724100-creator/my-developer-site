@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TDscript Language Specification — v1.4.0 (Core 1.1) & v1.0.1 (Legacy)</title>
+  <title>TDscript Language Specification — v1.5.0 (Core 1.1) & v1.0.1 (Legacy)</title>
   <meta name="description" content="Complete reference manual and language specification for TDscript: Syntax, Types, I2C/PLC modules, Watchdog, CapabilityScope, and Version Comparison." />
   <link rel="stylesheet" href="../css/style.css">
   <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
@@ -24,11 +24,12 @@
   <!-- HEADER -->
   <header>
     <h1>📖 Спецификация и справочник TDscript</h1>
-    <p>Полное руководство по грамматике, типам данных, аппаратным шинам и безопасности версий v1.4.0 и v1.0.1</p>
+    <p>Полное руководство по грамматике, типам данных, аппаратным шинам и безопасности версий v1.5.0 и v1.0.1</p>
     <nav class="nav-bar">
       <a href="index.html">🏠 Обзор платформы</a>
       <a href="ai-language.html">🤖 Язык для ИИ</a>
       <a href="language.html" class="active">📖 Спецификация языка</a>
+      <a href="vocabulary.html">🔤 Лексика (110 языков)</a>
       <a href="grammar.gbnf" target="_blank">📐 GBNF-грамматика</a>
       <a href="examples.html">💡 10 задач автоматизации</a>
       <a href="studio.html">📦 Студия и Загрузки</a>
@@ -53,16 +54,19 @@
         <p>Выберите версию спецификации для просмотра синтаксиса и контрактов подсистем:</p>
         
         <div id="version-tabs-ru" class="version-tabs">
-          <button class="tab-btn active" data-tab="v140" onclick="switchTab('version-tabs-ru', 'v140')">🚀 TDscript v1.5.0 / Core 1.1 (Студия & AI-First)</button>
+          <button class="tab-btn active" data-tab="v150" onclick="switchTab('version-tabs-ru', 'v150')">🚀 TDscript v1.5.0 / Core 1.1 (Студия & AI-First)</button>
           <button class="tab-btn" data-tab="v101" onclick="switchTab('version-tabs-ru', 'v101')">🏛️ TDscript v1.0.1 / Core 1.0 (Классическая / Tdroid)</button>
         </div>
 
         <!-- ТАБ 1: v1.5.0 -->
-        <div class="tab-pane active" data-tab="v140">
+        <div class="tab-pane active" data-tab="v150">
           <div class="callout callout-green">
             <strong>Основная спецификация (TDscript Studio 1.1.0 / TDModules 1.5.0, Спецификация Core 1.1):</strong>
             Включает поддержку шестнадцатеричных литералов (<code>0x76</code>), операторов прерывания циклов (<code>break</code> / <code>continue</code>), директивы <code>language: ai;</code> для LLM-агентов, человеческих ключевых слов без сокращений (<code>переменная</code>, <code>печать</code>), индексации <code>ByteArray[i]</code>, интерполяции переменных в <code>LString</code>, строгой диспетчеризации методов (<code>TDS_E106</code>) и сторожа <code>WATCHDOG</code>.
             <div style="margin-top: 0.6rem;">
+              <a href="vocabulary.html" class="btn" style="background:#0284c7; color:#fff; border:1px solid #0284c7; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                🔤 Лексический справочник (110 языков)
+              </a>
               <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
                 📐 Скачать / Просмотреть эталонную GBNF-грамматику (grammar.gbnf)
               </a>
@@ -103,7 +107,7 @@ language: ru;
                 <tr>
                   <th>Тип данных</th>
                   <th>Примеры литералов</th>
-                  <th>Особенности рантайма v1.4.0</th>
+                  <th>Особенности рантайма v1.5.0</th>
                 </tr>
               </thead>
               <tbody>
@@ -138,7 +142,7 @@ language: ru;
 
           <h3>3. Строгая диспетчеризация методов (<code>TDS_E106</code>)</h3>
           <p>
-            В TDscript v1.4.0 вызов несуществующего метода у объекта (например, попытка вызвать метод Java <code>safeI2CAddr.toString(16)</code>) больше не возвращает тихо <code>null</code>. Рантайм выбрасывает явное исключение с точными координатами в коде:
+            В TDscript v1.5.0 вызов несуществующего метода у объекта (например, попытка вызвать метод Java <code>safeI2CAddr.toString(16)</code>) больше не возвращает тихо <code>null</code>. Рантайм выбрасывает явное исключение с точными координатами в коде:
           </p>
           <pre><code>// Попытка вызвать неизвестный метод toString:
 let safeAddr = 0x76;
@@ -239,7 +243,7 @@ if (data != null) {
 
           <h3>3. Рекомендации по совместимости</h3>
           <p>
-            Если ваш скрипт предназначен для запуска внутри мобильного лаунчера <strong>Tdroid</strong>, используйте десятичные литералы и базовый синтаксис v1.0.1. При переносе скриптов в среду <strong>TDscript Studio</strong> рекомендуется перейти на более наглядный синтаксис v1.4.0 с hex-литералами и интерполяцией <code>LString</code>.
+            Если ваш скрипт предназначен для запуска внутри мобильного лаунчера <strong>Tdroid</strong>, используйте десятичные литералы и базовый синтаксис v1.0.1. При переносе скриптов в среду <strong>TDscript Studio</strong> рекомендуется перейти на более наглядный синтаксис v1.5.0 с hex-литералами и интерполяцией <code>LString</code>.
           </p>
         </div>
       </section>
@@ -251,13 +255,22 @@ if (data != null) {
       <section class="card">
         <h2>📑 Language Specification Selection</h2>
         <div id="version-tabs-en" class="version-tabs">
-          <button class="tab-btn active" data-tab="v140" onclick="switchTab('version-tabs-en', 'v140')">🚀 TDscript v1.4.0 / Core 1.1 (Studio & AI-First)</button>
+          <button class="tab-btn active" data-tab="v150" onclick="switchTab('version-tabs-en', 'v150')">🚀 TDscript v1.5.0 / Core 1.1 (Studio & AI-First)</button>
           <button class="tab-btn" data-tab="v101" onclick="switchTab('version-tabs-en', 'v101')">🏛️ TDscript v1.0.1 / Core 1.0 (Legacy / Tdroid)</button>
         </div>
 
-        <div class="tab-pane active" data-tab="v140">
+        <div class="tab-pane active" data-tab="v150">
           <div class="callout callout-green">
-            <strong>Modern Production Specification (v1.4.0 / Core 1.1):</strong>
+            <strong>Modern Production Specification (v1.5.0 / Core 1.1):</strong>
+            Includes hex literals (<code>0x76</code>), loop control (<code>break</code> / <code>continue</code>), <code>language: ai;</code> & <code>language: &lt;code&gt;;</code> directives, full 110-language vocabulary without abbreviations (<code>let</code>, <code>var</code>, <code>while</code>, <code>print</code>), <code>BLE</code> runtime alias, <code>ByteArray[i]</code> indexing, and <code>WATCHDOG</code> timer.
+            <div style="margin-top: 0.6rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
+              <a href="vocabulary.html" class="btn" style="background:#0284c7; color:#fff; border:1px solid #0284c7; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
+                🔤 Vocabulary Tables (110 Languages)
+              </a>
+              <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
+                📐 Formal GBNF Grammar (grammar.gbnf)
+              </a>
+            </div>
             Hexadecimal literals (<code>0x76</code>), <code>ByteArray[i]</code> indexing, <code>LString</code> variable interpolation, strict method dispatch (<code>TDS_E106</code>), <code>WATCHDOG</code> subsystem, and formal GBNF grammar.
             <div style="margin-top: 0.6rem;">
               <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
@@ -290,9 +303,9 @@ print("BME280 Read");</code></pre>
     <div id="view-de" class="lang-view">
       <section class="card">
         <h2>📑 TDscript Sprachspezifikation</h2>
-        <p>Vollständige Referenz für die Versionen <strong>v1.4.0 (Studio / AI-First)</strong> und <strong>v1.0.1 (Klassisch / Tdroid)</strong>.</p>
+        <p>Vollständige Referenz für die Versionen <strong>v1.5.0 (Studio / AI-First)</strong> und <strong>v1.0.1 (Klassisch / Tdroid)</strong>.</p>
         <div class="callout callout-green">
-          Moderne Syntax v1.4.0 unterstützt Hex-Literale (<code>0x76</code>), ByteArray-Indexierung und LString-Interpolation.
+          Moderne Syntax v1.5.0 unterstützt Hex-Literale (<code>0x76</code>), ByteArray-Indexierung und LString-Interpolation.
           <div style="margin-top: 0.6rem;">
             <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
               📐 Formale GBNF-Grammatik öffnen (grammar.gbnf)
@@ -306,9 +319,9 @@ print("BME280 Read");</code></pre>
     <div id="view-uk" class="lang-view">
       <section class="card">
         <h2>📑 Специфікація мови TDscript</h2>
-        <p>Повний довідник синтаксису для версій <strong>v1.4.0 (Студія / AI-First)</strong> та <strong>v1.0.1 (Класична / Tdroid)</strong>.</p>
+        <p>Повний довідник синтаксису для версій <strong>v1.5.0 (Студія / AI-First)</strong> та <strong>v1.0.1 (Класична / Tdroid)</strong>.</p>
         <div class="callout callout-green">
-          Сучасний синтаксис v1.4.0 підтримує шістнадцяткові літерали (<code>0x76</code>), індексацію ByteArray та інтерполяцію LString.
+          Сучасний синтаксис v1.5.0 підтримує шістнадцяткові літерали (<code>0x76</code>), індексацію ByteArray та інтерполяцію LString.
           <div style="margin-top: 0.6rem;">
             <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
               📐 Відкрити формальну GBNF-граматику (grammar.gbnf)

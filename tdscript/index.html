@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TDscript Ecosystem — Independent Scripting Language, Studio IDE & Hardware Orchestration</title>
-  <meta name="description" content="TDscript: Standalone deterministic programming language, TDscript Studio IDE, and device orchestration platform for microchips, robotics, and industrial IoT (v1.4.0 Core 1.1 & v1.0.1 Legacy)." />
+  <meta name="description" content="TDscript: Standalone deterministic programming language, TDscript Studio IDE, and device orchestration platform for microchips, robotics, and industrial IoT (v1.5.0 Core 1.1 & v1.0.1 Legacy)." />
   <link rel="stylesheet" href="../css/style.css">
   <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
 </head>
@@ -29,6 +29,7 @@
       <a href="index.html" class="active">🏠 Обзор экосистемы</a>
       <a href="ai-language.html">🤖 Язык для ИИ</a>
       <a href="language.html">📖 Спецификация</a>
+      <a href="vocabulary.html">🔤 Лексика (110 языков)</a>
       <a href="grammar.gbnf" target="_blank">📐 GBNF-грамматика</a>
       <a href="examples.html">💡 10 задач</a>
       <a href="studio.html">📦 Студия и Загрузки</a>
@@ -49,12 +50,12 @@
       
       <!-- СЕКЦИЯ 1: ОБЗОР -->
       <section class="card">
-        <h2>⚡ О языке и платформе TDscript <span class="badge badge-accent">Спецификация Core 1.1 / Релиз v1.4.0</span></h2>
+        <h2>⚡ О языке и платформе TDscript <span class="badge badge-accent">Спецификация Core 1.1 / Релиз v1.5.0</span></h2>
         <p>
           <strong>TDscript</strong> — это самостоятельный, полнофункциональный встраиваемый язык программирования и открытая программная экосистема, созданная Антоном Михайловым. 
         </p>
         <p>
-          <strong>История и архитектурная независимость:</strong> В начале 2024 года первая базовая версия (Core 1.0 / v1.0.1) проектировалась как внутренний командный интерпретатор для Android-лаунчера Tdroid. Однако строгие требования к аппаратному управлению микросхемами (I2C, SPI, UART, CAN), промышленной телеметрии (Modbus TCP/RTU, ПЛК), робототехнике (ROS 2) и автономной самопочинке кода локальными нейросетями привели к полному выделению TDscript в <strong>самостоятельный универсальный язык программирования и платформу оркестрации аппаратуры (Спецификация Core 1.1, релиз v1.4.0)</strong>.
+          <strong>История и архитектурная независимость:</strong> В начале 2024 года первая базовая версия (Core 1.0 / v1.0.1) проектировалась как внутренний командный интерпретатор для Android-лаунчера Tdroid. Однако строгие требования к аппаратному управлению микросхемами (I2C, SPI, UART, CAN), промышленной телеметрии (Modbus TCP/RTU, ПЛК), робототехнике (ROS 2) и автономной самопочинке кода локальными нейросетями привели к полному выделению TDscript в <strong>самостоятельный универсальный язык программирования и платформу оркестрации аппаратуры (Спецификация Core 1.1, релиз v1.5.0)</strong>.
         </p>
 
         <div class="callout callout-blue" style="margin: 1rem 0;">
@@ -69,12 +70,12 @@
 
         <div class="callout callout-green">
           <strong>Иерархия версий языка:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Production-ready для встраиваемой оркестрации / Modern AI-First):</strong> основной релиз. Поддерживает hex-литералы (<code>0x76</code>, <code>0xD0</code>), индексацию <code>ByteArray[i]</code>, интерполяцию переменных в <code>LString</code> (запрет конкатенации <code>+</code>), сторожевой таймер <code>WATCHDOG</code>, пространственную песочницу <code>CapabilityScope</code> и формальную GBNF-грамматику.
+          <br>• <strong>TDscript v1.5.0 / Core 1.1 (Production-ready для встраиваемой оркестрации / Modern AI-First):</strong> основной релиз. Поддерживает hex-литералы (<code>0x76</code>, <code>0xD0</code>), индексацию <code>ByteArray[i]</code>, интерполяцию переменных в <code>LString</code> (запрет конкатенации <code>+</code>), сторожевой таймер <code>WATCHDOG</code>, пространственную песочницу <code>CapabilityScope</code> и формальную GBNF-грамматику.
           <br>• <strong>TDscript v1.0.1 / Core 1.0 (Архивная / Legacy Stable):</strong> ранняя редакция 2024 года, сохраняемая для 100% обратной совместимости старых скриптов в мобильном лаунчере Tdroid (десятичные адреса регистров, базовый LString без интерполяции, полный JSON ошибок).
         </div>
 
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                   TDSCRIPT CORE ENGINE (v1.4.0 / Core 1.1)             │
+│                   TDSCRIPT CORE ENGINE (v1.5.0 / Core 1.1)             │
 │  Лексер (109 языков) • Парсер • GBNF • Step Limit (10M) • HostSPI / VM │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ CapabilityScope & Watchdog Fail-Safe
@@ -92,9 +93,9 @@
 
       <!-- СЕКЦИЯ 2: МАТРИЦА СРАВНЕНИЯ ВЕРСИЙ -->
       <section class="card">
-        <h2>⚖️ Сравнение версий: v1.4.0 (Core 1.1) против v1.0.1 (Legacy)</h2>
+        <h2>⚖️ Сравнение версий: v1.5.0 (Core 1.1) против v1.0.1 (Legacy)</h2>
         <p>
-          Вся архитектурная эволюция языка проводилась с сохранением строгой преемственности. Ниже приведена матрица различий между классическим ядром v1.0.1 и современным v1.4.0:
+          Вся архитектурная эволюция языка проводилась с сохранением строгой преемственности. Ниже приведена матрица различий между классическим ядром v1.0.1 и современным v1.5.0:
         </p>
         
         <div class="table-wrapper">
@@ -103,7 +104,7 @@
               <tr>
                 <th>Возможность / Подсистема</th>
                 <th>TDscript v1.0.1 (Архивная / Tdroid Legacy)</th>
-                <th>TDscript v1.4.0 / Core 1.1 (Современный стандарт / Студия &amp; AI)</th>
+                <th>TDscript v1.5.0 / Core 1.1 (Современный стандарт / Студия &amp; AI)</th>
               </tr>
             </thead>
             <tbody>
@@ -147,6 +148,21 @@
                 <td>Многострочный подробный JSON <code>CompilerErrorDiagnostic</code></td>
                 <td>Компактная строка ремонта <code>E104@1:5 exp=0x76 got=0x68</code> + GBNF-грамматика</td>
               </tr>
+              <tr>
+                <td><strong>Управление циклами</strong></td>
+                <td>Только цикл <code>while</code> (без операторов прерывания)</td>
+                <td>Операторы <code>break</code> (прервать) и <code>continue</code> (продолжить) с нулевыми накладными расходами</td>
+              </tr>
+              <tr>
+                <td><strong>Мультиязычность и лексика</strong></td>
+                <td>Фиксированные ключевые слова (3 языка) с сокращениями</td>
+                <td><strong>110 языков</strong> (109 ISO + <code>language: ai;</code>), слова без невнятных сокращений (<code>переменная</code>, <code>печать</code>)</td>
+              </tr>
+              <tr>
+                <td><strong>Bluetooth / BLE</strong></td>
+                <td>Только модуль <code>BT</code></td>
+                <td>Унифицированная диспетчеризация <code>BT.*</code> и алиас <code>BLE.*</code> (<code>BLE.connect()</code>)</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -166,9 +182,16 @@
           <div class="feature-box">
             <h4><a href="language.html">📖 Спецификация языка</a></h4>
             <p>
-              Полный синтаксис, типы данных, встроенные модули I2C, PLC, BLE, NET, WATCHDOG, матрица 16 прав доступа и правила работы с LString в v1.4.0 и v1.0.1.
+              Полный синтаксис, типы данных, встроенные модули I2C, PLC, BLE, NET, WATCHDOG, матрица 16 прав доступа и правила работы с LString в v1.5.0 и v1.0.1.
             </p>
             <a href="language.html" class="btn-secondary" style="margin-top: 0.6rem;">Читать спецификацию →</a>
+          </div>
+          <div class="feature-box" style="border: 1px solid #38bdf8;">
+            <h4><a href="vocabulary.html">🔤 Лексический справочник (110 языков)</a></h4>
+            <p>
+              Полная таблица соответствия 10 ключевых слов (let, var, if, else, while, break, continue, true, false, null) и print для 109 человеческих языков (ISO 639) и AI-First режима.
+            </p>
+            <a href="vocabulary.html" class="btn-secondary" style="margin-top: 0.6rem;">Открыть словарь 110 языков →</a>
           </div>
           <div class="feature-box" style="border-left: 3px solid #f59e0b;">
             <h4><a href="grammar.gbnf" target="_blank" style="color: #f59e0b;">📐 Формальная GBNF-грамматика</a></h4>
@@ -208,12 +231,12 @@
       
       <!-- SECTION 1: ABOUT -->
       <section class="card">
-        <h2>⚡ About TDscript Platform <span class="badge badge-accent">Core 1.1 Specification / Release v1.4.0</span></h2>
+        <h2>⚡ About TDscript Platform <span class="badge badge-accent">Core 1.1 Specification / Release v1.5.0</span></h2>
         <p>
           <strong>TDscript</strong> is an independent, full-fledged embedded programming language and open software ecosystem created by Anton Mykhailov.
         </p>
         <p>
-          <strong>History &amp; Architectural Independence:</strong> In early 2024, the initial dialect (Core 1.0 / v1.0.1) was designed as an internal terminal command engine for the Tdroid Android launcher. However, physical hardware orchestration demands (I2C, SPI, UART, CAN), industrial telemetry (Modbus TCP/RTU, PLCs), robotics (ROS 2), and autonomous closed-loop AI agent code repair led to the complete emergence of TDscript as an <strong>autonomous universal programming language &amp; device orchestration platform (Core 1.1 Specification, Release v1.4.0)</strong>.
+          <strong>History &amp; Architectural Independence:</strong> In early 2024, the initial dialect (Core 1.0 / v1.0.1) was designed as an internal terminal command engine for the Tdroid Android launcher. However, physical hardware orchestration demands (I2C, SPI, UART, CAN), industrial telemetry (Modbus TCP/RTU, PLCs), robotics (ROS 2), and autonomous closed-loop AI agent code repair led to the complete emergence of TDscript as an <strong>autonomous universal programming language &amp; device orchestration platform (Core 1.1 Specification, Release v1.5.0)</strong>.
         </p>
 
         <div class="callout callout-blue" style="margin: 1rem 0;">
@@ -228,12 +251,12 @@
 
         <div class="callout callout-green">
           <strong>Language Version Hierarchy:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Current Production Standard / AI-First):</strong> Primary production release. Supports hex literals (<code>0x76</code>, <code>0xD0</code>), <code>ByteArray[i]</code> indexing, scoped <code>LString</code> variable interpolation (concatenation <code>+</code> prohibited), <code>WATCHDOG</code> timer, <code>CapabilityScope</code> sandboxing, and formal GBNF grammar.
+          <br>• <strong>TDscript v1.5.0 / Core 1.1 (Current Production Standard / AI-First):</strong> Primary production release. Supports hex literals (<code>0x76</code>, <code>0xD0</code>), <code>ByteArray[i]</code> indexing, scoped <code>LString</code> variable interpolation (concatenation <code>+</code> prohibited), <code>WATCHDOG</code> timer, <code>CapabilityScope</code> sandboxing, and formal GBNF grammar.
           <br>• <strong>TDscript v1.0.1 / Core 1.0 (Archival / Legacy Stable):</strong> Early foundational 2024 dialect preserved for 100% backwards compatibility of legacy scripts in the Tdroid mobile launcher (decimal-only register addresses, basic LString without interpolation, full JSON diagnostics).
         </div>
 
         <pre><code>┌────────────────────────────────────────────────────────────────────────┐
-│                   TDSCRIPT CORE ENGINE (v1.4.0 / Core 1.1)             │
+│                   TDSCRIPT CORE ENGINE (v1.5.0 / Core 1.1)             │
 │  Lexer (109 langs) • Parser • GBNF • Step Limit (10M) • HostSPI / VM   │
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │ CapabilityScope & Watchdog Fail-Safe
@@ -251,14 +274,14 @@
 
       <!-- SECTION 2: VERSION COMPARISON -->
       <section class="card">
-        <h2>⚖️ Version Comparison: v1.4.0 (Core 1.1) vs v1.0.1 (Legacy)</h2>
+        <h2>⚖️ Version Comparison: v1.5.0 (Core 1.1) vs v1.0.1 (Legacy)</h2>
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Feature / Subsystem</th>
                 <th>TDscript v1.0.1 (Legacy / Tdroid Archive)</th>
-                <th>TDscript v1.4.0 / Core 1.1 (Modern Standard / Studio &amp; AI)</th>
+                <th>TDscript v1.5.0 / Core 1.1 (Modern Standard / Studio &amp; AI)</th>
               </tr>
             </thead>
             <tbody>
@@ -318,8 +341,15 @@
           </div>
           <div class="feature-box">
             <h4><a href="language.html">📖 Language Specification</a></h4>
-            <p>Comprehensive syntax guide, types, I2C/PLC/BLE modules, 16 capabilities, and LString rules across v1.4.0 and v1.0.1.</p>
+            <p>Comprehensive syntax guide, types, I2C/PLC/BLE modules, 16 capabilities, and LString rules across v1.5.0 and v1.0.1.</p>
             <a href="language.html" class="btn-secondary" style="margin-top: 0.6rem;">Read Specification →</a>
+          </div>
+          <div class="feature-box" style="border: 1px solid #38bdf8;">
+            <h4><a href="vocabulary.html">🔤 Vocabulary (110 Languages)</a></h4>
+            <p>
+              Full concordance table of the 10 core keywords (let, var, if, else, while, break, continue, true, false, null) and print for 109 human ISO languages and AI-First mode.
+            </p>
+            <a href="vocabulary.html" class="btn-secondary" style="margin-top: 0.6rem;">Explore 110 Languages →</a>
           </div>
           <div class="feature-box" style="border-left: 3px solid #f59e0b;">
             <h4><a href="grammar.gbnf" target="_blank" style="color: #f59e0b;">📐 Formal GBNF Grammar</a></h4>
@@ -350,12 +380,12 @@
       
       <!-- SEKTION 1: ÜBERBLICK -->
       <section class="card">
-        <h2>⚡ Über die TDscript-Plattform <span class="badge badge-accent">Core 1.1 Spezifikation / Release v1.4.0</span></h2>
+        <h2>⚡ Über die TDscript-Plattform <span class="badge badge-accent">Core 1.1 Spezifikation / Release v1.5.0</span></h2>
         <p>
           <strong>TDscript</strong> ist eine eigenständige, vollwertige eingebettete Programmiersprache und ein offenes Software-Ökosystem von Anton Mykhailov für <strong>Geräte- und Chip-Orchestrierung</strong>.
         </p>
         <p>
-          <strong>Historische Evolution &amp; Unabhängigkeit:</strong> Anfang 2024 entstand die Basisversion (Core 1.0 / v1.0.1) als interner Terminalbefehls-Interpreter für den Android-Launcher Tdroid. Durch die steigenden Anforderungen an physikalische Busse (I2C, SPI, UART, CAN), SPS-Steuerungen (Modbus TCP/RTU), Robotik (ROS 2) und autonome KI-Agenten entwickelte sich TDscript zu einer <strong>vollständig unabhängigen universellen Programmiersprache (Spezifikation Core 1.1, Release v1.4.0)</strong>.
+          <strong>Historische Evolution &amp; Unabhängigkeit:</strong> Anfang 2024 entstand die Basisversion (Core 1.0 / v1.0.1) als interner Terminalbefehls-Interpreter für den Android-Launcher Tdroid. Durch die steigenden Anforderungen an physikalische Busse (I2C, SPI, UART, CAN), SPS-Steuerungen (Modbus TCP/RTU), Robotik (ROS 2) und autonome KI-Agenten entwickelte sich TDscript zu einer <strong>vollständig unabhängigen universellen Programmiersprache (Spezifikation Core 1.1, Release v1.5.0)</strong>.
         </p>
 
         <div class="callout callout-blue" style="margin: 1rem 0;">
@@ -370,21 +400,21 @@
 
         <div class="callout callout-green">
           <strong>Hierarchie der Sprachversionen:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Aktueller Industriestandard / AI-First):</strong> Hauptproduktions-Release. Enthält native Hexadezimal-Literale (<code>0x76</code>), <code>ByteArray[i]</code>-Indexierung, Variablen-Interpolation in <code>LString</code>, Watchdog und formale GBNF-Grammatik.
+          <br>• <strong>TDscript v1.5.0 / Core 1.1 (Aktueller Industriestandard / AI-First):</strong> Hauptproduktions-Release. Enthält native Hexadezimal-Literale (<code>0x76</code>), <code>ByteArray[i]</code>-Indexierung, Variablen-Interpolation in <code>LString</code>, Watchdog und formale GBNF-Grammatik.
           <br>• <strong>TDscript v1.0.1 / Core 1.0 (Archiviert / Legacy-Stabil):</strong> Ursprüngliche Version (2024), aktiv im mobilen Launcher Tdroid für 100% Abwärtskompatibilität (Dezimalregister, Standard-LString, Voll-JSON).
         </div>
       </section>
 
       <!-- SEKTION 2: VERGLEICHSTABELLE -->
       <section class="card">
-        <h2>⚖️ Versionsvergleich: v1.4.0 (Core 1.1) vs v1.0.1 (Legacy)</h2>
+        <h2>⚖️ Versionsvergleich: v1.5.0 (Core 1.1) vs v1.0.1 (Legacy)</h2>
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Funktion / Subsystem</th>
                 <th>TDscript v1.0.1 (Legacy / Tdroid)</th>
-                <th>TDscript v1.4.0 / Core 1.1 (Moderner Standard / Studio &amp; KI)</th>
+                <th>TDscript v1.5.0 / Core 1.1 (Moderner Standard / Studio &amp; KI)</th>
               </tr>
             </thead>
             <tbody>
@@ -447,6 +477,13 @@
             <p>Vollständige Syntaxreferenz, Datentypen, I2C/SPS/BLE-Module, Sicherheitsmatrix und LString-Regeln.</p>
             <a href="language.html" class="btn-secondary" style="margin-top: 0.6rem;">Spezifikation lesen →</a>
           </div>
+          <div class="feature-box" style="border: 1px solid #38bdf8;">
+            <h4><a href="vocabulary.html">🔤 Vokabular (110 Sprachen)</a></h4>
+            <p>
+              Vollständige Tabelle der 10 Kern-Schlüsselwörter und print für 109 menschliche Sprachen und den KI-Modus.
+            </p>
+            <a href="vocabulary.html" class="btn-secondary" style="margin-top: 0.6rem;">110 Sprachen öffnen →</a>
+          </div>
           <div class="feature-box" style="border-left: 3px solid #f59e0b;">
             <h4><a href="grammar.gbnf" target="_blank" style="color: #f59e0b;">📐 Formale GBNF-Grammatik</a></h4>
             <p>Offizielle GBNF-Grammatikdatei für determiniertes Decoding mit <code>llama.cpp</code>, Ollama und LM Studio.</p>
@@ -476,12 +513,12 @@
       
       <!-- СЕКЦІЯ 1: ОГЛЯД -->
       <section class="card">
-        <h2>⚡ Про мову та платформу TDscript <span class="badge badge-accent">Специфікація Core 1.1 / Реліз v1.4.0</span></h2>
+        <h2>⚡ Про мову та платформу TDscript <span class="badge badge-accent">Специфікація Core 1.1 / Реліз v1.5.0</span></h2>
         <p>
           <strong>TDscript</strong> — це самостійна, повнофункціональна вбудована мова програмування та відкрита програмна екосистема від Антона Михайлова.
         </p>
         <p>
-          <strong>Історія та архітектурна незалежність:</strong> На початку 2024 року базова версія (Core 1.0 / v1.0.1) створювалася як внутрішній інтерпретатор термінальних команд лаунчера Tdroid. Проте вимоги до прямого апаратного контролю мікросхем (I2C, SPI, UART, CAN), промислової телеметрії (Modbus TCP/RTU, ПЛК), робототехніки (ROS 2) та автономного самовідновлення коду локальними нейромережами перетворили TDscript на <strong>повноцінну незалежну платформу програмування (Специфікація Core 1.1, реліз v1.4.0)</strong>.
+          <strong>Історія та архітектурна незалежність:</strong> На початку 2024 року базова версія (Core 1.0 / v1.0.1) створювалася як внутрішній інтерпретатор термінальних команд лаунчера Tdroid. Проте вимоги до прямого апаратного контролю мікросхем (I2C, SPI, UART, CAN), промислової телеметрії (Modbus TCP/RTU, ПЛК), робототехніки (ROS 2) та автономного самовідновлення коду локальними нейромережами перетворили TDscript на <strong>повноцінну незалежну платформу програмування (Специфікація Core 1.1, реліз v1.5.0)</strong>.
         </p>
 
         <div class="callout callout-blue" style="margin: 1rem 0;">
@@ -496,21 +533,21 @@
 
         <div class="callout callout-green">
           <strong>Ієрархія версій мови:</strong>
-          <br>• <strong>TDscript v1.4.0 / Core 1.1 (Сучасний промисловий стандарт / AI-First):</strong> головний робочий реліз. Включає hex-літерали (<code>0x76</code>, <code>0xD0</code>), індексацію <code>ByteArray[i]</code>, інтерполяцію <code>LString</code>, сторож <code>WATCHDOG</code>, пісочницю <code>CapabilityScope</code> та GBNF-граматику.
+          <br>• <strong>TDscript v1.5.0 / Core 1.1 (Сучасний промисловий стандарт / AI-First):</strong> головний робочий реліз. Включає hex-літерали (<code>0x76</code>, <code>0xD0</code>), індексацію <code>ByteArray[i]</code>, інтерполяцію <code>LString</code>, сторож <code>WATCHDOG</code>, пісочницю <code>CapabilityScope</code> та GBNF-граматику.
           <br>• <strong>TDscript v1.0.1 / Core 1.0 (Архівна / Legacy Stable):</strong> рання базова редакція 2024 року, збережена для 100% сумісності старих скриптів у мобільному лаунчері Tdroid (десяткові адреси, базовий LString, повний JSON помилок).
         </div>
       </section>
 
       <!-- СЕКЦІЯ 2: ТАБЛИЦЯ ПОРІВНЯННЯ -->
       <section class="card">
-        <h2>⚖️ Порівняння версій: v1.4.0 (Core 1.1) проти v1.0.1 (Legacy)</h2>
+        <h2>⚖️ Порівняння версій: v1.5.0 (Core 1.1) проти v1.0.1 (Legacy)</h2>
         <div class="table-wrapper">
           <table>
             <thead>
               <tr>
                 <th>Можливість / Підсистема</th>
                 <th>TDscript v1.0.1 (Архівна / Tdroid Legacy)</th>
-                <th>TDscript v1.4.0 / Core 1.1 (Сучасний стандарт / Студія &amp; ШІ)</th>
+                <th>TDscript v1.5.0 / Core 1.1 (Сучасний стандарт / Студія &amp; ШІ)</th>
               </tr>
             </thead>
             <tbody>
@@ -554,6 +591,21 @@
                 <td>Багаторядковий детальний JSON</td>
                 <td>Компактний рядок ремонту <code>E104@1:5 exp=0x76 got=0x68</code> + GBNF-граматика</td>
               </tr>
+              <tr>
+                <td><strong>Керування циклами</strong></td>
+                <td>Лише цикл <code>while</code> (без break/continue)</td>
+                <td>Оператори <code>break</code> (перервати) та <code>continue</code> (продовжити) з нульовими накладними витратами</td>
+              </tr>
+              <tr>
+                <td><strong>Багатомовність і лексика</strong></td>
+                <td>Фіксовані ключові слова (3 мови) зі скороченнями</td>
+                <td><strong>110 мов</strong> (109 ISO + <code>language: ai;</code>), зрозумілі слова без скорочень (<code>змінна</code>, <code>друк</code>)</td>
+              </tr>
+              <tr>
+                <td><strong>Bluetooth / BLE</strong></td>
+                <td>Тільки модуль <code>BT</code></td>
+                <td>Уніфікована диспетчеризація <code>BT.*</code> та аліас <code>BLE.*</code> (<code>BLE.connect()</code>)</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -572,6 +624,13 @@
             <h4><a href="language.html">📖 Специфікація мови</a></h4>
             <p>Повний синтаксис, типи даних, вбудовані модулі I2C, PLC, BLE, NET, WATCHDOG та правила LString.</p>
             <a href="language.html" class="btn-secondary" style="margin-top: 0.6rem;">Читати специфікацію →</a>
+          </div>
+          <div class="feature-box" style="border: 1px solid #38bdf8;">
+            <h4><a href="vocabulary.html">🔤 Лексичний довідник (110 мов)</a></h4>
+            <p>
+              Повна таблиця відповідності 10 ключових слів (let, var, if, else, while, break, continue, true, false, null) та print для 109 мов світу та AI-First режиму.
+            </p>
+            <a href="vocabulary.html" class="btn-secondary" style="margin-top: 0.6rem;">Відкрити словник 110 мов →</a>
           </div>
           <div class="feature-box" style="border-left: 3px solid #f59e0b;">
             <h4><a href="grammar.gbnf" target="_blank" style="color: #f59e0b;">📐 Формальна GBNF-граматика</a></h4>

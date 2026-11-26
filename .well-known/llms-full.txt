@@ -1,9 +1,11 @@
-# TDscript Core 1.1 / TDModules v1.4.0 — Full Technical Specification for AI & LLM Systems
+# TDscript Core 1.1 / TDModules v1.5.0 — Full Technical Specification for AI & LLM Systems
 > Comprehensive technical guide and normative architecture for the independent TDscript programming language, TDscript Studio IDE, and TDRobotics.
 > Author: Anton Mykhailov (Halberstadt, Germany)
-> Canonical Repository: TDModules (v1.4.0) & TDscript-Studio (v1.1.0)
+> Canonical Repository: TDModules (v1.5.0) & TDscript-Studio (v1.1.0)
 > Website: https://fido2465724100-creator.github.io/my-developer-site/
 > AI-First Language Portal: https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
+> Vocabulary & 110-Language Concordance: https://fido2465724100-creator.github.io/my-developer-site/tdscript/vocabulary.html
+> Machine-Readable 110-Language Keywords (JSON): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tdscript-keywords-109.json
 > Formal GBNF Grammar: https://fido2465724100-creator.github.io/my-developer-site/tdscript/grammar.gbnf
 > Benchmark (Tests #3–#6): https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 
@@ -217,8 +219,8 @@ while (i < 5) {
 ```
 
 ### 6.2. Peripheral & Bus Methods
-- `I2C.read(address: Int, register: Int, length: Int) -> ByteArray?` (in v1.4.0 supports hex literals e.g. `0x76`, `0xD0`)
-- `I2C.write(address: Int, register: Int, data: Any) -> Boolean` (in v1.4.0 supports `I2C.write(0x76, 0xF4, 0x27)`)
+- `I2C.read(address: Int, register: Int, length: Int) -> ByteArray?` (in v1.5.0 supports hex literals e.g. `0x76`, `0xD0`)
+- `I2C.write(address: Int, register: Int, data: Any) -> Boolean` (in v1.5.0 supports `I2C.write(0x76, 0xF4, 0x27)`)
 - `SERIAL.read(port: String, maxLength: Int) -> ByteArray?`
 - `SERIAL.write(port: String, data: ByteArray) -> Boolean`
 - `PLC.modbusRead(host: String, register: Int) -> Int`
@@ -228,17 +230,17 @@ while (i < 5) {
 - `NET.ping(host: String) -> Int`
 - `WATCHDOG.feed() -> Boolean`
 - `WATCHDOG.emergencyStop() -> Unit`
-- `print(value: Any?) -> Unit` (in v1.4.0 formats ByteArray deterministically as `[0x60]`)
+- `print(value: Any?) -> Unit` (in v1.5.0 formats ByteArray deterministically as `[0x60]`)
 
-### 6.3. Version Compatibility: v1.4.0 (Production) vs v1.0.1 (Legacy)
-- **v1.4.0 / Core 1.1 (Current Production Standard)**: Standalone language standard. Hexadecimal literals (`0x76`, `0xD0`), `ByteArray[i]` indexing, `LString` interpolation `{var}`, strict method dispatch (`TDS_E106`), `WATCHDOG`, compact repair lines (`E104@line:col`), and formal GBNF grammar (`grammar.gbnf`).
+### 6.3. Version Compatibility: v1.5.0 (Production) vs v1.0.1 (Legacy)
+- **v1.5.0 / Core 1.1 (Current Production Standard)**: Standalone language standard. Hexadecimal literals (`0x76`, `0xD0`), `ByteArray[i]` indexing, `LString` interpolation `{var}`, strict method dispatch (`TDS_E106`), `WATCHDOG`, compact repair lines (`E104@line:col`), and formal GBNF grammar (`grammar.gbnf`).
 - **v1.0.1 / Core 1.0 (Archival / Legacy Stable)**: Maintained for backwards compatibility in the Tdroid Android Launcher terminal. Decimal literals only (`118`, `208`), symbolic LString without `{var}`, full multi-line JSON error diagnostics.
 
 ---
 
 ## 7. Artifacts & Deliverables
 
-- **`TDModules`**: Shared library repository (`/home/anton/TDModules`, v1.4.0) — Embeddable SDK runtime.
+- **`TDModules`**: Shared library repository (`/home/anton/TDModules`, v1.5.0) — Embeddable SDK runtime.
 - **`TDscript-Studio`**: Cross-platform standalone IDE repository (`/home/anton/TDscript-Studio`, v1.1.0):
   - Desktop Standalone JAR: `desktopApp/build/compose/jars/tdscript-studio-linux-x64-1.1.0.jar`
   - Linux Packages: DEB, RPM, AppImage, Portable Tarball.
