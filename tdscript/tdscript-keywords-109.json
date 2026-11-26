@@ -3554,6 +3554,8 @@
       "kung"
     ],
     "else": [
+      "kondili",
+      "kundi",
       "kon_dili"
     ],
     "while": [
@@ -3564,7 +3566,8 @@
       "baryabol"
     ],
     "var": [
-      "baryabol"
+      "baryabol",
+      "kabalhinan"
     ],
     "true": [
       "tinuod"
@@ -3573,15 +3576,22 @@
       "bakak"
     ],
     "null": [
-      "walay_sulod"
+      "wala",
+      "walay_sulod",
+      "blangko"
     ],
     "print": [
-      "imprinta"
+      "patik",
+      "imprinta",
+      "print"
     ],
     "break": [
+      "undang",
+      "hunong",
       "break"
     ],
     "continue": [
+      "padayon",
       "continue"
     ]
   },

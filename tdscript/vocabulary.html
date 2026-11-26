@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TDscript Multi-Language Vocabulary (110 Languages) — v1.5.0 Specification</title>
-  <meta name="description" content="Complete keyword tables for all 110 supported languages (109 human ISO languages + 1 AI-first mode) in TDscript v1.5.0. 10 core keywords + print mapped to English syntax." />
+  <meta name="description" content="Complete keyword tables for all 110 supported languages (109 human ISO languages + 1 AI-first mode) in TDscript v1.5.0 with 3-tier verification status: Native-Reviewed, Runtime-Verified, and Machine-Tokenized." />
   <link rel="stylesheet" href="../css/style.css">
   <link rel="help" type="text/plain" href="../llms.txt" title="LLM context file" />
   <link rel="alternate" type="application/json" href="tdscript-keywords-109.json" title="TDscript 110-language JSON Specification" />
   <style>
     /* Vocabulary specific styling */
     .vocab-search-box {
-      margin: 1.5rem 0;
+      margin: 1.2rem 0 0.8rem 0;
       position: relative;
     }
     .vocab-search-input {
@@ -28,6 +28,29 @@
     .vocab-search-input:focus {
       border-color: #38bdf8;
       box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+    }
+    .tier-filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 0.6rem 0 1rem 0;
+    }
+    .tier-filter-btn {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tier-filter-btn:hover,
+    .tier-filter-btn.active {
+      background: var(--accent);
+      color: #030712;
+      border-color: var(--accent);
     }
     .chips-grid {
       display: flex;
@@ -96,6 +119,31 @@
       font-family: monospace;
       text-transform: uppercase;
     }
+    .tier-badge {
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .tier-1 {
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border: 1px solid #34d399;
+    }
+    .tier-2 {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid #38bdf8;
+    }
+    .tier-3 {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+      border: 1px solid #fbbf24;
+    }
     .directive-tag {
       background: #1e293b;
       border: 1px solid #475569;
@@ -154,6 +202,18 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+    .tier-matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.2rem 0;
+    }
+    .tier-card {
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 1rem;
+      border: 1px solid var(--card-border);
+    }
   </style>
 </head>
 <body id="top">
@@ -172,7 +232,7 @@
   <!-- HEADER -->
   <header>
     <h1>🔤 Лексический справочник TDscript (110 языков)</h1>
-    <p>Полная таблица соответствия 10 ключевых слов языка и функции print для 109 человеческих языков (ISO 639) и режима AI-First в TDscript v1.5.0</p>
+    <p>Полная таблица соответствия 10 ключевых слов языка и функции print для 109 человеческих языков (ISO 639) и режима AI-First в TDscript v1.5.0 с трехуровневой системой верификации</p>
     <nav class="nav-bar">
       <a href="index.html">🏠 Обзор платформы</a>
       <a href="ai-language.html">🤖 Язык для ИИ</a>
@@ -196,10 +256,10 @@
     <!-- ==================== RU VIEW ==================== -->
     <div id="view-ru" class="lang-view active">
       <section class="card">
-        <h2>🌍 Мультиязычная архитектура TDscript v1.5.0</h2>
+        <h2>🌍 Мультиязычная архитектура TDscript v1.5.0 и матрица верификации</h2>
         <p>
           TDscript построен на концепции <strong>абсолютной языковой прозрачности</strong>: язык программирования должен подчиняться человеку или искусственному интеллекту, а не навязывать чужую грамматику. 
-          Язык содержит всего <strong>10 базовых синтаксических операторов</strong> и <strong>1 диагностическую функцию <code>print</code></strong>.
+          Язык содержит всего <strong>10 базовых синтаксических операторов</strong> и <strong>1 функцию вывода <code>print</code></strong>.
         </p>
         
         <div class="stat-bar">
@@ -212,8 +272,8 @@
             <div class="stat-lbl">Базовый словарь языка (+ print)</div>
           </div>
           <div class="stat-item">
-            <div class="stat-val">0 overhead</div>
-            <div class="stat-lbl">Компиляция в единое байткод-представление AST</div>
+            <div class="stat-val">3 Tiers</div>
+            <div class="stat-lbl">Прозрачная градуированная верификация словарей</div>
           </div>
           <div class="stat-item">
             <div class="stat-val">JSON / GBNF</div>
@@ -221,17 +281,41 @@
           </div>
         </div>
 
-        <div class="callout callout-green">
-          <strong>Ключевые принципы версии 1.5.0:</strong>
-          <ul style="margin-top: 0.5rem; margin-left: 1.2rem;">
-            <li><strong>Объявление языка в начале скрипта:</strong> <code>language: ru;</code> (или комментарием <code># language: de;</code>). Для ИИ-моделей: <code>language: ai;</code>.</li>
-            <li><strong>Умное автоопределение:</strong> Если директива не указана, TDscript анализирует частотный словарь ключевых слов и автоматически выбирает нужный лексикон.</li>
-            <li><strong>Понятные слова без криптических сокращений:</strong> В человеческих языках устаревшие сокращения вроде <code>перем</code> заменены на <code>переменная</code> (при сохранении старых алиасов для обратной совместимости).</li>
-            <li><strong>Управление циклами:</strong> Добавлены операторы <code>break</code> (прервать / выход) и <code>continue</code> (продолжить) во всех 110 языках.</li>
-          </ul>
+        <h3>🔍 Честная трехуровневая система верификации (Verification Tiers)</h3>
+        <p style="color: var(--text-muted); font-size: 0.92rem;">
+          Мы придерживаемся принципа инженерной честности и причинно-следственной связи. Чтобы открыто отличать человеческую локализацию от программно проверенной лексики, для каждого языка указан статус верификации:
+        </p>
+
+        <div class="tier-matrix-grid">
+          <div class="tier-card" style="border-left: 4px solid #34d399;">
+            <div style="font-weight: 700; color: #34d399; margin-bottom: 0.4rem;">🟢 Tier 1: Native-Reviewed (5 языков / режимов)</div>
+            <div style="font-size: 0.88rem; color: #cbd5e1;">
+              <strong>Русский (ru), Украинский (uk), Немецкий (de), Английский (en), AI-First (ai)</strong>.<br>
+              Полностью вычитано носителями языка и автором. Гарантия естественности технических терминов, полное отсутствие криптических сокращений и искусственных калек.
+            </div>
+          </div>
+          <div class="tier-card" style="border-left: 4px solid #38bdf8;">
+            <div style="font-weight: 700; color: #38bdf8; margin-bottom: 0.4rem;">🔵 Tier 2: Runtime-Verified (15 языков)</div>
+            <div style="font-size: 0.88rem; color: #cbd5e1;">
+              <strong>Cebuano (ceb), Испанский (es), Французский (fr), Итальянский (it), Португальский (pt), Китайский (zh/zh-tw), Японский (ja), Корейский (ko), Арабский (ar), Иврит (he), Хинди (hi), Турецкий (tr), Польский (pl), Нидерландский (nl)</strong>.<br>
+              Проверено автоматическими сквозными тестами в тестовом сьюте <code>LanguageConformanceTest</code>: компиляция, циклы <code>while</code>, операторы <code>break/continue</code>, ветвление и вывод исполняются в <code>AiHardwareSandbox</code>.
+            </div>
+          </div>
+          <div class="tier-card" style="border-left: 4px solid #fbbf24;">
+            <div style="font-weight: 700; color: #fbbf24; margin-bottom: 0.4rem;">🟡 Tier 3: Machine-Tokenized & Syntactically Verified (90 языков)</div>
+            <div style="font-size: 0.88rem; color: #cbd5e1;">
+              Все остальные 90 языков стандарта ISO 639.<br>
+              Проверена токенизация лексером и разбор в AST (включая нелатинские алфавиты хинди, бенгали, кхмерский, грузинский). Отсутствие коллизий ключевых слов. Операторы <code>break/continue</code> используют международный английский стандарт в качестве базы до вычитки сообществом.
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-green" style="margin-top: 1rem;">
+          <strong>🤝 Открытый вклад (Community Open Source Contributions):</strong>
+          Если вы носитель языка из Tier 2 или Tier 3 и хотите предложить более естественные синонимы или поправить идиомы — отправьте Pull Request в открытый файл <a href="tdscript-keywords-109.json" target="_blank" style="color:var(--accent);"><code>tdscript-keywords-109.json</code></a> в нашем GitHub-репозитории!
           <div style="margin-top: 0.8rem; display: flex; gap: 0.8rem; flex-wrap: wrap;">
             <a href="tdscript-keywords-109.json" download class="btn" style="background:#0284c7; color:#fff; text-decoration:none; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.88rem; font-weight:600;">
-              📥 Скачать машиночитаемый tdscript-keywords-109.json (52 KB)
+              📥 Скачать tdscript-keywords-109.json (52 KB)
             </a>
             <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; text-decoration:none; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.88rem;">
               📐 Эталонная GBNF-грамматика (grammar.gbnf)
@@ -244,10 +328,10 @@
     <!-- ==================== EN VIEW ==================== -->
     <div id="view-en" class="lang-view">
       <section class="card">
-        <h2>🌍 TDscript v1.5.0 Multi-Language Architecture</h2>
+        <h2>🌍 TDscript v1.5.0 Multi-Language Architecture & Verification Matrix</h2>
         <p>
-          TDscript is built on <strong>total linguistic transparency</strong>: a programming language should adapt to humans or AI agents, not force an alien lexicon.
-          The grammar relies on exactly <strong>10 core syntactic keywords</strong> and <strong>1 output function <code>print</code></strong>.
+          TDscript is built on <strong>linguistic transparency</strong>: the language adapts to humans or AI agents without forcing alien syntax.
+          The grammar comprises exactly <strong>10 core syntactic keywords</strong> and <strong>1 output function <code>print</code></strong>.
         </p>
 
         <div class="stat-bar">
@@ -260,8 +344,8 @@
             <div class="stat-lbl">Core Language Lexicon (+ print)</div>
           </div>
           <div class="stat-item">
-            <div class="stat-val">0 overhead</div>
-            <div class="stat-lbl">Unified AST & Zero-cost Runtime Bytecode</div>
+            <div class="stat-val">3 Tiers</div>
+            <div class="stat-lbl">Graduated Transparency & Verification</div>
           </div>
           <div class="stat-item">
             <div class="stat-val">JSON / GBNF</div>
@@ -269,22 +353,34 @@
           </div>
         </div>
 
-        <div class="callout callout-green">
-          <strong>Key Principles of v1.5.0:</strong>
-          <ul style="margin-top: 0.5rem; margin-left: 1.2rem;">
-            <li><strong>Header Directive:</strong> Declare <code>language: en;</code> or <code>language: ai;</code> (or <code># language: de;</code>) at the top of script.</li>
-            <li><strong>Smart Heuristic Auto-Detection:</strong> If directive is omitted, TDscript automatically detects the language from localized keywords.</li>
-            <li><strong>Clear Human Words:</strong> Cryptic abbreviations replaced with natural terms while preserving backwards-compatible aliases.</li>
-            <li><strong>Control Flow:</strong> Full support for <code>break</code> and <code>continue</code> across all 110 language tables.</li>
-          </ul>
-          <div style="margin-top: 0.8rem; display: flex; gap: 0.8rem; flex-wrap: wrap;">
-            <a href="tdscript-keywords-109.json" download class="btn" style="background:#0284c7; color:#fff; text-decoration:none; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.88rem; font-weight:600;">
-              📥 Download Machine-Readable tdscript-keywords-109.json (52 KB)
-            </a>
-            <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; text-decoration:none; padding:0.4rem 0.8rem; border-radius:6px; font-size:0.88rem;">
-              📐 Formal GBNF Grammar (grammar.gbnf)
-            </a>
+        <h3>🔍 Graduated Verification Tiers</h3>
+        <div class="tier-matrix-grid">
+          <div class="tier-card" style="border-left: 4px solid #34d399;">
+            <div style="font-weight: 700; color: #34d399; margin-bottom: 0.4rem;">🟢 Tier 1: Native-Reviewed (5 Languages / Modes)</div>
+            <div style="font-size: 0.88rem; color: #cbd5e1;">
+              <strong>English (en), Russian (ru), Ukrainian (uk), German (de), AI-First (ai)</strong>.<br>
+              Proofread and verified by native speakers and the author. Fully idiomatic with zero artificial calques.
+            </div>
           </div>
+          <div class="tier-card" style="border-left: 4px solid #38bdf8;">
+            <div style="font-weight: 700; color: #38bdf8; margin-bottom: 0.4rem;">🔵 Tier 2: Runtime-Verified (15 Languages)</div>
+            <div style="font-size: 0.88rem; color: #cbd5e1;">
+              <strong>Cebuano (ceb), Spanish (es), French (fr), Italian (it), Portuguese (pt), Chinese (zh/zh-tw), Japanese (ja), Korean (ko), Arabic (ar), Hebrew (he), Hindi (hi), Turkish (tr), Polish (pl), Dutch (nl)</strong>.<br>
+              Verified via end-to-end execution in automated test suites: compilation, loops with break/continue, conditionals, and output executed in <code>AiHardwareSandbox</code>.
+            </div>
+          </div>
+          <div class="tier-card" style="border-left: 4px solid #fbbf24;">
+            <div style="font-weight: 700; color: #fbbf24; margin-bottom: 0.4rem;">🟡 Tier 3: Machine-Tokenized & Syntactically Verified (90 Languages)</div>
+            <div style="font-size: 0.88rem; color: #cbd5e1;">
+              Remaining 90 ISO 639 languages.<br>
+              Lexer tokenization and AST parsing verified across all Unicode alphabets (Bengali, Khmer, Georgian, etc.). Zero keyword collisions. International English fallback for break/continue until community review.
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-green" style="margin-top: 1rem;">
+          <strong>🤝 Community Open Source Contributions:</strong>
+          Native speakers are encouraged to propose refined idioms or translations via Pull Request to <a href="tdscript-keywords-109.json" target="_blank" style="color:var(--accent);"><code>tdscript-keywords-109.json</code></a>.
         </div>
       </section>
     </div>
@@ -292,10 +388,9 @@
     <!-- ==================== DE VIEW ==================== -->
     <div id="view-de" class="lang-view">
       <section class="card">
-        <h2>🌍 TDscript v1.5.0 Mehrsprachige Architektur</h2>
+        <h2>🌍 TDscript v1.5.0 Mehrsprachige Architektur & Verifizierungsmatrix</h2>
         <p>
-          TDscript basiert auf <strong>sprachlicher Transparenz</strong>: Die Sprache passt sich an Menschen und KI-Agenten an.
-          Das Vokabular umfasst lediglich <strong>10 Kern-Schlüsselwörter</strong> und die Ausgabefunktion <code>print</code> / <code>drucken</code>.
+          TDscript basiert auf sprachlicher Transparenz: 110 Sprachen gegliedert in 3 transparente Verifizierungsstufen (🟢 Native-Reviewed, 🔵 Runtime-Verified, 🟡 Machine-Tokenized).
         </p>
         <div class="callout callout-green">
           <strong>Vollständiges Wörterbuch:</strong> Unten finden Sie 110 strukturierte Tabellen für alle 109 ISO-Sprachen und den KI-Modus.
@@ -311,10 +406,9 @@
     <!-- ==================== UK VIEW ==================== -->
     <div id="view-uk" class="lang-view">
       <section class="card">
-        <h2>🌍 Багатомовна архітектура TDscript v1.5.0</h2>
+        <h2>🌍 Багатомовна архітектура TDscript v1.5.0 та матриця верифікації</h2>
         <p>
-          TDscript побудовано на засадах <strong>мовної прозорості</strong>: мова програмування адаптується до людини або штучного інтелекту.
-          Граматика спирається лише на <strong>10 базових операторів</strong> та <strong>1 діагностичну функцію <code>print</code> / <code>друк</code></strong>.
+          TDscript підтримує 110 мов світу та режим AI-First з трирівневою прозорою верифікацією (🟢 Native-Reviewed, 🔵 Runtime-Verified, 🟡 Machine-Tokenized).
         </p>
         <div class="callout callout-green">
           <strong>Повний словник:</strong> Нижче розміщено 110 структурованих таблиць для всіх 109 мов світу та режиму AI-First.
@@ -331,123 +425,131 @@
     <section class="card" style="margin-top: 1rem;">
       <h3>🔍 Поиск и быстрый переход по языкам</h3>
       <p style="color: var(--text-muted); font-size: 0.9rem;">
-        Введите код языка (например, <code>ru</code>, <code>de</code>, <code>zh</code>, <code>ai</code>) или название на русском/английском:
+        Введите код языка (например, <code>ru</code>, <code>ceb</code>, <code>de</code>, <code>zh</code>, <code>ai</code>) или фильтруйте по уровню верификации:
       </p>
+      
+      <div class="tier-filter-bar">
+        <button class="tier-filter-btn active" id="filter-all" onclick="setTierFilter('all')">Все 110 языков</button>
+        <button class="tier-filter-btn" id="filter-tier1" onclick="setTierFilter('tier1')">🟢 Tier 1: Native-Reviewed (5)</button>
+        <button class="tier-filter-btn" id="filter-tier2" onclick="setTierFilter('tier2')">🔵 Tier 2: Runtime-Verified (15)</button>
+        <button class="tier-filter-btn" id="filter-tier3" onclick="setTierFilter('tier3')">🟡 Tier 3: Machine-Tokenized (90)</button>
+      </div>
+
       <div class="vocab-search-box">
-        <input type="text" id="langFilter" class="vocab-search-input" placeholder="🔍 Начните вводить: ru, russian, deutsch, chinese, ai..." oninput="filterLangs(this.value)">
+        <input type="text" id="langFilter" class="vocab-search-input" placeholder="🔍 Начните вводить: ceb, cebuano, ru, russian, deutsch, chinese, ai..." oninput="onSearchInput(this.value)">
       </div>
 
       <div class="chips-grid" id="chipsContainer">
-        <a href="#lang-ai" class="lang-chip" data-search="ai ai / agent mode ai-first compact mode режим для ии-агентов">🤖 ai: AI-First Compact Mode</a>
-        <a href="#lang-en" class="lang-chip" data-search="en english english английский">🇬🇧 en: English</a>
-        <a href="#lang-ru" class="lang-chip" data-search="ru russian русский русский">🇷🇺 ru: Русский</a>
-        <a href="#lang-uk" class="lang-chip" data-search="uk ukrainian українська украинский">🇺🇦 uk: Українська</a>
-        <a href="#lang-de" class="lang-chip" data-search="de german deutsch немецкий">🇩🇪 de: Deutsch</a>
-        <a href="#lang-es" class="lang-chip" data-search="es spanish español испанский">🇪🇸 es: Español</a>
-        <a href="#lang-fr" class="lang-chip" data-search="fr french français французский">🇫🇷 fr: Français</a>
-        <a href="#lang-it" class="lang-chip" data-search="it italian italiano итальянский">🇮🇹 it: Italiano</a>
-        <a href="#lang-pt" class="lang-chip" data-search="pt portuguese português португальский">🇵🇹 pt: Português</a>
-        <a href="#lang-zh" class="lang-chip" data-search="zh chinese (simplified) 简体中文 китайский (упрощенный)">🇨🇳 zh: 简体中文</a>
-        <a href="#lang-zh-tw" class="lang-chip" data-search="zh-tw chinese (traditional) 繁體中文 китайский (традиционный)">🇹🇼 zh-tw: 繁體中文</a>
-        <a href="#lang-ja" class="lang-chip" data-search="ja japanese 日本語 японский">🇯🇵 ja: 日本語</a>
-        <a href="#lang-ko" class="lang-chip" data-search="ko korean 한국어 корейский">🇰🇷 ko: 한국어</a>
-        <a href="#lang-ar" class="lang-chip" data-search="ar arabic العربية арабский">🇸🇦 ar: العربية</a>
-        <a href="#lang-he" class="lang-chip" data-search="he hebrew עברית иврит">🇮🇱 he: עברית</a>
-        <a href="#lang-hi" class="lang-chip" data-search="hi hindi हिन्दी хинди">🇮🇳 hi: हिन्दी</a>
-        <a href="#lang-tr" class="lang-chip" data-search="tr turkish türkçe турецкий">🇹🇷 tr: Türkçe</a>
-        <a href="#lang-pl" class="lang-chip" data-search="pl polish polski польский">🇵🇱 pl: Polski</a>
-        <a href="#lang-nl" class="lang-chip" data-search="nl dutch nederlands нидерландский">🇳🇱 nl: Nederlands</a>
-        <a href="#lang-af" class="lang-chip" data-search="af afrikaans afrikaans африкаанс">🇿🇦 af: Afrikaans</a>
-        <a href="#lang-am" class="lang-chip" data-search="am amharic አማርኛ амхарский">🇪🇹 am: አማርኛ</a>
-        <a href="#lang-az" class="lang-chip" data-search="az azerbaijani azərbaycan азербайджанский">🇦🇿 az: Azərbaycan</a>
-        <a href="#lang-be" class="lang-chip" data-search="be belarusian беларуская белорусский">🇧🇾 be: Беларуская</a>
-        <a href="#lang-bg" class="lang-chip" data-search="bg bulgarian български болгарский">🇧🇬 bg: Български</a>
-        <a href="#lang-bn" class="lang-chip" data-search="bn bengali বাংলা бенгальский">🇧🇩 bn: বাংলা</a>
-        <a href="#lang-bs" class="lang-chip" data-search="bs bosnian bosanski боснийский">🇧🇦 bs: Bosanski</a>
-        <a href="#lang-ca" class="lang-chip" data-search="ca catalan català каталанский">🇪🇸 ca: Català</a>
-        <a href="#lang-ceb" class="lang-chip" data-search="ceb cebuano sinugboanon себуано">🇵🇭 ceb: Sinugboanon</a>
-        <a href="#lang-co" class="lang-chip" data-search="co corsican corsu корсиканский">🇫🇷 co: Corsu</a>
-        <a href="#lang-cs" class="lang-chip" data-search="cs czech čeština чешский">🇨🇿 cs: Čeština</a>
-        <a href="#lang-cy" class="lang-chip" data-search="cy welsh cymraeg валлийский">🏴󠁧󠁢󠁷󠁬󠁳󠁿 cy: Cymraeg</a>
-        <a href="#lang-da" class="lang-chip" data-search="da danish dansk датский">🇩🇰 da: Dansk</a>
-        <a href="#lang-el" class="lang-chip" data-search="el greek ελληνικά греческий">🇬🇷 el: Ελληνικά</a>
-        <a href="#lang-eo" class="lang-chip" data-search="eo esperanto esperanto эсперанто">🌐 eo: Esperanto</a>
-        <a href="#lang-et" class="lang-chip" data-search="et estonian eesti эстонский">🇪🇪 et: Eesti</a>
-        <a href="#lang-eu" class="lang-chip" data-search="eu basque euskara баскский">🇪🇸 eu: Euskara</a>
-        <a href="#lang-fa" class="lang-chip" data-search="fa persian فارسی персидский">🇮🇷 fa: فارسی</a>
-        <a href="#lang-fi" class="lang-chip" data-search="fi finnish suomi финский">🇫🇮 fi: Suomi</a>
-        <a href="#lang-fy" class="lang-chip" data-search="fy western frisian frysk западнофризский">🇳🇱 fy: Frysk</a>
-        <a href="#lang-ga" class="lang-chip" data-search="ga irish gaeilge ирландский">🇮🇪 ga: Gaeilge</a>
-        <a href="#lang-gd" class="lang-chip" data-search="gd scottish gaelic gàidhlig шотландский гэльский">🏴󠁧󠁢󠁳󠁣󠁴󠁿 gd: Gàidhlig</a>
-        <a href="#lang-gl" class="lang-chip" data-search="gl galician galego галисийский">🇪🇸 gl: Galego</a>
-        <a href="#lang-gu" class="lang-chip" data-search="gu gujarati ગુજરાતી гуджарати">🇮🇳 gu: ગુજરાતી</a>
-        <a href="#lang-ha" class="lang-chip" data-search="ha hausa harshen hausa хауса">🇳🇬 ha: Harshen Hausa</a>
-        <a href="#lang-haw" class="lang-chip" data-search="haw hawaiian ʻōlelo hawaiʻi гавайский">🇺🇸 haw: ʻŌlelo Hawaiʻi</a>
-        <a href="#lang-hmn" class="lang-chip" data-search="hmn hmong hmoob хмонг">🇻🇳 hmn: Hmoob</a>
-        <a href="#lang-hr" class="lang-chip" data-search="hr croatian hrvatski хорватский">🇭🇷 hr: Hrvatski</a>
-        <a href="#lang-ht" class="lang-chip" data-search="ht haitian creole kreyòl ayisyen гаитянский креольский">🇭🇹 ht: Kreyòl ayisyen</a>
-        <a href="#lang-hu" class="lang-chip" data-search="hu hungarian magyar венгерский">🇭🇺 hu: Magyar</a>
-        <a href="#lang-hy" class="lang-chip" data-search="hy armenian հայերեն армянский">🇦🇲 hy: Հայերեն</a>
-        <a href="#lang-id" class="lang-chip" data-search="id indonesian bahasa indonesia индонезийский">🇮🇩 id: Bahasa Indonesia</a>
-        <a href="#lang-ig" class="lang-chip" data-search="ig igbo asụsụ igbo игбо">🇳🇬 ig: Asụsụ Igbo</a>
-        <a href="#lang-is" class="lang-chip" data-search="is icelandic íslenska исландский">🇮🇸 is: Íslenska</a>
-        <a href="#lang-jv" class="lang-chip" data-search="jv javanese basa jawa яванский">🇮🇩 jv: Basa Jawa</a>
-        <a href="#lang-ka" class="lang-chip" data-search="ka georgian ქართული грузинский">🇬🇪 ka: ქართული</a>
-        <a href="#lang-kk" class="lang-chip" data-search="kk kazakh қазақша казахский">🇰🇿 kk: Қазақша</a>
-        <a href="#lang-km" class="lang-chip" data-search="km khmer ខ្មែរ кхмерский">🇰🇭 km: ខ្មែរ</a>
-        <a href="#lang-kn" class="lang-chip" data-search="kn kannada ಕನ್ನಡ каннада">🇮🇳 kn: ಕನ್ನಡ</a>
-        <a href="#lang-ku" class="lang-chip" data-search="ku kurdish kurdî курдский">🇹🇷 ku: Kurdî</a>
-        <a href="#lang-ky" class="lang-chip" data-search="ky kyrgyz кыргызча киргизский">🇰🇬 ky: Кыргызча</a>
-        <a href="#lang-la" class="lang-chip" data-search="la latin latina латинский">🏛️ la: Latina</a>
-        <a href="#lang-lb" class="lang-chip" data-search="lb luxembourgish lëtzebuergesch люксембургский">🇱🇺 lb: Lëtzebuergesch</a>
-        <a href="#lang-lo" class="lang-chip" data-search="lo lao ລາວ лаосский">🇱🇦 lo: ລາວ</a>
-        <a href="#lang-lt" class="lang-chip" data-search="lt lithuanian lietuvių литовский">🇱🇹 lt: Lietuvių</a>
-        <a href="#lang-lv" class="lang-chip" data-search="lv latvian latviešu латышский">🇱🇻 lv: Latviešu</a>
-        <a href="#lang-mg" class="lang-chip" data-search="mg malagasy malagasy малагасийский">🇲🇬 mg: Malagasy</a>
-        <a href="#lang-mi" class="lang-chip" data-search="mi maori te reo māori маори">🇳🇿 mi: Te Reo Māori</a>
-        <a href="#lang-mk" class="lang-chip" data-search="mk macedonian македонски македонский">🇲🇰 mk: Македонски</a>
-        <a href="#lang-ml" class="lang-chip" data-search="ml malayalam മലയാളം малаялам">🇮🇳 ml: മലയാളം</a>
-        <a href="#lang-mn" class="lang-chip" data-search="mn mongolian монгол монгольский">🇲🇳 mn: Монгол</a>
-        <a href="#lang-mr" class="lang-chip" data-search="mr marathi मराठी маратхи">🇮🇳 mr: मराठी</a>
-        <a href="#lang-ms" class="lang-chip" data-search="ms malay bahasa melayu малайский">🇲🇾 ms: Bahasa Melayu</a>
-        <a href="#lang-mt" class="lang-chip" data-search="mt maltese malti мальтийский">🇲🇹 mt: Malti</a>
-        <a href="#lang-my" class="lang-chip" data-search="my burmese မြန်မာဘာသာ бирманский">🇲🇲 my: မြန်မာဘာသာ</a>
-        <a href="#lang-ne" class="lang-chip" data-search="ne nepali नेपाली непальский">🇳🇵 ne: नेपाली</a>
-        <a href="#lang-no" class="lang-chip" data-search="no norwegian norsk норвежский">🇳🇴 no: Norsk</a>
-        <a href="#lang-ny" class="lang-chip" data-search="ny chichewa chichewa чева">🇲🇼 ny: Chichewa</a>
-        <a href="#lang-or" class="lang-chip" data-search="or odia ଓଡ଼ିଆ одия">🇮🇳 or: ଓଡ଼ିଆ</a>
-        <a href="#lang-pa" class="lang-chip" data-search="pa punjabi ਪੰਜਾਬੀ пенджабский">🇮🇳 pa: ਪੰਜਾਬੀ</a>
-        <a href="#lang-ps" class="lang-chip" data-search="ps pashto پښتو пушту">🇦🇫 ps: پښتو</a>
-        <a href="#lang-ro" class="lang-chip" data-search="ro romanian română румынский">🇷🇴 ro: Română</a>
-        <a href="#lang-rw" class="lang-chip" data-search="rw kinyarwanda ikinyarwanda руанда">🇷🇼 rw: Ikinyarwanda</a>
-        <a href="#lang-sd" class="lang-chip" data-search="sd sindhi سنڌي синдхи">🇵🇰 sd: سنڌي</a>
-        <a href="#lang-si" class="lang-chip" data-search="si sinhala සිංහල сингальский">🇱🇰 si: සිංහල</a>
-        <a href="#lang-sk" class="lang-chip" data-search="sk slovak slovenčina словацкий">🇸🇰 sk: Slovenčina</a>
-        <a href="#lang-sl" class="lang-chip" data-search="sl slovenian slovenščina словенский">🇸🇮 sl: Slovenščina</a>
-        <a href="#lang-sm" class="lang-chip" data-search="sm samoan gagana faʻa sāmoa самоанский">🇼🇸 sm: Gagana faʻa Sāmoa</a>
-        <a href="#lang-sn" class="lang-chip" data-search="sn shona chishona шона">🇿🇼 sn: chiShona</a>
-        <a href="#lang-so" class="lang-chip" data-search="so somali soomaaliga сомалийский">🇸🇴 so: Soomaaliga</a>
-        <a href="#lang-sq" class="lang-chip" data-search="sq albanian shqip албанский">🇦🇱 sq: Shqip</a>
-        <a href="#lang-sr" class="lang-chip" data-search="sr serbian српски сербский">🇷🇸 sr: Српски</a>
-        <a href="#lang-st" class="lang-chip" data-search="st southern sotho sesotho сесото">🇱🇸 st: Sesotho</a>
-        <a href="#lang-su" class="lang-chip" data-search="su sundanese basa sunda сунданский">🇮🇩 su: Basa Sunda</a>
-        <a href="#lang-sv" class="lang-chip" data-search="sv swedish svenska шведский">🇸🇪 sv: Svenska</a>
-        <a href="#lang-sw" class="lang-chip" data-search="sw swahili kiswahili суахили">🇰🇪 sw: Kiswahili</a>
-        <a href="#lang-ta" class="lang-chip" data-search="ta tamil தமிழ் тамильский">🇮🇳 ta: தமிழ்</a>
-        <a href="#lang-te" class="lang-chip" data-search="te telugu తెలుగు телугу">🇮🇳 te: తెలుగు</a>
-        <a href="#lang-tg" class="lang-chip" data-search="tg tajik тоҷикӣ таджикский">🇹🇯 tg: Тоҷикӣ</a>
-        <a href="#lang-th" class="lang-chip" data-search="th thai ไทย тайский">🇹🇭 th: ไทย</a>
-        <a href="#lang-tk" class="lang-chip" data-search="tk turkmen türkmençe туркменский">🇹🇲 tk: Türkmençe</a>
-        <a href="#lang-tl" class="lang-chip" data-search="tl tagalog (filipino) tagalog тагальский">🇵🇭 tl: Tagalog</a>
-        <a href="#lang-tt" class="lang-chip" data-search="tt tatar татарча татарский">🇷🇺 tt: Татарча</a>
-        <a href="#lang-ug" class="lang-chip" data-search="ug uyghur ئۇيغۇرچە уйгурский">🇨🇳 ug: ئۇيغۇرچە</a>
-        <a href="#lang-ur" class="lang-chip" data-search="ur urdu اردو урду">🇵🇰 ur: اردو</a>
-        <a href="#lang-uz" class="lang-chip" data-search="uz uzbek oʻzbekcha узбекский">🇺🇿 uz: Oʻzbekcha</a>
-        <a href="#lang-vi" class="lang-chip" data-search="vi vietnamese tiếng việt вьетнамский">🇻🇳 vi: Tiếng Việt</a>
-        <a href="#lang-xh" class="lang-chip" data-search="xh xhosa isixhosa коса">🇿🇦 xh: isiXhosa</a>
-        <a href="#lang-yi" class="lang-chip" data-search="yi yiddish ייִדיש идиш">🇮🇱 yi: ייִדיש</a>
-        <a href="#lang-yo" class="lang-chip" data-search="yo yoruba èdè yorùbá йоруба">🇳🇬 yo: Èdè Yorùbá</a>
-        <a href="#lang-zu" class="lang-chip" data-search="zu zulu isizulu зулу">🇿🇦 zu: isiZulu</a>
+        <a href="#lang-ai" class="lang-chip" data-tier="tier1" data-search="ai ai / agent mode ai-first compact mode режим для ии-агентов tier1">🤖 ai: AI-First Compact Mode</a>
+        <a href="#lang-en" class="lang-chip" data-tier="tier1" data-search="en english english английский tier1">🇬🇧 en: English</a>
+        <a href="#lang-ru" class="lang-chip" data-tier="tier1" data-search="ru russian русский русский tier1">🇷🇺 ru: Русский</a>
+        <a href="#lang-uk" class="lang-chip" data-tier="tier1" data-search="uk ukrainian українська украинский tier1">🇺🇦 uk: Українська</a>
+        <a href="#lang-de" class="lang-chip" data-tier="tier1" data-search="de german deutsch немецкий tier1">🇩🇪 de: Deutsch</a>
+        <a href="#lang-ceb" class="lang-chip" data-tier="tier2" data-search="ceb cebuano sinugboanon себуано tier2">🇵🇭 ceb: Sinugboanon</a>
+        <a href="#lang-es" class="lang-chip" data-tier="tier2" data-search="es spanish español испанский tier2">🇪🇸 es: Español</a>
+        <a href="#lang-fr" class="lang-chip" data-tier="tier2" data-search="fr french français французский tier2">🇫🇷 fr: Français</a>
+        <a href="#lang-it" class="lang-chip" data-tier="tier2" data-search="it italian italiano итальянский tier2">🇮🇹 it: Italiano</a>
+        <a href="#lang-pt" class="lang-chip" data-tier="tier2" data-search="pt portuguese português португальский tier2">🇵🇹 pt: Português</a>
+        <a href="#lang-zh" class="lang-chip" data-tier="tier2" data-search="zh chinese (simplified) 简体中文 китайский (упрощенный) tier2">🇨🇳 zh: 简体中文</a>
+        <a href="#lang-zh-tw" class="lang-chip" data-tier="tier2" data-search="zh-tw chinese (traditional) 繁體中文 китайский (традиционный) tier2">🇹🇼 zh-tw: 繁體中文</a>
+        <a href="#lang-ja" class="lang-chip" data-tier="tier2" data-search="ja japanese 日本語 японский tier2">🇯🇵 ja: 日本語</a>
+        <a href="#lang-ko" class="lang-chip" data-tier="tier2" data-search="ko korean 한국어 корейский tier2">🇰🇷 ko: 한국어</a>
+        <a href="#lang-ar" class="lang-chip" data-tier="tier2" data-search="ar arabic العربية арабский tier2">🇸🇦 ar: العربية</a>
+        <a href="#lang-he" class="lang-chip" data-tier="tier2" data-search="he hebrew עברית иврит tier2">🇮🇱 he: עברית</a>
+        <a href="#lang-hi" class="lang-chip" data-tier="tier2" data-search="hi hindi हिन्दी хинди tier2">🇮🇳 hi: हिन्दी</a>
+        <a href="#lang-tr" class="lang-chip" data-tier="tier2" data-search="tr turkish türkçe турецкий tier2">🇹🇷 tr: Türkçe</a>
+        <a href="#lang-pl" class="lang-chip" data-tier="tier2" data-search="pl polish polski польский tier2">🇵🇱 pl: Polski</a>
+        <a href="#lang-nl" class="lang-chip" data-tier="tier2" data-search="nl dutch nederlands нидерландский tier2">🇳🇱 nl: Nederlands</a>
+        <a href="#lang-af" class="lang-chip" data-tier="tier3" data-search="af afrikaans afrikaans африкаанс tier3">🇿🇦 af: Afrikaans</a>
+        <a href="#lang-am" class="lang-chip" data-tier="tier3" data-search="am amharic አማርኛ амхарский tier3">🇪🇹 am: አማርኛ</a>
+        <a href="#lang-az" class="lang-chip" data-tier="tier3" data-search="az azerbaijani azərbaycan азербайджанский tier3">🇦🇿 az: Azərbaycan</a>
+        <a href="#lang-be" class="lang-chip" data-tier="tier3" data-search="be belarusian беларуская белорусский tier3">🇧🇾 be: Беларуская</a>
+        <a href="#lang-bg" class="lang-chip" data-tier="tier3" data-search="bg bulgarian български болгарский tier3">🇧🇬 bg: Български</a>
+        <a href="#lang-bn" class="lang-chip" data-tier="tier3" data-search="bn bengali বাংলা бенгальский tier3">🇧🇩 bn: বাংলা</a>
+        <a href="#lang-bs" class="lang-chip" data-tier="tier3" data-search="bs bosnian bosanski боснийский tier3">🇧🇦 bs: Bosanski</a>
+        <a href="#lang-ca" class="lang-chip" data-tier="tier3" data-search="ca catalan català каталанский tier3">🇪🇸 ca: Català</a>
+        <a href="#lang-co" class="lang-chip" data-tier="tier3" data-search="co corsican corsu корсиканский tier3">🇫🇷 co: Corsu</a>
+        <a href="#lang-cs" class="lang-chip" data-tier="tier3" data-search="cs czech čeština чешский tier3">🇨🇿 cs: Čeština</a>
+        <a href="#lang-cy" class="lang-chip" data-tier="tier3" data-search="cy welsh cymraeg валлийский tier3">🏴󠁧󠁢󠁷󠁬󠁳󠁿 cy: Cymraeg</a>
+        <a href="#lang-da" class="lang-chip" data-tier="tier3" data-search="da danish dansk датский tier3">🇩🇰 da: Dansk</a>
+        <a href="#lang-el" class="lang-chip" data-tier="tier3" data-search="el greek ελληνικά греческий tier3">🇬🇷 el: Ελληνικά</a>
+        <a href="#lang-eo" class="lang-chip" data-tier="tier3" data-search="eo esperanto esperanto эсперанто tier3">🌐 eo: Esperanto</a>
+        <a href="#lang-et" class="lang-chip" data-tier="tier3" data-search="et estonian eesti эстонский tier3">🇪🇪 et: Eesti</a>
+        <a href="#lang-eu" class="lang-chip" data-tier="tier3" data-search="eu basque euskara баскский tier3">🇪🇸 eu: Euskara</a>
+        <a href="#lang-fa" class="lang-chip" data-tier="tier3" data-search="fa persian فارسی персидский tier3">🇮🇷 fa: فارسی</a>
+        <a href="#lang-fi" class="lang-chip" data-tier="tier3" data-search="fi finnish suomi финский tier3">🇫🇮 fi: Suomi</a>
+        <a href="#lang-fy" class="lang-chip" data-tier="tier3" data-search="fy western frisian frysk западнофризский tier3">🇳🇱 fy: Frysk</a>
+        <a href="#lang-ga" class="lang-chip" data-tier="tier3" data-search="ga irish gaeilge ирландский tier3">🇮🇪 ga: Gaeilge</a>
+        <a href="#lang-gd" class="lang-chip" data-tier="tier3" data-search="gd scottish gaelic gàidhlig шотландский гэльский tier3">🏴󠁧󠁢󠁳󠁣󠁴󠁿 gd: Gàidhlig</a>
+        <a href="#lang-gl" class="lang-chip" data-tier="tier3" data-search="gl galician galego галисийский tier3">🇪🇸 gl: Galego</a>
+        <a href="#lang-gu" class="lang-chip" data-tier="tier3" data-search="gu gujarati ગુજરાતી гуджарати tier3">🇮🇳 gu: ગુજરાતી</a>
+        <a href="#lang-ha" class="lang-chip" data-tier="tier3" data-search="ha hausa harshen hausa хауса tier3">🇳🇬 ha: Harshen Hausa</a>
+        <a href="#lang-haw" class="lang-chip" data-tier="tier3" data-search="haw hawaiian ʻōlelo hawaiʻi гавайский tier3">🇺🇸 haw: ʻŌlelo Hawaiʻi</a>
+        <a href="#lang-hmn" class="lang-chip" data-tier="tier3" data-search="hmn hmong hmoob хмонг tier3">🇻🇳 hmn: Hmoob</a>
+        <a href="#lang-hr" class="lang-chip" data-tier="tier3" data-search="hr croatian hrvatski хорватский tier3">🇭🇷 hr: Hrvatski</a>
+        <a href="#lang-ht" class="lang-chip" data-tier="tier3" data-search="ht haitian creole kreyòl ayisyen гаитянский креольский tier3">🇭🇹 ht: Kreyòl ayisyen</a>
+        <a href="#lang-hu" class="lang-chip" data-tier="tier3" data-search="hu hungarian magyar венгерский tier3">🇭🇺 hu: Magyar</a>
+        <a href="#lang-hy" class="lang-chip" data-tier="tier3" data-search="hy armenian հայերեն армянский tier3">🇦🇲 hy: Հայերեն</a>
+        <a href="#lang-id" class="lang-chip" data-tier="tier3" data-search="id indonesian bahasa indonesia индонезийский tier3">🇮🇩 id: Bahasa Indonesia</a>
+        <a href="#lang-ig" class="lang-chip" data-tier="tier3" data-search="ig igbo asụsụ igbo игбо tier3">🇳🇬 ig: Asụsụ Igbo</a>
+        <a href="#lang-is" class="lang-chip" data-tier="tier3" data-search="is icelandic íslenska исландский tier3">🇮🇸 is: Íslenska</a>
+        <a href="#lang-jv" class="lang-chip" data-tier="tier3" data-search="jv javanese basa jawa яванский tier3">🇮🇩 jv: Basa Jawa</a>
+        <a href="#lang-ka" class="lang-chip" data-tier="tier3" data-search="ka georgian ქართული грузинский tier3">🇬🇪 ka: ქართული</a>
+        <a href="#lang-kk" class="lang-chip" data-tier="tier3" data-search="kk kazakh қазақша казахский tier3">🇰🇿 kk: Қазақша</a>
+        <a href="#lang-km" class="lang-chip" data-tier="tier3" data-search="km khmer ខ្មែរ кхмерский tier3">🇰🇭 km: ខ្មែរ</a>
+        <a href="#lang-kn" class="lang-chip" data-tier="tier3" data-search="kn kannada ಕನ್ನಡ каннада tier3">🇮🇳 kn: ಕನ್ನಡ</a>
+        <a href="#lang-ku" class="lang-chip" data-tier="tier3" data-search="ku kurdish kurdî курдский tier3">🇹🇷 ku: Kurdî</a>
+        <a href="#lang-ky" class="lang-chip" data-tier="tier3" data-search="ky kyrgyz кыргызча киргизский tier3">🇰🇬 ky: Кыргызча</a>
+        <a href="#lang-la" class="lang-chip" data-tier="tier3" data-search="la latin latina латинский tier3">🏛️ la: Latina</a>
+        <a href="#lang-lb" class="lang-chip" data-tier="tier3" data-search="lb luxembourgish lëtzebuergesch люксембургский tier3">🇱🇺 lb: Lëtzebuergesch</a>
+        <a href="#lang-lo" class="lang-chip" data-tier="tier3" data-search="lo lao ລາວ лаосский tier3">🇱🇦 lo: ລາວ</a>
+        <a href="#lang-lt" class="lang-chip" data-tier="tier3" data-search="lt lithuanian lietuvių литовский tier3">🇱🇹 lt: Lietuvių</a>
+        <a href="#lang-lv" class="lang-chip" data-tier="tier3" data-search="lv latvian latviešu латышский tier3">🇱🇻 lv: Latviešu</a>
+        <a href="#lang-mg" class="lang-chip" data-tier="tier3" data-search="mg malagasy malagasy малагасийский tier3">🇲🇬 mg: Malagasy</a>
+        <a href="#lang-mi" class="lang-chip" data-tier="tier3" data-search="mi maori te reo māori маори tier3">🇳🇿 mi: Te Reo Māori</a>
+        <a href="#lang-mk" class="lang-chip" data-tier="tier3" data-search="mk macedonian македонски македонский tier3">🇲🇰 mk: Македонски</a>
+        <a href="#lang-ml" class="lang-chip" data-tier="tier3" data-search="ml malayalam മലയാളം малаялам tier3">🇮🇳 ml: മലയാളം</a>
+        <a href="#lang-mn" class="lang-chip" data-tier="tier3" data-search="mn mongolian монгол монгольский tier3">🇲🇳 mn: Монгол</a>
+        <a href="#lang-mr" class="lang-chip" data-tier="tier3" data-search="mr marathi मराठी маратхи tier3">🇮🇳 mr: मराठी</a>
+        <a href="#lang-ms" class="lang-chip" data-tier="tier3" data-search="ms malay bahasa melayu малайский tier3">🇲🇾 ms: Bahasa Melayu</a>
+        <a href="#lang-mt" class="lang-chip" data-tier="tier3" data-search="mt maltese malti мальтийский tier3">🇲🇹 mt: Malti</a>
+        <a href="#lang-my" class="lang-chip" data-tier="tier3" data-search="my burmese မြန်မာဘာသာ бирманский tier3">🇲🇲 my: မြန်မာဘာသာ</a>
+        <a href="#lang-ne" class="lang-chip" data-tier="tier3" data-search="ne nepali नेपाली непальский tier3">🇳🇵 ne: नेपाली</a>
+        <a href="#lang-no" class="lang-chip" data-tier="tier3" data-search="no norwegian norsk норвежский tier3">🇳🇴 no: Norsk</a>
+        <a href="#lang-ny" class="lang-chip" data-tier="tier3" data-search="ny chichewa chichewa чева tier3">🇲🇼 ny: Chichewa</a>
+        <a href="#lang-or" class="lang-chip" data-tier="tier3" data-search="or odia ଓଡ଼ିଆ одия tier3">🇮🇳 or: ଓଡ଼ିଆ</a>
+        <a href="#lang-pa" class="lang-chip" data-tier="tier3" data-search="pa punjabi ਪੰਜਾਬੀ пенджабский tier3">🇮🇳 pa: ਪੰਜਾਬੀ</a>
+        <a href="#lang-ps" class="lang-chip" data-tier="tier3" data-search="ps pashto پښتو пушту tier3">🇦🇫 ps: پښتو</a>
+        <a href="#lang-ro" class="lang-chip" data-tier="tier3" data-search="ro romanian română румынский tier3">🇷🇴 ro: Română</a>
+        <a href="#lang-rw" class="lang-chip" data-tier="tier3" data-search="rw kinyarwanda ikinyarwanda руанда tier3">🇷🇼 rw: Ikinyarwanda</a>
+        <a href="#lang-sd" class="lang-chip" data-tier="tier3" data-search="sd sindhi سنڌي синдхи tier3">🇵🇰 sd: سنڌي</a>
+        <a href="#lang-si" class="lang-chip" data-tier="tier3" data-search="si sinhala සිංහල сингальский tier3">🇱🇰 si: සිංහල</a>
+        <a href="#lang-sk" class="lang-chip" data-tier="tier3" data-search="sk slovak slovenčina словацкий tier3">🇸🇰 sk: Slovenčina</a>
+        <a href="#lang-sl" class="lang-chip" data-tier="tier3" data-search="sl slovenian slovenščina словенский tier3">🇸🇮 sl: Slovenščina</a>
+        <a href="#lang-sm" class="lang-chip" data-tier="tier3" data-search="sm samoan gagana faʻa sāmoa самоанский tier3">🇼🇸 sm: Gagana faʻa Sāmoa</a>
+        <a href="#lang-sn" class="lang-chip" data-tier="tier3" data-search="sn shona chishona шона tier3">🇿🇼 sn: chiShona</a>
+        <a href="#lang-so" class="lang-chip" data-tier="tier3" data-search="so somali soomaaliga сомалийский tier3">🇸🇴 so: Soomaaliga</a>
+        <a href="#lang-sq" class="lang-chip" data-tier="tier3" data-search="sq albanian shqip албанский tier3">🇦🇱 sq: Shqip</a>
+        <a href="#lang-sr" class="lang-chip" data-tier="tier3" data-search="sr serbian српски сербский tier3">🇷🇸 sr: Српски</a>
+        <a href="#lang-st" class="lang-chip" data-tier="tier3" data-search="st southern sotho sesotho сесото tier3">🇱🇸 st: Sesotho</a>
+        <a href="#lang-su" class="lang-chip" data-tier="tier3" data-search="su sundanese basa sunda сунданский tier3">🇮🇩 su: Basa Sunda</a>
+        <a href="#lang-sv" class="lang-chip" data-tier="tier3" data-search="sv swedish svenska шведский tier3">🇸🇪 sv: Svenska</a>
+        <a href="#lang-sw" class="lang-chip" data-tier="tier3" data-search="sw swahili kiswahili суахили tier3">🇰🇪 sw: Kiswahili</a>
+        <a href="#lang-ta" class="lang-chip" data-tier="tier3" data-search="ta tamil தமிழ் тамильский tier3">🇮🇳 ta: தமிழ்</a>
+        <a href="#lang-te" class="lang-chip" data-tier="tier3" data-search="te telugu తెలుగు телугу tier3">🇮🇳 te: తెలుగు</a>
+        <a href="#lang-tg" class="lang-chip" data-tier="tier3" data-search="tg tajik тоҷикӣ таджикский tier3">🇹🇯 tg: Тоҷикӣ</a>
+        <a href="#lang-th" class="lang-chip" data-tier="tier3" data-search="th thai ไทย тайский tier3">🇹🇭 th: ไทย</a>
+        <a href="#lang-tk" class="lang-chip" data-tier="tier3" data-search="tk turkmen türkmençe туркменский tier3">🇹🇲 tk: Türkmençe</a>
+        <a href="#lang-tl" class="lang-chip" data-tier="tier3" data-search="tl tagalog (filipino) tagalog тагальский tier3">🇵🇭 tl: Tagalog</a>
+        <a href="#lang-tt" class="lang-chip" data-tier="tier3" data-search="tt tatar татарча татарский tier3">🇷🇺 tt: Татарча</a>
+        <a href="#lang-ug" class="lang-chip" data-tier="tier3" data-search="ug uyghur ئۇيغۇرچە уйгурский tier3">🇨🇳 ug: ئۇيغۇرچە</a>
+        <a href="#lang-ur" class="lang-chip" data-tier="tier3" data-search="ur urdu اردو урду tier3">🇵🇰 ur: اردو</a>
+        <a href="#lang-uz" class="lang-chip" data-tier="tier3" data-search="uz uzbek oʻzbekcha узбекский tier3">🇺🇿 uz: Oʻzbekcha</a>
+        <a href="#lang-vi" class="lang-chip" data-tier="tier3" data-search="vi vietnamese tiếng việt вьетнамский tier3">🇻🇳 vi: Tiếng Việt</a>
+        <a href="#lang-xh" class="lang-chip" data-tier="tier3" data-search="xh xhosa isixhosa коса tier3">🇿🇦 xh: isiXhosa</a>
+        <a href="#lang-yi" class="lang-chip" data-tier="tier3" data-search="yi yiddish ייִדיש идиш tier3">🇮🇱 yi: ייִדיש</a>
+        <a href="#lang-yo" class="lang-chip" data-tier="tier3" data-search="yo yoruba èdè yorùbá йоруба tier3">🇳🇬 yo: Èdè Yorùbá</a>
+        <a href="#lang-zu" class="lang-chip" data-tier="tier3" data-search="zu zulu isizulu зулу tier3">🇿🇦 zu: isiZulu</a>
       </div>
       <div id="filterResultCount" style="font-size: 0.85rem; color: var(--text-muted); margin-top: -1rem; margin-bottom: 0.5rem;">
         Показано языков: 110 из 110
@@ -457,8 +559,8 @@
     <!-- 110 VOCABULARY TABLES -->
     <div id="tablesContainer">
 
-      <!-- LANGUAGE CARD: ai -->
-      <section class="card lang-card" id="lang-ai" data-search="ai ai / agent mode ai-first compact mode режим для ии-агентов">
+      <!-- LANGUAGE CARD: ai (Tier 1) -->
+      <section class="card lang-card" id="lang-ai" data-tier="tier1" data-search="ai ai / agent mode ai-first compact mode режим для ии-агентов tier1">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🤖</span>
@@ -467,7 +569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Режим ультракомпактного лаконичного синтаксиса для LLM-агентов (минимизация токенов, строгие контракты).</div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-1">🟢 Tier 1: Native-Reviewed</span>
             <span class="directive-tag">language: ai;</span>
             <span class="code-badge">#1 AI</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -556,8 +659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: en -->
-      <section class="card lang-card" id="lang-en" data-search="en english english английский">
+      <!-- LANGUAGE CARD: en (Tier 1) -->
+      <section class="card lang-card" id="lang-en" data-tier="tier1" data-search="en english english английский tier1">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇬🇧</span>
@@ -566,7 +669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Standard English syntax / Международный английский синтаксис.</div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-1">🟢 Tier 1: Native-Reviewed</span>
             <span class="directive-tag">language: en;</span>
             <span class="code-badge">#2 EN</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -655,8 +759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ru -->
-      <section class="card lang-card" id="lang-ru" data-search="ru russian русский русский">
+      <!-- LANGUAGE CARD: ru (Tier 1) -->
+      <section class="card lang-card" id="lang-ru" data-tier="tier1" data-search="ru russian русский русский tier1">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇷🇺</span>
@@ -665,7 +769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Русский (Russian). Директива: <code>language: ru;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-1">🟢 Tier 1: Native-Reviewed</span>
             <span class="directive-tag">language: ru;</span>
             <span class="code-badge">#3 RU</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -754,8 +859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: uk -->
-      <section class="card lang-card" id="lang-uk" data-search="uk ukrainian українська украинский">
+      <!-- LANGUAGE CARD: uk (Tier 1) -->
+      <section class="card lang-card" id="lang-uk" data-tier="tier1" data-search="uk ukrainian українська украинский tier1">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇺🇦</span>
@@ -764,7 +869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Українська (Ukrainian). Директива: <code>language: uk;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-1">🟢 Tier 1: Native-Reviewed</span>
             <span class="directive-tag">language: uk;</span>
             <span class="code-badge">#4 UK</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -853,8 +959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: de -->
-      <section class="card lang-card" id="lang-de" data-search="de german deutsch немецкий">
+      <!-- LANGUAGE CARD: de (Tier 1) -->
+      <section class="card lang-card" id="lang-de" data-tier="tier1" data-search="de german deutsch немецкий tier1">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇩🇪</span>
@@ -863,7 +969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Deutsch (German). Директива: <code>language: de;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-1">🟢 Tier 1: Native-Reviewed</span>
             <span class="directive-tag">language: de;</span>
             <span class="code-badge">#5 DE</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -952,8 +1059,108 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: es -->
-      <section class="card lang-card" id="lang-es" data-search="es spanish español испанский">
+      <!-- LANGUAGE CARD: ceb (Tier 2) -->
+      <section class="card lang-card" id="lang-ceb" data-tier="tier2" data-search="ceb cebuano sinugboanon себуано tier2">
+        <div class="lang-card-header">
+          <div class="lang-title">
+            <span style="font-size: 1.4rem;">🇵🇭</span>
+            <div>
+              <h3>Sinugboanon — Cebuano (Себуано)</h3>
+              <div style="font-size: 0.82rem; color: var(--text-muted);">Cebuano (Sinugboanon) — Нативный себуанский синтаксис (Филиппины). Полная верификация рантайма.</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
+            <span class="directive-tag">language: ceb;</span>
+            <span class="code-badge">#6 CEB</span>
+            <a href="#top" class="back-to-top">↑ Наверх</a>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 14%;">Английский (Canonical)</th>
+                <th style="width: 22%;">Основное слово (Primary)</th>
+                <th style="width: 24%;">Синонимы (Aliases)</th>
+                <th style="width: 40%;">Назначение (Role / Semantics)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>let</code></td>
+                <td><span class="badge-primary">himoa</span></td>
+                <td><span class="badge-alias">baryabol</span></td>
+                <td><span style="color:#cbd5e1;">Объявление неизменяемой переменной (константы)</span><br><small style="color:var(--text-muted);">Immutable variable / constant declaration</small></td>
+              </tr>
+              <tr>
+                <td><code>var</code></td>
+                <td><span class="badge-primary">baryabol</span></td>
+                <td><span class="badge-alias">kabalhinan</span></td>
+                <td><span style="color:#cbd5e1;">Объявление изменяемой переменной</span><br><small style="color:var(--text-muted);">Mutable variable declaration</small></td>
+              </tr>
+              <tr>
+                <td><code>if</code></td>
+                <td><span class="badge-primary">kung</span></td>
+                <td><span style="color:var(--text-muted);">—</span></td>
+                <td><span style="color:#cbd5e1;">Условный оператор ветвления (если)</span><br><small style="color:var(--text-muted);">Conditional branching statement</small></td>
+              </tr>
+              <tr>
+                <td><code>else</code></td>
+                <td><span class="badge-primary">kondili</span></td>
+                <td><span class="badge-alias">kundi</span> <span class="badge-alias">kon_dili</span></td>
+                <td><span style="color:#cbd5e1;">Альтернативная ветвь (иначе)</span><br><small style="color:var(--text-muted);">Alternative conditional branch</small></td>
+              </tr>
+              <tr>
+                <td><code>while</code></td>
+                <td><span class="badge-primary">samtang</span></td>
+                <td><span style="color:var(--text-muted);">—</span></td>
+                <td><span style="color:#cbd5e1;">Цикл с предусловием (пока)</span><br><small style="color:var(--text-muted);">Loop statement with pre-condition</small></td>
+              </tr>
+              <tr>
+                <td><code>break</code></td>
+                <td><span class="badge-primary">undang</span></td>
+                <td><span class="badge-alias">hunong</span> <span class="badge-alias">break</span></td>
+                <td><span style="color:#cbd5e1;">Немедленное прерывание цикла</span><br><small style="color:var(--text-muted);">Immediate loop break / exit</small></td>
+              </tr>
+              <tr>
+                <td><code>continue</code></td>
+                <td><span class="badge-primary">padayon</span></td>
+                <td><span class="badge-alias">continue</span></td>
+                <td><span style="color:#cbd5e1;">Переход к следующей итерации цикла</span><br><small style="color:var(--text-muted);">Skip to next loop iteration</small></td>
+              </tr>
+              <tr>
+                <td><code>true</code></td>
+                <td><span class="badge-primary">tinuod</span></td>
+                <td><span style="color:var(--text-muted);">—</span></td>
+                <td><span style="color:#cbd5e1;">Логическая истина (булево значение)</span><br><small style="color:var(--text-muted);">Boolean literal: true</small></td>
+              </tr>
+              <tr>
+                <td><code>false</code></td>
+                <td><span class="badge-primary">bakak</span></td>
+                <td><span style="color:var(--text-muted);">—</span></td>
+                <td><span style="color:#cbd5e1;">Логическая ложь (булево значение)</span><br><small style="color:var(--text-muted);">Boolean literal: false</small></td>
+              </tr>
+              <tr>
+                <td><code>null</code></td>
+                <td><span class="badge-primary">wala</span></td>
+                <td><span class="badge-alias">walay_sulod</span> <span class="badge-alias">blangko</span></td>
+                <td><span style="color:#cbd5e1;">Пустое значение / отсутствие объекта</span><br><small style="color:var(--text-muted);">Null / empty reference literal</small></td>
+              </tr>
+              <tr>
+                <td><code>print</code></td>
+                <td><span class="badge-primary">patik</span></td>
+                <td><span class="badge-alias">imprinta</span> <span class="badge-alias">print</span></td>
+                <td><span style="color:#cbd5e1;">Диагностический вывод в консоль</span><br><small style="color:var(--text-muted);">Diagnostic console output function</small></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- LANGUAGE CARD: es (Tier 2) -->
+      <section class="card lang-card" id="lang-es" data-tier="tier2" data-search="es spanish español испанский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇪🇸</span>
@@ -962,9 +1169,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Español (Spanish). Директива: <code>language: es;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: es;</span>
-            <span class="code-badge">#6 ES</span>
+            <span class="code-badge">#7 ES</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1051,8 +1259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: fr -->
-      <section class="card lang-card" id="lang-fr" data-search="fr french français французский">
+      <!-- LANGUAGE CARD: fr (Tier 2) -->
+      <section class="card lang-card" id="lang-fr" data-tier="tier2" data-search="fr french français французский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇫🇷</span>
@@ -1061,9 +1269,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Français (French). Директива: <code>language: fr;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: fr;</span>
-            <span class="code-badge">#7 FR</span>
+            <span class="code-badge">#8 FR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1150,8 +1359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: it -->
-      <section class="card lang-card" id="lang-it" data-search="it italian italiano итальянский">
+      <!-- LANGUAGE CARD: it (Tier 2) -->
+      <section class="card lang-card" id="lang-it" data-tier="tier2" data-search="it italian italiano итальянский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇹</span>
@@ -1160,9 +1369,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Italiano (Italian). Директива: <code>language: it;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: it;</span>
-            <span class="code-badge">#8 IT</span>
+            <span class="code-badge">#9 IT</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1249,8 +1459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: pt -->
-      <section class="card lang-card" id="lang-pt" data-search="pt portuguese português португальский">
+      <!-- LANGUAGE CARD: pt (Tier 2) -->
+      <section class="card lang-card" id="lang-pt" data-tier="tier2" data-search="pt portuguese português португальский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇵🇹</span>
@@ -1259,9 +1469,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Português (Portuguese). Директива: <code>language: pt;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: pt;</span>
-            <span class="code-badge">#9 PT</span>
+            <span class="code-badge">#10 PT</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1348,8 +1559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: zh -->
-      <section class="card lang-card" id="lang-zh" data-search="zh chinese (simplified) 简体中文 китайский (упрощенный)">
+      <!-- LANGUAGE CARD: zh (Tier 2) -->
+      <section class="card lang-card" id="lang-zh" data-tier="tier2" data-search="zh chinese (simplified) 简体中文 китайский (упрощенный) tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇨🇳</span>
@@ -1358,9 +1569,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: 简体中文 (Chinese (Simplified)). Директива: <code>language: zh;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: zh;</span>
-            <span class="code-badge">#10 ZH</span>
+            <span class="code-badge">#11 ZH</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1447,8 +1659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: zh-tw -->
-      <section class="card lang-card" id="lang-zh-tw" data-search="zh-tw chinese (traditional) 繁體中文 китайский (традиционный)">
+      <!-- LANGUAGE CARD: zh-tw (Tier 2) -->
+      <section class="card lang-card" id="lang-zh-tw" data-tier="tier2" data-search="zh-tw chinese (traditional) 繁體中文 китайский (традиционный) tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇹🇼</span>
@@ -1457,9 +1669,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: 繁體中文 (Chinese (Traditional)). Директива: <code>language: zh-tw;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: zh-tw;</span>
-            <span class="code-badge">#11 ZH-TW</span>
+            <span class="code-badge">#12 ZH-TW</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1546,8 +1759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ja -->
-      <section class="card lang-card" id="lang-ja" data-search="ja japanese 日本語 японский">
+      <!-- LANGUAGE CARD: ja (Tier 2) -->
+      <section class="card lang-card" id="lang-ja" data-tier="tier2" data-search="ja japanese 日本語 японский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇯🇵</span>
@@ -1556,9 +1769,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: 日本語 (Japanese). Директива: <code>language: ja;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: ja;</span>
-            <span class="code-badge">#12 JA</span>
+            <span class="code-badge">#13 JA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1645,8 +1859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ko -->
-      <section class="card lang-card" id="lang-ko" data-search="ko korean 한국어 корейский">
+      <!-- LANGUAGE CARD: ko (Tier 2) -->
+      <section class="card lang-card" id="lang-ko" data-tier="tier2" data-search="ko korean 한국어 корейский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇰🇷</span>
@@ -1655,9 +1869,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: 한국어 (Korean). Директива: <code>language: ko;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: ko;</span>
-            <span class="code-badge">#13 KO</span>
+            <span class="code-badge">#14 KO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1744,8 +1959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ar -->
-      <section class="card lang-card" id="lang-ar" data-search="ar arabic العربية арабский">
+      <!-- LANGUAGE CARD: ar (Tier 2) -->
+      <section class="card lang-card" id="lang-ar" data-tier="tier2" data-search="ar arabic العربية арабский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇸🇦</span>
@@ -1754,9 +1969,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: العربية (Arabic). Директива: <code>language: ar;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: ar;</span>
-            <span class="code-badge">#14 AR</span>
+            <span class="code-badge">#15 AR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1843,8 +2059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: he -->
-      <section class="card lang-card" id="lang-he" data-search="he hebrew עברית иврит">
+      <!-- LANGUAGE CARD: he (Tier 2) -->
+      <section class="card lang-card" id="lang-he" data-tier="tier2" data-search="he hebrew עברית иврит tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇱</span>
@@ -1853,9 +2069,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: עברית (Hebrew). Директива: <code>language: he;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: he;</span>
-            <span class="code-badge">#15 HE</span>
+            <span class="code-badge">#16 HE</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -1942,8 +2159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: hi -->
-      <section class="card lang-card" id="lang-hi" data-search="hi hindi हिन्दी хинди">
+      <!-- LANGUAGE CARD: hi (Tier 2) -->
+      <section class="card lang-card" id="lang-hi" data-tier="tier2" data-search="hi hindi हिन्दी хинди tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -1952,9 +2169,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: हिन्दी (Hindi). Директива: <code>language: hi;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: hi;</span>
-            <span class="code-badge">#16 HI</span>
+            <span class="code-badge">#17 HI</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2041,8 +2259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: tr -->
-      <section class="card lang-card" id="lang-tr" data-search="tr turkish türkçe турецкий">
+      <!-- LANGUAGE CARD: tr (Tier 2) -->
+      <section class="card lang-card" id="lang-tr" data-tier="tier2" data-search="tr turkish türkçe турецкий tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇹🇷</span>
@@ -2051,9 +2269,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Türkçe (Turkish). Директива: <code>language: tr;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: tr;</span>
-            <span class="code-badge">#17 TR</span>
+            <span class="code-badge">#18 TR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2140,8 +2359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: pl -->
-      <section class="card lang-card" id="lang-pl" data-search="pl polish polski польский">
+      <!-- LANGUAGE CARD: pl (Tier 2) -->
+      <section class="card lang-card" id="lang-pl" data-tier="tier2" data-search="pl polish polski польский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇵🇱</span>
@@ -2150,9 +2369,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Polski (Polish). Директива: <code>language: pl;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: pl;</span>
-            <span class="code-badge">#18 PL</span>
+            <span class="code-badge">#19 PL</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2239,8 +2459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: nl -->
-      <section class="card lang-card" id="lang-nl" data-search="nl dutch nederlands нидерландский">
+      <!-- LANGUAGE CARD: nl (Tier 2) -->
+      <section class="card lang-card" id="lang-nl" data-tier="tier2" data-search="nl dutch nederlands нидерландский tier2">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇱</span>
@@ -2249,9 +2469,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Nederlands (Dutch). Директива: <code>language: nl;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-2">🔵 Tier 2: Runtime-Verified</span>
             <span class="directive-tag">language: nl;</span>
-            <span class="code-badge">#19 NL</span>
+            <span class="code-badge">#20 NL</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2338,8 +2559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: af -->
-      <section class="card lang-card" id="lang-af" data-search="af afrikaans afrikaans африкаанс">
+      <!-- LANGUAGE CARD: af (Tier 3) -->
+      <section class="card lang-card" id="lang-af" data-tier="tier3" data-search="af afrikaans afrikaans африкаанс tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇿🇦</span>
@@ -2348,9 +2569,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Afrikaans (Afrikaans). Директива: <code>language: af;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: af;</span>
-            <span class="code-badge">#20 AF</span>
+            <span class="code-badge">#21 AF</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2437,8 +2659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: am -->
-      <section class="card lang-card" id="lang-am" data-search="am amharic አማርኛ амхарский">
+      <!-- LANGUAGE CARD: am (Tier 3) -->
+      <section class="card lang-card" id="lang-am" data-tier="tier3" data-search="am amharic አማርኛ амхарский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇪🇹</span>
@@ -2447,9 +2669,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: አማርኛ (Amharic). Директива: <code>language: am;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: am;</span>
-            <span class="code-badge">#21 AM</span>
+            <span class="code-badge">#22 AM</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2536,8 +2759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: az -->
-      <section class="card lang-card" id="lang-az" data-search="az azerbaijani azərbaycan азербайджанский">
+      <!-- LANGUAGE CARD: az (Tier 3) -->
+      <section class="card lang-card" id="lang-az" data-tier="tier3" data-search="az azerbaijani azərbaycan азербайджанский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇦🇿</span>
@@ -2546,9 +2769,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Azərbaycan (Azerbaijani). Директива: <code>language: az;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: az;</span>
-            <span class="code-badge">#22 AZ</span>
+            <span class="code-badge">#23 AZ</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2635,8 +2859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: be -->
-      <section class="card lang-card" id="lang-be" data-search="be belarusian беларуская белорусский">
+      <!-- LANGUAGE CARD: be (Tier 3) -->
+      <section class="card lang-card" id="lang-be" data-tier="tier3" data-search="be belarusian беларуская белорусский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇧🇾</span>
@@ -2645,9 +2869,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Беларуская (Belarusian). Директива: <code>language: be;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: be;</span>
-            <span class="code-badge">#23 BE</span>
+            <span class="code-badge">#24 BE</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2734,8 +2959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: bg -->
-      <section class="card lang-card" id="lang-bg" data-search="bg bulgarian български болгарский">
+      <!-- LANGUAGE CARD: bg (Tier 3) -->
+      <section class="card lang-card" id="lang-bg" data-tier="tier3" data-search="bg bulgarian български болгарский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇧🇬</span>
@@ -2744,9 +2969,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Български (Bulgarian). Директива: <code>language: bg;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: bg;</span>
-            <span class="code-badge">#24 BG</span>
+            <span class="code-badge">#25 BG</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2833,8 +3059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: bn -->
-      <section class="card lang-card" id="lang-bn" data-search="bn bengali বাংলা бенгальский">
+      <!-- LANGUAGE CARD: bn (Tier 3) -->
+      <section class="card lang-card" id="lang-bn" data-tier="tier3" data-search="bn bengali বাংলা бенгальский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇧🇩</span>
@@ -2843,9 +3069,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: বাংলা (Bengali). Директива: <code>language: bn;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: bn;</span>
-            <span class="code-badge">#25 BN</span>
+            <span class="code-badge">#26 BN</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -2932,8 +3159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: bs -->
-      <section class="card lang-card" id="lang-bs" data-search="bs bosnian bosanski боснийский">
+      <!-- LANGUAGE CARD: bs (Tier 3) -->
+      <section class="card lang-card" id="lang-bs" data-tier="tier3" data-search="bs bosnian bosanski боснийский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇧🇦</span>
@@ -2942,9 +3169,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Bosanski (Bosnian). Директива: <code>language: bs;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: bs;</span>
-            <span class="code-badge">#26 BS</span>
+            <span class="code-badge">#27 BS</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -3031,8 +3259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ca -->
-      <section class="card lang-card" id="lang-ca" data-search="ca catalan català каталанский">
+      <!-- LANGUAGE CARD: ca (Tier 3) -->
+      <section class="card lang-card" id="lang-ca" data-tier="tier3" data-search="ca catalan català каталанский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇪🇸</span>
@@ -3041,9 +3269,10 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Català (Catalan). Директива: <code>language: ca;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ca;</span>
-            <span class="code-badge">#27 CA</span>
+            <span class="code-badge">#28 CA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
           </div>
         </div>
@@ -3130,107 +3359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ceb -->
-      <section class="card lang-card" id="lang-ceb" data-search="ceb cebuano sinugboanon себуано">
-        <div class="lang-card-header">
-          <div class="lang-title">
-            <span style="font-size: 1.4rem;">🇵🇭</span>
-            <div>
-              <h3>Sinugboanon — Cebuano (Себуано)</h3>
-              <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Sinugboanon (Cebuano). Директива: <code>language: ceb;</code></div>
-            </div>
-          </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
-            <span class="directive-tag">language: ceb;</span>
-            <span class="code-badge">#28 CEB</span>
-            <a href="#top" class="back-to-top">↑ Наверх</a>
-          </div>
-        </div>
-
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 14%;">Английский (Canonical)</th>
-                <th style="width: 22%;">Основное слово (Primary)</th>
-                <th style="width: 24%;">Синонимы (Aliases)</th>
-                <th style="width: 40%;">Назначение (Role / Semantics)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>let</code></td>
-                <td><span class="badge-primary">himoa</span></td>
-                <td><span class="badge-alias">baryabol</span></td>
-                <td><span style="color:#cbd5e1;">Объявление неизменяемой переменной (константы)</span><br><small style="color:var(--text-muted);">Immutable variable / constant declaration</small></td>
-              </tr>
-              <tr>
-                <td><code>var</code></td>
-                <td><span class="badge-primary">baryabol</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Объявление изменяемой переменной</span><br><small style="color:var(--text-muted);">Mutable variable declaration</small></td>
-              </tr>
-              <tr>
-                <td><code>if</code></td>
-                <td><span class="badge-primary">kung</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Условный оператор ветвления (если)</span><br><small style="color:var(--text-muted);">Conditional branching statement</small></td>
-              </tr>
-              <tr>
-                <td><code>else</code></td>
-                <td><span class="badge-primary">kon_dili</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Альтернативная ветвь (иначе)</span><br><small style="color:var(--text-muted);">Alternative conditional branch</small></td>
-              </tr>
-              <tr>
-                <td><code>while</code></td>
-                <td><span class="badge-primary">samtang</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Цикл с предусловием (пока)</span><br><small style="color:var(--text-muted);">Loop statement with pre-condition</small></td>
-              </tr>
-              <tr>
-                <td><code>break</code></td>
-                <td><span class="badge-primary">break</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Немедленное прерывание цикла</span><br><small style="color:var(--text-muted);">Immediate loop break / exit</small></td>
-              </tr>
-              <tr>
-                <td><code>continue</code></td>
-                <td><span class="badge-primary">continue</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Переход к следующей итерации цикла</span><br><small style="color:var(--text-muted);">Skip to next loop iteration</small></td>
-              </tr>
-              <tr>
-                <td><code>true</code></td>
-                <td><span class="badge-primary">tinuod</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Логическая истина (булево значение)</span><br><small style="color:var(--text-muted);">Boolean literal: true</small></td>
-              </tr>
-              <tr>
-                <td><code>false</code></td>
-                <td><span class="badge-primary">bakak</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Логическая ложь (булево значение)</span><br><small style="color:var(--text-muted);">Boolean literal: false</small></td>
-              </tr>
-              <tr>
-                <td><code>null</code></td>
-                <td><span class="badge-primary">walay_sulod</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Пустое значение / отсутствие объекта</span><br><small style="color:var(--text-muted);">Null / empty reference literal</small></td>
-              </tr>
-              <tr>
-                <td><code>print</code></td>
-                <td><span class="badge-primary">imprinta</span></td>
-                <td><span style="color:var(--text-muted);">—</span></td>
-                <td><span style="color:#cbd5e1;">Диагностический вывод в консоль</span><br><small style="color:var(--text-muted);">Diagnostic console output function</small></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- LANGUAGE CARD: co -->
-      <section class="card lang-card" id="lang-co" data-search="co corsican corsu корсиканский">
+      <!-- LANGUAGE CARD: co (Tier 3) -->
+      <section class="card lang-card" id="lang-co" data-tier="tier3" data-search="co corsican corsu корсиканский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇫🇷</span>
@@ -3239,7 +3369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Corsu (Corsican). Директива: <code>language: co;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: co;</span>
             <span class="code-badge">#29 CO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -3328,8 +3459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: cs -->
-      <section class="card lang-card" id="lang-cs" data-search="cs czech čeština чешский">
+      <!-- LANGUAGE CARD: cs (Tier 3) -->
+      <section class="card lang-card" id="lang-cs" data-tier="tier3" data-search="cs czech čeština чешский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇨🇿</span>
@@ -3338,7 +3469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Čeština (Czech). Директива: <code>language: cs;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: cs;</span>
             <span class="code-badge">#30 CS</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -3427,8 +3559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: cy -->
-      <section class="card lang-card" id="lang-cy" data-search="cy welsh cymraeg валлийский">
+      <!-- LANGUAGE CARD: cy (Tier 3) -->
+      <section class="card lang-card" id="lang-cy" data-tier="tier3" data-search="cy welsh cymraeg валлийский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🏴󠁧󠁢󠁷󠁬󠁳󠁿</span>
@@ -3437,7 +3569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Cymraeg (Welsh). Директива: <code>language: cy;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: cy;</span>
             <span class="code-badge">#31 CY</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -3526,8 +3659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: da -->
-      <section class="card lang-card" id="lang-da" data-search="da danish dansk датский">
+      <!-- LANGUAGE CARD: da (Tier 3) -->
+      <section class="card lang-card" id="lang-da" data-tier="tier3" data-search="da danish dansk датский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇩🇰</span>
@@ -3536,7 +3669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Dansk (Danish). Директива: <code>language: da;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: da;</span>
             <span class="code-badge">#32 DA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -3625,8 +3759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: el -->
-      <section class="card lang-card" id="lang-el" data-search="el greek ελληνικά греческий">
+      <!-- LANGUAGE CARD: el (Tier 3) -->
+      <section class="card lang-card" id="lang-el" data-tier="tier3" data-search="el greek ελληνικά греческий tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇬🇷</span>
@@ -3635,7 +3769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Ελληνικά (Greek). Директива: <code>language: el;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: el;</span>
             <span class="code-badge">#33 EL</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -3724,8 +3859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: eo -->
-      <section class="card lang-card" id="lang-eo" data-search="eo esperanto esperanto эсперанто">
+      <!-- LANGUAGE CARD: eo (Tier 3) -->
+      <section class="card lang-card" id="lang-eo" data-tier="tier3" data-search="eo esperanto esperanto эсперанто tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🌐</span>
@@ -3734,7 +3869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Esperanto (Esperanto). Директива: <code>language: eo;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: eo;</span>
             <span class="code-badge">#34 EO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -3823,8 +3959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: et -->
-      <section class="card lang-card" id="lang-et" data-search="et estonian eesti эстонский">
+      <!-- LANGUAGE CARD: et (Tier 3) -->
+      <section class="card lang-card" id="lang-et" data-tier="tier3" data-search="et estonian eesti эстонский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇪🇪</span>
@@ -3833,7 +3969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Eesti (Estonian). Директива: <code>language: et;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: et;</span>
             <span class="code-badge">#35 ET</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -3922,8 +4059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: eu -->
-      <section class="card lang-card" id="lang-eu" data-search="eu basque euskara баскский">
+      <!-- LANGUAGE CARD: eu (Tier 3) -->
+      <section class="card lang-card" id="lang-eu" data-tier="tier3" data-search="eu basque euskara баскский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇪🇸</span>
@@ -3932,7 +4069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Euskara (Basque). Директива: <code>language: eu;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: eu;</span>
             <span class="code-badge">#36 EU</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4021,8 +4159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: fa -->
-      <section class="card lang-card" id="lang-fa" data-search="fa persian فارسی персидский">
+      <!-- LANGUAGE CARD: fa (Tier 3) -->
+      <section class="card lang-card" id="lang-fa" data-tier="tier3" data-search="fa persian فارسی персидский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇷</span>
@@ -4031,7 +4169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: فارسی (Persian). Директива: <code>language: fa;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: fa;</span>
             <span class="code-badge">#37 FA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4120,8 +4259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: fi -->
-      <section class="card lang-card" id="lang-fi" data-search="fi finnish suomi финский">
+      <!-- LANGUAGE CARD: fi (Tier 3) -->
+      <section class="card lang-card" id="lang-fi" data-tier="tier3" data-search="fi finnish suomi финский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇫🇮</span>
@@ -4130,7 +4269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Suomi (Finnish). Директива: <code>language: fi;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: fi;</span>
             <span class="code-badge">#38 FI</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4219,8 +4359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: fy -->
-      <section class="card lang-card" id="lang-fy" data-search="fy western frisian frysk западнофризский">
+      <!-- LANGUAGE CARD: fy (Tier 3) -->
+      <section class="card lang-card" id="lang-fy" data-tier="tier3" data-search="fy western frisian frysk западнофризский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇱</span>
@@ -4229,7 +4369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Frysk (Western Frisian). Директива: <code>language: fy;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: fy;</span>
             <span class="code-badge">#39 FY</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4318,8 +4459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ga -->
-      <section class="card lang-card" id="lang-ga" data-search="ga irish gaeilge ирландский">
+      <!-- LANGUAGE CARD: ga (Tier 3) -->
+      <section class="card lang-card" id="lang-ga" data-tier="tier3" data-search="ga irish gaeilge ирландский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇪</span>
@@ -4328,7 +4469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Gaeilge (Irish). Директива: <code>language: ga;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ga;</span>
             <span class="code-badge">#40 GA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4417,8 +4559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: gd -->
-      <section class="card lang-card" id="lang-gd" data-search="gd scottish gaelic gàidhlig шотландский гэльский">
+      <!-- LANGUAGE CARD: gd (Tier 3) -->
+      <section class="card lang-card" id="lang-gd" data-tier="tier3" data-search="gd scottish gaelic gàidhlig шотландский гэльский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
@@ -4427,7 +4569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Gàidhlig (Scottish Gaelic). Директива: <code>language: gd;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: gd;</span>
             <span class="code-badge">#41 GD</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4516,8 +4659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: gl -->
-      <section class="card lang-card" id="lang-gl" data-search="gl galician galego галисийский">
+      <!-- LANGUAGE CARD: gl (Tier 3) -->
+      <section class="card lang-card" id="lang-gl" data-tier="tier3" data-search="gl galician galego галисийский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇪🇸</span>
@@ -4526,7 +4669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Galego (Galician). Директива: <code>language: gl;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: gl;</span>
             <span class="code-badge">#42 GL</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4615,8 +4759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: gu -->
-      <section class="card lang-card" id="lang-gu" data-search="gu gujarati ગુજરાતી гуджарати">
+      <!-- LANGUAGE CARD: gu (Tier 3) -->
+      <section class="card lang-card" id="lang-gu" data-tier="tier3" data-search="gu gujarati ગુજરાતી гуджарати tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -4625,7 +4769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ગુજરાતી (Gujarati). Директива: <code>language: gu;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: gu;</span>
             <span class="code-badge">#43 GU</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4714,8 +4859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ha -->
-      <section class="card lang-card" id="lang-ha" data-search="ha hausa harshen hausa хауса">
+      <!-- LANGUAGE CARD: ha (Tier 3) -->
+      <section class="card lang-card" id="lang-ha" data-tier="tier3" data-search="ha hausa harshen hausa хауса tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇬</span>
@@ -4724,7 +4869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Harshen Hausa (Hausa). Директива: <code>language: ha;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ha;</span>
             <span class="code-badge">#44 HA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4813,8 +4959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: haw -->
-      <section class="card lang-card" id="lang-haw" data-search="haw hawaiian ʻōlelo hawaiʻi гавайский">
+      <!-- LANGUAGE CARD: haw (Tier 3) -->
+      <section class="card lang-card" id="lang-haw" data-tier="tier3" data-search="haw hawaiian ʻōlelo hawaiʻi гавайский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇺🇸</span>
@@ -4823,7 +4969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ʻŌlelo Hawaiʻi (Hawaiian). Директива: <code>language: haw;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: haw;</span>
             <span class="code-badge">#45 HAW</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -4912,8 +5059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: hmn -->
-      <section class="card lang-card" id="lang-hmn" data-search="hmn hmong hmoob хмонг">
+      <!-- LANGUAGE CARD: hmn (Tier 3) -->
+      <section class="card lang-card" id="lang-hmn" data-tier="tier3" data-search="hmn hmong hmoob хмонг tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇻🇳</span>
@@ -4922,7 +5069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Hmoob (Hmong). Директива: <code>language: hmn;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: hmn;</span>
             <span class="code-badge">#46 HMN</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5011,8 +5159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: hr -->
-      <section class="card lang-card" id="lang-hr" data-search="hr croatian hrvatski хорватский">
+      <!-- LANGUAGE CARD: hr (Tier 3) -->
+      <section class="card lang-card" id="lang-hr" data-tier="tier3" data-search="hr croatian hrvatski хорватский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇭🇷</span>
@@ -5021,7 +5169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Hrvatski (Croatian). Директива: <code>language: hr;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: hr;</span>
             <span class="code-badge">#47 HR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5110,8 +5259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ht -->
-      <section class="card lang-card" id="lang-ht" data-search="ht haitian creole kreyòl ayisyen гаитянский креольский">
+      <!-- LANGUAGE CARD: ht (Tier 3) -->
+      <section class="card lang-card" id="lang-ht" data-tier="tier3" data-search="ht haitian creole kreyòl ayisyen гаитянский креольский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇭🇹</span>
@@ -5120,7 +5269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Kreyòl ayisyen (Haitian Creole). Директива: <code>language: ht;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ht;</span>
             <span class="code-badge">#48 HT</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5209,8 +5359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: hu -->
-      <section class="card lang-card" id="lang-hu" data-search="hu hungarian magyar венгерский">
+      <!-- LANGUAGE CARD: hu (Tier 3) -->
+      <section class="card lang-card" id="lang-hu" data-tier="tier3" data-search="hu hungarian magyar венгерский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇭🇺</span>
@@ -5219,7 +5369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Magyar (Hungarian). Директива: <code>language: hu;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: hu;</span>
             <span class="code-badge">#49 HU</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5308,8 +5459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: hy -->
-      <section class="card lang-card" id="lang-hy" data-search="hy armenian հայերեն армянский">
+      <!-- LANGUAGE CARD: hy (Tier 3) -->
+      <section class="card lang-card" id="lang-hy" data-tier="tier3" data-search="hy armenian հայերեն армянский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇦🇲</span>
@@ -5318,7 +5469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Հայերեն (Armenian). Директива: <code>language: hy;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: hy;</span>
             <span class="code-badge">#50 HY</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5407,8 +5559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: id -->
-      <section class="card lang-card" id="lang-id" data-search="id indonesian bahasa indonesia индонезийский">
+      <!-- LANGUAGE CARD: id (Tier 3) -->
+      <section class="card lang-card" id="lang-id" data-tier="tier3" data-search="id indonesian bahasa indonesia индонезийский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇩</span>
@@ -5417,7 +5569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Bahasa Indonesia (Indonesian). Директива: <code>language: id;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: id;</span>
             <span class="code-badge">#51 ID</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5506,8 +5659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ig -->
-      <section class="card lang-card" id="lang-ig" data-search="ig igbo asụsụ igbo игбо">
+      <!-- LANGUAGE CARD: ig (Tier 3) -->
+      <section class="card lang-card" id="lang-ig" data-tier="tier3" data-search="ig igbo asụsụ igbo игбо tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇬</span>
@@ -5516,7 +5669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Asụsụ Igbo (Igbo). Директива: <code>language: ig;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ig;</span>
             <span class="code-badge">#52 IG</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5605,8 +5759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: is -->
-      <section class="card lang-card" id="lang-is" data-search="is icelandic íslenska исландский">
+      <!-- LANGUAGE CARD: is (Tier 3) -->
+      <section class="card lang-card" id="lang-is" data-tier="tier3" data-search="is icelandic íslenska исландский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇸</span>
@@ -5615,7 +5769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Íslenska (Icelandic). Директива: <code>language: is;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: is;</span>
             <span class="code-badge">#53 IS</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5704,8 +5859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: jv -->
-      <section class="card lang-card" id="lang-jv" data-search="jv javanese basa jawa яванский">
+      <!-- LANGUAGE CARD: jv (Tier 3) -->
+      <section class="card lang-card" id="lang-jv" data-tier="tier3" data-search="jv javanese basa jawa яванский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇩</span>
@@ -5714,7 +5869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Basa Jawa (Javanese). Директива: <code>language: jv;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: jv;</span>
             <span class="code-badge">#54 JV</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5803,8 +5959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ka -->
-      <section class="card lang-card" id="lang-ka" data-search="ka georgian ქართული грузинский">
+      <!-- LANGUAGE CARD: ka (Tier 3) -->
+      <section class="card lang-card" id="lang-ka" data-tier="tier3" data-search="ka georgian ქართული грузинский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇬🇪</span>
@@ -5813,7 +5969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ქართული (Georgian). Директива: <code>language: ka;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ka;</span>
             <span class="code-badge">#55 KA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -5902,8 +6059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: kk -->
-      <section class="card lang-card" id="lang-kk" data-search="kk kazakh қазақша казахский">
+      <!-- LANGUAGE CARD: kk (Tier 3) -->
+      <section class="card lang-card" id="lang-kk" data-tier="tier3" data-search="kk kazakh қазақша казахский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇰🇿</span>
@@ -5912,7 +6069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Қазақша (Kazakh). Директива: <code>language: kk;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: kk;</span>
             <span class="code-badge">#56 KK</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6001,8 +6159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: km -->
-      <section class="card lang-card" id="lang-km" data-search="km khmer ខ្មែរ кхмерский">
+      <!-- LANGUAGE CARD: km (Tier 3) -->
+      <section class="card lang-card" id="lang-km" data-tier="tier3" data-search="km khmer ខ្មែរ кхмерский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇰🇭</span>
@@ -6011,7 +6169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ខ្មែរ (Khmer). Директива: <code>language: km;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: km;</span>
             <span class="code-badge">#57 KM</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6100,8 +6259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: kn -->
-      <section class="card lang-card" id="lang-kn" data-search="kn kannada ಕನ್ನಡ каннада">
+      <!-- LANGUAGE CARD: kn (Tier 3) -->
+      <section class="card lang-card" id="lang-kn" data-tier="tier3" data-search="kn kannada ಕನ್ನಡ каннада tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -6110,7 +6269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ಕನ್ನಡ (Kannada). Директива: <code>language: kn;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: kn;</span>
             <span class="code-badge">#58 KN</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6199,8 +6359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ku -->
-      <section class="card lang-card" id="lang-ku" data-search="ku kurdish kurdî курдский">
+      <!-- LANGUAGE CARD: ku (Tier 3) -->
+      <section class="card lang-card" id="lang-ku" data-tier="tier3" data-search="ku kurdish kurdî курдский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇹🇷</span>
@@ -6209,7 +6369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Kurdî (Kurdish). Директива: <code>language: ku;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ku;</span>
             <span class="code-badge">#59 KU</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6298,8 +6459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ky -->
-      <section class="card lang-card" id="lang-ky" data-search="ky kyrgyz кыргызча киргизский">
+      <!-- LANGUAGE CARD: ky (Tier 3) -->
+      <section class="card lang-card" id="lang-ky" data-tier="tier3" data-search="ky kyrgyz кыргызча киргизский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇰🇬</span>
@@ -6308,7 +6469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Кыргызча (Kyrgyz). Директива: <code>language: ky;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ky;</span>
             <span class="code-badge">#60 KY</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6397,8 +6559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: la -->
-      <section class="card lang-card" id="lang-la" data-search="la latin latina латинский">
+      <!-- LANGUAGE CARD: la (Tier 3) -->
+      <section class="card lang-card" id="lang-la" data-tier="tier3" data-search="la latin latina латинский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🏛️</span>
@@ -6407,7 +6569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Latina (Latin). Директива: <code>language: la;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: la;</span>
             <span class="code-badge">#61 LA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6496,8 +6659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: lb -->
-      <section class="card lang-card" id="lang-lb" data-search="lb luxembourgish lëtzebuergesch люксембургский">
+      <!-- LANGUAGE CARD: lb (Tier 3) -->
+      <section class="card lang-card" id="lang-lb" data-tier="tier3" data-search="lb luxembourgish lëtzebuergesch люксембургский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇱🇺</span>
@@ -6506,7 +6669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Lëtzebuergesch (Luxembourgish). Директива: <code>language: lb;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: lb;</span>
             <span class="code-badge">#62 LB</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6595,8 +6759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: lo -->
-      <section class="card lang-card" id="lang-lo" data-search="lo lao ລາວ лаосский">
+      <!-- LANGUAGE CARD: lo (Tier 3) -->
+      <section class="card lang-card" id="lang-lo" data-tier="tier3" data-search="lo lao ລາວ лаосский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇱🇦</span>
@@ -6605,7 +6769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ລາວ (Lao). Директива: <code>language: lo;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: lo;</span>
             <span class="code-badge">#63 LO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6694,8 +6859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: lt -->
-      <section class="card lang-card" id="lang-lt" data-search="lt lithuanian lietuvių литовский">
+      <!-- LANGUAGE CARD: lt (Tier 3) -->
+      <section class="card lang-card" id="lang-lt" data-tier="tier3" data-search="lt lithuanian lietuvių литовский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇱🇹</span>
@@ -6704,7 +6869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Lietuvių (Lithuanian). Директива: <code>language: lt;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: lt;</span>
             <span class="code-badge">#64 LT</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6793,8 +6959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: lv -->
-      <section class="card lang-card" id="lang-lv" data-search="lv latvian latviešu латышский">
+      <!-- LANGUAGE CARD: lv (Tier 3) -->
+      <section class="card lang-card" id="lang-lv" data-tier="tier3" data-search="lv latvian latviešu латышский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇱🇻</span>
@@ -6803,7 +6969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Latviešu (Latvian). Директива: <code>language: lv;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: lv;</span>
             <span class="code-badge">#65 LV</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6892,8 +7059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: mg -->
-      <section class="card lang-card" id="lang-mg" data-search="mg malagasy malagasy малагасийский">
+      <!-- LANGUAGE CARD: mg (Tier 3) -->
+      <section class="card lang-card" id="lang-mg" data-tier="tier3" data-search="mg malagasy malagasy малагасийский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇲🇬</span>
@@ -6902,7 +7069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Malagasy (Malagasy). Директива: <code>language: mg;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: mg;</span>
             <span class="code-badge">#66 MG</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -6991,8 +7159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: mi -->
-      <section class="card lang-card" id="lang-mi" data-search="mi maori te reo māori маори">
+      <!-- LANGUAGE CARD: mi (Tier 3) -->
+      <section class="card lang-card" id="lang-mi" data-tier="tier3" data-search="mi maori te reo māori маори tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇿</span>
@@ -7001,7 +7169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Te Reo Māori (Maori). Директива: <code>language: mi;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: mi;</span>
             <span class="code-badge">#67 MI</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7090,8 +7259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: mk -->
-      <section class="card lang-card" id="lang-mk" data-search="mk macedonian македонски македонский">
+      <!-- LANGUAGE CARD: mk (Tier 3) -->
+      <section class="card lang-card" id="lang-mk" data-tier="tier3" data-search="mk macedonian македонски македонский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇲🇰</span>
@@ -7100,7 +7269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Македонски (Macedonian). Директива: <code>language: mk;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: mk;</span>
             <span class="code-badge">#68 MK</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7189,8 +7359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ml -->
-      <section class="card lang-card" id="lang-ml" data-search="ml malayalam മലയാളം малаялам">
+      <!-- LANGUAGE CARD: ml (Tier 3) -->
+      <section class="card lang-card" id="lang-ml" data-tier="tier3" data-search="ml malayalam മലയാളം малаялам tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -7199,7 +7369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: മലയാളം (Malayalam). Директива: <code>language: ml;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ml;</span>
             <span class="code-badge">#69 ML</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7288,8 +7459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: mn -->
-      <section class="card lang-card" id="lang-mn" data-search="mn mongolian монгол монгольский">
+      <!-- LANGUAGE CARD: mn (Tier 3) -->
+      <section class="card lang-card" id="lang-mn" data-tier="tier3" data-search="mn mongolian монгол монгольский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇲🇳</span>
@@ -7298,7 +7469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Монгол (Mongolian). Директива: <code>language: mn;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: mn;</span>
             <span class="code-badge">#70 MN</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7387,8 +7559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: mr -->
-      <section class="card lang-card" id="lang-mr" data-search="mr marathi मराठी маратхи">
+      <!-- LANGUAGE CARD: mr (Tier 3) -->
+      <section class="card lang-card" id="lang-mr" data-tier="tier3" data-search="mr marathi मराठी маратхи tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -7397,7 +7569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: मराठी (Marathi). Директива: <code>language: mr;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: mr;</span>
             <span class="code-badge">#71 MR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7486,8 +7659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ms -->
-      <section class="card lang-card" id="lang-ms" data-search="ms malay bahasa melayu малайский">
+      <!-- LANGUAGE CARD: ms (Tier 3) -->
+      <section class="card lang-card" id="lang-ms" data-tier="tier3" data-search="ms malay bahasa melayu малайский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇲🇾</span>
@@ -7496,7 +7669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Bahasa Melayu (Malay). Директива: <code>language: ms;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ms;</span>
             <span class="code-badge">#72 MS</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7585,8 +7759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: mt -->
-      <section class="card lang-card" id="lang-mt" data-search="mt maltese malti мальтийский">
+      <!-- LANGUAGE CARD: mt (Tier 3) -->
+      <section class="card lang-card" id="lang-mt" data-tier="tier3" data-search="mt maltese malti мальтийский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇲🇹</span>
@@ -7595,7 +7769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Malti (Maltese). Директива: <code>language: mt;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: mt;</span>
             <span class="code-badge">#73 MT</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7684,8 +7859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: my -->
-      <section class="card lang-card" id="lang-my" data-search="my burmese မြန်မာဘာသာ бирманский">
+      <!-- LANGUAGE CARD: my (Tier 3) -->
+      <section class="card lang-card" id="lang-my" data-tier="tier3" data-search="my burmese မြန်မာဘာသာ бирманский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇲🇲</span>
@@ -7694,7 +7869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: မြန်မာဘာသာ (Burmese). Директива: <code>language: my;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: my;</span>
             <span class="code-badge">#74 MY</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7783,8 +7959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ne -->
-      <section class="card lang-card" id="lang-ne" data-search="ne nepali नेपाली непальский">
+      <!-- LANGUAGE CARD: ne (Tier 3) -->
+      <section class="card lang-card" id="lang-ne" data-tier="tier3" data-search="ne nepali नेपाली непальский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇵</span>
@@ -7793,7 +7969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: नेपाली (Nepali). Директива: <code>language: ne;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ne;</span>
             <span class="code-badge">#75 NE</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7882,8 +8059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: no -->
-      <section class="card lang-card" id="lang-no" data-search="no norwegian norsk норвежский">
+      <!-- LANGUAGE CARD: no (Tier 3) -->
+      <section class="card lang-card" id="lang-no" data-tier="tier3" data-search="no norwegian norsk норвежский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇴</span>
@@ -7892,7 +8069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Norsk (Norwegian). Директива: <code>language: no;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: no;</span>
             <span class="code-badge">#76 NO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -7981,8 +8159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ny -->
-      <section class="card lang-card" id="lang-ny" data-search="ny chichewa chichewa чева">
+      <!-- LANGUAGE CARD: ny (Tier 3) -->
+      <section class="card lang-card" id="lang-ny" data-tier="tier3" data-search="ny chichewa chichewa чева tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇲🇼</span>
@@ -7991,7 +8169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Chichewa (Chichewa). Директива: <code>language: ny;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ny;</span>
             <span class="code-badge">#77 NY</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8080,8 +8259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: or -->
-      <section class="card lang-card" id="lang-or" data-search="or odia ଓଡ଼ିଆ одия">
+      <!-- LANGUAGE CARD: or (Tier 3) -->
+      <section class="card lang-card" id="lang-or" data-tier="tier3" data-search="or odia ଓଡ଼ିଆ одия tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -8090,7 +8269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ଓଡ଼ିଆ (Odia). Директива: <code>language: or;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: or;</span>
             <span class="code-badge">#78 OR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8179,8 +8359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: pa -->
-      <section class="card lang-card" id="lang-pa" data-search="pa punjabi ਪੰਜਾਬੀ пенджабский">
+      <!-- LANGUAGE CARD: pa (Tier 3) -->
+      <section class="card lang-card" id="lang-pa" data-tier="tier3" data-search="pa punjabi ਪੰਜਾਬੀ пенджабский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -8189,7 +8369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ਪੰਜਾਬੀ (Punjabi). Директива: <code>language: pa;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: pa;</span>
             <span class="code-badge">#79 PA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8278,8 +8459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ps -->
-      <section class="card lang-card" id="lang-ps" data-search="ps pashto پښتو пушту">
+      <!-- LANGUAGE CARD: ps (Tier 3) -->
+      <section class="card lang-card" id="lang-ps" data-tier="tier3" data-search="ps pashto پښتو пушту tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇦🇫</span>
@@ -8288,7 +8469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: پښتو (Pashto). Директива: <code>language: ps;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ps;</span>
             <span class="code-badge">#80 PS</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8377,8 +8559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ro -->
-      <section class="card lang-card" id="lang-ro" data-search="ro romanian română румынский">
+      <!-- LANGUAGE CARD: ro (Tier 3) -->
+      <section class="card lang-card" id="lang-ro" data-tier="tier3" data-search="ro romanian română румынский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇷🇴</span>
@@ -8387,7 +8569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Română (Romanian). Директива: <code>language: ro;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ro;</span>
             <span class="code-badge">#81 RO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8476,8 +8659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: rw -->
-      <section class="card lang-card" id="lang-rw" data-search="rw kinyarwanda ikinyarwanda руанда">
+      <!-- LANGUAGE CARD: rw (Tier 3) -->
+      <section class="card lang-card" id="lang-rw" data-tier="tier3" data-search="rw kinyarwanda ikinyarwanda руанда tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇷🇼</span>
@@ -8486,7 +8669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Ikinyarwanda (Kinyarwanda). Директива: <code>language: rw;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: rw;</span>
             <span class="code-badge">#82 RW</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8575,8 +8759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sd -->
-      <section class="card lang-card" id="lang-sd" data-search="sd sindhi سنڌي синдхи">
+      <!-- LANGUAGE CARD: sd (Tier 3) -->
+      <section class="card lang-card" id="lang-sd" data-tier="tier3" data-search="sd sindhi سنڌي синдхи tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇵🇰</span>
@@ -8585,7 +8769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: سنڌي (Sindhi). Директива: <code>language: sd;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sd;</span>
             <span class="code-badge">#83 SD</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8674,8 +8859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: si -->
-      <section class="card lang-card" id="lang-si" data-search="si sinhala සිංහල сингальский">
+      <!-- LANGUAGE CARD: si (Tier 3) -->
+      <section class="card lang-card" id="lang-si" data-tier="tier3" data-search="si sinhala සිංහල сингальский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇱🇰</span>
@@ -8684,7 +8869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: සිංහල (Sinhala). Директива: <code>language: si;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: si;</span>
             <span class="code-badge">#84 SI</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8773,8 +8959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sk -->
-      <section class="card lang-card" id="lang-sk" data-search="sk slovak slovenčina словацкий">
+      <!-- LANGUAGE CARD: sk (Tier 3) -->
+      <section class="card lang-card" id="lang-sk" data-tier="tier3" data-search="sk slovak slovenčina словацкий tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇸🇰</span>
@@ -8783,7 +8969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Slovenčina (Slovak). Директива: <code>language: sk;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sk;</span>
             <span class="code-badge">#85 SK</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8872,8 +9059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sl -->
-      <section class="card lang-card" id="lang-sl" data-search="sl slovenian slovenščina словенский">
+      <!-- LANGUAGE CARD: sl (Tier 3) -->
+      <section class="card lang-card" id="lang-sl" data-tier="tier3" data-search="sl slovenian slovenščina словенский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇸🇮</span>
@@ -8882,7 +9069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Slovenščina (Slovenian). Директива: <code>language: sl;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sl;</span>
             <span class="code-badge">#86 SL</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -8971,8 +9159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sm -->
-      <section class="card lang-card" id="lang-sm" data-search="sm samoan gagana faʻa sāmoa самоанский">
+      <!-- LANGUAGE CARD: sm (Tier 3) -->
+      <section class="card lang-card" id="lang-sm" data-tier="tier3" data-search="sm samoan gagana faʻa sāmoa самоанский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇼🇸</span>
@@ -8981,7 +9169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Gagana faʻa Sāmoa (Samoan). Директива: <code>language: sm;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sm;</span>
             <span class="code-badge">#87 SM</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9070,8 +9259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sn -->
-      <section class="card lang-card" id="lang-sn" data-search="sn shona chishona шона">
+      <!-- LANGUAGE CARD: sn (Tier 3) -->
+      <section class="card lang-card" id="lang-sn" data-tier="tier3" data-search="sn shona chishona шона tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇿🇼</span>
@@ -9080,7 +9269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: chiShona (Shona). Директива: <code>language: sn;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sn;</span>
             <span class="code-badge">#88 SN</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9169,8 +9359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: so -->
-      <section class="card lang-card" id="lang-so" data-search="so somali soomaaliga сомалийский">
+      <!-- LANGUAGE CARD: so (Tier 3) -->
+      <section class="card lang-card" id="lang-so" data-tier="tier3" data-search="so somali soomaaliga сомалийский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇸🇴</span>
@@ -9179,7 +9369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Soomaaliga (Somali). Директива: <code>language: so;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: so;</span>
             <span class="code-badge">#89 SO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9268,8 +9459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sq -->
-      <section class="card lang-card" id="lang-sq" data-search="sq albanian shqip албанский">
+      <!-- LANGUAGE CARD: sq (Tier 3) -->
+      <section class="card lang-card" id="lang-sq" data-tier="tier3" data-search="sq albanian shqip албанский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇦🇱</span>
@@ -9278,7 +9469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Shqip (Albanian). Директива: <code>language: sq;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sq;</span>
             <span class="code-badge">#90 SQ</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9367,8 +9559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sr -->
-      <section class="card lang-card" id="lang-sr" data-search="sr serbian српски сербский">
+      <!-- LANGUAGE CARD: sr (Tier 3) -->
+      <section class="card lang-card" id="lang-sr" data-tier="tier3" data-search="sr serbian српски сербский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇷🇸</span>
@@ -9377,7 +9569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Српски (Serbian). Директива: <code>language: sr;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sr;</span>
             <span class="code-badge">#91 SR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9466,8 +9659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: st -->
-      <section class="card lang-card" id="lang-st" data-search="st southern sotho sesotho сесото">
+      <!-- LANGUAGE CARD: st (Tier 3) -->
+      <section class="card lang-card" id="lang-st" data-tier="tier3" data-search="st southern sotho sesotho сесото tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇱🇸</span>
@@ -9476,7 +9669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Sesotho (Southern Sotho). Директива: <code>language: st;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: st;</span>
             <span class="code-badge">#92 ST</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9565,8 +9759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: su -->
-      <section class="card lang-card" id="lang-su" data-search="su sundanese basa sunda сунданский">
+      <!-- LANGUAGE CARD: su (Tier 3) -->
+      <section class="card lang-card" id="lang-su" data-tier="tier3" data-search="su sundanese basa sunda сунданский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇩</span>
@@ -9575,7 +9769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Basa Sunda (Sundanese). Директива: <code>language: su;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: su;</span>
             <span class="code-badge">#93 SU</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9664,8 +9859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sv -->
-      <section class="card lang-card" id="lang-sv" data-search="sv swedish svenska шведский">
+      <!-- LANGUAGE CARD: sv (Tier 3) -->
+      <section class="card lang-card" id="lang-sv" data-tier="tier3" data-search="sv swedish svenska шведский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇸🇪</span>
@@ -9674,7 +9869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Svenska (Swedish). Директива: <code>language: sv;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sv;</span>
             <span class="code-badge">#94 SV</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9763,8 +9959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: sw -->
-      <section class="card lang-card" id="lang-sw" data-search="sw swahili kiswahili суахили">
+      <!-- LANGUAGE CARD: sw (Tier 3) -->
+      <section class="card lang-card" id="lang-sw" data-tier="tier3" data-search="sw swahili kiswahili суахили tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇰🇪</span>
@@ -9773,7 +9969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Kiswahili (Swahili). Директива: <code>language: sw;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: sw;</span>
             <span class="code-badge">#95 SW</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9862,8 +10059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ta -->
-      <section class="card lang-card" id="lang-ta" data-search="ta tamil தமிழ் тамильский">
+      <!-- LANGUAGE CARD: ta (Tier 3) -->
+      <section class="card lang-card" id="lang-ta" data-tier="tier3" data-search="ta tamil தமிழ் тамильский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -9872,7 +10069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: தமிழ் (Tamil). Директива: <code>language: ta;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ta;</span>
             <span class="code-badge">#96 TA</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -9961,8 +10159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: te -->
-      <section class="card lang-card" id="lang-te" data-search="te telugu తెలుగు телугу">
+      <!-- LANGUAGE CARD: te (Tier 3) -->
+      <section class="card lang-card" id="lang-te" data-tier="tier3" data-search="te telugu తెలుగు телугу tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇳</span>
@@ -9971,7 +10169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: తెలుగు (Telugu). Директива: <code>language: te;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: te;</span>
             <span class="code-badge">#97 TE</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10060,8 +10259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: tg -->
-      <section class="card lang-card" id="lang-tg" data-search="tg tajik тоҷикӣ таджикский">
+      <!-- LANGUAGE CARD: tg (Tier 3) -->
+      <section class="card lang-card" id="lang-tg" data-tier="tier3" data-search="tg tajik тоҷикӣ таджикский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇹🇯</span>
@@ -10070,7 +10269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Тоҷикӣ (Tajik). Директива: <code>language: tg;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: tg;</span>
             <span class="code-badge">#98 TG</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10159,8 +10359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: th -->
-      <section class="card lang-card" id="lang-th" data-search="th thai ไทย тайский">
+      <!-- LANGUAGE CARD: th (Tier 3) -->
+      <section class="card lang-card" id="lang-th" data-tier="tier3" data-search="th thai ไทย тайский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇹🇭</span>
@@ -10169,7 +10369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ไทย (Thai). Директива: <code>language: th;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: th;</span>
             <span class="code-badge">#99 TH</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10258,8 +10459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: tk -->
-      <section class="card lang-card" id="lang-tk" data-search="tk turkmen türkmençe туркменский">
+      <!-- LANGUAGE CARD: tk (Tier 3) -->
+      <section class="card lang-card" id="lang-tk" data-tier="tier3" data-search="tk turkmen türkmençe туркменский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇹🇲</span>
@@ -10268,7 +10469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Türkmençe (Turkmen). Директива: <code>language: tk;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: tk;</span>
             <span class="code-badge">#100 TK</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10357,8 +10559,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: tl -->
-      <section class="card lang-card" id="lang-tl" data-search="tl tagalog (filipino) tagalog тагальский">
+      <!-- LANGUAGE CARD: tl (Tier 3) -->
+      <section class="card lang-card" id="lang-tl" data-tier="tier3" data-search="tl tagalog (filipino) tagalog тагальский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇵🇭</span>
@@ -10367,7 +10569,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Tagalog (Tagalog (Filipino)). Директива: <code>language: tl;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: tl;</span>
             <span class="code-badge">#101 TL</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10456,8 +10659,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: tt -->
-      <section class="card lang-card" id="lang-tt" data-search="tt tatar татарча татарский">
+      <!-- LANGUAGE CARD: tt (Tier 3) -->
+      <section class="card lang-card" id="lang-tt" data-tier="tier3" data-search="tt tatar татарча татарский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇷🇺</span>
@@ -10466,7 +10669,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Татарча (Tatar). Директива: <code>language: tt;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: tt;</span>
             <span class="code-badge">#102 TT</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10555,8 +10759,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ug -->
-      <section class="card lang-card" id="lang-ug" data-search="ug uyghur ئۇيغۇرچە уйгурский">
+      <!-- LANGUAGE CARD: ug (Tier 3) -->
+      <section class="card lang-card" id="lang-ug" data-tier="tier3" data-search="ug uyghur ئۇيغۇرچە уйгурский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇨🇳</span>
@@ -10565,7 +10769,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ئۇيغۇرچە (Uyghur). Директива: <code>language: ug;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ug;</span>
             <span class="code-badge">#103 UG</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10654,8 +10859,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: ur -->
-      <section class="card lang-card" id="lang-ur" data-search="ur urdu اردو урду">
+      <!-- LANGUAGE CARD: ur (Tier 3) -->
+      <section class="card lang-card" id="lang-ur" data-tier="tier3" data-search="ur urdu اردو урду tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇵🇰</span>
@@ -10664,7 +10869,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: اردو (Urdu). Директива: <code>language: ur;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: ur;</span>
             <span class="code-badge">#104 UR</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10753,8 +10959,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: uz -->
-      <section class="card lang-card" id="lang-uz" data-search="uz uzbek oʻzbekcha узбекский">
+      <!-- LANGUAGE CARD: uz (Tier 3) -->
+      <section class="card lang-card" id="lang-uz" data-tier="tier3" data-search="uz uzbek oʻzbekcha узбекский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇺🇿</span>
@@ -10763,7 +10969,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Oʻzbekcha (Uzbek). Директива: <code>language: uz;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: uz;</span>
             <span class="code-badge">#105 UZ</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10852,8 +11059,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: vi -->
-      <section class="card lang-card" id="lang-vi" data-search="vi vietnamese tiếng việt вьетнамский">
+      <!-- LANGUAGE CARD: vi (Tier 3) -->
+      <section class="card lang-card" id="lang-vi" data-tier="tier3" data-search="vi vietnamese tiếng việt вьетнамский tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇻🇳</span>
@@ -10862,7 +11069,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Tiếng Việt (Vietnamese). Директива: <code>language: vi;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: vi;</span>
             <span class="code-badge">#106 VI</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -10951,8 +11159,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: xh -->
-      <section class="card lang-card" id="lang-xh" data-search="xh xhosa isixhosa коса">
+      <!-- LANGUAGE CARD: xh (Tier 3) -->
+      <section class="card lang-card" id="lang-xh" data-tier="tier3" data-search="xh xhosa isixhosa коса tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇿🇦</span>
@@ -10961,7 +11169,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: isiXhosa (Xhosa). Директива: <code>language: xh;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: xh;</span>
             <span class="code-badge">#107 XH</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -11050,8 +11259,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: yi -->
-      <section class="card lang-card" id="lang-yi" data-search="yi yiddish ייִדיש идиш">
+      <!-- LANGUAGE CARD: yi (Tier 3) -->
+      <section class="card lang-card" id="lang-yi" data-tier="tier3" data-search="yi yiddish ייִדיש идиш tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇮🇱</span>
@@ -11060,7 +11269,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: ייִדיש (Yiddish). Директива: <code>language: yi;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: yi;</span>
             <span class="code-badge">#108 YI</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -11149,8 +11359,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: yo -->
-      <section class="card lang-card" id="lang-yo" data-search="yo yoruba èdè yorùbá йоруба">
+      <!-- LANGUAGE CARD: yo (Tier 3) -->
+      <section class="card lang-card" id="lang-yo" data-tier="tier3" data-search="yo yoruba èdè yorùbá йоруба tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇳🇬</span>
@@ -11159,7 +11369,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: Èdè Yorùbá (Yoruba). Директива: <code>language: yo;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: yo;</span>
             <span class="code-badge">#109 YO</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -11248,8 +11459,8 @@
         </div>
       </section>
 
-      <!-- LANGUAGE CARD: zu -->
-      <section class="card lang-card" id="lang-zu" data-search="zu zulu isizulu зулу">
+      <!-- LANGUAGE CARD: zu (Tier 3) -->
+      <section class="card lang-card" id="lang-zu" data-tier="tier3" data-search="zu zulu isizulu зулу tier3">
         <div class="lang-card-header">
           <div class="lang-title">
             <span style="font-size: 1.4rem;">🇿🇦</span>
@@ -11258,7 +11469,8 @@
               <div style="font-size: 0.82rem; color: var(--text-muted);">Локализованный синтаксис для: isiZulu (Zulu). Директива: <code>language: zu;</code></div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
+            <span class="tier-badge tier-3">🟡 Tier 3: Machine-Tokenized</span>
             <span class="directive-tag">language: zu;</span>
             <span class="code-badge">#110 ZU</span>
             <a href="#top" class="back-to-top">↑ Наверх</a>
@@ -11357,24 +11569,46 @@
 
   <script src="../js/site.js"></script>
   <script>
-    // Live filter for chips and cards
-    function filterLangs(q) {
-      var query = (q || '').trim().toLowerCase();
+    var currentTier = 'all';
+    var currentQuery = '';
+
+    function setTierFilter(tier) {
+      currentTier = tier;
+      document.querySelectorAll('.tier-filter-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.id === 'filter-' + tier);
+      });
+      applyFilter();
+    }
+
+    function onSearchInput(q) {
+      currentQuery = (q || '').trim().toLowerCase();
+      applyFilter();
+    }
+
+    function applyFilter() {
       var chips = document.querySelectorAll('.lang-chip');
       var cards = document.querySelectorAll('.lang-card');
       var matchedCount = 0;
 
       cards.forEach(function(card) {
+        var cardTier = card.getAttribute('data-tier') || '';
         var searchData = card.getAttribute('data-search') || '';
-        var match = !query || searchData.indexOf(query) !== -1;
+        
+        var tierMatch = (currentTier === 'all') || (cardTier === currentTier);
+        var textMatch = !currentQuery || (searchData.indexOf(currentQuery) !== -1);
+        var match = tierMatch && textMatch;
+
         card.style.display = match ? '' : 'none';
         if (match) matchedCount++;
       });
 
       chips.forEach(function(chip) {
+        var chipTier = chip.getAttribute('data-tier') || '';
         var searchData = chip.getAttribute('data-search') || '';
-        var match = !query || searchData.indexOf(query) !== -1;
-        chip.style.display = match ? 'inline-flex' : 'none';
+
+        var tierMatch = (currentTier === 'all') || (chipTier === currentTier);
+        var textMatch = !currentQuery || (searchData.indexOf(currentQuery) !== -1);
+        chip.style.display = (tierMatch && textMatch) ? 'inline-flex' : 'none';
       });
 
       var counter = document.getElementById('filterResultCount');
