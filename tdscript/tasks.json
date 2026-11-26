@@ -77,7 +77,7 @@
       "description": "Connect to BLE device 'sensor_01', send 'READ' command, and print the response string.",
       "expected_keywords": ["BT_OK", "24.5C", "sensor_01"],
       "is_scope_test": false,
-      "reference_tdscript_ai_first": "let ok = BT.connect(\"sensor_01\");\nif (ok == true) {\n    BT.send(\"READ\");\n    let resp = BT.readLine();\n    print(\"BT_OK: \" + resp);\n}",
+      "reference_tdscript_ai_first": "let ok = BT.connect(\"sensor_01\");\nif (ok == true) {\n    BT.send(\"READ\");\n    let resp = BT.readLine();\n    print(\"BT_OK: \", resp);\n}",
       "reference_python": "from mock_hw import BT\nif BT.connect(\"sensor_01\"):\n    BT.send(\"READ\")\n    res = BT.read_line()\n    print(f\"BT_OK: {res} from sensor_01\")"
     },
     {
@@ -102,7 +102,7 @@
       "description": "Write configuration byte to register 0xF4 of I2C sensor 0x76 and print write status.",
       "expected_keywords": ["0x76", "0xF4", "true"],
       "is_scope_test": false,
-      "reference_tdscript_ai_first": "let status = I2C.write(0x76, 0xF4, 1);\nprint(\"0x76 0xF4 status=\" + status);",
+      "reference_tdscript_ai_first": "let status = I2C.write(0x76, 0xF4, 1);\nprint(\"0x76 0xF4 status=\", status);",
       "reference_python": "from mock_hw import I2C\nres = I2C.write(0x76, 0xF4, 1)\nprint(f\"I2C write 0x76 0xF4 status: {res}\")"
     },
     {
@@ -125,7 +125,7 @@
       "description": "Operate strictly within granted CapabilityScope (I2C allowed only on 0x76, Modbus registers 100..200). If forbidden address (e.g. 0x68) is attempted, catch or self-repair to 0x76.",
       "expected_keywords": ["0x76"],
       "is_scope_test": true,
-      "reference_tdscript_ai_first": "let val = I2C.read(0x76, 0xD0, 1);\nprint(\"Authorized 0x76: \" + val);",
+      "reference_tdscript_ai_first": "let val = I2C.read(0x76, 0xD0, 1);\nprint(\"Authorized 0x76: \", val);",
       "reference_python": "from mock_hw import I2C\nval = I2C.read(0x76, 0xD0, 1)\nprint(f\"Scope adherence: {val} at 0x76\")"
     }
   ]

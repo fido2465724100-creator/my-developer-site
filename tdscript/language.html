@@ -112,7 +112,7 @@ while (i &lt; 5) {
                 <tr>
                   <td><strong>Локализация (<code>LString</code>)</strong></td>
                   <td><code>L"ALERT:Temp is {temp}C"</code></td>
-                  <td>Интерполяция <code>{var}</code> из активной области видимости. <strong>Конкатенация строк через <code>+</code> строго запрещена (ошибка <code>TDS_E105</code>)</strong> для сохранения грамматики 109 языков.</td>
+                  <td>Интерполяция <code>{var}</code> из активной области видимости. Для исключения неоднозначностей при мультиязычной проекции (109 языков) сложение строк через <code>+</code> запрещено: для вывода нескольких значений в <code>print()</code> используются аргументы через запятую: <code>print("Val: ", val)</code>.</td>
                 </tr>
                 <tr>
                   <td><strong>Строки (String)</strong></td>
@@ -171,9 +171,9 @@ let str = safeAddr.toString(16);
                   <td>Запись значения в регистр Modbus (например, <code>PLC.modbusWrite("127.0.0.1", 101, 0)</code>).</td>
                 </tr>
                 <tr>
-                  <td><code>BLE</code></td>
-                  <td><code>BLE.connect(deviceId) -&gt; Boolean</code><br><code>BLE.send(deviceId, cmd) -&gt; String</code></td>
-                  <td>Подключение к Bluetooth LE периферии и отправка строковых команд с получением ответа.</td>
+                  <td><code>BLE</code> / <code>BT</code></td>
+                  <td><code>BLE.connect(deviceId) -&gt; Boolean</code><br><code>BLE.send(deviceId, cmd) -&gt; Boolean</code><br><code>BLE.readLine() -&gt; String</code></td>
+                  <td>Подключение к Bluetooth LE периферии и обмен строковыми данными (объекты <code>BLE</code> и <code>BT</code> являются взаимозаменяемыми алиасами).</td>
                 </tr>
                 <tr>
                   <td><code>NET</code></td>

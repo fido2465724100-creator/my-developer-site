@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TDscript Core 1.1 API Specification",
+  "description": "Machine-readable API reference and type definitions for LLM agents and tooling",
+  "language": "TDscript",
+  "version": "1.4.0",
+  "core_standard": "Core 1.1",
+  "subsystems": {
+    "I2C": {
+      "description": "I2C 2-wire serial hardware bus for local sensors and microchips",
+      "required_capability": "HARDWARE",
+      "methods": {
+        "read": {
+          "description": "Read bytes from an I2C device register",
+          "parameters": [
+            {
+              "name": "address",
+              "type": "HexInt",
+              "description": "7-bit device address (e.g. 0x76)"
+            },
+            {
+              "name": "register",
+              "type": "HexInt",
+              "description": "Target register address (e.g. 0xD0)"
+            },
+            {
+              "name": "length",
+              "type": "Int",
+              "description": "Number of bytes to read (1..256)"
+            }
+          ],
+          "returns": {
+            "type": "ByteArray",
+            "description": "Indexed byte array (0..255 per element) or null on error"
+          }
+        },
+        "write": {
+          "description": "Write a byte or sequence to an I2C device register",
+          "parameters": [
+            {
+              "name": "address",
+              "type": "HexInt",
+              "description": "7-bit device address (e.g. 0x76)"
+            },
+            {
+              "name": "register",
+              "type": "HexInt",
+              "description": "Target register address (e.g. 0xF4)"
+            },
+            {
+              "name": "data",
+              "type": "Int",
+              "description": "Byte value (0..255) to write"
+            }
+          ],
+          "returns": {
+            "type": "Boolean",
+            "description": "True on ACK, false on NACK/error"
+          }
+        },
+        "scan": {
+          "description": "Scan the I2C bus for active responsive device addresses",
+          "parameters": [],
+          "returns": {
+            "type": "List<HexInt>",
+            "description": "List of discovered responsive addresses"
+          }
+        }
+      }
+    },
+    "PLC": {
+      "description": "Modbus TCP industrial controller communication",
+      "required_capability": "PLC_READ",
+      "methods": {
+        "modbusRead": {
+          "description": "Read a 16-bit holding register from a Modbus TCP device",
+          "parameters": [
+            {
+              "name": "host",
+              "type": "String",
+              "description": "IP address or hostname (e.g. 127.0.0.1)"
+            },
+            {
+              "name": "register",
+              "type": "Int",
+              "description": "Register address (e.g. 100)"
+            }
+          ],
+          "returns": {
+            "type": "Int",
+            "description": "16-bit unsigned/signed register value or -1 on failure"
+          }
+        },
+        "modbusWrite": {
+          "description": "Write a 16-bit value to a Modbus TCP holding register",
+          "required_capability": "PLC_WRITE",
+          "parameters": [
+            {
+              "name": "host",
+              "type": "String",
+              "description": "IP address or hostname"
+            },
+            {
+              "name": "register",
+              "type": "Int",
+              "description": "Register address (e.g. 101)"
+            },
+            {
+              "name": "value",
+              "type": "Int",
+              "description": "16-bit integer value"
+            }
+          ],
+          "returns": {
+            "type": "Boolean",
+            "description": "True on successful transaction"
+          }
+        }
+      }
+    },
+    "WATCHDOG": {
+      "description": "Hardware and software safety supervisor and emergency stop handler",
+      "required_capability": "HARDWARE",
+      "methods": {
+        "feed": {
+          "description": "Reset watchdog timer countdown to prevent hard system restart/interruption",
+          "parameters": [],
+          "returns": {
+            "type": "Boolean",
+            "description": "True if feed acknowledged by host"
+          }
+        },
+        "emergencyStop": {
+          "description": "Trigger an immediate emergency stop (E-Stop), de-energizing actuators and halting script safely",
+          "parameters": [],
+          "returns": {
+            "type": "Boolean",
+            "description": "True when safety latch engages"
+          }
+        }
+      }
+    },
+    "NET": {
+      "description": "Network telemetry, ping diagnostics, and HTTP retrieval",
+      "required_capability": "NET_READ",
+      "methods": {
+        "ping": {
+          "description": "Measure ICMP round-trip latency to remote host",
+          "parameters": [
+            {
+              "name": "host",
+              "type": "String",
+              "description": "Target IPv4 or hostname"
+            }
+          ],
+          "returns": {
+            "type": "Float",
+            "description": "Latency in milliseconds (> 0) or -1.0 on timeout/unreachable"
+          }
+        },
+        "httpGet": {
+          "description": "Fetch text payload from HTTP/HTTPS endpoint",
+          "parameters": [
+            {
+              "name": "url",
+              "type": "String",
+              "description": "Target URL"
+            }
+          ],
+          "returns": {
+            "type": "String",
+            "description": "Response body or null on failure"
+          }
+        },
+        "scanPort": {
+          "description": "Test TCP port connectivity on target host",
+          "required_capability": "NET_SCAN",
+          "parameters": [
+            {
+              "name": "host",
+              "type": "String",
+              "description": "Target IPv4"
+            },
+            {
+              "name": "port",
+              "type": "Int",
+              "description": "TCP port (1..65535)"
+            }
+          ],
+          "returns": {
+            "type": "Boolean",
+            "description": "True if TCP port is open"
+          }
+        }
+      }
+    },
+    "BLE": {
+      "alias": "BT",
+      "description": "Bluetooth Low Energy (BLE) / Bluetooth wireless peripheral interface",
+      "required_capability": "BT_ACCESS",
+      "methods": {
+        "connect": {
+          "description": "Establish GATT connection to BLE peripheral by device identifier",
+          "parameters": [
+            {
+              "name": "deviceId",
+              "type": "String",
+              "description": "Device name or MAC (e.g. sensor_01)"
+            }
+          ],
+          "returns": {
+            "type": "Boolean",
+            "description": "True if connection established"
+          }
+        },
+        "send": {
+          "description": "Send command string over active BLE GATT characteristic",
+          "parameters": [
+            {
+              "name": "cmd",
+              "type": "String",
+              "description": "Command string (e.g. READ)"
+            }
+          ],
+          "returns": {
+            "type": "Boolean",
+            "description": "True if command transmitted successfully"
+          }
+        },
+        "readLine": {
+          "description": "Read response line from active peripheral",
+          "parameters": [],
+          "returns": {
+            "type": "String",
+            "description": "Received telemetry string or null on disconnect/timeout"
+          }
+        }
+      }
+    },
+    "SERIAL": {
+      "description": "UART / USB-Serial peripheral communications",
+      "required_capability": "HARDWARE",
+      "methods": {
+        "open": {
+          "description": "Open serial port",
+          "parameters": [
+            {
+              "name": "port",
+              "type": "String",
+              "description": "Device path (e.g. /dev/ttyUSB0)"
+            },
+            {
+              "name": "baud",
+              "type": "Int",
+              "description": "Baudrate (e.g. 115200)"
+            }
+          ],
+          "returns": {
+            "type": "Boolean",
+            "description": "True if port opened"
+          }
+        },
+        "write": {
+          "description": "Transmit string or bytes over serial",
+          "parameters": [
+            {
+              "name": "data",
+              "type": "String",
+              "description": "Data payload"
+            }
+          ],
+          "returns": {
+            "type": "Boolean",
+            "description": "True on write"
+          }
+        },
+        "readLine": {
+          "description": "Read line until newline delimiter",
+          "parameters": [],
+          "returns": {
+            "type": "String",
+            "description": "Received line or null"
+          }
+        }
+      }
+    }
+  },
+  "globals": {
+    "print": {
+      "description": "Output one or more arguments to host stdout stream. Arguments separated by comma are formatted and concatenated.",
+      "parameters": [
+        {
+          "name": "args",
+          "type": "Any",
+          "variadic": true,
+          "description": "Values to print"
+        }
+      ],
+      "returns": {
+        "type": "Void"
+      }
+    }
+  }
+}

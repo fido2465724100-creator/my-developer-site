@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TDscript CapabilityScope & Sandboxing Specification",
+  "description": "Spatial sandboxing, capability bitmasks, and hardware address whitelisting",
+  "version": "1.4.0",
+  "bitmask_definitions": {
+    "NET_READ": {
+      "bit": 1,
+      "hex": "0x0001",
+      "description": "Permission to ping and perform HTTP GET"
+    },
+    "NET_SCAN": {
+      "bit": 2,
+      "hex": "0x0002",
+      "description": "Permission to scan TCP ports and send WoL magic packets"
+    },
+    "PLC_READ": {
+      "bit": 4,
+      "hex": "0x0004",
+      "description": "Permission to read Modbus holding registers"
+    },
+    "PLC_WRITE": {
+      "bit": 8,
+      "hex": "0x0008",
+      "description": "Permission to write Modbus holding registers"
+    },
+    "BT_ACCESS": {
+      "bit": 16,
+      "hex": "0x0010",
+      "description": "Permission to connect to BLE peripherals and exchange data"
+    },
+    "HARDWARE": {
+      "bit": 32,
+      "hex": "0x0020",
+      "description": "Permission to access I2C bus, UART Serial, and hardware Watchdog"
+    },
+    "UI_CORE": {
+      "bit": 64,
+      "hex": "0x0040",
+      "description": "Permission to display toasts and system logs"
+    },
+    "BACKGROUND": {
+      "bit": 128,
+      "hex": "0x0080",
+      "description": "Permission to run background tasks without UI focus"
+    }
+  },
+  "scope_configuration_schema": {
+    "type": "object",
+    "properties": {
+      "capabilities": {
+        "type": "integer",
+        "description": "Bitwise OR combination of allowed capability flags"
+      },
+      "allowed_i2c_addresses": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Hexadecimal whitelist of allowed 7-bit I2C addresses (e.g. [\"0x76\"])"
+      },
+      "allowed_modbus_registers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "host": {
+              "type": "string"
+            },
+            "min_register": {
+              "type": "integer"
+            },
+            "max_register": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "host",
+            "min_register",
+            "max_register"
+          ]
+        },
+        "description": "Allowed Modbus host and register intervals"
+      },
+      "allowed_serial_ports": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Whitelist of allowed serial device paths (e.g. [\"/dev/ttyUSB0\"])"
+      },
+      "max_steps": {
+        "type": "integer",
+        "default": 100000,
+        "description": "Execution step budget before StepLimiter triggers automatic emergency halt"
+      }
+    },
+    "required": [
+      "capabilities"
+    ]
+  }
+}

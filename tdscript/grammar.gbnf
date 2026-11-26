@@ -34,7 +34,7 @@ primary-expr ::= hex-literal | float-literal | int-literal | lstring-literal | s
 
 call-expr ::= subsystem-call | print-call | generic-call
 
-subsystem-call ::= ("I2C" | "PLC" | "WATCHDOG" | "NET" | "BT" | "SERIAL" | "HOST" | "ROBOT") "." identifier "(" ws (arg-list)? ws ")"
+subsystem-call ::= ("I2C" | "PLC" | "WATCHDOG" | "NET" | "BT" | "BLE" | "SERIAL" | "HOST" | "ROBOT") "." identifier "(" ws (arg-list)? ws ")"
 print-call ::= ("print" | "печать") "(" ws (arg-list)? ws ")"
 generic-call ::= identifier "(" ws (arg-list)? ws ")"
 

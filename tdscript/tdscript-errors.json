@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TDscript Core 1.1 Error Catalog & Diagnostic Repair Reference",
+  "description": "Standardized error codes, diagnostic patterns, and autonomous repair heuristics for LLMs",
+  "version": "1.4.0",
+  "diagnostic_format": "Compact single-line format: CODE@line:col message [exp=... got=...]",
+  "errors": {
+    "TDS_E101": {
+      "name": "LEXICAL_ERROR",
+      "regex": "E101@(?P<line>\\d+):(?P<col>\\d+)\\s+(?P<msg>.+)",
+      "cause": "Invalid token, unclosed string literal, or unsupported character",
+      "repair_strategy": "Close literal or replace invalid token with standard ASCII syntax"
+    },
+    "TDS_E102": {
+      "name": "SYNTAX_ERROR",
+      "regex": "E102@(?P<line>\\d+):(?P<col>\\d+)\\s+(?P<msg>.+)",
+      "cause": "Parser grammar rule violation, missing semicolon or closing brace",
+      "repair_strategy": "Ensure correct statement closing and block structure according to grammar.gbnf"
+    },
+    "TDS_E103": {
+      "name": "UNDEFINED_IDENTIFIER",
+      "regex": "E103@(?P<line>\\d+):(?P<col>\\d+)\\s+undefined_var=(?P<name>\\w+)",
+      "cause": "Referencing a variable before declaration or outside its scope",
+      "repair_strategy": "Declare variable with let or var before referencing it"
+    },
+    "TDS_E104": {
+      "name": "DIAGNOSTIC_OR_SCOPE_MISMATCH",
+      "regex": "E104@(?P<line>\\d+):(?P<col>\\d+)\\s+exp=(?P<exp>[^\\s]+)\\s+got=(?P<got>[^\\s]+)",
+      "cause": "Hardware address/register out of allowed CapabilityScope whitelist, or expected value mismatch",
+      "repair_strategy": "Replace requested address or register with the authorized target from probe snapshot (e.g. change 0x68 to 0x76)"
+    },
+    "TDS_E105": {
+      "name": "FORBIDDEN_STRING_CONCATENATION",
+      "regex": "E105@(?P<line>\\d+):(?P<col>\\d+)\\s+string_concat_prohibited",
+      "cause": "Using + operator for string concatenation instead of comma arguments in print() or {var} in LString",
+      "repair_strategy": "Change print(\"Val: \" + v) to print(\"Val: \", v) or use LString L\"Val: {v}\""
+    },
+    "TDS_E106": {
+      "name": "DISPATCH_METHOD_UNKNOWN",
+      "regex": "E106@(?P<line>\\d+):(?P<col>\\d+)\\s+unknown_method=(?P<method>\\w+)\\s+on=(?P<target>\\w+)",
+      "cause": "Calling non-existent method on subsystem (e.g. I2C.read_byte instead of I2C.read)",
+      "repair_strategy": "Inspect tdscript-api.json and call the canonical subsystem method"
+    },
+    "E_CAPABILITY": {
+      "name": "PERMISSION_DENIED",
+      "regex": "PERMISSION_DENIED\\s+\\[(?P<cap>\\w+)\\]",
+      "cause": "Script attempted action requiring permission bit not granted to current script execution token",
+      "repair_strategy": "Request required capability from host or omit restricted subsystem call"
+    },
+    "SCOPE_VIOLATION": {
+      "name": "ADDRESS_SCOPE_VIOLATION",
+      "regex": "SCOPE_VIOLATION:(?P<subsystem>\\w+)\\s+(?P<detail>.+)",
+      "cause": "Access to hardware address (I2C address, Modbus register, Serial port) blocked by CapabilityScope whitelist",
+      "repair_strategy": "Read probe snapshot and restrict commands strictly to authorized addresses"
+    },
+    "WATCHDOG_TIMEOUT": {
+      "name": "STEP_BUDGET_EXCEEDED",
+      "regex": "TDS_E106: STEP_LIMIT_REACHED",
+      "cause": "Script exceeded execution step budget (default 100,000 steps) or infinite loop without feed()",
+      "repair_strategy": "Ensure loop has termination condition and call WATCHDOG.feed() inside loop body"
+    }
+  }
+}

@@ -333,6 +333,12 @@
           Проведён живой прогон на более лёгкой модели <strong>Qwen 3.5 4B Unloop</strong> (2.6 ГБ, 36/36 слоёв на GPU — 100% VRAM, скорость ~40.4 токенов/сек). Все 70 задач выполнены за <strong>1 час 13 минут</strong> (в 2.3 раза быстрее):
         </p>
 
+        <div style="background: rgba(251, 191, 36, 0.08); border-left: 3px solid var(--amber); padding: 0.9rem; margin: 1rem 0; border-radius: 6px; font-size: 0.92rem; line-height: 1.6;">
+          <strong style="color: var(--amber);">🔍 Причинно-следственный анализ и природа отказов в Тесте №4:</strong><br>
+          Модель Qwen 3.5 4B Unloop является рассуждающей моделью (<em>Reasoning Model</em>). При установленном в Тесте №4 жёстком лимите <code>max_tokens = 1000</code> модель расходовала весь лимит токенов на внутренний монолог рассуждений (<code>&lt;think&gt;...&lt;/think&gt;</code>) и обрывалась до того, как успевала закрыть markdown-блок с кодом.<br>
+          В результате <strong>89.2% всех сбоев теста (148 из 166 отказов)</strong> пришлись на категорию <code>TRUNCATED_IN_THINKING</code>, равномерно затронув все среды: C++ (28 отказов), TDscript (25 отказов), Python (21 отказ). Это было техническим артефактом лимита токенов среды инференса, а не недостатком выразительности языков, что доказал последующий Тест №5.
+        </div>
+
         <div class="table-wrapper">
           <table>
             <thead>
@@ -556,13 +562,17 @@
 
       <!-- ТЕСТ №6 (AI-NATIVE DIAGNOSTICS: ПОЛНОТЕКСТОВЫЙ АВТОРЕМОНТ) -->
       <section class="card">
-        <h2>🔥 Результаты Теста №6: AI-Native Diagnostics (Qwen 3.5 4B Unloop, Full Diagnostics)</h2>
+        <h2>📊 Результаты Теста №6: Анализ авторемонта с полнотекстовой диагностикой (Qwen 3.5 4B Unloop)</h2>
         <p>
-          В Тесте №6 было устранено ограничение обратной связи: модель получила <strong>полный, не обрезанный контекст диагностических ошибок</strong> (Got/Expected) в цикле Self-Repair. Это позволило алгоритмам авторемонта TDscript мгновенно понимать причину расхождения и исправлять код со 2-й попытки.
+          В Тесте №6 было устранено ограничение обратной связи: модель получила <strong>полный контекст диагностических ошибок</strong> (Got/Expected) в цикле Self-Repair. Это позволило алгоритмам авторемонта понимать причину расхождения и исправлять код со 2-й попытки.
         </p>
-        <p>
-          <strong>Ключевой триумф</strong>: <span style="color: var(--accent); font-weight: 700;">TDscript Base</span> достиг <strong>80.0% итогового успеха</strong> и <strong>60.0% First-Pass</strong> (наравне с Python 60% и втрое выше C++ 20%), допустив <strong>0 синтаксических ошибок и 0 ошибок рантайма</strong> при лаконичности в <strong>5.0 строк кода</strong>!
-        </p>
+
+        <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid var(--accent); padding: 0.9rem; margin: 1rem 0; border-radius: 6px; font-size: 0.92rem; line-height: 1.6;">
+          <strong style="color: var(--accent);">⚖️ Объективный сравнительный анализ результатов:</strong><br>
+          • <strong>Python занял 1-е место по итоговому успеху (90.0% Final Success)</strong>: Это закономерный результат. Python является самым представленным языком в обучающих корпусах всех существующих LLM (миллионы открытых репозиториев, документация, примеры StackOverflow). Модели обладают колоссальной встроенной памятью весов для стандартных библиотек Python.<br>
+          • <strong>TDscript Base показал 80.0% Final Success и 60.0% First-Pass</strong>: Несмотря на полное отсутствие TDscript в базовых весах предварительного обучения нейросетей, модель генерировала код исключительно по in-context описанию в промпте и правилам GBNF. При этом TDscript Base показал <strong>First-Pass на уровне Python (60.0%)</strong>, допустил <strong>0 синтаксических ошибок</strong> и <strong>0 сбоев рантайма</strong> при лаконичности в <strong>5.0 строк кода</strong> (против 9.1 у Python).<br>
+          • <strong>TDscript Experimental (70.0% Final Success)</strong>: Достиг наименьшей средней длины программы среди всех 7 языков (<strong>4.3 строки</strong>), но однострочный диагностический протокол <code>E104</code> на компактной 4B-модели в ряде пограничных сценариев требовал более строгой формулировки ожидаемого состояния.
+        </div>
 
         <div class="table-wrapper">
           <table>
@@ -1255,21 +1265,26 @@ cd TDscript-Studio
               <tr><th>Dimension</th><th>TDscript Core 1.1</th><th>Python 3.14</th><th>Lua 5.4</th><th>Node.js 20</th><th>Advantage</th></tr>
             </thead>
             <tbody>
-              <tr><td><strong>Cold Start Latency (P50)</strong></td><td><strong>0.14 ms 🏆</strong></td><td>21.20 ms</td><td>2.18 ms</td><td>32.12 ms</td><td><strong>15x to 230x faster</strong></td></tr>
-              <tr><td><strong>Binary / Package Size</strong></td><td><strong>135 KB 🏆</strong></td><td>63.1 MB</td><td>298 KB</td><td>94.3 MB</td><td><strong>467x lighter than Python</strong></td></tr>
-              <tr><td><strong>Loop Throughput (1M ops)</strong></td><td><strong>2.93M ops/s (341ms)</strong></td><td>5.62M ops/s (178ms)</td><td>33.3M ops/s (30ms)</td><td>25.0M ops/s (40ms)</td><td>Deterministic Step Limiter</td></tr>
-              <tr><td><strong>Hardware Scope Whitelist</strong></td><td><strong>🛡️ 100% Enforced</strong></td><td>None (manual code)</td><td>None (manual code)</td><td>None (manual code)</td><td>0 bus collisions or burnouts</td></tr>
+              <tr><td><strong>Cold Start Latency (P50)</strong></td><td><strong>0.16 ms (In-Process)</strong> / 112.99 ms (CLI Subprocess)</td><td>21.32 ms</td><td>2.92 ms</td><td>32.02 ms</td><td>In-Process: 130x faster; CLI includes Java 17 bootstrap</td></tr>
+              <tr><td><strong>Binary / Package Size</strong></td><td><strong>135 KB 🏆</strong></td><td>63.1 MB</td><td>298 KB</td><td>94.3 MB</td><td>467x lighter than Python</td></tr>
+              <tr><td><strong>Loop Throughput (1M ops)</strong></td><td><strong>3.08M ops/s (324ms)</strong></td><td>6.25M ops/s (160ms)</td><td>52.6M ops/s (19ms)</td><td>125M ops/s (8ms, Float64Array)</td><td>Tree-walk AST with per-step safety checks</td></tr>
+              <tr><td><strong>Hardware Scope Whitelist</strong></td><td><strong>🛡️ 100% Enforced</strong></td><td>None (manual code)</td><td>None (manual code)</td><td>None (manual code)</td><td>0 bus collisions (busCalls = 0)</td></tr>
               <tr><td><strong>Infinite Loop DoS Defense</strong></td><td><strong>🛡️ 100% Halts at 100k steps</strong></td><td>Hangs indefinitely</td><td>Hangs indefinitely</td><td>Hangs indefinitely</td><td>Automatic emergencyStop()</td></tr>
               <tr><td><strong>Hardware Fault Handling</strong></td><td><strong>🛡️ 100% Graceful Recovery</strong></td><td>Exceptions / crashes</td><td>Errors / crashes</td><td>Crashes</td><td>0 process crashes (NACK/timeout)</td></tr>
-              <tr><td><strong>Language Conformance</strong></td><td><strong>60 / 60 passed (100.0%)</strong></td><td>—</td><td>—</td><td>—</td><td>Full spec verified</td></tr>
+              <tr><td><strong>Language Conformance</strong></td><td><strong>60 / 60 passed (100.0%)</strong></td><td>—</td><td>—</td><td>—</td><td>2000 GBNF tests (100% conformance)</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3 style="margin-top: 1.5rem;">📦 Open Data & Comprehensive Reports</h3>
+        <h3 style="margin-top: 1.5rem;">📦 Open Data, Machine-Readable Specs &amp; Reports</h3>
         <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem;">
-          <a href="system_benchmark_results.json" class="btn btn-outline" download>📥 System Benchmark Results (JSON)</a>
-          <a href="SYSTEM_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 System &amp; Resilience Report (MD)</a>
+          <a href="grammar.gbnf" class="btn btn-outline" target="_blank">📐 grammar.gbnf</a>
+          <a href="tdscript-api.json" class="btn btn-outline" target="_blank">🤖 tdscript-api.json</a>
+          <a href="tdscript-errors.json" class="btn btn-outline" target="_blank">⚠️ tdscript-errors.json</a>
+          <a href="tdscript-capabilities.json" class="btn btn-outline" target="_blank">🛡️ tdscript-capabilities.json</a>
+          <a href="tasks.json" class="btn btn-outline" download>📋 Tasks (tasks.json)</a>
+          <a href="system_benchmark_results.json" class="btn btn-outline" download>📥 System Results (JSON)</a>
+          <a href="SYSTEM_BENCHMARK_REPORT.md" class="btn btn-outline" target="_blank">📋 System Report (MD)</a>
           <a href="benchmark_full_trace_test6.jsonl" class="btn btn-outline" download>📥 Test #6 Trace (JSONL)</a>
         </div>
       </section>

@@ -263,7 +263,7 @@ if (boilerTemp > 250) {
     WATCHDOG.emergencyStop();
 } else {
     WATCHDOG.feed(); // Подпитка аппаратного сторожевого таймера
-    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+    print("STATUS_OK: BME280=", chipId[0], " Temp=", boilerTemp);
 }</code></pre>
         </div>
 
@@ -275,6 +275,15 @@ if (boilerTemp > 250) {
             </a>
             <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📐 Формальная грамматика GBNF (grammar.gbnf)
+            </a>
+            <a href="tdscript/tdscript-api.json" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 Спецификация API (tdscript-api.json)
+            </a>
+            <a href="tdscript/tdscript-errors.json" target="_blank" class="btn" style="background:#1e293b; color:#ef4444; border:1px solid #ef4444; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              ⚠️ Реестр ошибок (tdscript-errors.json)
+            </a>
+            <a href="tdscript/tdscript-capabilities.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🛡️ Песочница прав (tdscript-capabilities.json)
             </a>
             <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📄 Plain-Text датасет 10 задач (examples.txt)
@@ -662,7 +671,7 @@ if (boilerTemp > 250) {
     WATCHDOG.emergencyStop();
 } else {
     WATCHDOG.feed(); // Feed hardware safety watchdog timer
-    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+    print("STATUS_OK: BME280=", chipId[0], " Temp=", boilerTemp);
 }</code></pre>
         </div>
 
@@ -674,6 +683,15 @@ if (boilerTemp > 250) {
             </a>
             <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📐 Formal GBNF Grammar (grammar.gbnf)
+            </a>
+            <a href="tdscript/tdscript-api.json" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 Machine API Spec (tdscript-api.json)
+            </a>
+            <a href="tdscript/tdscript-errors.json" target="_blank" class="btn" style="background:#1e293b; color:#ef4444; border:1px solid #ef4444; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              ⚠️ Error Catalog (tdscript-errors.json)
+            </a>
+            <a href="tdscript/tdscript-capabilities.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🛡️ CapabilityScope Spec (tdscript-capabilities.json)
             </a>
             <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📄 Plain-Text 10 Tasks Dataset (examples.txt)
@@ -1108,7 +1126,7 @@ if (boilerTemp > 250) {
     WATCHDOG.emergencyStop();
 } else {
     WATCHDOG.feed(); // Hardware-Watchdog füttern
-    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+    print("STATUS_OK: BME280=", chipId[0], " Temp=", boilerTemp);
 }</code></pre>
         </div>
 
@@ -1120,6 +1138,15 @@ if (boilerTemp > 250) {
             </a>
             <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📐 Formale GBNF-Grammatik (grammar.gbnf)
+            </a>
+            <a href="tdscript/tdscript-api.json" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 Maschinen-API-Spezifikation (tdscript-api.json)
+            </a>
+            <a href="tdscript/tdscript-errors.json" target="_blank" class="btn" style="background:#1e293b; color:#ef4444; border:1px solid #ef4444; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              ⚠️ Fehlerkatalog (tdscript-errors.json)
+            </a>
+            <a href="tdscript/tdscript-capabilities.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🛡️ CapabilityScope-Spezifikation (tdscript-capabilities.json)
             </a>
             <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📄 Plain-Text 10 Aufgaben Datensatz (examples.txt)
@@ -1491,7 +1518,7 @@ if (boilerTemp > 250) {
     WATCHDOG.emergencyStop();
 } else {
     WATCHDOG.feed(); // Підживлення апаратного сторожа
-    print("STATUS_OK: BME280=" + chipId[0] + " Temp=" + boilerTemp);
+    print("STATUS_OK: BME280=", chipId[0], " Temp=", boilerTemp);
 }</code></pre>
         </div>
 
@@ -1503,6 +1530,15 @@ if (boilerTemp > 250) {
             </a>
             <a href="tdscript/grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📐 Формальна граматика GBNF (grammar.gbnf)
+            </a>
+            <a href="tdscript/tdscript-api.json" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🤖 Специфікація API (tdscript-api.json)
+            </a>
+            <a href="tdscript/tdscript-errors.json" target="_blank" class="btn" style="background:#1e293b; color:#ef4444; border:1px solid #ef4444; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              ⚠️ Реєстр помилок (tdscript-errors.json)
+            </a>
+            <a href="tdscript/tdscript-capabilities.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
+              🛡️ Пісочниця прав (tdscript-capabilities.json)
             </a>
             <a href="tdscript/examples.txt" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.88rem; padding:0.4rem 0.8rem; border-radius:6px; text-decoration:none;">
               📄 Plain-Text датасет 10 задач (examples.txt)

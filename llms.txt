@@ -9,6 +9,9 @@
 >   - AI-First Language (Architecture & Manifesto): https://fido2465724100-creator.github.io/my-developer-site/tdscript/ai-language.html
 >   - Language Specification (v1.4.0 & v1.0.1): https://fido2465724100-creator.github.io/my-developer-site/tdscript/language.html
 >   - Formal GBNF Grammar (Machine-Readable): https://fido2465724100-creator.github.io/my-developer-site/tdscript/grammar.gbnf
+>   - Machine-Readable API Spec (JSON): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tdscript-api.json
+>   - Machine-Readable Error Catalog (JSON): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tdscript-errors.json
+>   - Machine-Readable CapabilityScope (JSON): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tdscript-capabilities.json
 >   - 10 Automation Scenarios & Examples: https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.html
 >   - Raw Plain-Text Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/examples.txt
 >   - Machine-Readable JSON Tasks Dataset (for LLMs): https://fido2465724100-creator.github.io/my-developer-site/tdscript/tasks.json
@@ -94,7 +97,7 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
 - **Report & Full Telemetry**: https://fido2465724100-creator.github.io/my-developer-site/tdscript/benchmark.html
 - **Models Tested**: Qwen 3.5 9B & Qwen 3.5 4B Unloop on `llama-server` (CUDA GTX 1070).
 - **Core Results**:
-  - Test #6 (AI-Native Diagnostics): TDscript Base achieved **80.0% Final Success** and **60.0% First-Pass** (tied with Python 60% and 3× higher than C++ 20%), with 0 syntax errors and 0 runtime errors at 5.0 LOC!
+  - Test #6 (AI-Native Diagnostics): TDscript Base achieved **80.0% Final Success** (vs 90.0% for Python, 80.0% for Lua/C++) and **60.0% First-Pass** (tied with Python at 60%), with 0 syntax errors and 0 runtime errors at 5.0 LOC!
   - TDscript Experimental maintained lowest LOC across all 7 targets (**4.3 lines** vs 9.1 Python, 11.6 C++, 12.7 JS).
   - Open Data: Full JSONL traces, failure logs, and tasks dataset available for all test rounds (#3, #4, #5, #6).
 

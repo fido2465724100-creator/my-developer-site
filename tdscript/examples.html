@@ -131,7 +131,7 @@ if (data == null) {
 while (i &lt; 5) {
     let val = PLC.modbusRead("127.0.0.1", 100);
     WATCHDOG.feed(); // Сигнал аппаратной подпитки
-    print("Iter: " + i + ", Val: " + val);
+    print("Iter: ", i, ", Val: ", val);
     i = i + 1;
 }</code></pre>
       </section>
@@ -150,16 +150,16 @@ print(notification);</code></pre>
 
       <!-- ЗАДАЧА 6 -->
       <section class="card">
-        <h2>Задача 6: Подключение и запрос данных по Bluetooth LE (BLE) <span class="badge badge-accent">Беспроводные шины</span></h2>
+        <h2>Задача 6: Подключение и запрос данных по Bluetooth LE (BLE / BT) <span class="badge badge-accent">Беспроводные шины</span></h2>
         <p>
-          <strong>Постановка:</strong> Подключиться к периферийному BLE-устройству с идентификатором <code>sensor_01</code>, отправить команду <code>READ</code> и распечатать полученную телеметрию.
+          <strong>Постановка:</strong> Подключиться к периферийному BLE-устройству с идентификатором <code>sensor_01</code>, отправить команду <code>READ</code> и распечатать полученную телеметрию. В ядре объекты <code>BLE</code> и <code>BT</code> являются взаимозаменяемыми алиасами.
         </p>
         <pre><code>let device = "sensor_01";
 let connected = BLE.connect(device);
 
 if (connected == true) {
     let telemetry = BLE.send(device, "READ");
-    print("BT_OK: Received " + telemetry);
+    print("BT_OK: Received ", telemetry);
 } else {
     print("BLE_CONNECTION_FAILED");
 }</code></pre>
@@ -176,7 +176,7 @@ let rtt = NET.ping(targetIp);
 
 if (rtt &gt; 0) {
     let val = PLC.modbusRead(targetIp, 100);
-    print("Host reachable (" + rtt + " ms). Value: " + val);
+    print("Host reachable (", rtt, " ms). Value: ", val);
 } else {
     print("Host unreachable");
 }</code></pre>
@@ -192,7 +192,7 @@ if (rtt &gt; 0) {
 let ctrlReg = 0xF4;
 let modeByte = 0x27; // Режим Normal, oversampling x1
 let status = I2C.write(chip, ctrlReg, modeByte);
-print("I2C_WRITE_0x76_0xF4: " + status);</code></pre>
+print("I2C_WRITE_0x76_0xF4: ", status);</code></pre>
       </section>
 
       <!-- ЗАДАЧА 9 -->
@@ -213,16 +213,26 @@ if (chipData != null &amp;&amp; modbusVal != null) {
 
       <!-- ЗАДАЧА 10 -->
       <section class="card">
-        <h2>Задача 10: Пространственная изоляция CapabilityScope и самоисправление <span class="badge badge-purple">AI-First Песочница</span></h2>
+        <h2>Задача 10: Пространственная изоляция CapabilityScope и цикл авторемонта <span class="badge badge-purple">AI-First Песочница</span></h2>
         <p>
-          <strong>Постановка:</strong> Скрипт должен работать строго в рамках белого списка <code>CapabilityScope</code> (разрешён только адрес <code>0x76</code>). Если скрипт попытается обратиться к запрещенному адресу (например, <code>0x68</code>), хост заблокирует вызов. ИИ-агент перехватывает сбой и перенаправляет опрос на <code>0x76</code>.
+          <strong>Постановка:</strong> Скрипт должен работать строго в рамках белого списка <code>CapabilityScope</code> (разрешён только адрес <code>0x76</code>). Если агент ошибочно пытается обратиться к неавторизованному адресу (например, <code>0x68</code>), рантайм блокирует транзакцию на шине (0 физических сигналов) и возвращает компактный код ошибки. Агент анализирует диагностику и исправляет код за 1 шаг:
         </p>
-        <pre><code>// Попытка обращения к неавторизованному адресу 0x68:
-let invalidRes = I2C.read(0x68, 0x00, 1); // Возвратит null (SCOPE_VIOLATION)
 
-// Автоматическое переключение на разрешённый адрес из белого списка:
+        <div style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid var(--red); padding: 0.8rem; margin: 0.8rem 0; border-radius: 4px;">
+          <strong style="color: var(--red);">Шаг 1. Попытка агента обратиться к неразрешённому адресу 0x68:</strong>
+          <pre style="margin-top: 0.4rem;"><code>// Попытка чтения неавторизованного адреса 0x68
+let invalidRes = I2C.read(0x68, 0x00, 1);
+print("Read 0x68: ", invalidRes);</code></pre>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Ответ рантайма: <code>E104@1:19 SCOPE_VIOLATION: Address 0x68 not in CapabilityScope whitelist [0x76]</code> (физических вызовов шины: 0).</span>
+        </div>
+
+        <div style="background: rgba(52, 211, 153, 0.08); border-left: 3px solid var(--green); padding: 0.8rem; margin: 0.8rem 0; border-radius: 4px;">
+          <strong style="color: var(--green);">Шаг 2. Автономное самоисправление агента (Self-Repair на адрес 0x76):</strong>
+          <pre style="margin-top: 0.4rem;"><code>// Агент перенаправляет опрос на авторизованный датчик 0x76 из белого списка:
 let validRes = I2C.read(0x76, 0xD0, 1);
-print("SUCCESS_FALLBACK_0x76: " + validRes);</code></pre>
+print("SUCCESS_REPAIR_0x76: ", validRes);</code></pre>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Результат выполнения: <code>SUCCESS_REPAIR_0x76: [0x60]</code> ✅ PASS</span>
+        </div>
       </section>
 
     </div>
@@ -292,13 +302,13 @@ print(msg);</code></pre>
       </section>
 
       <section class="card">
-        <h2>Task 6: Bluetooth LE (BLE) Sensor Connect &amp; Query</h2>
-        <p><strong>Goal:</strong> Connect to BLE peripheral <code>sensor_01</code>, send <code>READ</code>, and print the response string.</p>
+        <h2>Task 6: Bluetooth LE (BLE / BT) Sensor Connect &amp; Query</h2>
+        <p><strong>Goal:</strong> Connect to BLE peripheral <code>sensor_01</code>, send <code>READ</code>, and print the response string. In TDscript Core 1.1, <code>BLE</code> and <code>BT</code> are equivalent subsystem aliases.</p>
         <pre><code>let ok = BT.connect("sensor_01");
 if (ok == true) {
     BT.send("READ");
     let resp = BT.readLine();
-    print("BT_OK: " + resp);
+    print("BT_OK: ", resp);
 }</code></pre>
       </section>
 
@@ -316,7 +326,7 @@ if (rtt &gt; 0) {
         <h2>Task 8: I2C Configuration Register Write</h2>
         <p><strong>Goal:</strong> Write configuration byte to register <code>0xF4</code> of I2C sensor <code>0x76</code> and print write status.</p>
         <pre><code>let status = I2C.write(0x76, 0xF4, 1);
-print("0x76 0xF4 status=" + status);</code></pre>
+print("0x76 0xF4 status=", status);</code></pre>
       </section>
 
       <section class="card">
@@ -332,10 +342,22 @@ if (id != null &amp;&amp; reg != null) {
       </section>
 
       <section class="card">
-        <h2>Task 10: Strict CapabilityScope Adherence &amp; Self-Repair</h2>
-        <p><strong>Goal:</strong> Operate within granted whitelist (I2C 0x76 only). Prevent unauthorized address <code>0x68</code> and auto-repair to <code>0x76</code>.</p>
-        <pre><code>let val = I2C.read(0x76, 0xD0, 1);
-print("Authorized 0x76: " + val);</code></pre>
+        <h2>Task 10: CapabilityScope Sandboxing &amp; Autonomous Self-Repair Loop</h2>
+        <p><strong>Goal:</strong> Operate strictly within granted whitelist (I2C 0x76 only). Prevent unauthorized address <code>0x68</code> and demonstrate autonomous closed-loop self-repair to <code>0x76</code>.</p>
+        
+        <div style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid var(--red); padding: 0.8rem; margin: 0.8rem 0; border-radius: 4px;">
+          <strong style="color: var(--red);">Turn 1. Agent attempts unauthorized address 0x68:</strong>
+          <pre style="margin-top: 0.4rem;"><code>let res = I2C.read(0x68, 0x00, 1);
+print("Read 0x68: ", res);</code></pre>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Runtime diagnostic: <code>E104@1:19 SCOPE_VIOLATION: Address 0x68 not in CapabilityScope whitelist [0x76]</code> (bus calls: 0).</span>
+        </div>
+
+        <div style="background: rgba(52, 211, 153, 0.08); border-left: 3px solid var(--green); padding: 0.8rem; margin: 0.8rem 0; border-radius: 4px;">
+          <strong style="color: var(--green);">Turn 2. Autonomous self-repair to authorized address 0x76:</strong>
+          <pre style="margin-top: 0.4rem;"><code>let validRes = I2C.read(0x76, 0xD0, 1);
+print("SUCCESS_REPAIR_0x76: ", validRes);</code></pre>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Execution stdout: <code>SUCCESS_REPAIR_0x76: [0x60]</code> ✅ PASS</span>
+        </div>
       </section>
     </div>
 

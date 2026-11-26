@@ -183,7 +183,7 @@ let ok = BT.connect("sensor_01");
 if (ok == true) {
     BT.send("READ");
     let resp = BT.readLine();
-    print("BT_OK: " + resp);
+    print("BT_OK: ", resp);
 }
 ```
 
@@ -235,7 +235,7 @@ TASK 8: I2C Configuration Register Write
 --- TDscript AI-First ---
 ```tdscript
 let status = I2C.write(0x76, 0xF4, 1);
-print("0x76 0xF4 status=" + status);
+print("0x76 0xF4 status=", status);
 ```
 
 --- Python Reference ---
@@ -289,7 +289,7 @@ TASK 10: Strict CapabilityScope Adherence & Self-Repair
 --- TDscript AI-First (Repair Target) ---
 ```tdscript
 let val = I2C.read(0x76, 0xD0, 1);
-print("Authorized 0x76: " + val);
+print("Authorized 0x76: ", val);
 ```
 
 --- Python Reference ---

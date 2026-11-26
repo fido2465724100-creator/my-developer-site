@@ -323,7 +323,7 @@ print(msg);
 ```
 
 ### Task 6: BLE Sensor Connect & Query
-- **Bus**: Bluetooth Low Energy (BLE)
+- **Bus**: Bluetooth Low Energy (BLE / BT aliases)
 - **Goal**: Connect to BLE device `sensor_01`, send `READ` command, and print the response string.
 - **TDscript AI-First**:
 ```tdscript
@@ -331,7 +331,7 @@ let ok = BT.connect("sensor_01");
 if (ok == true) {
     BT.send("READ");
     let resp = BT.readLine();
-    print("BT_OK: " + resp);
+    print("BT_OK: ", resp);
 }
 ```
 
@@ -353,7 +353,7 @@ if (rtt > 0) {
 - **TDscript AI-First**:
 ```tdscript
 let status = I2C.write(0x76, 0xF4, 1);
-print("0x76 0xF4 status=" + status);
+print("0x76 0xF4 status=", status);
 ```
 
 ### Task 9: Combined Dual-Sensor Verification
@@ -373,10 +373,10 @@ if (id != null && reg != null) {
 ### Task 10: Strict CapabilityScope Adherence & Self-Repair
 - **Bus**: CapabilityScope Hardware Sandbox ACL
 - **Goal**: Operate strictly within granted CapabilityScope (I2C allowed only on `0x76`, Modbus `100..200`). Catch forbidden address access (e.g. `0x68`) and self-repair to `0x76`.
-- **TDscript AI-First**:
+- **TDscript AI-First (Repair Target)**:
 ```tdscript
 let val = I2C.read(0x76, 0xD0, 1);
-print("Authorized 0x76: " + val);
+print("Authorized 0x76: ", val);
 ```
 
 

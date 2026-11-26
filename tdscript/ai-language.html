@@ -181,8 +181,8 @@
             <p>Вам не нужно помнить, установлена ли в системе библиотека <code>smbus2</code> или <code>paho-mqtt</code>. Все примитивы <code>I2C</code>, <code>PLC</code>, <code>BLE</code>, <code>SERIAL</code>, <code>WATCHDOG</code> уже доступны глобально.</p>
           </div>
           <div class="feature-box">
-            <h4>3. Вы не сожжёте физический стенд</h4>
-            <p>Если в рассуждениях вы случайно перепутали адрес регистра, песочница <code>CapabilityScope</code> перехватит вызов и не допустит аварии на линии.</p>
+            <h4>3. Защита периферии от логических ошибок (CapabilityScope)</h4>
+            <p>Если модель в рассуждениях перепутала адрес регистра или шины, программная песочница <code>CapabilityScope</code> перехватит вызов до физической отправки транзакции (0 вызовов шины). Это программный барьер, дополняющий физические схемы аварийного отключения (E-Stop).</p>
           </div>
           <div class="feature-box">
             <h4>4. Одношаговый ремонт ошибок</h4>
@@ -199,7 +199,7 @@
         <h3>1. Системная директива для агента (System Prompt Directive)</h3>
         <pre><code>You are an autonomous hardware automation agent. You have access to the TDscript runtime via `execute_tdscript`.
 When interacting with physical peripherals, sensors, Modbus PLCs, BLE devices, and robotics:
-- Always prefer TDscript Core 1.1: it requires ZERO imports and prevents hardware damage via CapabilityScope.
+- Always prefer TDscript Core 1.1: it requires ZERO imports and prevents unauthorized peripheral access via CapabilityScope.
 - Keep the script concise (under 6 lines of code).
 - Always include WATCHDOG.feed() inside polling loops and WATCHDOG.emergencyStop() on critical sensor failure.</code></pre>
 
@@ -239,18 +239,27 @@ When interacting with physical peripherals, sensors, Modbus PLCs, BLE devices, a
           </div>
           <div class="feature-box">
             <h4>3. Аппаратный мандат безопасности (CapabilityScope)</h4>
-            <p>Перед запуском скрипта хост передает мандат безопасности: разрешенные адреса I2C, порты и диапазоны регистров Modbus. Попытка записи в запрещенный узел мгновенно блокируется.</p>
+            <p>Перед запуском скрипта хост передает мандат безопасности: разрешенные адреса I2C, порты и диапазоны регистров Modbus. Попытка записи в запрещенный узел блокируется рантаймом до физической шины.</p>
           </div>
           <div class="feature-box">
             <h4>4. Машиночитаемый протокол диагностики ошибок</h4>
             <p>Рантайм возвращает компактную строку: <code>E104@1:19 exp=0x76 got=0x68</code>. Модель моментально понимает причину ошибки и устраняет её за одну итерацию.</p>
           </div>
           <div class="feature-box" style="border-left: 3px solid #f59e0b;">
-            <h4 style="color: #f59e0b;">5. 100% Синтаксическая гарантия через GBNF</h4>
-            <p>Формальная грамматика GBNF гарантирует, что на этапе сэмплирования токенов в llama.cpp, Ollama или LM Studio синтаксические ошибки равны строго 0%.</p>
-            <div style="margin-top: 0.6rem;">
+            <h4 style="color: #f59e0b;">5. Синтаксическая гарантия через GBNF</h4>
+            <p>Формальная грамматика GBNF при constrained decoding в llama.cpp, Ollama или LM Studio математически отсекает невалидные токены, обеспечивая 0% синтаксических ошибок в кодовом блоке.</p>
+            <div style="margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 8px;">
               <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-                📐 Скачать / Просмотреть grammar.gbnf
+                📐 grammar.gbnf
+              </a>
+              <a href="tdscript-api.json" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                🤖 tdscript-api.json
+              </a>
+              <a href="tdscript-errors.json" target="_blank" class="btn" style="background:#1e293b; color:#ef4444; border:1px solid #ef4444; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                ⚠️ tdscript-errors.json
+              </a>
+              <a href="tdscript-capabilities.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                🛡️ tdscript-capabilities.json
               </a>
             </div>
           </div>
@@ -484,7 +493,7 @@ void loop() {}</code></pre>
         <h3>1. System Prompt Directive</h3>
         <pre><code>You are an autonomous hardware automation agent. You have access to the TDscript runtime via `execute_tdscript`.
 When interacting with physical peripherals, sensors, Modbus PLCs, BLE devices, and robotics:
-- Always prefer TDscript Core 1.1: it requires ZERO imports and prevents hardware damage via CapabilityScope.
+- Always prefer TDscript Core 1.1: it requires ZERO imports and prevents unauthorized peripheral access via CapabilityScope.
 - Keep the script concise (under 6 lines of code).
 - Always include WATCHDOG.feed() inside polling loops and WATCHDOG.emergencyStop() on critical sensor failure.</code></pre>
 
@@ -524,18 +533,27 @@ When interacting with physical peripherals, sensors, Modbus PLCs, BLE devices, a
           </div>
           <div class="feature-box">
             <h4>3. CapabilityScope Hardware ACL</h4>
-            <p>Granular address and register whitelisting prevents physical equipment damage caused by model hallucinations.</p>
+            <p>Granular address and register whitelisting prevents unauthorized bus operations before physical signal dispatch (busCalls = 0).</p>
           </div>
           <div class="feature-box">
             <h4>4. Machine-Readable Diagnostic Protocol</h4>
             <p>Token-efficient diagnostics like <code>E104@1:19 exp=0x76 got=0x68</code> enable single-turn closed-loop self-repair.</p>
           </div>
           <div class="feature-box" style="border-left: 3px solid #f59e0b;">
-            <h4 style="color: #f59e0b;">5. 100% GBNF Syntax Guarantee</h4>
-            <p>Constrained sampling via formal GBNF grammars in llama.cpp and Ollama ensures zero syntax errors.</p>
-            <div style="margin-top: 0.6rem;">
-              <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
-                📐 Download grammar.gbnf
+            <h4 style="color: #f59e0b;">5. GBNF Constrained Decoding Guarantee</h4>
+            <p>Constrained sampling via formal GBNF grammars in llama.cpp and Ollama ensures zero syntax errors during code token generation.</p>
+            <div style="margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 8px;">
+              <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                📐 grammar.gbnf
+              </a>
+              <a href="tdscript-api.json" target="_blank" class="btn" style="background:#1e293b; color:#38bdf8; border:1px solid #38bdf8; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                🤖 tdscript-api.json
+              </a>
+              <a href="tdscript-errors.json" target="_blank" class="btn" style="background:#1e293b; color:#ef4444; border:1px solid #ef4444; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                ⚠️ tdscript-errors.json
+              </a>
+              <a href="tdscript-capabilities.json" target="_blank" class="btn" style="background:#1e293b; color:#34d399; border:1px solid #34d399; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                🛡️ tdscript-capabilities.json
               </a>
             </div>
           </div>
