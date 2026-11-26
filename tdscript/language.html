@@ -62,7 +62,7 @@
         <div class="tab-pane active" data-tab="v150">
           <div class="callout callout-green">
             <strong>Основная спецификация (TDscript Studio 1.1.0 / TDModules 1.5.0, Спецификация Core 1.1):</strong>
-            Включает поддержку шестнадцатеричных литералов (<code>0x76</code>), операторов прерывания циклов (<code>break</code> / <code>continue</code>), директивы <code>language: ai;</code> для LLM-агентов, человеческих ключевых слов без сокращений (<code>переменная</code>, <code>печать</code>), индексации <code>ByteArray[i]</code>, интерполяции переменных в <code>LString</code>, строгой диспетчеризации методов (<code>TDS_E106</code>) и сторожа <code>WATCHDOG</code>.
+            Включает поддержку шестнадцатеричных литералов (<code>0x76</code>), тернарного условного оператора (<code>? :</code>), составных присваиваний (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>), авто-декларации в <code>language: ai;</code>, операторов прерывания циклов (<code>break</code> / <code>continue</code>), директивы <code>language: ai;</code> для LLM-агентов, человеческих ключевых слов без сокращений (<code>переменная</code>, <code>печать</code>), индексации <code>ByteArray[i]</code>, интерполяции переменных в <code>LString</code>, строгой диспетчеризации методов (<code>TDS_E106</code>) и сторожа <code>WATCHDOG</code>.
             <div style="margin-top: 0.6rem;">
               <a href="vocabulary.html" class="btn" style="background:#0284c7; color:#fff; border:1px solid #0284c7; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
                 🔤 Лексический справочник (110 языков)
@@ -81,6 +81,9 @@ language: ru;
 пусть адресЧипа = 0x76;
 переменная готовность = false;
 
+// Тернарный условный оператор (? :)
+переменная статус = (готовность == истина) ? "ГОТОВ" : "ОЖИДАНИЕ";
+
 // Ветвление если / иначе (if / else)
 если (готовность == истина) {
     печать("Устройство готово к обмену");
@@ -88,10 +91,10 @@ language: ru;
     печать("Ожидание инициализации...");
 }
 
-// Цикл пока (while) с выходом по break (прервать) и continue (продолжить)
+// Цикл пока (while) с выходом по break и составным присваиванием (+=)
 переменная попытка = 0;
 пока (попытка &lt; 10) {
-    попытка = попытка + 1;
+    попытка += 1; // Компактное инкрементирование
     let data = I2C.read(адресЧипа, 0xD0, 1);
     если (data != пусто) {
         печать("Датчик ответил на попытке: ", попытка);
@@ -100,7 +103,47 @@ language: ru;
     WATCHDOG.feed(); // Подпитка сторожа
 }</code></pre>
 
-          <h3>2. Литералы и детерминированные типы данных</h3>
+          <h3>2. Операторы и выражения (v1.5.0)</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Группа операторов</th>
+                  <th>Синтаксис и символы</th>
+                  <th>Поведение и оптимизация</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Присваивание</strong></td>
+                  <td><code>=</code>, <code>:=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td>
+                  <td>Поддержка составных присваиваний мутирует переменные без дублирования идентификатора (экономия до 3 токенов на шаг). В режиме <code>language: ai;</code> поддерживается авто-декларация без <code>let</code>/<code>var</code>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Тернарное ветвление</strong></td>
+                  <td><code>условие ? выражение1 : выражение2</code></td>
+                  <td>Вычисляет и возвращает значение одной из ветвей по результату булевого условия. Экономит до 53% токенов по сравнению с конструкцией <code>if-else</code>.</td>
+                </tr>
+                <tr>
+                  <td><strong>Арифметика</strong></td>
+                  <td><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></td>
+                  <td>Целочисленные и вещественные операции с автоматическим приведением типов.</td>
+                </tr>
+                <tr>
+                  <td><strong>Сравнение</strong></td>
+                  <td><code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code></td>
+                  <td>Строгое сравнение скаляров и байтов.</td>
+                </tr>
+                <tr>
+                  <td><strong>Логика</strong></td>
+                  <td><code>&&</code>, <code>||</code>, <code>!</code></td>
+                  <td>Логические операции И, ИЛИ, НЕ с коротким циклом вычисления. Допускаются синонимы <code>and</code>/<code>or</code>, <code>и</code>/<code>или</code>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>3. Литералы и детерминированные типы данных</h3>
           <div class="table-wrapper">
             <table>
               <thead>
@@ -140,7 +183,7 @@ language: ru;
             </table>
           </div>
 
-          <h3>3. Строгая диспетчеризация методов (<code>TDS_E106</code>)</h3>
+          <h3>4. Строгая диспетчеризация методов (<code>TDS_E106</code>)</h3>
           <p>
             В TDscript v1.5.0 вызов несуществующего метода у объекта (например, попытка вызвать метод Java <code>safeI2CAddr.toString(16)</code>) больше не возвращает тихо <code>null</code>. Рантайм выбрасывает явное исключение с точными координатами в коде:
           </p>
@@ -151,7 +194,7 @@ let str = safeAddr.toString(16);
 // РЕЗУЛЬТАТ В РАНТАЙМЕ:
 // TDS_E106: E106@2:11 unknown_method=toString on=INT</code></pre>
 
-          <h3>4. Аппаратные модули хоста (Host SPI)</h3>
+          <h3>5. Аппаратные модули хоста (Host SPI)</h3>
           <div class="table-wrapper">
             <table>
               <thead>
@@ -262,7 +305,7 @@ if (data != null) {
         <div class="tab-pane active" data-tab="v150">
           <div class="callout callout-green">
             <strong>Modern Production Specification (v1.5.0 / Core 1.1):</strong>
-            Includes hex literals (<code>0x76</code>), loop control (<code>break</code> / <code>continue</code>), <code>language: ai;</code> & <code>language: &lt;code&gt;;</code> directives, full 110-language vocabulary without abbreviations (<code>let</code>, <code>var</code>, <code>while</code>, <code>print</code>), <code>BLE</code> runtime alias, <code>ByteArray[i]</code> indexing, and <code>WATCHDOG</code> timer.
+            Includes hex literals (<code>0x76</code>), ternary operator (<code>? :</code>), compound assignments (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>), implicit variable declaration in <code>language: ai;</code>, loop control (<code>break</code> / <code>continue</code>), <code>language: ai;</code> & <code>language: &lt;code&gt;;</code> directives, full 110-language vocabulary without abbreviations (<code>let</code>, <code>var</code>, <code>while</code>, <code>print</code>), <code>BLE</code> runtime alias, <code>ByteArray[i]</code> indexing, and <code>WATCHDOG</code> timer.
             <div style="margin-top: 0.6rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
               <a href="vocabulary.html" class="btn" style="background:#0284c7; color:#fff; border:1px solid #0284c7; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
                 🔤 Vocabulary Tables (110 Languages)
@@ -271,19 +314,22 @@ if (data != null) {
                 📐 Formal GBNF Grammar (grammar.gbnf)
               </a>
             </div>
-            Hexadecimal literals (<code>0x76</code>), <code>ByteArray[i]</code> indexing, <code>LString</code> variable interpolation, strict method dispatch (<code>TDS_E106</code>), <code>WATCHDOG</code> subsystem, and formal GBNF grammar.
-            <div style="margin-top: 0.6rem;">
-              <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-                📐 Download / View Formal GBNF Grammar (grammar.gbnf)
-              </a>
-            </div>
           </div>
-          <pre><code>let chip = 0x76;
-let reg = 0xD0;
-let bytes = I2C.read(chip, reg, 1);
-let id = bytes[0];
-let alert = L"TEMP_ALERT:Chip {chip} identified with ID {id}";
-print(alert);</code></pre>
+          <pre><code>language: ai;
+
+chip = 0x76;
+reg = 0xD0;
+bytes = I2C.read(chip, reg, 1);
+id = bytes != null ? bytes[0] : 0;
+status = id == 0x60 ? "BME280_OK" : "UNKNOWN_DEVICE";
+attempts = 0;
+
+while (attempts &lt; 3) {
+    attempts += 1;
+    WATCHDOG.feed();
+    if (status == "BME280_OK") break;
+}
+print(status);</code></pre>
         </div>
 
         <div class="tab-pane" data-tab="v101">
@@ -305,7 +351,7 @@ print("BME280 Read");</code></pre>
         <h2>📑 TDscript Sprachspezifikation</h2>
         <p>Vollständige Referenz für die Versionen <strong>v1.5.0 (Studio / AI-First)</strong> und <strong>v1.0.1 (Klassisch / Tdroid)</strong>.</p>
         <div class="callout callout-green">
-          Moderne Syntax v1.5.0 unterstützt Hex-Literale (<code>0x76</code>), ByteArray-Indexierung und LString-Interpolation.
+          Moderne Syntax v1.5.0 unterstützt Hex-Literale (<code>0x76</code>), den ternären Operator (<code>? :</code>), verbundene Zuweisungen (<code>+=</code>, <code>-=</code>, etc.), implizite Deklaration in <code>language: ai;</code>, <code>break</code> / <code>continue</code>, 110 Sprachen und Watchdog-Timer.
           <div style="margin-top: 0.6rem;">
             <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
               📐 Formale GBNF-Grammatik öffnen (grammar.gbnf)
@@ -321,7 +367,7 @@ print("BME280 Read");</code></pre>
         <h2>📑 Специфікація мови TDscript</h2>
         <p>Повний довідник синтаксису для версій <strong>v1.5.0 (Студія / AI-First)</strong> та <strong>v1.0.1 (Класична / Tdroid)</strong>.</p>
         <div class="callout callout-green">
-          Сучасний синтаксис v1.5.0 підтримує шістнадцяткові літерали (<code>0x76</code>), індексацію ByteArray та інтерполяцію LString.
+          Сучасний синтаксис v1.5.0 підтримує шістнадцяткові літерали (<code>0x76</code>), тернарний оператор (<code>? :</code>), складені присвоєння (<code>+=</code>, <code>-=</code> тощо), авто-декларацію у <code>language: ai;</code>, оператори <code>break</code> / <code>continue</code>, 110 мов та сторож WATCHDOG.
           <div style="margin-top: 0.6rem;">
             <a href="grammar.gbnf" target="_blank" class="btn" style="background:#1e293b; color:#f59e0b; border:1px solid #f59e0b; font-size:0.85rem; padding:0.35rem 0.75rem; border-radius:6px; text-decoration:none;">
               📐 Відкрити формальну GBNF-граматику (grammar.gbnf)

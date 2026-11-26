@@ -197,24 +197,31 @@ The TDscript Studio IDE features a self-healing agent loop:
 ## 6. Complete Language Syntax & API Reference
 
 ### 6.1. Core Syntax
-```javascript
-language: ru;
+```tdscript
+// Directive: language: ai; for LLMs (or language: en;, language: ru;, etc. for 109 ISO languages)
+language: ai;
 
-// Variable declarations
-let sensorId = 118;
-var alertCount = 0;
+// Variable initialization (explicit let/var or implicit assignment in AI mode)
+sensorId = 0x76;
+alertCount = 0;
+
+// Ternary conditional operator (? :)
+status = alertCount > 0 ? "ALERT" : "NORMAL";
 
 // Branching
-if (sensorId == 118) {
-    alertCount = alertCount + 1;
+if (sensorId == 0x76) {
+    alertCount += 1; // Compound assignment operator
 } else {
     alertCount = 0;
 }
 
-// Loops with automatic step limiter protection
-var i = 0;
+// Loops with break / continue and watchdog
+i = 0;
 while (i < 5) {
-    i = i + 1;
+    i += 1;
+    let data = I2C.read(sensorId, 0xD0, 1);
+    if (data != null) break; // Early loop breakout
+    WATCHDOG.feed();
 }
 ```
 
@@ -233,7 +240,7 @@ while (i < 5) {
 - `print(value: Any?) -> Unit` (in v1.5.0 formats ByteArray deterministically as `[0x60]`)
 
 ### 6.3. Version Compatibility: v1.5.0 (Production) vs v1.0.1 (Legacy)
-- **v1.5.0 / Core 1.1 (Current Production Standard)**: Standalone language standard. Hexadecimal literals (`0x76`, `0xD0`), `ByteArray[i]` indexing, `LString` interpolation `{var}`, strict method dispatch (`TDS_E106`), `WATCHDOG`, compact repair lines (`E104@line:col`), and formal GBNF grammar (`grammar.gbnf`).
+- **v1.5.0 / Core 1.1 (Current Production Standard)**: Standalone language standard. Hexadecimal literals (`0x76`, `0xD0`), ternary operator (`? :`), compound assignments (`+=`, `-=`, `*=`, `/=`, `%=`), implicit variable declaration in `language: ai;`, loop control (`break` / `continue`), `ByteArray[i]` indexing, `LString` interpolation `{var}`, strict method dispatch (`TDS_E106`), `WATCHDOG`, compact repair lines (`E104@line:col`), and formal GBNF grammar (`grammar.gbnf`).
 - **v1.0.1 / Core 1.0 (Archival / Legacy Stable)**: Maintained for backwards compatibility in the Tdroid Android Launcher terminal. Decimal literals only (`118`, `208`), symbolic LString without `{var}`, full multi-line JSON error diagnostics.
 
 ---

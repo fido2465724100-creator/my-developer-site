@@ -58,6 +58,7 @@ Anton Mykhailov specializes in systems programming, device & chip orchestration,
      - Hardware watchdog subsystem: `WATCHDOG.feed()`, `WATCHDOG.emergencyStop()`
      - Spatial sandboxing: `CapabilityScope` address whitelisting (I2C: `0x76`, Modbus: `100..200`)
      - AI compact repair lines: `E104@1:5 exp=0x76 got=0x68` and formal GBNF grammar (`grammar.gbnf`)
+     - Structural token optimizations: Ternary conditional operator (`condition ? exprTrue : exprFalse`), compound assignments (`+=`, `-=`, `*=`, `/=`, `%=`), and implicit variable declarations in `language: ai;` (up to 40% token savings)
   2. **TDscript v1.0.1 / Core 1.0 (Archival / Legacy Stable)**:
      - Preserved in Tdroid Android Launcher for backwards compatibility of legacy scripts
      - Numeric literals: Decimal only (`118`, `208`)

@@ -17,11 +17,13 @@ continue-statement ::= ("continue" | "продолжить" | "продовжи�
 
 expr-statement ::= (assignment | call-expr) (";" | "\n")
 
-assignment ::= identifier ws ("=" | "+=" | "-=" | "*=" | "/=") ws expr
+assignment ::= identifier ws ("=" | ":=" | "+=" | "-=" | "*=" | "/=" | "%=") ws expr
 
 block ::= "{" ws (statement)* ws "}"
 
-expr ::= logic-or-expr
+expr ::= ternary-expr
+
+ternary-expr ::= logic-or-expr (ws "?" ws expr ws ":" ws ternary-expr)?
 
 logic-or-expr ::= logic-and-expr (ws ("||" | "or" | "или") ws logic-and-expr)*
 logic-and-expr ::= equality-expr (ws ("&&" | "and" | "и") ws equality-expr)*
